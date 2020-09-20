@@ -31,8 +31,7 @@ public class ContextTest {
 	
 	@Test
 	public void dataSource() throws SQLException {
-		DeptDao deptDao = sqlSession.getMapper(DeptDao.class);
-		List<DeptVo> list = deptDao.selectAll();
+		System.out.println(sqlSession); 
 	}
 
 }
