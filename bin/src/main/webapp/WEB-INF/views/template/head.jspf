@@ -1,0 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+	<% request.setAttribute("root", request.getContextPath()); %>
+	<link rel="stylesheet" type="text/css" href="${root }/resources/css/bootstrap.css">
+	<script type="text/javascript" src="${root }/resources/js/jquery-1.12.4.js"></script>
+	<script type="text/javascript" src="${root }/resources/js/bootstrap.js"></script>
+	<title>Backpackers : 3rd project by group 3</title>
