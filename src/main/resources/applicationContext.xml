@@ -40,7 +40,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations">
 			<array>
-				<value>classpath:/mapper/deptMapper.xml</value>
+				<value>classpath:/mapper/*Mapper.xml</value>
 			</array>
 		</property>
 	</bean>
