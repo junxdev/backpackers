@@ -15,7 +15,22 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="content">
-						콘텐츠를 입력하세요
+						<table class="table">
+							<thead>
+								<tr>
+									<th>이름</th>
+									<th>가격</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${shopArticleList }" var="bean">
+									<tr>
+										<td><a href="shop/${bean.shopArticleCode }">${bean.shopArticleTitle }</a></td>
+										<td>${bean.shopArticlePrice }</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
