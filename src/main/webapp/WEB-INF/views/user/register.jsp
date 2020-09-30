@@ -154,17 +154,10 @@
         <p>회원가입 페이지</p>
 
         <form  method="post">
-           
-              <!--   <input type="text" id="userId" name="userId" class="form-control" placeholder="아아디">
-                <span class="glyphicon glyphicon-exclamation-sign form-control-feedback"></span> -->
-             <p>
-             	<label for="user_id">아이디</label>
-             	<input type="text" id="user_id" name="user_id"/>
-             	<button type="button" class="idCheck">중복체크</button>
-             </p>
-             <p class="result">
-             <span class="msg">아이디를 확인하세요</span>
-             </p>
+            <div class="form-group has-feedback">
+             <input type="text" id="userId" name="userId" class="form-control" placeholder="아아디">
+                <span class="glyphicon glyphicon-exclamation-sign form-control-feedback"></span>
+       			</div>
            
             <div class="form-group has-feedback">
                 <input type="text" id="userName"  name="userName" class="form-control" placeholder="이름">
