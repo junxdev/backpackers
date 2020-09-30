@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+	<!--
+<mapper namespace="memberMapper">
+	 회원가입 
+	<insert id="register" parameterType="com.bit.backpackers.member.model.entity.MemberVo">
+	    insert into mp_member(   userid 
+	   					       , userpass 
+	   					       , username
+	   					        ,address1
+	   					        ,address2
+	   					        ,address3 )
+	                  values(    #{userid} 
+	                 		   , #{userpass}
+	                 		   , #{username}
+	                 		   , #{address1}
+	                 		   , #{address2}
+	                 		   , #{address3})
+	                 		    </insert>  
+    로그인 
+	<select id="login" resultType="com.bit.backpackers.member.model.entity.MemberVo">
+		select userid,userpass from mp_member where userid =#{userid} and userpass =#{userpass}   
+	</select>
+</mapper>
+	-->
+	<mapper namespace="com.bit.backpackers.mapper.memberMapper">
+    
+    <insert id="register">
+        INSERT INTO tbl_user (
+            userId
+            , userPw
+            , userName
+            , userEmail
+        ) VALUES (
+            #{userId}
+            , #{userPw}
+            , #{userName}
+            , #{userEmail}
+        )
+    </insert>
+    
+    
+    <select id="login" parameterType="com.bit.backpackers.member.model.LoginDTO" resultType="com.bit.backpackers.member.model.entity.MemberVo">
+    SELECT * FROM tbl_user
+    WHERE userId= #{userId} and userPw= #{userPw}
+</select>
+
+<!-- 아이디 확인 -->
+<select id="idCheck" resultType="com.bit.backpackers.member.model.entity.MemberVo">
+ select * from tbl_user
+     WHERE userId = #{userId}
+</select>
+
+</mapper>
