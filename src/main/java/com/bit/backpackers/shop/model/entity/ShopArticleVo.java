@@ -1,6 +1,7 @@
 package com.bit.backpackers.shop.model.entity;
 
 import java.sql.Date;
+import java.util.List;
 
 public class ShopArticleVo {
 
@@ -9,6 +10,7 @@ public class ShopArticleVo {
 	private Date shopArticleDate;
 	private String shopArticleContent;
 	private int shopArticlePrice;
+	private List<ItemVo> itemList;
 
 	public ShopArticleVo() {
 	}

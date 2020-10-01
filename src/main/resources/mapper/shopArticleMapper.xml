@@ -3,10 +3,17 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.bit.backpackers.shop.model.ShopArticleDao">
+  
   	<select id="selectAll" resultType="com.bit.backpackers.shop.model.entity.ShopArticleVo">
   		SELECT * FROM shop_article;
   	</select>
-  	<select id="selectOne" parameterType="String" resultType="com.bit.backpackers.shop.model.entity.ShopArticleVo">
-  		SELECT * FROM shop_article WHERE shopArticleCode = #{shopArticleCode}
+  	
+  	<select id="selectOne" resultType="com.bit.backpackers.shop.model.entity.ShopArticleVo">
+  		SELECT * FROM shop_article WHERE shopArticleCode = #{param}
   	</select>
+  	
+  	<select id="selectItemByShopArticleCode" resultType="com.bit.backpackers.shop.model.entity.ItemVo">
+  		SELECT * from item WHERE itemCode in (SELECT itemCode from shop_article_item WHERE shopArticleCode = '${param}')
+  	</select>
+  	
   </mapper>

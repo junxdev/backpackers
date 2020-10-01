@@ -11,5 +11,6 @@ public interface ShopArticleDao {
 
 	List<ShopArticleVo> selectAll() throws SQLException;
 	ShopArticleVo selectOne(String shopArticleCode) throws SQLException;
+	List<ItemVo> selectItemByShopArticleCode(String shopArticleCode) throws SQLException;
 	
 }
