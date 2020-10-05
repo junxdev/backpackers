@@ -24,8 +24,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	        ModelMap modelMap = modelAndView.getModelMap();
 	        Object memberVo =  modelMap.get("user");
 
+	        logger.info("new login success");
 	        if (memberVo != null) {
-	            logger.info("new login success");
 	            httpSession.setAttribute(LOGIN, memberVo);
 	            //response.sendRedirect("/");
 	            Object destination = httpSession.getAttribute("destination");

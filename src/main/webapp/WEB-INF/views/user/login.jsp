@@ -56,15 +56,15 @@
 </head>
 
 <body>
-	<div class="container">
+        <div class="container">
 		<div>
 			<img id="logo" src="../resources/img/ikea.jpg" />
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
-			<p class="login-box-msg">로그인 페이지</p>
 
 			<form action="${root}/user/loginPost" method="post">
+			<p class="login-box-msg">로그인 하기전 페이지</p>
 				<div class="form-group has-feedback">
 					<input type="text" name="userId" class="form-control"
 						placeholder="아아디"> <span
@@ -75,8 +75,6 @@
 						placeholder="비밀번호"> <span
 						class="glyphicon glyphicon-lock form-control-feedback"></span>
 				</div>
-
-
 				<div class="checkbox icheck">
 					<label> <input type="checkbox" name="useCookie">
 						로그인유지
@@ -84,14 +82,15 @@
 				</div>
 				<button type="submit" class="btn btn-primary btn-lg btn-block">로그인</button>
 					<a href="register" class="btn btn-default btn-lg btn-block" role="btn">회원가입</a>
-				
-			</form>
-
 			<div class="text">
 				<a href="#">아이디 찾기</a>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#">비밀번호 찾기</a>
 			</div>
+			</form>
 		</div>
+		</div>
+	
+	
 		
 
 <!-- 네이버 로그인 화면으로 이동 시키는 URL -->

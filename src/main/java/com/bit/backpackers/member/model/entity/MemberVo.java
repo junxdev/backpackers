@@ -13,10 +13,29 @@ public class MemberVo {
     private String userSignature;
     private String userImg;
     private int userPoint;
+    private String authkey;
+    private int authstatus;
     
     public MemberVo() {
 		// TODO Auto-generated constructor stub
 	}
+
+	public MemberVo(String userId, String userPw, String userName, String userEmail, Date userJoinDate,
+			Date userLoginDate, String userSignature, String userImg, int userPoint, String authkey, int authstatus) {
+		super();
+		this.userId = userId;
+		this.userPw = userPw;
+		this.userName = userName;
+		this.userEmail = userEmail;
+		this.userJoinDate = userJoinDate;
+		this.userLoginDate = userLoginDate;
+		this.userSignature = userSignature;
+		this.userImg = userImg;
+		this.userPoint = userPoint;
+		this.authkey = authkey;
+		this.authstatus = authstatus;
+	}
+	
 
 	public String getUserId() {
 		return userId;
@@ -90,14 +109,30 @@ public class MemberVo {
 		this.userPoint = userPoint;
 	}
 
+	public String getAuthkey() {
+		return authkey;
+	}
+
+	public void setAuthkey(String authkey) {
+		this.authkey = authkey;
+	}
+
+	public int getAuthstatus() {
+		return authstatus;
+	}
+
+	public void setAuthstatus(int authstatus) {
+		this.authstatus = authstatus;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberVo [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userEmail="
 				+ userEmail + ", userJoinDate=" + userJoinDate + ", userLoginDate=" + userLoginDate + ", userSignature="
-				+ userSignature + ", userImg=" + userImg + ", userPoint=" + userPoint + "]";
+				+ userSignature + ", userImg=" + userImg + ", userPoint=" + userPoint + ", authkey=" + authkey
+				+ ", authstatus=" + authstatus + "]";
 	}
     
     
-    
-	
+
 }

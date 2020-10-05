@@ -1,4 +1,4 @@
-package com.bit.backpackers.member.model;
+package com.bit.backpackers.member.model.entity;
 
 public class LoginDTO {
 	private String userId;

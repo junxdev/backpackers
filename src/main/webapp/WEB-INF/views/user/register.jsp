@@ -7,8 +7,9 @@
 <%@ include file="/WEB-INF/views/template/head.jspf"%>
 <%@ include file="/WEB-INF/views/template/nav.jspf"%>
 <%@ include file="/WEB-INF/views/template/header.jspf"%>
-  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+<%
+	request.setAttribute("root", request.getContextPath());
+%>
 <style type="text/css">
 .container{
 	margin-top:50px;
@@ -32,6 +33,8 @@
 
 <title>회원가입</title>
 
+  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 
@@ -61,8 +64,17 @@
 				$("#userPw2").focus();
 				return false;
 			}
+			var idChkVal = $("#idChk").val();
+			if(idChkVal == "N"){
+				alert("중복확인 버튼을 눌러주세요.");
+				return false;
+			}else if(idChkVal == "Y"){
+				$("#regForm").submit();
+			}
 		});
 	});
+	
+	  
 
 	  function sample6_execDaumPostcode() {
 	        new daum.Postcode({
@@ -112,50 +124,33 @@
 	        }).open();
 	    }
 	  //아이디체크
-	  $(".idCheck").click(function(){
-		  
-		  var query = {user_id : $("#user_id").val()};
-		  
-		  $.ajax({
-		   url : "/user/idCheck",
-		   type : "post",
-		   data : query,
-		   success : function(data) {
-		   
-		    if(data == 1) {
-		     $(".result .msg").text("사용 불가");
-		     $(".result .msg").attr("style", "color:#f00");    
-		     $("#btn1").attr("disabled", "disabled");
-		    } else {
-		     $(".result .msg").text("사용 가능");
-		     $(".result .msg").attr("style", "color:#00f");
-		     $("#btn1").removeAttr("disabled");
-		    }
-		   }
-		  });  // ajax 끝
-		 });
-	  
-	  $("#user_id").keyup(function(){
-		  $(".result .msg").text("아이디를 확인해주십시오.");
-		  $(".result .msg").attr("style", "color:#000");
-		  
-		  $("#submit").attr("disabled", "disabled");
-		  
-		 });
-
-	  
+	function fn_idCheck(){
+			$.ajax({
+				url : "${root}/user/idCheck",
+				type : "post",
+				dataType : "json",
+				data : {"userId" : $("#userId").val()},
+				success : function(data){
+					if(data == 1){
+						alert("중복된 아이디입니다.");
+					}else if(data == 0){
+						$("#idCheck").attr("value", "Y");
+						alert("사용가능한 아이디입니다.");
+					}
+				}
+			})
+	  }
 		 </script>
 </head>
-<%
-	request.setAttribute("root", request.getContextPath());
-%>
+
 <body>
     <div class="container">
         <p>회원가입 페이지</p>
 
-        <form  method="post">
+        <form  method="post" id="regForm">
             <div class="form-group has-feedback">
              <input type="text" id="userId" name="userId" class="form-control" placeholder="아아디">
+             <button class="idCheck" type="button" id="idCheck" onclick="fn_idCheck();" value="N">중복확인</button>
                 <span class="glyphicon glyphicon-exclamation-sign form-control-feedback"></span>
        			</div>
            
@@ -182,10 +177,10 @@
 			<input type="text" id="sample6_detailAddress" placeholder="상세주소">
 			<input type="text" id="sample6_extraAddress" placeholder="참고항목">
 		
-			<div class="form-group has-feedback">
+			  <div class="form-group has-feedback">
 				<button type="submit" id="btn1" class="btn btn-primary btn-lg">가입</button>
 				 <a href="${root }/user/login" id="btn2" class="btn btn-default btn-lg">취소</a>
-				</div>
+			</div>
 			
             <div class="row">  
                     <div class="checkbox icheck">
@@ -195,15 +190,5 @@
                 </div>
         </form>
     </div>
-
-<script>
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '50%' // optional
-        });
-    });
-</script>
 </body>
 </html>
