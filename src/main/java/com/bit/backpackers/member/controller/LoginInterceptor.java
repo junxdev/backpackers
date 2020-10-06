@@ -18,7 +18,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 	    @Override
 	    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-	    		System.out.println("인터셉터 된당!!!");
+	    		System.out.println("222인터셉터 된당!!!");
 	    	
 	        HttpSession httpSession = request.getSession();
 	        ModelMap modelMap = modelAndView.getModelMap();
@@ -36,6 +36,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	    
 	    @Override
 	    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+	    	System.out.println("11111인터셉터 된당!!!");
 
 	        HttpSession httpSession = request.getSession();
 	        // 기존의 로그인 정보 제거

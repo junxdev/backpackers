@@ -62,12 +62,7 @@
 		<constructor-arg ref="sqlSessionFactory" index="0" />
 	</bean>
 	
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/*"/>
-		<bean id="LoginInterceptor" class="com.bit.backpackers.member.controller.LoginInterceptor"/>
-		</mvc:interceptor>
-	</mvc:interceptors>
+	
 	  <!-- 메일보내기 -->
    <bean id="mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
       <property name="host" value="smtp.gmail.com" />
