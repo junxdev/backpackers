@@ -21,7 +21,7 @@
 						img
 					</div>
 				</div>
-				<div class="col-xs-6 col-md-4">
+				<div class="col-xs-6 col-sm-6 col-md-4">
 					<div>
 						<h2>${bean.shopArticleTitle }</h2>
 					</div>

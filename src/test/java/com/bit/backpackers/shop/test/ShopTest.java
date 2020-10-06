@@ -17,10 +17,12 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.bit.backpackers.category.model.CategoryDao;
+import com.bit.backpackers.category.model.entity.CategoryVo;
 import com.bit.backpackers.shop.model.ItemDao;
-import com.bit.backpackers.shop.model.ShopArticleDao;
+import com.bit.backpackers.shop.model.ShopDao;
 import com.bit.backpackers.shop.model.entity.ItemVo;
-import com.bit.backpackers.shop.model.entity.ShopArticleVo;
+import com.bit.backpackers.shop.model.entity.ShopVo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/applicationContext.xml")
@@ -28,6 +30,28 @@ public class ShopTest {
 
 	@Inject
 	SqlSession sqlSession;
+	
+	@Test
+	public void catMap() throws SQLException {
+		CategoryDao dao = sqlSession.getMapper(CategoryDao.class);
+		List<CategoryVo> list = dao.selectCategoryList();
+//		System.out.println(list.size());
+		for(CategoryVo bean : list) {
+			System.out.println(bean.toString());
+		}
+	}
+	
+	@Test
+	public void shopCategory() throws SQLException {
+		ShopDao shop = sqlSession.getMapper(ShopDao.class);
+		List<ShopVo> shopList = shop.selectShopList();
+//		CategoryDao cat = sqlSession.getMapper(CategoryDao.class);
+//		List<CategoryVo> catList = cat.selectCategoryList();
+		
+		for(ShopVo shopVo : shopList) {
+			System.out.println(shopVo);
+		}
+	}
 	
 	@Test
 	public void callItemList() throws SQLException {
@@ -38,20 +62,20 @@ public class ShopTest {
 	
 	@Test
 	public void callShopArticleList() throws SQLException {
-		ShopArticleDao dao = sqlSession.getMapper(ShopArticleDao.class);
-		List<ShopArticleVo> list = dao.selectAll();
+		ShopDao dao = sqlSession.getMapper(ShopDao.class);
+		List<ShopVo> list = dao.selectShopList();
 		System.out.println(list.get(0));
 	}
 	
 	@Test
 	public void callShopArticle() throws SQLException {
-		ShopArticleDao dao = sqlSession.getMapper(ShopArticleDao.class);
-		System.out.println(dao.selectOne("20200930AA001"));
+		ShopDao dao = sqlSession.getMapper(ShopDao.class);
+		System.out.println(dao.selectShop("20200930AA001"));
 	}
 	
 	@Test
 	public void selectItemByShopArticleCode() throws SQLException {
-		ShopArticleDao dao = sqlSession.getMapper(ShopArticleDao.class);
+		ShopDao dao = sqlSession.getMapper(ShopDao.class);
 		for(ItemVo bean : dao.selectItemByShopArticleCode("20200930AA001")) {
 			System.out.println(bean.toString());
 		}
@@ -59,7 +83,7 @@ public class ShopTest {
 	
 	@Test
 	public void selectOptions() throws SQLException {
-		ShopArticleDao dao = sqlSession.getMapper(ShopArticleDao.class);
+		ShopDao dao = sqlSession.getMapper(ShopDao.class);
 		List<ItemVo> itemList = dao.selectItemByShopArticleCode("20200930AA002");
 		Map<String, Map<String, String>> itemMap = new HashMap<String, Map<String, String>>();
 		Map<String, String> optionMap = new HashMap<String, String>();

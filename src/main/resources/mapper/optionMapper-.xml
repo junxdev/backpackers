@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.bit.backpackers.shop.model.OptionDao">
+  	<select id="selectOption" resultType="com.bit.backpackers.shop.model.entity.OptionVo">
+  		SELECT optionCode, optionValue, option_category.optionCategoryName FROM option LEFT JOIN option_category ON option.optionCategoryCode = option_category.optionCategoryCode WHERE optionCode = ${param}
+  	</select>
+  </mapper>
