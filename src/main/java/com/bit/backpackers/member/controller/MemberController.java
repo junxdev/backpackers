@@ -66,6 +66,14 @@ public class MemberController {
 			
 			return "redirect:/";
 		}
+		// 마이 페이지
+		@RequestMapping(value = "/myPage", method = RequestMethod.GET)
+		public String mypage(@ModelAttribute("loginDTO") LoginDTO loginDTO)throws Exception {
+			logger.info("admin Login");
+			return "/user/myPage";
+		}
+	 
+	 
 
 
 	 

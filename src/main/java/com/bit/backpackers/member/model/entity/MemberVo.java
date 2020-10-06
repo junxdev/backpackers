@@ -10,9 +10,7 @@ public class MemberVo {
     private String userEmail;
     private Date userJoinDate;
     private Date userLoginDate;
-    private String userSignature;
-    private String userImg;
-    private int userPoint;
+    private int grade;
     private String authkey;
     private int authstatus;
     
@@ -21,7 +19,7 @@ public class MemberVo {
 	}
 
 	public MemberVo(String userId, String userPw, String userName, String userEmail, Date userJoinDate,
-			Date userLoginDate, String userSignature, String userImg, int userPoint, String authkey, int authstatus) {
+			Date userLoginDate, int grade, String authkey, int authstatus) {
 		super();
 		this.userId = userId;
 		this.userPw = userPw;
@@ -29,13 +27,10 @@ public class MemberVo {
 		this.userEmail = userEmail;
 		this.userJoinDate = userJoinDate;
 		this.userLoginDate = userLoginDate;
-		this.userSignature = userSignature;
-		this.userImg = userImg;
-		this.userPoint = userPoint;
+		this.grade = grade;
 		this.authkey = authkey;
 		this.authstatus = authstatus;
 	}
-	
 
 	public String getUserId() {
 		return userId;
@@ -85,28 +80,12 @@ public class MemberVo {
 		this.userLoginDate = userLoginDate;
 	}
 
-	public String getUserSignature() {
-		return userSignature;
+	public int getGrade() {
+		return grade;
 	}
 
-	public void setUserSignature(String userSignature) {
-		this.userSignature = userSignature;
-	}
-
-	public String getUserImg() {
-		return userImg;
-	}
-
-	public void setUserImg(String userImg) {
-		this.userImg = userImg;
-	}
-
-	public int getUserPoint() {
-		return userPoint;
-	}
-
-	public void setUserPoint(int userPoint) {
-		this.userPoint = userPoint;
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
 
 	public String getAuthkey() {
@@ -126,11 +105,77 @@ public class MemberVo {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((authkey == null) ? 0 : authkey.hashCode());
+		result = prime * result + authstatus;
+		result = prime * result + grade;
+		result = prime * result + ((userEmail == null) ? 0 : userEmail.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((userJoinDate == null) ? 0 : userJoinDate.hashCode());
+		result = prime * result + ((userLoginDate == null) ? 0 : userLoginDate.hashCode());
+		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
+		result = prime * result + ((userPw == null) ? 0 : userPw.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MemberVo other = (MemberVo) obj;
+		if (authkey == null) {
+			if (other.authkey != null)
+				return false;
+		} else if (!authkey.equals(other.authkey))
+			return false;
+		if (authstatus != other.authstatus)
+			return false;
+		if (grade != other.grade)
+			return false;
+		if (userEmail == null) {
+			if (other.userEmail != null)
+				return false;
+		} else if (!userEmail.equals(other.userEmail))
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		if (userJoinDate == null) {
+			if (other.userJoinDate != null)
+				return false;
+		} else if (!userJoinDate.equals(other.userJoinDate))
+			return false;
+		if (userLoginDate == null) {
+			if (other.userLoginDate != null)
+				return false;
+		} else if (!userLoginDate.equals(other.userLoginDate))
+			return false;
+		if (userName == null) {
+			if (other.userName != null)
+				return false;
+		} else if (!userName.equals(other.userName))
+			return false;
+		if (userPw == null) {
+			if (other.userPw != null)
+				return false;
+		} else if (!userPw.equals(other.userPw))
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		return "MemberVo [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userEmail="
-				+ userEmail + ", userJoinDate=" + userJoinDate + ", userLoginDate=" + userLoginDate + ", userSignature="
-				+ userSignature + ", userImg=" + userImg + ", userPoint=" + userPoint + ", authkey=" + authkey
-				+ ", authstatus=" + authstatus + "]";
+				+ userEmail + ", userJoinDate=" + userJoinDate + ", userLoginDate=" + userLoginDate + ", grade=" + grade
+				+ ", authkey=" + authkey + ", authstatus=" + authstatus + "]";
 	}
     
     
