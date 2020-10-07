@@ -1,6 +1,5 @@
-<%@page import="com.bit.backpackers.shop.model.entity.ItemVo"%>
+<%@page import="com.bit.backpackers.product.model.entity.ProductVo"%>
 <%@page import="java.util.List"%>
-<%@page import="org.springframework.ui.Model"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -9,6 +8,12 @@
 <head>
 	<meta charset="UTF-8">
 	<%@ include file="/WEB-INF/views/template/head.jspf" %>
+	<link type="text/css" rel="stylesheet" href="${root }/resources/css/radio-toolbar.css"/>
+	<style type="text/css">
+		.input-group {
+			width: 50%;
+		}
+	</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/template/nav.jspf" %>
@@ -18,33 +23,124 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-8">
 					<div>
-						img
+						<!-- 1개의 상품을 출력 -->
+						<c:forEach items="${shop.productList }" var="product">
+							<c:if test="${product.productCode eq productCode }">
+								<!-- 등록된 이미지가 없을 때 -->
+								<c:if test="${product.productImageList.size() == 0 }">
+									<img src="${root }/resources/img/no-image.jpg" style="width:300px;height:300px;"/>
+								</c:if>
+								<!-- 등록된 이미지들을 나열 -->
+								<c:forEach items="${product.productImageList }" var="image">
+									<img src="${root }/resources/img/${image.imageURL}"  style="width:300px;height:300px;"/>
+								</c:forEach>
+							</c:if>
+						</c:forEach>
 					</div>
-				</div>
-				<div class="col-xs-6 col-sm-6 col-md-4">
+				</div><!-- image end -->
+				<div class="col-xs-12 col-sm-6 col-md-4">
 					<div>
-						<h2>${bean.shopArticleTitle }</h2>
+						<h2>${shop.shopTitle }</h2>
+					</div><!--  title end -->
+					<div>
+						<span>${shop.shopPrice }</span>
+					</div><!-- price end -->
+					<div>
+						<div>
+							<span>${shop.productList[0].optionGroupName }</span>
+						</div>
+						<c:forEach items="${shop.productList }" var="product" >
+							<!-- 등록된 이미지가 없을 때 -->
+							<span>
+								<c:if test="${product.productImageList.size() == 0 }">
+									<a title="${product.optionName }" href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }">
+										<img src="${root }/resources/img/no-image.jpg" style="width:50px;height:50px;"/>
+									</a>
+								</c:if>
+								<!-- 등록된 이미지 중 대표 이미지를 나열 -->
+								<c:forEach items="${product.productImageList }" var="image" end="0">
+									<c:if test="${image.imageOrder == 0 }">
+										<a title="${product.optionName }" href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }">
+											<img src="${root }/resources/img/${image.imageURL}"  style="width:50px;height:50px;"/>
+										</a>
+									</c:if>
+								</c:forEach>
+							</span>
+						</c:forEach>
+					</div><!-- first option with image end -->
+					<div>
+						<!-- 1개의 상품을 출력 -->
+						<c:forEach items="${shop.productList }" var="product">
+							<c:if test="${product.productCode eq productCode }">
+							<!-- 등록된 옵션(주로 사이즈)들을 나열 -->
+								<div>${product.productItemList[0].optionGroupName }</div>
+								<div class="radio-toolbar">
+									<c:forEach items="${product.productItemList }" var="item">
+									    <input type="radio" id="${item.itemCode }" name="radioOption" value="${item.itemCode }">
+									    <label for="${item.itemCode }"><span>${item.optionName }</span></label> 
+									</c:forEach>
+								</div>
+							</c:if>
+						</c:forEach>
+					</div><!-- second option end -->
+					<div>
+						<div>Quantity</div>
+						<div class="input-group">
+							<span class="input-group-btn">
+								<button type="button" class="quantity-left-minus btn btn-default">
+									<span class="glyphicon glyphicon-minus"></span>
+								</button>
+							</span>
+							<input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+							<span class="input-group-btn">
+								<button type="button" class="quantity-right-plus btn btn-default">
+									<span class="glyphicon glyphicon-plus"></span>
+								</button>
+							</span>
+						</div>
+						<script type="text/javascript">
+							(function() {
+								var quantitiy = 1;
+								$('.quantity-right-plus').click(function(e){
+									e.preventDefault();
+									var quantity = parseInt($('#quantity').val());
+							    	$('#quantity').val(quantity + 1);
+								});
+								$('.quantity-left-minus').click(function(e){
+							        e.preventDefault();
+							        var quantity = parseInt($('#quantity').val());
+						            if(quantity > 1){
+						            	$('#quantity').val(quantity - 1);
+						            }
+						    	});
+							})();
+						</script>
 					</div>
 					<div>
-						<span>${bean.shopArticlePrice }</span>
+						<button id="btnBuy" class="btn btn-default">구매하기</button>
+						<script type="text/javascript">
+							(function() {
+								document.querySelector('#btnBuy').addEventListener('click', function() {
+									var itemCode = document.querySelector('input[name="radioOption"]:checked').value;
+									var quantity = document.querySelector('#quantity').value;
+									$.ajax({
+										url:'/backpackers/order',
+										method:'POST',
+										data:JSON.stringify({ 'itemCode': itemCode, 'quantity': quantity }),
+										contentType:'application/json; charset=utf-8',
+										dataType:'text',
+										success:function(data){
+											console.log('sth');
+											window.alert(data);
+										}
+									});
+								});
+							})();
+						</script>
+						<button id="btnCart" class="btn btn-default">장바구니에 담기</button>
 					</div>
-					<%
-						List<ItemVo> list = (List<ItemVo>) request.getAttribute("itemList");
-						for(ItemVo item : list) {
-							String firstOption = null;
-							if(firstOption == item.getFirstOptionCode()) {
-								
-							} else {
-								
-							}
-							out.print("<div>" + item.toString() + "</div>");
-						}
-					%>
-					<div>
-						
-					</div>
-				</div>
-	    	</div>
+				</div><!-- info end -->
+	    	</div><!-- row end -->
 		</section>
 		<!-- Content ends -->
 	<%@ include file="/WEB-INF/views/template/footer.jspf" %>
