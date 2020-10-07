@@ -16,8 +16,6 @@ public interface ShopService {
 	public void getShoplist(Model model) throws SQLException;
 	public void getShoplist(Model model, String mainCategoryName) throws SQLException;
 	public void getShoplist(Model model, String mainCategoryName, String subCategoryName) throws SQLException;
-	public void getShop(Model model, String shopCode) throws SQLException;
-	
-	public void listByMainCategory(Model model, String mainCategory) throws SQLException;
+	public void getShop(Model model, String shopCode, String productCode) throws SQLException;
 	
 }

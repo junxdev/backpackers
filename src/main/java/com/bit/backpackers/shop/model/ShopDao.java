@@ -17,8 +17,4 @@ public interface ShopDao {
 	List<ShopVo> selectShopList(@Param("mainCategoryName") String mainCategoryName, @Param("subCategoryName") String subCategoryName) throws SQLException;
 	ShopVo selectShop(String shopCode) throws SQLException;
 	
-	List<ItemVo> selectItemByShopArticleCode(String shopArticleCode) throws SQLException;
-	List<ShopVo> selectAllByMainCategory(String mainCategory);
-//	List<ShopArticleVo> selectMainCategory(String mainCategoryCode);
-	
 }

@@ -41,42 +41,25 @@ public class ShopServiceImpl implements ShopService {
 	}
 	
 	@Override
-	public void listByMainCategory(Model model, String mainCategory) throws SQLException {
-		List<ShopVo> list = sqlSession.getMapper(ShopDao.class).selectAllByMainCategory(mainCategory);
-		model.addAttribute("shopList", list);
-	}
-
-	@Override
-	public void getShop(Model model, String shopCode) throws SQLException {
+	public void getShop(Model model, String shopCode, String productCode) throws SQLException {
 		ShopDao dao = sqlSession.getMapper(ShopDao.class);
-		ShopVo bean = dao.selectShop(shopCode);
-		model.addAttribute("bean", bean);
-		
-		List<ItemVo> itemList = dao.selectItemByShopArticleCode(shopCode);
-		Map<String, Map<String, String>> itemMap = new HashMap<String, Map<String, String>>();
-		Map<String, String> optionMap = new HashMap<String, String>();
-		for(ItemVo item : itemList) {
-			String firstOption = null;
-			String beforeFirstOption = firstOption;
-			String secondOption = null;
-			String itemCode = null;
-			try {
-				firstOption = item.getFirstOptionCode();
-				secondOption = item.getSecondOptionCode();
-				itemCode = item.getItemCode();
-			} catch (NullPointerException e) {
-				continue;
-			}
-			if(itemMap.get(firstOption) == null) {
-				optionMap.put(secondOption, shopCode);
-				itemMap.put(firstOption, optionMap);
-			} else {
-				optionMap = itemMap.get(firstOption);
-				optionMap.put(secondOption, shopCode);
-				itemMap.put(firstOption, optionMap);
-			}
-		}
-		model.addAttribute("itemMap", itemMap);
+		ShopVo shop = dao.selectShop(shopCode);
+		model.addAttribute("shop", shop);
+		model.addAttribute("productCode", productCode);
+		/*
+		 * List<ItemVo> itemList = dao.selectItemByShopArticleCode(shopCode);
+		 * Map<String, Map<String, String>> itemMap = new HashMap<String, Map<String,
+		 * String>>(); Map<String, String> optionMap = new HashMap<String, String>();
+		 * for(ItemVo item : itemList) { String firstOption = null; String
+		 * beforeFirstOption = firstOption; String secondOption = null; String itemCode
+		 * = null; try { firstOption = item.getFirstOptionCode(); secondOption =
+		 * item.getSecondOptionCode(); itemCode = item.getItemCode(); } catch
+		 * (NullPointerException e) { continue; } if(itemMap.get(firstOption) == null) {
+		 * optionMap.put(secondOption, shopCode); itemMap.put(firstOption, optionMap); }
+		 * else { optionMap = itemMap.get(firstOption); optionMap.put(secondOption,
+		 * shopCode); itemMap.put(firstOption, optionMap); } }
+		 * model.addAttribute("itemMap", itemMap);
+		 */
 	}
 
 }

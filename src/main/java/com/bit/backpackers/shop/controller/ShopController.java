@@ -38,16 +38,16 @@ public class ShopController {
 	}
 	
 	@RequestMapping("/{mainCategoryName}/{subCategoryName}")
-	public String list(@PathVariable("mainCategoryName") String mainCategoryName, 
-			@PathVariable("subCategoryName") String subCategoryName, Model model) throws SQLException {
+	public String list(@PathVariable String mainCategoryName, 
+			@PathVariable String subCategoryName, Model model) throws SQLException {
 		shopService.getShoplist(model, mainCategoryName, subCategoryName);
 		categoryService.getCategoryList(model);
 		return "shop/list";
 	}
 	
-	@RequestMapping("/{mainCategory}/{subCategory}/{shopCode}")
-	public String detail(@PathVariable("shoptCode") String shopCode, Model model) throws SQLException {
-		shopService.getShop(model, shopCode);
+	@RequestMapping("/{mainCategory}/{subCategory}/{shopCode}/{productCode}")
+	public String detail(@PathVariable String shopCode, @PathVariable String productCode, Model model) throws SQLException {
+		shopService.getShop(model, shopCode, productCode);
 		return "shop/detail";
 	}
 }

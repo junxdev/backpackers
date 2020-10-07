@@ -38,24 +38,28 @@
 							</tr>
 						</thead>
 						<tbody>
+							<!-- 등록된 상품 페이지를 나열 -->
 							<c:forEach items="${shopList }" var="shop">
 								<tr>
 									<td>
 										<ul><span>${shop.shopTitle }</span>
+											<!-- 상품 페이지에 등록된 상품을 나열 -->
 											<c:forEach items="${shop.productList }" var="product">
-												<c:forEach items="${product.productImageList }" var="image">
-													<c:if test="${image.imageOrder == 0 }">
-														<li>
-															<a href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${product.productCode }">
-																<img src="${root }/resources/img/${image.imageURL }" style="width:300px;height:300px;"/>
-															</a>
-														</li>
-													</c:if>
-													<c:if test="${image.imageOrder > 0 }">
-														<li>
-															${image.imageURL }
-														</li>	
-													</c:if>
+												<!-- 상품에 등록된 이미지가 없을 때 -->
+												<c:if test="${product.productImageList.size() == 0 }">
+													<li>
+														<a href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }">
+															<img src="${root }/resources/img/no-image.jpg" style="width:300px;height:300px;"/>
+														</a>
+													</li>
+												</c:if>
+												<!-- 각 페이지에 등록된 상품들의 대표 이미지를 나열 -->
+												<c:forEach items="${product.productImageList }" var="image" end="0">
+													<li>
+														<a href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }">
+															<img src="${root }/resources/img/${image.imageURL }" style="width:300px;height:300px;"/>
+														</a>
+													</li>
 												</c:forEach>
 											</c:forEach>
 										</ul>
@@ -64,6 +68,7 @@
 								</tr>
 							</c:forEach>
 						</tbody>
+						<!-- 카테고리에 등록된 상품이 없을 때 -->
 						<script type="text/javascript">
 							(function ab() {
 								var itemList = document.querySelector('table').children.item(1);

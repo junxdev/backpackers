@@ -4,12 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.bit.backpackers.shop.model.ShopDao">
   
-  	<resultMap type="ShopVo" id="shopList">
+  	<resultMap type="ShopVo" id="shopResult">
   		<id property="shopCode" column="shopCode"/>
   		<collection property="productList" select="selectProductByShopCode" column="shopCode" ofType="ProductVo"></collection>
   	</resultMap>
   
-  	<select id="selectShopList" resultMap="shopList">
+  	<select id="selectShopList" resultMap="shopResult">
 	    SELECT shopCode, shopTitle, shopPrice, subCategoryName, mainCategoryName 
 		FROM shop AS shop 
 		LEFT JOIN (
@@ -31,35 +31,45 @@
 		</if>
   	</select>
   	
-  	<resultMap type="ProductVo" id="productList">
+  	<select id="selectShop" resultMap="shopResult">
+		SELECT shopCode, shopTitle, shopPrice, subCategoryName, mainCategoryName 
+		FROM shop AS shop 
+		LEFT JOIN (
+			SELECT sub.subCategoryCode, sub.subCategoryName, main.mainCategoryName 
+			FROM sub_category AS sub 
+			LEFT JOIN main_category AS main 
+			ON sub.mainCategoryCode = main.mainCategoryCode
+			) AS cat
+		ON shop.subCategoryCode = cat.subCategoryCode  		
+ 		WHERE shopCode = #{shopCode}
+  	</select>
+  	
+  	<resultMap type="ProductVo" id="productResult">
   		<id property="productId" column="productId"/>
   		<result property="productCode" column="productCode"/>
-  		<collection property="productImageList" select="selectImageByProductCode" column="productCode" ofType="ProductImageVo"></collection>
+  		<collection property="productImageList" select="selectImageByProductCode" column="productCode" ofType="ImageVo"></collection>
+  		<collection property="productItemList" select="selectItemByProductCode" column="productCode" ofType="ProductItemVo"></collection>
   	</resultMap>
   	
-  	<select id="selectProductByShopCode" resultMap="productList">
-  		SELECT * FROM shop_product WHERE shopCode = #{shopCode}
+  	<select id="selectProductByShopCode" resultMap="productResult">
+  		SELECT shopCode, productCode, 
+  			(SELECT optionGroupName FROM option_group AS grp WHERE grp.optionGroupCode = prod.optionGroupCode) AS optionGroupName,
+  			(SELECT optionName FROM option AS opt WHERE opt.optionCode = prod.optionCode) AS optionName
+  		FROM shop_product as prod
+  		WHERE shopCode = #{shopCode}
   	</select>
   	
   	<select id="selectImageByProductCode" resultType="ImageVo">
-  		SELECT * FROM product_image WHERE productCode = #{productCode}
+  		SELECT * FROM product_image WHERE productCode = #{productCode} ORDER BY imageOrder ASC
   	</select>
   	
-  	<select id="selectAllByMainCategory" resultType="ShopVo">
-  		SELECT shopCode, shopTitle, shopPrice, main.mainCategoryName, 
-		(SELECT subCategoryName FROM sub_category AS sub WHERE shop.subCategoryCode = sub.subCategoryCode) AS subCategoryName 
-	    FROM shop AS shop 
-		LEFT JOIN main_category AS main  
-		ON shop.mainCategoryCode = main.mainCategoryCode
-		WHERE main.mainCategoryName = #{mainCategory}
-  	</select>
-  	
-  	<select id="selectShop" resultType="ShopVo">
-  		SELECT * FROM shop WHERE shopCode = #{shopCode}
-  	</select>
-  	
-  	<select id="selectItemByShopCode" resultType="com.bit.backpackers.shop.model.entity.ItemVo">
-  		SELECT * from item WHERE itemCode in (SELECT itemCode from shop_item WHERE shopCode = '${shopCode}')
+  	<select id="selectItemByProductCode" resultType="ProductItemVo">
+  		SELECT 
+  			productCode, itemCode,
+  			(SELECT optionGroupName FROM option_group AS grp WHERE grp.optionGroupCode = product_item.optionGroupCode) AS optionGroupName,
+  			(SELECT optionName FROM option AS opt WHERE opt.optionCode = product_item.optionCode) AS optionName
+  		FROM product_item
+  		WHERE productCode = #{productCode}
   	</select>
   	
   </mapper>
