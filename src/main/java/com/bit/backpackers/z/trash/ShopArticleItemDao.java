@@ -1,4 +1,4 @@
-package com.bit.backpackers.shop.model;
+package com.bit.backpackers.z.trash;
 
 public interface ShopArticleItemDao {
 

@@ -68,6 +68,7 @@
 							</span>
 						</c:forEach>
 					</div><!-- first option with image end -->
+					<form id="orderItemForm">
 					<div>
 						<!-- 1개의 상품을 출력 -->
 						<c:forEach items="${shop.productList }" var="product">
@@ -76,7 +77,7 @@
 								<div>${product.productItemList[0].optionGroupName }</div>
 								<div class="radio-toolbar">
 									<c:forEach items="${product.productItemList }" var="item">
-									    <input type="radio" id="${item.itemCode }" name="radioOption" value="${item.itemCode }">
+									    <input type="radio" id="${item.itemCode }" name="itemCode" value="${item.itemCode }">
 									    <label for="${item.itemCode }"><span>${item.optionName }</span></label> 
 									</c:forEach>
 								</div>
@@ -91,7 +92,7 @@
 									<span class="glyphicon glyphicon-minus"></span>
 								</button>
 							</span>
-							<input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+							<input type="number" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
 							<span class="input-group-btn">
 								<button type="button" class="quantity-right-plus btn btn-default">
 									<span class="glyphicon glyphicon-plus"></span>
@@ -116,11 +117,28 @@
 							})();
 						</script>
 					</div>
+					</form>
 					<div>
 						<button id="btnBuy" class="btn btn-default">구매하기</button>
+						<button id="btnCart" class="btn btn-default">장바구니에 담기</button>
 						<script type="text/javascript">
+							var orderItemForm = document.querySelector('#orderItemForm');
+							function buyNow() {
+								orderItemForm.action = "/backpackers/order";
+								console.log(orderItemForm.action);
+								orderItemForm.method = 'POST';
+								console.log(orderItemForm.method);
+								orderItemForm.submit();
+							}
 							(function() {
 								document.querySelector('#btnBuy').addEventListener('click', function() {
+									console.log('buy before');
+									buyNow();
+									console.log('buy after');
+								});								
+							})();
+							/* (function() {
+								document.querySelector('#btnCart').addEventListener('click', function() {
 									var itemCode = document.querySelector('input[name="radioOption"]:checked').value;
 									var quantity = document.querySelector('#quantity').value;
 									$.ajax({
@@ -135,9 +153,8 @@
 										}
 									});
 								});
-							})();
+							})(); */
 						</script>
-						<button id="btnCart" class="btn btn-default">장바구니에 담기</button>
 					</div>
 				</div><!-- info end -->
 	    	</div><!-- row end -->

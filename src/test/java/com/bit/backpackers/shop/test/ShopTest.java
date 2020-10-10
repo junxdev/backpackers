@@ -19,9 +19,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bit.backpackers.category.model.CategoryDao;
 import com.bit.backpackers.category.model.entity.CategoryVo;
-import com.bit.backpackers.shop.model.ItemDao;
+import com.bit.backpackers.item.model.entity.ItemVo;
+import com.bit.backpackers.order.model.OrderedItemDao;
 import com.bit.backpackers.shop.model.ShopDao;
-import com.bit.backpackers.shop.model.entity.ItemVo;
 import com.bit.backpackers.shop.model.entity.ShopVo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -55,8 +55,8 @@ public class ShopTest {
 	
 	@Test
 	public void callItemList() throws SQLException {
-		ItemDao dao = sqlSession.getMapper(ItemDao.class);
-		List<ItemVo> list = dao.selectAll();
+		OrderedItemDao dao = sqlSession.getMapper(OrderedItemDao.class);
+		List<ItemVo> list = dao.selectOrderedItems();
 		System.out.println(list.get(0));
 	}
 	
