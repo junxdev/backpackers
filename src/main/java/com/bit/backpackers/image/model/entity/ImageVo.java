@@ -7,6 +7,7 @@ import lombok.ToString;
 @Getter @Setter @ToString
 public class ImageVo {
 	
-	private String productCode, imageCode, imageURL, imageOrder;
+	private String productCode, imageCode, imageURL;
+	private int imageOrder;
 
 }

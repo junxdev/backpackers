@@ -7,6 +7,6 @@ import lombok.ToString;
 @Getter @Setter @ToString
 public class ProductItemVo {
 
-	private String productCode, itemCode, optionGroupName, optionName;
+	private String productCode, itemCode, optionGroupCode, optionGroupName, optionCode, optionName;
 	
 }

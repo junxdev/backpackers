@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
 import com.bit.backpackers.item.model.entity.ItemVo;
-import com.bit.backpackers.order.model.OrderedItemDao;
+import com.bit.backpackers.order.model.OrderedProductDao;
 
 //@Component
 public class OrderedItem {

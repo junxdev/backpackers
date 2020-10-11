@@ -48,7 +48,7 @@
   		<id property="productId" column="productId"/>
   		<result property="productCode" column="productCode"/>
   		<collection property="productImageList" select="selectImageByProductCode" column="productCode" ofType="ImageVo"></collection>
-  		<collection property="productItemList" select="selectItemByProductCode" column="productCode" ofType="ProductItemVo"></collection>
+  		<collection property="productItemList" select="selectItemByProductCode" column="productCode" ofType="ProductVo"></collection>
   	</resultMap>
   	
   	<select id="selectProductByShopCode" resultMap="productResult">
@@ -63,13 +63,38 @@
   		SELECT * FROM product_image WHERE productCode = #{productCode} ORDER BY imageOrder ASC
   	</select>
   	
-  	<select id="selectItemByProductCode" resultType="ProductItemVo">
+  	<select id="selectItemByProductCode" resultType="ProductVo">
   		SELECT 
   			productCode, itemCode,
   			(SELECT optionGroupName FROM option_group AS grp WHERE grp.optionGroupCode = product_item.optionGroupCode) AS optionGroupName,
-  			(SELECT optionName FROM option AS opt WHERE opt.optionCode = product_item.optionCode) AS optionName
+  			optionGroupCode, 
+  			(SELECT optionName FROM option AS opt WHERE opt.optionCode = product_item.optionCode) AS optionName,
+  			optionCode
   		FROM product_item
   		WHERE productCode = #{productCode}
+  	</select>
+  	
+  	<select id="selectShopByProductCode" resultType="shopVo">
+		SELECT 
+			shop.shopCode, 
+			shopTitle, 
+			shopPrice, 
+			subCategoryName, 
+			mainCategoryName 
+		FROM shop 
+		LEFT JOIN (
+			SELECT 
+				sub.subCategoryCode, 
+				sub.subCategoryName, 
+				main.mainCategoryName 
+			FROM sub_category AS sub 
+			LEFT JOIN main_category AS main 
+			ON sub.mainCategoryCode = main.mainCategoryCode
+			) AS cat 
+		ON shop.subCategoryCode = cat.subCategoryCode 
+		LEFT JOIN shop_product 
+		ON shop.shopCode = shop_product.shopCode
+		WHERE productCode = '${productCode}'
   	</select>
   	
   </mapper>

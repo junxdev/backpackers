@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.backpackers.order.OrderStatus;
-import com.bit.backpackers.order.model.entity.OrderItemVo;
+import com.bit.backpackers.order.model.entity.OrderedProductVo;
 import com.bit.backpackers.order.service.OrderService;
 
 @Controller
@@ -29,15 +29,15 @@ public class OrderController {
 	
 	@RequestMapping(value = "/checkout")
 	public String checkout(Model model) throws SQLException {
-		orderService.getItemsByOrderCode(model);
-		return "order/detail";
+		orderService.getOrderDetailByOrderCode(model);
+		return "order/checkout";
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String createOrder(String itemCode, int quantity) throws SQLException {
-		log.info(itemCode + quantity);
-		orderService.putOrder(itemCode, quantity);
-		return "redirect:/checkout";
+	public String createOrder(String productCode, String optionCode, int quantity) throws SQLException {
+		log.info(productCode + quantity);
+		orderService.putOrder(productCode, optionCode, quantity);
+		return "redirect:/order/checkout";
 	}
 	
 }

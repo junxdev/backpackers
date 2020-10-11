@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.bit.backpackers.order.model.OrderedProductDao">
+  	<select id="selectProductsFilteredBy" resultType="OrderedProductVo">
+  		SELECT 
+			orders.orderCode,
+  			shop.productCode, 
+  			shop.optionCode as firstOptionCode,
+            orders.optionCode as secondOptionCode,
+            count(orders.optionCode) as quantity
+  		FROM order_item AS orders 
+  		LEFT JOIN shop_product AS shop
+  		ON orders.productCode = shop.productCode
+  		WHERE orderCode = #{orderCode}
+        GROUP BY 
+        	orders.orderCode,
+  			shop.productCode,
+            firstOptionCode,
+            secondOptionCode
+  	</select>
+  </mapper>

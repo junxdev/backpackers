@@ -5,19 +5,23 @@
   <mapper namespace="com.bit.backpackers.order.model.OrderDao">
   
   	<insert id="insertOrder">
-  		INSERT INTO orders (orderCode) VALUES (#{orderCode}) 
+  		INSERT INTO orders (orderCode, orderStatus) VALUES (#{orderCode}, 'CHECKING') 
   	</insert>
   	
   	<insert id="insertOrderItem">
-  		INSERT INTO order_item (orderCode, itemCode) VALUES (#{orderCode}, #{itemCode})
+  		INSERT INTO order_item (orderCode, productCode, optionCode) VALUES (#{orderCode}, #{productCode}, #{optionCode})
   	</insert>
   	
   	<select id="selectOrder" resultType="OrderVo">
   		SELECT * FROM orders WHERE orderCode = '${orderCode}'
   	</select>
   	
-  	<select id="selectOrderItem" resultType="ItemVo">
-  		SELECT itemCode FROM order_item WHERE orderCode = '${orderCode}'
+  	<select id="selectOrderItem" resultType="OrderedProductVo">
+  		SELECT productCode FROM order_item WHERE orderCode = '${orderCode}'
+  	</select>
+  	
+  	<select id="selectOrdersFilteredBy" resultType="OrderVo">
+  		SELECT * FROM orders WHERE orderStatus = '${orderStatus}'
   	</select>
   	
   </mapper>

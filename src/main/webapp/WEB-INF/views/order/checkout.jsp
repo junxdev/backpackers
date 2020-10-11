@@ -1,0 +1,67 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<%@ include file="/WEB-INF/views/template/head.jspf" %>
+</head>
+<body>
+	<%@ include file="/WEB-INF/views/template/nav.jspf" %>
+	<%@ include file="/WEB-INF/views/template/header.jspf" %>
+		<!-- Content starts 필요 시 임의로 그리드 조정 -->
+		<section>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="content">
+						<div>
+							<table class="table">
+								<thead>
+									<tr>
+										<th>상품</th>
+										<th>가격</th>
+										<th>수량</th>
+									</tr>
+									<c:forEach items="${productList }" var="product" varStatus="status">
+									<c:forEach items="${shopList }" var="shop" begin="${status.index }" end="${status.index }">
+									<c:forEach items="${imageList }" var="image" begin="${status.index }" end="${status.index }">
+									<tr>
+										<td>
+											<a title="${shop.shopTitle }" href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }" target="_blank">
+												<span>
+													<!-- 등록된 이미지가 없을 때 -->
+													<c:if test="${image.imageURL eq null }">
+														<img src="${root }/resources/img/no-image.jpg" style="width:50px;height:50px;"/>
+													</c:if>
+													<!-- 등록된 이미지들을 나열 -->
+													<img src="${root }/resources/img/${image.imageURL}"  style="width:50px;height:50px;"/>
+												</span>
+												<span>${shop.shopTitle }</span>
+												<span>(${product.firstOptionGroupName }: ${product.firstOptionName },</span>
+												<span>${product.secondOptionGroupName }: ${product.secondOptionName })</span>
+											</a>
+										</td>
+										<td>${shop.shopPrice }</td>
+										<td>${product.quantity }</td>
+									</tr>
+									</c:forEach>
+									</c:forEach>
+									</c:forEach>
+								</thead>
+							</table>
+						</div><!-- 주문상품내역 -->
+						<div>
+						</div><!-- 총 결제 금액 -->
+						<div>
+						</div><!-- 배송 정보 -->
+						<div>
+						</div><!-- 버튼 -->
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Content ends -->
+	<%@ include file="/WEB-INF/views/template/footer.jspf" %>
+</body>
+</html>

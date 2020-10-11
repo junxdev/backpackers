@@ -20,7 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.bit.backpackers.category.model.CategoryDao;
 import com.bit.backpackers.category.model.entity.CategoryVo;
 import com.bit.backpackers.item.model.entity.ItemVo;
-import com.bit.backpackers.order.model.OrderedItemDao;
+import com.bit.backpackers.order.model.OrderedProductDao;
 import com.bit.backpackers.shop.model.ShopDao;
 import com.bit.backpackers.shop.model.entity.ShopVo;
 
@@ -55,7 +55,7 @@ public class ShopTest {
 	
 	@Test
 	public void callItemList() throws SQLException {
-		OrderedItemDao dao = sqlSession.getMapper(OrderedItemDao.class);
+		OrderedProductDao dao = sqlSession.getMapper(OrderedProductDao.class);
 		List<ItemVo> list = dao.selectOrderedItems();
 		System.out.println(list.get(0));
 	}

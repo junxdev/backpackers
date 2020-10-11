@@ -73,12 +73,13 @@
 						<!-- 1개의 상품을 출력 -->
 						<c:forEach items="${shop.productList }" var="product">
 							<c:if test="${product.productCode eq productCode }">
+							<input type="text" name="productCode" value="${productCode }" hidden="true">
 							<!-- 등록된 옵션(주로 사이즈)들을 나열 -->
 								<div>${product.productItemList[0].optionGroupName }</div>
 								<div class="radio-toolbar">
-									<c:forEach items="${product.productItemList }" var="item">
-									    <input type="radio" id="${item.itemCode }" name="itemCode" value="${item.itemCode }">
-									    <label for="${item.itemCode }"><span>${item.optionName }</span></label> 
+									<c:forEach items="${product.productItemList }" var="item" varStatus="status">
+									    <input type="radio" id="itemOption${status.count }" name="optionCode" value="${item.optionCode }">
+									    <label for="itemOption${status.count }"  style="cursor:pointer"><span>${item.optionName }</span></label> 
 									</c:forEach>
 								</div>
 							</c:if>
@@ -92,7 +93,7 @@
 									<span class="glyphicon glyphicon-minus"></span>
 								</button>
 							</span>
-							<input type="number" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
+							<input type="number" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100" readonly="readonly" style="background-color:white;cursor:not-allowed">
 							<span class="input-group-btn">
 								<button type="button" class="quantity-right-plus btn btn-default">
 									<span class="glyphicon glyphicon-plus"></span>

@@ -8,8 +8,9 @@
   		<typeAlias alias="CategoryVo" type="com.bit.backpackers.category.model.entity.CategoryVo"/>
   		<typeAlias alias="ProductVo" type="com.bit.backpackers.product.model.entity.ProductVo"/>
   		<typeAlias alias="ImageVo" type="com.bit.backpackers.image.model.entity.ImageVo"/>
-  		<typeAlias alias="ProductItemVo" type="com.bit.backpackers.product.model.entity.ProductItemVo"/>
+  		<typeAlias alias="OrderedProductVo" type="com.bit.backpackers.order.model.entity.OrderedProductVo"/>
   		<typeAlias alias="OrderVo" type="com.bit.backpackers.order.model.entity.OrderVo"/>
   		<typeAlias alias="ItemVo" type="com.bit.backpackers.item.model.entity.ItemVo"/>
+  		<typeAlias alias="OptionVo" type="com.bit.backpackers.option.model.entity.OptionVo"/>
   	</typeAliases>
   </configuration>

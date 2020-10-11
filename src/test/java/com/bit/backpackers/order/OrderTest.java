@@ -12,7 +12,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.bit.backpackers.option.model.OptionDao;
+import com.bit.backpackers.option.model.entity.OptionVo;
 import com.bit.backpackers.order.model.OrderDao;
+import com.bit.backpackers.order.model.entity.OrderedProductVo;
 import com.bit.backpackers.order.service.OrderService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -45,7 +48,7 @@ public class OrderTest {
 		String testOrderCode = "20201008test";
 		String testItemCode = "item01";
 		OrderDao dao = sqlSession.getMapper(OrderDao.class);
-		dao.insertOrderItem(testOrderCode, testItemCode);
+		dao.insertOrderItem(testOrderCode, testItemCode, testItemCode);
 	}
 	
 	@Test
@@ -53,5 +56,17 @@ public class OrderTest {
 		String testOrderCode = "20201008test";
 		OrderDao dao = sqlSession.getMapper(OrderDao.class);
 		dao.selectOrderItem(testOrderCode);
+	}
+	
+	@Test
+	public void findOption() {
+		OrderedProductVo result = new OrderedProductVo();
+		OptionVo option = sqlSession.getMapper(OptionDao.class).selectOptionFilteredBy("color-black");
+		result.setFirstOptionGroupName(option.getOptionGroupName());
+		result.setFirstOptionName(option.getOptionName());
+		option = sqlSession.getMapper(OptionDao.class).selectOptionFilteredBy("size-roman-xl");
+		result.setSecondOptionGroupName(option.getOptionGroupName());
+		result.setSecondOptionName(option.getOptionName());
+		assertEquals("Black", result.getFirstOptionName());
 	}
 }
