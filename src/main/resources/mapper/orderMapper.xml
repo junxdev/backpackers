@@ -13,15 +13,24 @@
   	</insert>
   	
   	<select id="selectOrder" resultType="OrderVo">
-  		SELECT * FROM orders WHERE orderCode = '${orderCode}'
+  		SELECT * FROM orders WHERE orderCode = #{orderCode}
   	</select>
   	
   	<select id="selectOrderItem" resultType="OrderedProductVo">
-  		SELECT productCode FROM order_item WHERE orderCode = '${orderCode}'
+  		SELECT productCode FROM order_item WHERE orderCode = #{orderCode}
   	</select>
   	
   	<select id="selectOrdersFilteredBy" resultType="OrderVo">
-  		SELECT * FROM orders WHERE orderStatus = '${orderStatus}'
+  		SELECT * FROM orders WHERE orderStatus = #{orderStatus}
   	</select>
+  	
+  	<update id="updateOrder" parameterType="OrderVo">
+  		UPDATE orders
+  		<set>
+  			<if test="orderStatus != null">orderStatus = #{orderStatus},</if>
+  			<if test="orderAmount != null">orderAmount = #{orderAmount},</if>
+  		</set>
+  		WHERE orderCode = #{orderCode}
+  	</update>
   	
   </mapper>

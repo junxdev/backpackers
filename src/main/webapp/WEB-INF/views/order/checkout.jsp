@@ -15,7 +15,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="content">
-						<div>
+						<div class="order-form"><!-- 주문상품내역 -->
 							<table class="table">
 								<thead>
 									<tr>
@@ -23,6 +23,8 @@
 										<th>가격</th>
 										<th>수량</th>
 									</tr>
+								</thead>
+								<tbody>
 									<c:forEach items="${productList }" var="product" varStatus="status">
 									<c:forEach items="${shopList }" var="shop" begin="${status.index }" end="${status.index }">
 									<c:forEach items="${imageList }" var="image" begin="${status.index }" end="${status.index }">
@@ -48,18 +50,46 @@
 									</c:forEach>
 									</c:forEach>
 									</c:forEach>
-								</thead>
+								</tbody>
 							</table>
-						</div><!-- 주문상품내역 -->
-						<div>
-						</div><!-- 총 결제 금액 -->
-						<div>
-						</div><!-- 배송 정보 -->
-						<div>
-						</div><!-- 버튼 -->
-					</div>
-				</div>
-			</div>
+						</div><!-- 주문상품내역 end -->
+						<div class="pricetag"><!-- 총 결제 금액 -->
+							<span>총 결제 금액 : </span>
+							<span></span>
+						</div><!-- 총 결제 금액 end -->
+						<div class="delivery-info"><!-- 배송 정보 -->
+							<span>배송 정보 작업 중 : 회원 api 필요</span>
+						</div><!-- 배송 정보 end -->
+						<div class="purchase-form"><!-- 버튼 -->
+							<form action="${root }/order/checkout" method="POST">
+								<input type="number" name="orderAmount" hidden="true">
+								<input type="text" name="orderCode" value="${order.orderCode }" hidden="true">
+								<button type="submit" class="btn btn-default">결제하기</button>
+								<button type="button" class="btn btn-default">취소하기</button>
+							</form>
+						</div><!-- 버튼 end -->
+						<script type="text/javascript">
+							var orderAmount = 0;
+							function sumOrderAmount() {
+								document.querySelectorAll('.order-form tbody tr').forEach(function(e) {
+								    console.log(e.children.item(1).innerText);
+								    console.log(e.children.item(2).innerText);
+								    orderAmount += e.children.item(1).innerText * e.children.item(2).innerText;
+								});
+							}
+							function presentOrderAmount() {
+								document.querySelector('.pricetag').lastElementChild.innerText = orderAmount;
+							}
+							function setPurchaseAmount() {
+								document.querySelector('.purchase-form input:first-child').value = orderAmount;
+							}
+							sumOrderAmount();
+							presentOrderAmount();
+							setPurchaseAmount();
+						</script>
+					</div><!-- content end -->
+				</div><!-- col end -->
+			</div><!-- row end -->
 		</section>
 		<!-- Content ends -->
 	<%@ include file="/WEB-INF/views/template/footer.jspf" %>

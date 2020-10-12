@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.backpackers.order.OrderStatus;
+import com.bit.backpackers.order.model.entity.OrderVo;
 import com.bit.backpackers.order.model.entity.OrderedProductVo;
 import com.bit.backpackers.order.service.OrderService;
 
@@ -27,17 +28,29 @@ public class OrderController {
 	@Inject
 	OrderService orderService;
 	
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public String createOrder(String productCode, String optionCode, int quantity) throws SQLException {
+		log.info(productCode + quantity);
+		orderService.putOrder(productCode, optionCode, quantity);
+		return "redirect:/order/checkout";
+	}
+	
 	@RequestMapping(value = "/checkout")
 	public String checkout(Model model) throws SQLException {
 		orderService.getOrderDetailByOrderCode(model);
 		return "order/checkout";
 	}
 	
-	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String createOrder(String productCode, String optionCode, int quantity) throws SQLException {
-		log.info(productCode + quantity);
-		orderService.putOrder(productCode, optionCode, quantity);
-		return "redirect:/order/checkout";
+	@RequestMapping(value = "/checkout", method = RequestMethod.POST)
+	public String checkout(@ModelAttribute OrderVo order) {
+		orderService.setOrderStatus(order, OrderStatus.ORDERED);
+		orderService.setOrderStatus(order, OrderStatus.PAYED);
+		return "redirect:/order/receipt";
+	}
+	
+	@RequestMapping(value = "/receipt")
+	public String receipt() {
+		return "order/receipt";
 	}
 	
 }

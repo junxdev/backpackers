@@ -12,6 +12,6 @@
   		FROM option
   		LEFT JOIN option_group 
   		ON option.optionGroupCode = option_group.optionGroupCode 
-  		WHERE optionCode = '${optionCode}'
+  		WHERE optionCode = #{optionCode}
   	</select>
   </mapper>

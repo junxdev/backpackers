@@ -17,4 +17,5 @@ public interface OrderDao {
 	OrderVo selectOrder(String orderCode) throws SQLException;
 	OrderVo selectOrdersFilteredBy(OrderStatus orderStatus) throws SQLException;
 	List<OrderedProductVo> selectOrderItem(String orderCode) throws SQLException;
+	int updateOrder(OrderVo order);
 }

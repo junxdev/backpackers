@@ -67,8 +67,15 @@ public class OrderServiceImpl implements OrderService {
 			orderedProductShopList.add(shopSupport.getShopFilteredBy(product.getProductCode()));
 			product = orderSupport.findOption(product);
 		}
+		model.addAttribute("order", order);
 		model.addAttribute("productList", orderedProductList);
 		model.addAttribute("imageList", orderedProductImageList);
 		model.addAttribute("shopList", orderedProductShopList);
+	}
+	
+	@Override
+	public int setOrderStatus(OrderVo order, OrderStatus status) {
+		order.setOrderStatus(status);
+		return sqlSession.getMapper(OrderDao.class).updateOrder(order);
 	}
 }

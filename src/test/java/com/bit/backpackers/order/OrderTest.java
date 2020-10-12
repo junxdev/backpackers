@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.bit.backpackers.option.model.OptionDao;
 import com.bit.backpackers.option.model.entity.OptionVo;
 import com.bit.backpackers.order.model.OrderDao;
+import com.bit.backpackers.order.model.entity.OrderVo;
 import com.bit.backpackers.order.model.entity.OrderedProductVo;
 import com.bit.backpackers.order.service.OrderService;
 
@@ -68,5 +69,16 @@ public class OrderTest {
 		result.setSecondOptionGroupName(option.getOptionGroupName());
 		result.setSecondOptionName(option.getOptionName());
 		assertEquals("Black", result.getFirstOptionName());
+	}
+	
+	@Test
+	public void updateOrder() throws SQLException {
+		OrderDao dao = sqlSession.getMapper(OrderDao.class);
+		OrderVo order = dao.selectOrder("20201012045309");
+		OrderStatus test = OrderStatus.PAYED;
+		order.setOrderStatus(test);
+		dao.updateOrder(order);
+		order = dao.selectOrder("20201012045309");
+		assertEquals(test, order.getOrderStatus());
 	}
 }

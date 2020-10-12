@@ -125,7 +125,7 @@
 						<script type="text/javascript">
 							var orderItemForm = document.querySelector('#orderItemForm');
 							function buyNow() {
-								orderItemForm.action = "/backpackers/order";
+								orderItemForm.action = '"${root}"/order';
 								console.log(orderItemForm.action);
 								orderItemForm.method = 'POST';
 								console.log(orderItemForm.method);

@@ -94,7 +94,7 @@
 		ON shop.subCategoryCode = cat.subCategoryCode 
 		LEFT JOIN shop_product 
 		ON shop.shopCode = shop_product.shopCode
-		WHERE productCode = '${productCode}'
+		WHERE productCode = #{productCode}
   	</select>
   	
   </mapper>

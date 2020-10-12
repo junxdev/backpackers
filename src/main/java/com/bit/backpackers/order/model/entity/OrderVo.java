@@ -11,8 +11,9 @@ import lombok.ToString;
 @Getter @Setter @ToString
 public class OrderVo {
 
-	private OrderStatus orderStatus;
 	private String orderCode;
 	private Date orderDate;
+	private OrderStatus orderStatus;
+	private int orderAmount;
 	
 }
