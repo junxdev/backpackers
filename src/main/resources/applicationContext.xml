@@ -16,6 +16,7 @@
 	<!--  
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
 	 -->
+	 	
 		<property name="driverClass" value="${jdbc.class}" />
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.user}" />
@@ -40,7 +41,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations">
 			<array>
-				<value>classpath:/mapper/deptMapper.xml</value>
+				<value>classpath:/mapper/*Mapper.xml</value>
 			</array>
 		</property>
 	</bean>
