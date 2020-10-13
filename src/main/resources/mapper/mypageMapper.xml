@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.bit.backpackers.mapper.memberMapper">
+  	<select id="selectOne" resultType="com.bit.backpackers.model.entity.MyPageVo">
+  		select * from tbl_user where userId=#{userId}
+  	</select>
+  	<update id="updateOne">
+  		update tbl_user set
+  			userPw=#{userPw},
+  			userEmail=#{userEmail},
+  			userZipcode=#{userZipcode},
+  			userAddress1=#{userAddress1},
+  			userAddress2=#{userADdress2}
+  		where userId={#userId}
+  	</update>
+  	<delete id="deleteOne">
+  		delete from tbl_user where userId=#{userId}
+  	</delete>
+  </mapper>

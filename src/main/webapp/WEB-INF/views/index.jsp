@@ -5,14 +5,14 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<%@ include file="/WEB-INF/views/template/head.jspf" %>
+	<% request.setAttribute("root", request.getContextPath()); %>
+	<link rel="stylesheet" type="text/css" href="/${root }/resources/css/bootstrap.css">
+	<script type="text/javascript" src="/${root }/resources/js/bootstrap.js"></script>
+	<script type="text/javascript" src="/${root }/resources/js/jquery-1.12.4.js"></script>
+	<title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/template/nav.jspf" %>
-	<%@ include file="/WEB-INF/views/template/header.jspf" %>
-				<!-- Content starts -->
-					content
-				<!-- Content ends -->
-	<%@ include file="/WEB-INF/views/template/footer.jspf" %>
+	
+
 </body>
 </html>

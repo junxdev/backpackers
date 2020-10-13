@@ -6,7 +6,4 @@
   	<select id="selectAll" resultType="com.bit.backpackers.DeptVo">
   		SELECT * FROM dept03
   	</select>
-  	<insert id="insertOne">
-  		INSERT INTO dept03 (dname, loc) VALUES (#{dname}, #{loc})
-  	</insert>
   </mapper>
