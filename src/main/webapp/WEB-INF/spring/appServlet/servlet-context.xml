@@ -23,10 +23,12 @@
 	
 	<interceptors>
 		<interceptor>
-			<mapping path="/**"/>
-		<beans:bean id="LoginInterceptor" class="com.bit.backpackers.member.controller.LoginInterceptor"/>
+			<mapping path="/admin/**"/>
+		<beans:bean id="AdminInterceptor" class="com.bit.backpackers.member.controller.AdminInterceptor"/>
 		</interceptor>
-	</interceptors>
+		
+	</interceptors> 
+	
 		<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
 <beans:bean id="naverLoginBO" class="com.bit.backpackers.member.controller.NaverLoginBO" />
 

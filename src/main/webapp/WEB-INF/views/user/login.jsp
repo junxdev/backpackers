@@ -83,8 +83,8 @@
 				<button type="submit" class="btn btn-primary btn-lg btn-block">로그인</button>
 					<a href="register" class="btn btn-default btn-lg btn-block" role="btn">회원가입</a>
 			<div class="text">
-				<a href="#">아이디 찾기</a>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#">비밀번호 찾기</a>
+				<a href="${root}/user/findid">아이디 찾기</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="${root}/user/findpw">비밀번호 찾기</a>
 			</div>
 			</form>
 		</div>

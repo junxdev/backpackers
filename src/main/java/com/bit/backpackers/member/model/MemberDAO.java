@@ -1,5 +1,9 @@
 package com.bit.backpackers.member.model;
 
+import java.util.Date;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.javassist.compiler.ast.Member;
 
 import com.bit.backpackers.member.model.entity.LoginDTO;
@@ -9,27 +13,26 @@ import com.bit.backpackers.member.model.entity.MemberVo;
 
 public interface MemberDAO {
 
-	// ȸ������ ó��
+	// 회원가입 처리
     void register(MemberVo memberVo) throws Exception;
     
- // �α��� ó��
+    // 로그인 처리
     MemberVo login(LoginDTO loginDTO) throws Exception;
     
-    //���̵� �ߺ�üũ    
-    int idCheck(MemberVo memberVo) throws Exception;
+  //아이디 중복체크 
+    MemberVo idCheck(MemberVo memberVo) throws Exception;
+
+        // 회원 아이디 찾기
+    MemberVo findId(Map<String, Object> memberMap)throws Exception;
+        // 회원 비밀번호 찾기
+    MemberVo findPw(Map<String, Object> memberMap)throws Exception;
+    // 회원 비밀번호 변경
+    int modifyPw(MemberVo memberVo)throws Exception;
+
     
-    
-    //��й�ȣ üũ    
-    int pwCheck(MemberVo memberVo) throws Exception;
-    
-    // ȸ�� Ż��
+    //회원탈퇴
  	public void delete(MemberVo memberVo)throws Exception;
 
-	void createAuthKey(String userEmail, String authKey) throws Exception;
-
-	void userAuth(String userEmail) throws Exception;
-
-	void create(MemberVo memberVo);
 
 
     

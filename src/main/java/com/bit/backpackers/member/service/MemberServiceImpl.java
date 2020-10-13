@@ -1,22 +1,27 @@
 package com.bit.backpackers.member.service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.javassist.compiler.ast.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bit.backpackers.member.mail.MailHandler;
-import com.bit.backpackers.member.mail.TempKey;
 import com.bit.backpackers.member.model.MemberDAO;
 import com.bit.backpackers.member.model.entity.LoginDTO;
 import com.bit.backpackers.member.model.entity.MemberVo;
+
+import common.exception.MailException;
 
 
 
@@ -26,39 +31,126 @@ public class MemberServiceImpl implements MemberService {
 
 	private final MemberDAO memberDAo;
 	
+	@Autowired
+	JavaMailSender mailSender;
+	
+	@Autowired
+	//BCryptPasswordEncoder passwordEncoder;
+	
 	public MemberServiceImpl(MemberDAO memberDAo) {
 	this.memberDAo=memberDAo;
 	}
 	
-	 // È¸¿ø °¡ÀÔ Ã³¸®
+	// íšŒì›ê°€ì… ì²˜ë¦¬
 	@Override
 	public void register(MemberVo memberVo) throws Exception {
 		memberDAo.register(memberVo);
 		
 	}
-
+	// ë¡œê·¸ì¸ ì²˜ë¦¬
 	@Override
 	public MemberVo login(LoginDTO loginDTO) throws Exception {
 		 return memberDAo.login(loginDTO);
 	}
-
+	
 	/*
 	 * @Override public MemberVo idCheck(String user_id) throws Exception {
 	 * 
 	 * return memberDAo.idCheck(user_id); }
 	 */
+	// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 
+	
+	//ì•„ì´ë”” ì¤‘ë³µì²´í¬
 	@Override
 	public int idCheck(MemberVo memberVo) throws Exception {
-		int result = memberDAo.idCheck(memberVo);
+		MemberVo bean = memberDAo.idCheck(memberVo);
+		int result = 0;
+		if(bean != null) {
+			result = 1;
+		}
 		return result;
 	}
 
+
 	@Override
-	public int pwCheck(MemberVo memberVo) throws Exception {
-		int result = memberDAo.pwCheck(memberVo);
-		return result;
+	public MemberVo findId(Map<String, Object> memberMap) throws Exception {
+		// ì…ë ¥í•œ ì´ë¦„
+		// String userName = (String) memberMap.get("userName");
+		// ì…ë ¥í•œ ì´ë©”ì¼
+		// String userEmail = (String) memberMap.get("userEmail");
+
+		MemberVo memberVo = memberDAo.findId(memberMap);
+
+		return memberVo;
 	}
+
+	@Override
+	public MemberVo findPw(Map<String, Object> memberMap) throws Exception {
+		MemberVo memberVo = memberDAo.findPw(memberMap);
+
+		// System.out.println("ë¹„ë°€ë²ˆí˜¸ëŠ” " + member.getUserPw());
+
+		return memberVo;
+	}
+	//ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì •
+	@Override
+	public int modifyPw(MemberVo memberVo) throws Exception {
+		
+		String password = memberVo.getUserPw();
+		String secPw = "";
+		
+		if (password.equals(null)) {
+			// ê°œì¸ì •ë³´ update
+			memberDAo.modifyPw(memberVo);
+		} else {
+			 System.out.println(password + " ê²€ì¦");
+
+			// ë¹„ë°€ë²ˆí˜¸ ì•”í˜¸í™”
+			//secPw = passwordEncoder.encode(password);
+
+			// System.out.println(secPw + "ë¹„ë°€ë²ˆí˜¸ ì•”í˜¸í™” ëœ ê±° í™•ì¸");
+			
+			// ë¹„ë°€ë²ˆí˜¸ set
+			memberVo.setUserPw(password);
+			
+			// System.out.println(secPw + " ê²€ì¦");
+		}
+		return memberDAo.modifyPw(memberVo);
+	}
+
+
+	//ì´ë©”ì¼ì¸ì¦
+	public void mailSending(String email, int code_check) throws MailException {
+
+		String setfrom = "yoursitup90@gmail.com";
+		String tomail = email;
+		String title = "ì´ë©”ì¼ ë³€ê²½ ì¸ì¦ë©”ì¼ ì…ë‹ˆë‹¤.";
+		String htmlBody = "<h2> ì¸ì¦ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”!</h2>" + " ì¸ì¦ë²ˆí˜¸ëŠ” " + code_check + " ì…ë‹ˆë‹¤!";
+
+		try {
+
+			mailSender.send(new MimeMessagePreparator() {
+				public void prepare(MimeMessage mimeMessage) throws MessagingException {
+					MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+					// ë³´ë‚´ëŠ” ì´
+					message.setFrom(setfrom);
+					// ë°›ëŠ” ì´
+					message.setTo(tomail);
+					// ë©”ì¼ ì œëª©
+					message.setSubject(title);
+					// ë©”ì¼ ë‚´ìš©
+					// ë‘ë²ˆì§¸ booleanê°’ì€ html ì—¬ë¶€ (true : html , false : text)
+					message.setText(htmlBody, true);
+				};
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new MailException("M_ERROR_01");
+
+		}
+	}
+
 
 	@Override
 	public void delete(MemberVo memberVo) throws Exception {
@@ -66,53 +158,8 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
-	@Transactional
-	@Override 
-	public void create(MemberVo memberVo, JavaMailSender mailSender) throws Exception {
-		memberDAo.create(memberVo); // È¸¿ø°¡ÀÔ DAO
-		String key = new TempKey().getKey(50, false); // ÀÎÁõÅ° »ı¼º
-		memberDAo.createAuthKey(memberVo.getUserEmail(), key); // ÀÎÁõÅ° DBÀúÀå
-		MailHandler sendMail = new MailHandler(mailSender);
-		sendMail.setSubject("[È¨ÆäÀÌÁö ÀÌ¸ŞÀÏ ÀÎÁõ]"); // ¸ŞÀÏÁ¦¸ñ
-		sendMail.setText( // ¸ŞÀÏ³»¿ë
-				"<h1>¸ŞÀÏÀÎÁõ</h1>" +
-				"<a href='http://localhost/user/emailConfirm?userEmail=" + memberVo.getUserEmail() +
-				"&key=" + key +
-				"' target='_blenk'>ÀÌ¸ŞÀÏ ÀÎÁõ È®ÀÎ</a>");
-		sendMail.setFrom("¾ÆÀÌµğ@gmail.com", "º¸³¾»ç¶÷ ÀÌ¸§"); // º¸³½ÀÌ
-		sendMail.setTo(memberVo.getUserEmail()); // ¹Ş´ÂÀÌ
-		sendMail.send();
-	}
-
-	@Override
-	public void userAuth(String userEmail) throws Exception {
-		memberDAo.userAuth(userEmail);
-	}
-
-	@Override
-	public void signUp(MemberVo memberVo) throws MessagingException, UnsupportedEncodingException {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 
-	@Override
-	public MemberVo userAuth(MemberVo memberVo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void regist(MemberVo memberVo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void create(MemberVo memberVo) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

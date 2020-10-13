@@ -39,14 +39,14 @@ public class ContextTest {
 		 */
 	}
 	
-	@Test
+	//@Test
 	public void member() throws Exception {
 		MemberDAO dao = sqlSession.getMapper(MemberDAO.class);
-		MemberVo bean = dao.idCheck("yoursitup");
-		System.out.println(bean.toString());
+		//MemberVo bean = dao.idCheck("yoursitup");
+		//System.out.println(bean.toString());
 	}
 
-	@Test
+	//@Test
 	public void login() throws Exception {
 		MemberDAO dao = sqlSession.getMapper(MemberDAO.class);
 		MemberVo bean = dao.login(new LoginDTO("yoursitup", "123", false));

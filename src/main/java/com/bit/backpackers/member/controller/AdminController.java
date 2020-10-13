@@ -14,10 +14,10 @@ import com.bit.backpackers.member.service.MemberService;
 @RequestMapping("/admin")
 public class AdminController {
 
-	private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdminInterceptor.class);
 	private  MemberService memberService;
 	
-	// °ü¸®ÀÚ ÆäÀÌÁö
+	// ê´€ë¦¬ì í˜ì´ì§€
 		@RequestMapping(value = "/adminPage", method = RequestMethod.GET)
 		public String adminpage(@ModelAttribute("loginDTO") LoginDTO loginDTO)throws Exception {
 			logger.info("admin Login");

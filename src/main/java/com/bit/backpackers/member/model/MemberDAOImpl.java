@@ -1,5 +1,6 @@
 package com.bit.backpackers.member.model;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,104 +12,66 @@ import org.springframework.stereotype.Repository;
 import com.bit.backpackers.member.model.entity.LoginDTO;
 import com.bit.backpackers.member.model.entity.MemberVo;
 
-
-
 @Repository
-public class MemberDAOImpl implements MemberDAO{
+public class MemberDAOImpl implements MemberDAO {
 
-	
-    private static final String NAMESPACE = "com.bit.backpackers.mapper.memberMapper";
+	private static final String NAMESPACE = "com.bit.backpackers.mapper.memberMapper";
 
-    private final SqlSession sqlSession;
-    
-    @Inject
-    public MemberDAOImpl(SqlSession sqlSession) {
-    	this.sqlSession = sqlSession;
-    	
+	private final SqlSession sqlSession;
+
+	@Inject
+	public MemberDAOImpl(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+
 	}
-    
-    
-    
+	//íšŒì›ê°€ì…
 	@Override
 	public void register(MemberVo memberVo) throws Exception {
-		 sqlSession.insert(NAMESPACE + ".register", memberVo);
-		
+		sqlSession.insert(NAMESPACE + ".register", memberVo);
 	}
-
-
-
-	
-	 @Override 
-	 public MemberVo login(LoginDTO loginDTO) throws Exception { 
-		 return sqlSession.selectOne(NAMESPACE + ".login", loginDTO); 
-		}
-	 
-
-
-		/*
-		 * @Override public MemberVo idCheck(String user_id) throws Exception { return
-		 * sqlSession.selectOne(NAMESPACE + ".idCheck",user_id ); }
-		 */
-
-
-
+	//ë¡œê·¸ì¸
 	@Override
-	public int idCheck(MemberVo memberVo) throws Exception {
-		int result= sqlSession.selectOne("memberMapper.idCheck",memberVo);
-		return result;
+	public MemberVo login(LoginDTO loginDTO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE + ".login", loginDTO);
 	}
 
-
-
+	/*
+	 * @Override public MemberVo idCheck(String user_id) throws Exception { return
+	 * sqlSession.selectOne(NAMESPACE + ".idCheck",user_id ); }
+	 */
+	//ì•„ì´ë”” ì¤‘ë³µì²´í¬
 	@Override
-	public int pwCheck(MemberVo memberVo) throws Exception {
-		int result= sqlSession.selectOne("memberMapper.pwCheck",memberVo);
-		return result;
+	public MemberVo idCheck(MemberVo memberVo) throws Exception {
+		MemberVo bean = sqlSession.selectOne(NAMESPACE + ".idCheck", memberVo);
+		return bean;
 	}
 
+	// ì•„ì´ë”” ì°¾ê¸°
+	public MemberVo findId(Map<String, Object> memberMap) {
 
+		return sqlSession.selectOne(NAMESPACE + ".findId", memberMap);
+
+	}
+
+	// ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°
+	public MemberVo findPw(Map<String, Object> memberMap) {
+
+		return sqlSession.selectOne(NAMESPACE + ".findPw", memberMap);
+
+	}
+
+	// ë¹„ë°€ë²ˆí˜¸ ë³€ê²½
+	public int modifyPw(MemberVo memberVo) {
+		return sqlSession.update(NAMESPACE + ".modifyPw", memberVo);
+	}
 
 	@Override
 	public void delete(MemberVo memberVo) throws Exception {
-		// MemberVO¿¡ ´ã±ä °ªµéÀ» º¸³»Áİ´Ï´Ù.
-				// ±×·³ xml¿¡¼­ memberMapper.memberDelete¿¡ º¸½Ã¸é
-				//  #{userId}, #{userPass}¿¡ ÆÄ¶ó¹ÌÅÍ°ªÀÌ ¸ÅÄª
-	sqlSession.delete("memberMapper.delete",memberVo);
-		
-	}
-	
-	
-	
-	@Override
-	public void createAuthKey(String userEmail, String authKey) throws Exception { // ÀÎÁõÅ° DB¿¡ ³Ö±â
-		Map<String, Object> map = new HashMap<String, Object>();
-
-		map.put("userEmail", userEmail);
-		map.put("authKey", authKey);
-
-		sqlSession.selectOne(NAMESPACE + ".createAuthKey", map);
-	}
-
-	@Override
-	public void userAuth(String userEmail) throws Exception { // ÀÎÁõÅ° ÀÏÄ¡½Ã DBÄ®·³(ÀÎÁõ¿©ºÎ) false->true ·Î º¯°æ
-		sqlSession.update(NAMESPACE + ".userAuth", userEmail);
-	}
-
-
-
-	@Override
-	public void create(MemberVo memberVo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-
+		// MemberVOï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½İ´Ï´ï¿½.
+		// ï¿½×·ï¿½ xmlï¿½ï¿½ï¿½ï¿½ memberMapper.memberDeleteï¿½ï¿½ ï¿½ï¿½ï¿½Ã¸ï¿½
+		// #{userId}, #{userPass}ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½Í°ï¿½ï¿½ï¿½ ï¿½ï¿½Äª
+		sqlSession.delete("memberMapper.delete", memberVo);
 
 	}
 
-	
-	
-
+}
