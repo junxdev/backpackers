@@ -162,6 +162,8 @@ $(document).ready(function() {
 				       이름 &nbsp;  <input id="userName" name="userName" class="lostInput" type="text"></p>
 				       이메일 <input id="userEmail" name="userEmail" class="lostInput" type="text"></p>
 			    		<input type="button" id="login-button" onclick="findPw();" value="비밀번호찾기">
+			    		 <button type="button" class="btn btn-primary">Primary</button>
+			    		 <button type="button" class="btn btn-outline-danger btn-lg" onclick="findPw();"  >비밀번호찾기</button>
 			    		<br><br>
 			    		<span id="pw-msg" class="pw-msg" style="font-size: 14px; text-align: center;"></span>
 			    		
