@@ -9,16 +9,16 @@
 	<meta charset="UTF-8">
 	<%@ include file="/WEB-INF/views/template/head.jspf" %>
 	<link type="text/css" rel="stylesheet" href="${root }/resources/css/radio-toolbar.css"/>
+	<link type="text/css" rel="stylesheet" href="${root }/resources/css/shop.css"/>
 	<style type="text/css">
 		.input-group {
 			width: 50%;
 		}
-		.modalHidden {
-			display: none;
+		.first-option img {
+			border: 2px solid white;
 		}
-		.modalShow {
-			position: 
-			display: block;
+		.first-option-now > img {
+			border: 2px solid black;
 		}
 	</style>
 </head>
@@ -29,70 +29,68 @@
 		<section>
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-8">
-					<div>
+					<div class="shop-window">
 						<!-- 1개의 상품을 출력 -->
-						<c:forEach items="${shop.productList }" var="product">
-							<c:if test="${product.productCode eq productCode }">
-								<!-- 등록된 이미지가 없을 때 -->
-								<c:if test="${product.productImageList.size() == 0 }">
-									<img src="${root }/resources/img/no-image.jpg" style="width:300px;height:300px;"/>
-								</c:if>
-								<!-- 등록된 이미지들을 나열 -->
-								<c:forEach items="${product.productImageList }" var="image">
-									<img src="${root }/resources/img/${image.imageURL}"  style="width:300px;height:300px;"/>
-								</c:forEach>
-							</c:if>
+						<!-- 등록된 이미지가 없을 때 -->
+						<c:if test="${imageList.size() == 0 }">
+							<img src="${root }/resources/img/no-image.jpg" style="width:300px;height:300px;"/>
+						</c:if>
+						<c:forEach items="${imageList }" var="image">
+							<!-- 등록된 이미지들을 나열 -->
+							<img src="${root }/resources/img/${image.imageURL}"  style="width:300px;height:300px;"/>
 						</c:forEach>
 					</div>
 				</div><!-- image end -->
-				<div class="col-xs-12 col-sm-6 col-md-4">
-					<div>
+				<div class="col-xs-12 col-sm-6 col-md-4 shop-info">
+					<div class="shop-title">
 						<h2>${shop.shopTitle }</h2>
 					</div><!--  title end -->
-					<div>
+					<div class="shop-price">
 						<span>${shop.shopPrice }</span>
 					</div><!-- price end -->
-					<div>
+					<div class="first-option">
+						<!-- 대표 이미지 나열 -->
 						<div>
-							<span>${shop.productList[0].optionGroupName }</span>
+							<span>${productList[0].firstOptionGroupName }</span>
 						</div>
-						<c:forEach items="${shop.productList }" var="product" >
-							<!-- 등록된 이미지가 없을 때 -->
-							<span>
-								<c:if test="${product.productImageList.size() == 0 }">
-									<a title="${product.optionName }" href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }">
-										<img src="${root }/resources/img/no-image.jpg" style="width:50px;height:50px;"/>
-									</a>
-								</c:if>
-								<!-- 등록된 이미지 중 대표 이미지를 나열 -->
-								<c:forEach items="${product.productImageList }" var="image" end="0">
-									<c:if test="${image.imageOrder == 0 }">
-										<a title="${product.optionName }" href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }">
-											<img src="${root }/resources/img/${image.imageURL}"  style="width:50px;height:50px;"/>
-										</a>
+						<div>
+							<c:forEach items="${productList }" var="product" >
+								<span>
+									<!-- 등록된 대표 이미지가 없을 때 -->
+									<c:choose>
+										<c:when test="${product.productCode eq productCode }">
+											<a class="first-option-now" title="${product.firstOptionName }" href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }">
+										</c:when>
+										<c:otherwise>
+											<a title="${product.firstOptionName }" href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }">
+										</c:otherwise>
+									</c:choose>
+									<c:if test="${not titleImageMap.containsKey(product.productCode) }">
+											<img src="${root }/resources/img/no-image.jpg" style="width:50px;height:50px;"/>
 									</c:if>
-								</c:forEach>
-							</span>
-						</c:forEach>
+									<!-- 등록된 대표 이미지가 있을 때 -->
+									<c:if test="${titleImageMap.containsKey(product.productCode) }">
+											<img src="${root }/resources/img/${titleImageMap[product.productCode].imageURL }"  style="width:50px;height:50px;"/>
+									</c:if>
+									</a>
+								</span>
+							</c:forEach>
+						</div>
 					</div><!-- first option with image end -->
 					<form id="orderItemForm">
-					<div>
+					<div class="second-option">
 						<!-- 1개의 상품을 출력 -->
-						<c:forEach items="${shop.productList }" var="product">
-							<c:if test="${product.productCode eq productCode }">
-							<input type="text" id="productCode" name="productCode" value="${product.productCode }" hidden="true">
+						<input type="text" id="productCode" name="productCode" value="${productCode }" hidden="true">
 							<!-- 등록된 옵션(주로 사이즈)들을 나열 -->
-								<div>${product.productItemList[0].optionGroupName }</div>
-								<div class="radio-toolbar">
-									<c:forEach items="${product.productItemList }" var="item" varStatus="status">
-									    <input type="radio" id="itemOption${status.count }" name="optionCode" value="${item.optionCode }">
-									    <label for="itemOption${status.count }"  style="cursor:pointer"><span>${item.optionName }</span></label> 
-									</c:forEach>
-								</div>
-							</c:if>
-						</c:forEach>
+							<div>${optionList[0].optionGroupName }</div>
+							<div class="radio-toolbar">
+								<c:forEach items="${optionList }" var="option" varStatus="status">
+								    <input type="radio" id="itemOption${status.count }" name="secondOptionCode" value="${option.optionCode }">
+								    <label for="itemOption${status.count }"  style="cursor:pointer"><span>${option.optionName }</span></label> 
+								</c:forEach>
+							</div>
 					</div><!-- second option end -->
-					<div>
+					<div class="quantity">
 						<div>Quantity</div>
 						<div class="input-group">
 							<span class="input-group-btn">
@@ -149,17 +147,21 @@
 								document.querySelector('#btnCart').addEventListener('click', function() {
 									console.log('works');
 									var productCode = document.querySelector('#productCode').value;
-									var optionCode = document.querySelector('input[name="optionCode"]:checked').value;
+									var secondOptionCode = document.querySelector('input[name="secondOptionCode"]:checked').value;
 									var quantity = document.querySelector('#quantity').value;
 									$.ajax({
 										url:'/backpackers/order/cart',
 										method:'POST',
-										data: JSON.stringify({ 'productCode': productCode, 'optionCode': optionCode, 'quantity': quantity}),
+										data: JSON.stringify({ 'productCode': productCode, 'secondOptionCode': secondOptionCode, 'quantity': quantity}),
 										//data: { 'productCode': 'test', 'optionCode': 'test', 'quantity': 'test'},
 										contentType:'application/json; charset=utf-8',
 										dataType:'text',
 										success:function(data){
-											$('#myModal').modal('show');
+											var firstOption = document.querySelector('.first-option-now').title;
+											var secondOption = document.querySelector('input[name="secondOptionCode"]:checked').nextElementSibling.innerText;
+											document.querySelector('.cart-message').innerText = '장바구니에 ${shop.shopTitle }(' 
+													+ firstOption + ', ' + secondOption + ') 상품 ' + quantity + '개를 담았습니다!';
+											$('#cartModal').modal('show');
 										}
 									});
 								});
@@ -171,19 +173,19 @@
 		</section>
 		<!-- Content ends -->
 	<%@ include file="/WEB-INF/views/template/footer.jspf" %>
-	<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+	<!-- 장바구니 모달 -->
+	<div id="cartModal" class="modal fade" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<div class="modal-header">
+				<div class="modal-body">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Modal title</h4>
 				</div>
 				<div class="modal-body">
-					<p>One fine body&hellip;</p>
+					<div class="cart-message">장바구니</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+				<div class="modal-body">
+					<a href="${root }/order/cart" role="button" class="btn btn-primary">장바구니 보기</a>
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->

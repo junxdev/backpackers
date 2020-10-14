@@ -1,6 +1,10 @@
 package com.bit.backpackers.product;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -10,7 +14,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.bit.backpackers.image.model.entity.ImageVo;
+import com.bit.backpackers.option.model.OptionDao;
+import com.bit.backpackers.option.model.entity.OptionVo;
+import com.bit.backpackers.order.model.entity.OrderedProductVo;
 import com.bit.backpackers.product.model.ProductDao;
+import com.bit.backpackers.product.model.entity.ProductVo;
+import com.bit.backpackers.shop.Shop;
+import com.bit.backpackers.shop.model.entity.ShopVo;
 
 @Component
 public class Product {
@@ -19,13 +29,54 @@ public class Product {
 	
 	@Inject
 	SqlSession sqlSession;
+	@Inject
+	Shop shopSupport;
 	
 	public Product() {
 		log.info("Component : " + this.getClass().getName());
 	}
 	
-	public ImageVo getTitleImage(String productCode) throws SQLException {
+	public ProductVo nameFirstOption(ProductVo product) {
+		OptionVo option = sqlSession.getMapper(OptionDao.class).selectOptionFilteredBy(product.getFirstOptionCode());
+		product.setFirstOptionGroupName(option.getOptionGroupName());
+		product.setFirstOptionName(option.getOptionName());
+		return product;
+	}
+	
+	public List<OptionVo> secondOptionListByProduct(ProductVo product) {
+		return sqlSession.getMapper(OptionDao.class).selectOptionsByProduct(product.getProductCode());
+	}
+	
+	public ImageVo getTitleImageByProductCode(String productCode) throws SQLException {
 		return sqlSession.getMapper(ProductDao.class).selectTitleImageFilteredBy(productCode);
+	}
+	
+	public void putTitleImageByProductListIntoImageMap(Map<String, ImageVo> imageMap, List<ProductVo> productList) throws SQLException {
+		for(ProductVo product : productList) {
+			ImageVo image = getTitleImageByProductCode(product.getProductCode());
+			if(image == null) continue;
+			imageMap.put(product.getProductCode(), image);
+		}
+	}
+	
+	public List<ImageVo> getTitleImageList(List<? extends ProductVo> list) throws SQLException {
+		List<ImageVo> titleImageList = new ArrayList<ImageVo>();
+		for(ProductVo product : list) {
+			titleImageList.add(getTitleImageByProductCode(product.getProductCode()));
+		}
+		return titleImageList;
+	}
+	
+	public List<ShopVo> getShopList(List<? extends ProductVo> list) throws SQLException {
+		List<ShopVo> orderedProductShopList = new ArrayList<ShopVo>();
+		for(ProductVo product : list) {
+			orderedProductShopList.add(shopSupport.getShopFilteredBy(product.getProductCode()));
+		}
+		return orderedProductShopList;
+	}
+	
+	public List<ImageVo> getImages(ProductVo product) throws SQLException {
+		return sqlSession.getMapper(ProductDao.class).selectImageFilteredBy(product.getProductCode());
 	}
 
 }

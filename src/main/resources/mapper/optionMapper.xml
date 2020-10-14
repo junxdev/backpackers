@@ -14,4 +14,13 @@
   		ON option_table.optionGroupCode = option_group.optionGroupCode 
   		WHERE optionCode = #{optionCode}
   	</select>
+  	<select id="selectOptionsByProduct" resultType="OptionVo">
+  		SELECT 
+			optionGroupCode,
+		  	(SELECT optionGroupName FROM option_group WHERE option_group.optionGroupCode = product_item.optionGroupCode) AS optionGroupName,
+		  	optionCode, 
+		  	(SELECT optionName FROM option_table WHERE option_table.optionCode = product_item.optionCode) AS optionName
+  		FROM product_item
+  		WHERE productCode = #{productCode} 
+  	</select>
   </mapper>

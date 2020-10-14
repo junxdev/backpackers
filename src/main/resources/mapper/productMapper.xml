@@ -9,7 +9,24 @@
   	</select>
   	
   	<select id="selectImageFilteredBy" resultType="ImageVo">
-  		SELECT * FROM product_image WHERE productCode = #{productCode}
+  		SELECT * FROM product_image WHERE productCode = #{productCode} ORDER BY imageOrder ASC
+  	</select>
+  	
+  	<select id="selectByShopCode" resultType="ProductVo">
+  		SELECT productId, shopCode, productCode, optionGroupCode AS firstOptionGroupCode, optionCode AS firstOptionCode
+  		FROM product
+  		WHERE shopCode = #{shopCode}
+  	</select>
+  	
+  	<select id="selectItemByProductCode" resultType="ProductVo">
+  		SELECT 
+  			productCode, itemCode,
+  			(SELECT optionGroupName FROM option_group AS grp WHERE grp.optionGroupCode = product_item.optionGroupCode) AS firstOptionGroupName,
+  			optionGroupCode, 
+  			(SELECT optionName FROM option_table AS opt WHERE opt.optionCode = product_item.optionCode) AS firstOptionName,
+  			optionCode
+  		FROM product_item
+  		WHERE productCode = #{productCode}
   	</select>
   	
   </mapper>

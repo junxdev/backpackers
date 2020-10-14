@@ -7,6 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<%@ include file="/WEB-INF/views/template/head.jspf" %>
+	<link type="text/css" rel="stylesheet" href="${root }/resources/css/shop.css"/>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/template/nav.jspf" %>
@@ -40,13 +41,14 @@
 						<tbody>
 							<!-- 등록된 상품 페이지를 나열 -->
 							<c:forEach items="${shopList }" var="shop">
+							<c:set value="${productMap[shop.shopCode] }" var="productList"></c:set>
 								<tr>
 									<td>
 										<ul><span>${shop.shopTitle }</span>
 											<!-- 상품 페이지에 등록된 상품을 나열 -->
-											<c:forEach items="${shop.productList }" var="product">
+											<c:forEach items="${productList }" var="product">
 												<!-- 상품에 등록된 이미지가 없을 때 -->
-												<c:if test="${product.productImageList.size() == 0 }">
+												<c:if test="${not imageMap.containsKey(product.productCode)}">
 													<li>
 														<a href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }">
 															<img src="${root }/resources/img/no-image.jpg" style="width:300px;height:300px;"/>
@@ -54,13 +56,13 @@
 													</li>
 												</c:if>
 												<!-- 각 페이지에 등록된 상품들의 대표 이미지를 나열 -->
-												<c:forEach items="${product.productImageList }" var="image" end="0">
+												<c:if test="${imageMap.containsKey(product.productCode)}">
 													<li>
 														<a href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }">
-															<img src="${root }/resources/img/${image.imageURL }" style="width:300px;height:300px;"/>
+															<img src="${root }/resources/img/${imageMap[product.productCode].imageURL }" style="width:300px;height:300px;"/>
 														</a>
 													</li>
-												</c:forEach>
+												</c:if>
 											</c:forEach>
 										</ul>
 									</td>

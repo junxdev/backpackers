@@ -12,7 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.bit.backpackers.category.model.entity.CategoryVo;
+import com.bit.backpackers.image.model.entity.ImageVo;
 import com.bit.backpackers.item.model.entity.ItemVo;
+import com.bit.backpackers.option.model.entity.OptionVo;
+import com.bit.backpackers.order.Order;
+import com.bit.backpackers.product.Product;
+import com.bit.backpackers.product.model.ProductDao;
+import com.bit.backpackers.product.model.entity.ProductVo;
 import com.bit.backpackers.shop.model.ShopDao;
 import com.bit.backpackers.shop.model.entity.ShopVo;
 
@@ -21,45 +27,80 @@ public class ShopServiceImpl implements ShopService {
 
 	@Inject
 	SqlSession sqlSession;
+	@Inject
+	Product productSupport;
+	@Inject
+	Order orderSupport;
 	
 	@Override
 	public void getShoplist(Model model) throws SQLException {
-		List<ShopVo> list = sqlSession.getMapper(ShopDao.class).selectShopList();
-		model.addAttribute("shopList", list);
+		List<ShopVo> shopList = sqlSession.getMapper(ShopDao.class).selectShopList();
+		Map<String, List<ProductVo>> productMap = new HashMap<String, List<ProductVo>>();
+		Map<String, ImageVo> imageMap = new HashMap<String, ImageVo>();
+		for(ShopVo shop : shopList) {
+			List<ProductVo> productList = sqlSession.getMapper(ProductDao.class).selectByShopCode(shop.getShopCode());
+			productMap.put(shop.getShopCode(), productList);
+			productSupport.putTitleImageByProductListIntoImageMap(imageMap, productList);
+		}
+		model.addAttribute("shopList", shopList);
+		model.addAttribute("productMap", productMap);
+		model.addAttribute("imageMap", imageMap);
 	}
 	
 	@Override
 	public void getShoplist(Model model, String mainCategoryName) throws SQLException {
-		List<ShopVo> list = sqlSession.getMapper(ShopDao.class).selectShopList(mainCategoryName);
-		model.addAttribute("shopList", list);
+		List<ShopVo> shopList = sqlSession.getMapper(ShopDao.class).selectShopList(mainCategoryName);
+		Map<String, List<ProductVo>> productMap = new HashMap<String, List<ProductVo>>();
+		Map<String, ImageVo> imageMap = new HashMap<String, ImageVo>();
+		for(ShopVo shop : shopList) {
+			List<ProductVo> productList = sqlSession.getMapper(ProductDao.class).selectByShopCode(shop.getShopCode());
+			productMap.put(shop.getShopCode(), productList);
+			productSupport.putTitleImageByProductListIntoImageMap(imageMap, productList);
+		}
+		model.addAttribute("shopList", shopList);
+		model.addAttribute("productMap", productMap);
+		model.addAttribute("imageMap", imageMap);
 	}
 	
 	@Override
 	public void getShoplist(Model model, String mainCategoryName, String subCategoryName) throws SQLException {
-		List<ShopVo> list = sqlSession.getMapper(ShopDao.class).selectShopList(mainCategoryName, subCategoryName);
-		model.addAttribute("shopList", list);
+		List<ShopVo> shopList = sqlSession.getMapper(ShopDao.class).selectShopList(mainCategoryName, subCategoryName);
+		Map<String, List<ProductVo>> productMap = new HashMap<String, List<ProductVo>>();
+		Map<String, ImageVo> imageMap = new HashMap<String, ImageVo>();
+		for(ShopVo shop : shopList) {
+			List<ProductVo> productList = sqlSession.getMapper(ProductDao.class).selectByShopCode(shop.getShopCode());
+			productMap.put(shop.getShopCode(), productList);
+			productSupport.putTitleImageByProductListIntoImageMap(imageMap, productList);
+		}
+		model.addAttribute("shopList", shopList);
+		model.addAttribute("productMap", productMap);
+		model.addAttribute("imageMap", imageMap);
 	}
 	
 	@Override
 	public void getShop(Model model, String shopCode, String productCode) throws SQLException {
-		ShopDao dao = sqlSession.getMapper(ShopDao.class);
-		ShopVo shop = dao.selectShop(shopCode);
+		ShopVo shop = sqlSession.getMapper(ShopDao.class).selectShop(shopCode);
+		
+		List<ProductVo> productList = sqlSession.getMapper(ProductDao.class).selectByShopCode(shopCode);
+		List<ImageVo> imageList = null;
+		List<OptionVo> optionList = null;
+		for(ProductVo product : productList) {
+			if(product.getProductCode().equals(productCode)) {
+				imageList = productSupport.getImages(product);
+				optionList = productSupport.secondOptionListByProduct(product);
+			}
+			productSupport.nameFirstOption(product);
+		}
+		
+		Map<String, ImageVo> titleImageMap = new HashMap<String, ImageVo>();
+		productSupport.putTitleImageByProductListIntoImageMap(titleImageMap, productList);
+		
 		model.addAttribute("shop", shop);
 		model.addAttribute("productCode", productCode);
-		/*
-		 * List<ItemVo> itemList = dao.selectItemByShopArticleCode(shopCode);
-		 * Map<String, Map<String, String>> itemMap = new HashMap<String, Map<String,
-		 * String>>(); Map<String, String> optionMap = new HashMap<String, String>();
-		 * for(ItemVo item : itemList) { String firstOption = null; String
-		 * beforeFirstOption = firstOption; String secondOption = null; String itemCode
-		 * = null; try { firstOption = item.getFirstOptionCode(); secondOption =
-		 * item.getSecondOptionCode(); itemCode = item.getItemCode(); } catch
-		 * (NullPointerException e) { continue; } if(itemMap.get(firstOption) == null) {
-		 * optionMap.put(secondOption, shopCode); itemMap.put(firstOption, optionMap); }
-		 * else { optionMap = itemMap.get(firstOption); optionMap.put(secondOption,
-		 * shopCode); itemMap.put(firstOption, optionMap); } }
-		 * model.addAttribute("itemMap", itemMap);
-		 */
+		model.addAttribute("productList", productList);
+		model.addAttribute("imageList", imageList);
+		model.addAttribute("optionList", optionList);
+		model.addAttribute("titleImageMap", titleImageMap);
 	}
 
 }

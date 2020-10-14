@@ -6,6 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<%@ include file="/WEB-INF/views/template/head.jspf" %>
+	<link type="text/css" rel="stylesheet" href="${root }/resources/css/shop.css"/>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/template/nav.jspf" %>

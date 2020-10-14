@@ -37,25 +37,26 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public void putItemIntoCart(CartProductVo bean) throws SQLException {
 		for(int i = 0; i < bean.getQuantity(); i++) {
-			sqlSession.getMapper(CartDao.class).insertItem(bean.getProductCode(), bean.getOptionCode());
+			sqlSession.getMapper(CartDao.class).insertItem(bean.getProductCode(), bean.getSecondOptionCode());
 		}
 	}
 	
 
 	@Override
 	public void getCartByMemberId(Model model, String memberId) throws SQLException {
-		List<CartProductVo> cart = sqlSession.getMapper(CartDao.class).selectCart();
-		List<ImageVo> orderedProductImageList = new ArrayList<ImageVo>();
-		List<ShopVo> orderedProductShopList = new ArrayList<ShopVo>();
-		for(CartProductVo product : cart) {
+		List<CartProductVo> productList = sqlSession.getMapper(CartDao.class).selectCart();
+		List<ImageVo> titleImageList = new ArrayList<ImageVo>();
+		List<ShopVo> shopList = new ArrayList<ShopVo>();
+		for(CartProductVo product : productList) {
 //			log.info(product.getProductCode());
-			orderedProductImageList.add(productSupport.getTitleImage(product.getProductCode()));
-			orderedProductShopList.add(shopSupport.getShopFilteredBy(product.getProductCode()));
+			titleImageList.add(productSupport.getTitleImageByProductCode(product.getProductCode()));
+			shopList.add(shopSupport.getShopFilteredBy(product.getProductCode()));
 //			product = orderSupport.findOption(product);
 		}
 //		model.addAttribute("order", order);
-//		model.addAttribute("productList", orderedProductList);
-		model.addAttribute("imageList", orderedProductImageList);
-		model.addAttribute("shopList", orderedProductShopList);
+		model.addAttribute("productList", productList);
+		model.addAttribute("imageList", titleImageList);
+		model.addAttribute("shopList", shopList);
 	}
+
 }

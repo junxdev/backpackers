@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,9 +38,9 @@ public class OrderController {
 	CartService cartService;
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String createOrder(String productCode, String optionCode, int quantity, RedirectAttributes redirectAttributes) throws SQLException {
+	public String createOrder(OrderedProductVo product) throws SQLException {
 //		log.info(productCode + quantity);
-		orderService.putOrder(productCode, optionCode, quantity);
+		orderService.putOrder(product);
 		return "redirect:/order/checkout";
 	}
 	
@@ -50,7 +51,7 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/checkout", method = RequestMethod.POST)
-	public String checkout(@ModelAttribute OrderVo order, RedirectAttributes redirectAttributes) {
+	public String checkout(@ModelAttribute OrderVo order, RedirectAttributes redirectAttributes) throws SQLException {
 		orderService.changeOrderStatus(order, OrderStatus.ORDERED);
 		orderService.changeOrderStatus(order, OrderStatus.PAYED);
 		redirectAttributes.addFlashAttribute("order", order);
@@ -70,14 +71,16 @@ public class OrderController {
 	}
 	
 	@RequestMapping("/cart")
-	public String showCart(Model model) {
+	public String showCart(Model model, HttpSession session) throws SQLException {
+		String memberId = (String) session.getAttribute("username");
+		cartService.getCartByMemberId(model, memberId);
 		return "order/cart";
 	}
 	
 	@RequestMapping(value = "/cart", method = RequestMethod.POST)
 	@ResponseBody
 	public String putItemIntoCart(@RequestBody CartProductVo bean) throws SQLException {
-		log.info(bean.toString());
+//		log.info(bean.getProductCode());
 		cartService.putItemIntoCart(bean);
 		return bean.toString();
 //	public String putItemIntoCart(HttpServletRequest req) throws SQLException { 

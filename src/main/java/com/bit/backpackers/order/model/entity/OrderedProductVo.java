@@ -1,17 +1,16 @@
 package com.bit.backpackers.order.model.entity;
 
 import com.bit.backpackers.item.model.entity.ItemVo;
+import com.bit.backpackers.product.model.entity.ProductVo;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
-public class OrderedProductVo {
+public class OrderedProductVo extends ProductVo {
 	
-	private String shopCode, productCode;
-	private String firstOptionGroupCode, firstOptionGroupName, firstOptionCode, firstOptionName;
-	private String secondOptionGroupCode, secondOptionGroupName, secondOptionCode, secondOptionName;
+	private String orderCode;
 	private int quantity;
 	
 }

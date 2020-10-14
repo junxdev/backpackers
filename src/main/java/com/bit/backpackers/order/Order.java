@@ -15,6 +15,7 @@ import com.bit.backpackers.option.model.entity.OptionVo;
 import com.bit.backpackers.order.model.OrderDao;
 import com.bit.backpackers.order.model.entity.OrderVo;
 import com.bit.backpackers.order.model.entity.OrderedProductVo;
+import com.bit.backpackers.product.model.entity.ProductVo;
 
 @Component
 public class Order {
@@ -28,14 +29,14 @@ public class Order {
 		return orderCode;
 	}
 	
-	public OrderedProductVo findOption(OrderedProductVo orderedProduct) {
-		OptionVo option = sqlSession.getMapper(OptionDao.class).selectOptionFilteredBy(orderedProduct.getFirstOptionCode());
-		orderedProduct.setFirstOptionGroupName(option.getOptionGroupName());
-		orderedProduct.setFirstOptionName(option.getOptionName());
-		option = sqlSession.getMapper(OptionDao.class).selectOptionFilteredBy(orderedProduct.getSecondOptionCode());
-		orderedProduct.setSecondOptionGroupName(option.getOptionGroupName());
-		orderedProduct.setSecondOptionName(option.getOptionName());
-		return orderedProduct;
+	public ProductVo nameOption(ProductVo product) {
+		OptionVo option = sqlSession.getMapper(OptionDao.class).selectOptionFilteredBy(product.getFirstOptionCode());
+		product.setFirstOptionGroupName(option.getOptionGroupName());
+		product.setFirstOptionName(option.getOptionName());
+		option = sqlSession.getMapper(OptionDao.class).selectOptionFilteredBy(product.getSecondOptionCode());
+		product.setSecondOptionGroupName(option.getOptionGroupName());
+		product.setSecondOptionName(option.getOptionName());
+		return product;
 	}
 	
 	public void checkAnyOrder() throws SQLException {

@@ -6,6 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<%@ include file="/WEB-INF/views/template/head.jspf" %>
+	<link type="text/css" rel="stylesheet" href="${root }/resources/css/shop.css"/>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/template/nav.jspf" %>
@@ -25,14 +26,38 @@
 									</tr>
 								</thead>
 								<tbody>
+									<c:forEach items="${productList }" var="product" varStatus="status">
+									<c:forEach items="${shopList }" var="shop" begin="${status.index }" end="${status.index }">
+									<c:forEach items="${imageList }" var="image" begin="${status.index }" end="${status.index }">
 									<tr>
-										<td></td>
+										<td>
+											<a title="${shop.shopTitle }" href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }" target="_blank">
+												<span>
+													<!-- 등록된 이미지가 없을 때 -->
+													<c:if test="${image.imageURL eq null }">
+														<img src="${root }/resources/img/no-image.jpg" style="width:50px;height:50px;"/>
+													</c:if>
+													<!-- 등록된 이미지들을 나열 -->
+													<c:if test="${image.imageURL ne null }">
+													<img src="${root }/resources/img/${image.imageURL}"  style="width:50px;height:50px;"/>
+													</c:if>
+												</span>
+												<span>${shop.shopTitle }</span>
+												<span>(${product.firstOptionGroupName }: ${product.firstOptionName },</span>
+												<span>${product.secondOptionGroupName }: ${product.secondOptionName })</span>
+											</a>
+										</td>
+										<td>${shop.shopPrice }</td>
+										<td>${product.quantity }</td>
 									</tr>
+									</c:forEach>
+									</c:forEach>
+									</c:forEach>
 								</tbody>
 							</table>
 						</div><!-- 주문상품내역 end -->
 						<div class="pricetag"><!-- 총 결제 금액 -->
-							<span>총 결제 금액 : ${order.orderAmount }</span>
+							<span>총 결제 금액 : </span>
 						</div><!-- 총 결제 금액 end -->
 						<div class="delivery-info"><!-- 배송 정보 -->
 							<span>배송 정보 작업 중 : 회원 api 필요</span>

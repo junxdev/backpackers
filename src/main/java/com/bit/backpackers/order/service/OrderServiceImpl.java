@@ -48,49 +48,41 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public String putOrder(String productCode, String optionCode, int quantity) throws SQLException {
+	public String putOrder(OrderedProductVo product) throws SQLException {
 		orderSupport.checkAnyOrder();
 		String orderCode = createOrder();
-		for(int i = 0; i < quantity; i++) {
-			sqlSession.getMapper(OrderDao.class).insertOrderItem(orderCode, productCode, optionCode);
+		for(int i = 0; i < product.getQuantity(); i++) {
+			sqlSession.getMapper(OrderDao.class).insertOrderItem(orderCode, product.getProductCode(), product.getSecondOptionCode());
 		}
 		return orderCode;
 	}
 	
+	// CHECKING 중인 order 조회
 	@Override
 	public void getOrderDetail(Model model) throws SQLException {
 		OrderVo order = sqlSession.getMapper(OrderDao.class).selectOrdersFilteredBy(OrderStatus.CHECKING);
 		List<OrderedProductVo> orderedProductList = sqlSession.getMapper(OrderedProductDao.class).selectProductsFilteredBy(order.getOrderCode());
-		List<ImageVo> orderedProductImageList = new ArrayList<ImageVo>();
-		List<ShopVo> orderedProductShopList = new ArrayList<ShopVo>();
 		for(OrderedProductVo product : orderedProductList) {
-			log.info(product.getProductCode());
-			orderedProductImageList.add(productSupport.getTitleImage(product.getProductCode()));
-			orderedProductShopList.add(shopSupport.getShopFilteredBy(product.getProductCode()));
-			product = orderSupport.findOption(product);
+			product = (OrderedProductVo) orderSupport.nameOption(product);
 		}
 		model.addAttribute("order", order);
 		model.addAttribute("productList", orderedProductList);
-		model.addAttribute("imageList", orderedProductImageList);
-		model.addAttribute("shopList", orderedProductShopList);
+		model.addAttribute("imageList", productSupport.getTitleImageList(orderedProductList));
+		model.addAttribute("shopList", productSupport.getShopList(orderedProductList));
 	}
 	
+	// orderCode로 order 조회
 	@Override
 	public void getOrderDetailByOrderCode(Model model, String orderCode) throws SQLException {
 		OrderVo order = sqlSession.getMapper(OrderDao.class).selectOrder(orderCode);
 		List<OrderedProductVo> orderedProductList = sqlSession.getMapper(OrderedProductDao.class).selectProductsFilteredBy(orderCode);
-		List<ImageVo> orderedProductImageList = new ArrayList<ImageVo>();
-		List<ShopVo> orderedProductShopList = new ArrayList<ShopVo>();
 		for(OrderedProductVo product : orderedProductList) {
-			log.info(product.getProductCode());
-			orderedProductImageList.add(productSupport.getTitleImage(product.getProductCode()));
-			orderedProductShopList.add(shopSupport.getShopFilteredBy(product.getProductCode()));
-			product = orderSupport.findOption(product);
+			product = (OrderedProductVo) orderSupport.nameOption(product);
 		}
 		model.addAttribute("order", order);
 		model.addAttribute("productList", orderedProductList);
-		model.addAttribute("imageList", orderedProductImageList);
-		model.addAttribute("shopList", orderedProductShopList);
+		model.addAttribute("imageList", productSupport.getTitleImageList(orderedProductList));
+		model.addAttribute("shopList", productSupport.getShopList(orderedProductList));
 	}
 	
 	@Override
@@ -98,6 +90,5 @@ public class OrderServiceImpl implements OrderService {
 		order.setOrderStatus(status);
 		return sqlSession.getMapper(OrderDao.class).updateOrder(order);
 	}
-	
 	
 }

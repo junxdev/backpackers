@@ -18,6 +18,8 @@
   		GROUP BY
   			productCode,
   			optionCode
+  		ORDER BY
+  			cartDate ASC
   	</select>
   	<delete id="removeItem">
   		DELETE FROM cart 
