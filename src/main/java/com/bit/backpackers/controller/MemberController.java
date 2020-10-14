@@ -1,4 +1,4 @@
-package com.bit.backpackers.member.controller;
+package com.bit.backpackers.controller;
 
 import java.lang.reflect.Member;
 import java.util.Date;
@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bit.backpackers.member.model.entity.LoginDTO;
-import com.bit.backpackers.member.model.entity.MemberVo;
-import com.bit.backpackers.member.service.MemberService;
+import com.bit.backpackers.model.entity.LoginDTO;
+import com.bit.backpackers.model.entity.MemberVo;
+import com.bit.backpackers.service.MemberService;
 
 import common.exception.MailException;
 
@@ -39,14 +39,14 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 
-	// ë¡œê·¸ì¸ í˜ì´ì§€
+	// ë¡œê·¸?¸ ?˜?´ì§?
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET(@ModelAttribute("loginDTO") LoginDTO loginDTO) {
 		logger.info("login");
 		return "/user/login";
 	}
 
-	// ë¡œê·¸ì¸ ì²˜ë¦¬
+	// ë¡œê·¸?¸ ì²˜ë¦¬
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public String loginPOST(@ModelAttribute LoginDTO loginDTO, HttpSession httpSession, RedirectAttributes rttr)
 			throws Exception {
@@ -54,19 +54,20 @@ public class MemberController {
 		MemberVo user = memberService.login(loginDTO);
 
 		if (user != null) {
-			System.out.println("ë¡œê·¸ì¸ ì„±ê³µ");
+			System.out.println("·Î±×ÀÎ ¼º°ø");
 			httpSession.setAttribute("user", user);
-			// ë¡œê·¸ì¸ ìœ ì§€ë¥¼ ì„ íƒí•  ê²½ìš°
+			httpSession.setAttribute("username",loginDTO.getUserId());
+			// ë¡œê·¸?¸ ?œ ì§?ë¥? ?„ ?ƒ?•  ê²½ìš°
 			return "redirect:/";
 		} else {
-			System.out.println("ë¡œê·¸ì¸ ì‹¤íŒ¨");
+			System.out.println("ë¡œê·¸?¸ ?‹¤?Œ¨");
 			httpSession.setAttribute("user", null);
 			// rttr.addFlashAttribute("msg", false);
 			return "user/loginPost";
 		}
 	}
 
-	// ë¡œê·¸ì•„ì›ƒ
+	// ë¡œê·¸?•„?›ƒ
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception {
 
@@ -75,21 +76,21 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	// userë§ˆì´ í˜ì´ì§€
+	// userë§ˆì´ ?˜?´ì§?
 	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
 	public String mypage(@ModelAttribute("loginDTO") LoginDTO loginDTO) throws Exception {
 		logger.info("user Login");
 		return "/user/myPage";
 	}
 
-	// íšŒì›ê°€ì… í˜ì´ì§€
+	// ?šŒ?›ê°??… ?˜?´ì§?
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String registerGET() throws Exception {
 		System.out.println("00000001");
 		return "user/register";
 	}
 
-	// íšŒì›ê°€ì… ì²˜ë¦¬
+	// ?šŒ?›ê°??… ì²˜ë¦¬
 	@RequestMapping(value = "/registerPost", method = RequestMethod.POST)
 	public String registerPOST(@ModelAttribute MemberVo memberVo, RedirectAttributes redirectAttributes)
 			throws Exception {
@@ -103,7 +104,7 @@ public class MemberController {
 		return "/user/registerPost";
 	}
 
-	// ì•„ì´ë”” ì¤‘ë³µ ì²´í¬
+	// ?•„?´?”” ì¤‘ë³µ ì²´í¬
 	@ResponseBody
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
 	public int idCheck(@ModelAttribute MemberVo memberVo) throws Exception {
@@ -111,14 +112,14 @@ public class MemberController {
 		System.out.println("login check");
 		return result;
 	}
-//ì•„ì´ë”” ì°¾ê¸° í˜ì´ì§€
+//?•„?´?”” ì°¾ê¸° ?˜?´ì§?
 	@RequestMapping(value = "/findid", method = RequestMethod.GET)
 	public String getFindId() {
 		// System.out.println("findid Call");
 
 		return "/user/findid";
 	}
-//ì•„ì´ë”” ì°¾ê¸°
+//?•„?´?”” ì°¾ê¸°
 	@RequestMapping(value = "/findidAjax")
 	@ResponseBody
 	public String findId(@RequestParam Map<String, Object> memberMap) throws Exception {
@@ -139,14 +140,14 @@ public class MemberController {
 		return result;
 	
 	}
-//ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸° í˜ì´ì§€
+//ë¹„ë?ë²ˆí˜¸ ì°¾ê¸° ?˜?´ì§?
 	@RequestMapping(value = "/findpw", method = RequestMethod.GET)
 	public String getFindPw() {
 		// System.out.println("findpw Call");
 
 		return "/user/findpw";
 	}
-//ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°
+//ë¹„ë?ë²ˆí˜¸ ì°¾ê¸°
 	@RequestMapping(value = "/findpwAjax")
 	@ResponseBody
 	public String FindPw(@RequestParam Map<String, Object> memberMap) throws Exception {
@@ -165,7 +166,7 @@ public class MemberController {
 		}
 		return result;
 	}
-	//ë¹„ë°€ë²ˆí˜¸ ë³€ê²½
+	//ë¹„ë?ë²ˆí˜¸ ë³?ê²?
 	@RequestMapping("/pwModify")
 	public ModelAndView modifyPw(MemberVo memberVo) throws Exception {
 		
@@ -174,10 +175,10 @@ public class MemberController {
 		int res = memberService.modifyPw(memberVo);
 		
 		if (res < 0) {
-			System.out.println("ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì • ì‹¤íŒ¨");
+			System.out.println("ë¹„ë?ë²ˆí˜¸ ?ˆ˜? • ?‹¤?Œ¨");
 			mav.setViewName("redirect:findpw");
 		} else {
-			System.out.println("ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì • ì„±ê³µ");
+			System.out.println("ë¹„ë?ë²ˆí˜¸ ?ˆ˜? • ?„±ê³?");
 			mav.setViewName("redirect:login");
 		}
 		
@@ -193,7 +194,7 @@ public class MemberController {
 
 		memberService.mailSending(email, code_check);
 
-		System.out.println("ë©”ì¼ ë°œì†¡ ì„±ê³µ");
+		System.out.println("ë©”ì¼ ë°œì†¡ ?„±ê³?");
 		
 
 		return mav;
@@ -202,21 +203,21 @@ public class MemberController {
 
 	
 
-	// íšŒì› íƒˆí‡´ get
+	// ?šŒ?› ?ƒˆ?‡´ get
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String memberDeleteView() throws Exception {
 		return "user/delete";
 	}
 
-	// íšŒì› íƒˆí‡´ post
+	// ?šŒ?› ?ƒˆ?‡´ post
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String Delete(MemberVo memberVo, HttpSession session, RedirectAttributes rttr) throws Exception {
 
-		// ì„¸ì…˜ì— ìˆëŠ” memberë¥¼ ê°€ì ¸ì™€ memberë³€ìˆ˜ì— ë„£ì–´ì¤ë‹ˆë‹¤.
+		// ?„¸?…˜?— ?ˆ?Š” memberë¥? ê°?? ¸?? memberë³??ˆ˜?— ?„£?–´ì¤ë‹ˆ?‹¤.
 		MemberVo user = (MemberVo) session.getAttribute("user");
-		// ì„¸ì…˜ì—ìˆëŠ” ë¹„ë°€ë²ˆí˜¸
+		// ?„¸?…˜?—?ˆ?Š” ë¹„ë?ë²ˆí˜¸
 		String sessionPass = user.getUserPw();
-		// voë¡œ ë“¤ì–´ì˜¤ëŠ” ë¹„ë°€ë²ˆí˜¸
+		// voë¡? ?“¤?–´?˜¤?Š” ë¹„ë?ë²ˆí˜¸
 		String voPass = memberVo.getUserPw();
 
 		if (!(sessionPass.equals(voPass))) {

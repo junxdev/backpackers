@@ -1,4 +1,4 @@
-package com.bit.backpackers.member.controller;
+package com.bit.backpackers.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.bit.backpackers.member.model.entity.MemberVo;
+import com.bit.backpackers.model.entity.MemberVo;
 
 
 
@@ -19,13 +19,13 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		MemberVo user = (MemberVo)session.getAttribute("user");
 	
-		// ë¡œê·¸ì¸í•˜ì§€ ì•Šì€ ê²½ìš°
+		// ë¡œê·¸?¸?•˜ì§? ?•Š?? ê²½ìš°
 		if(user == null) {
 			response.sendRedirect("/backpackers/user/login");
 			return false;
 		}
 		
-		// ì¼ë°˜ íšŒì›ì´ ë¡œê·¸ì¸í•œ ê²½ìš°
+		// ?¼ë°? ?šŒ?›?´ ë¡œê·¸?¸?•œ ê²½ìš°
 		if(user.getGrade() != 1) {
 			response.sendRedirect("/backpackers");
 			return false;
