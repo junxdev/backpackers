@@ -54,8 +54,8 @@
   	<select id="selectProductByShopCode" resultMap="productResult">
   		SELECT shopCode, productCode, 
   			(SELECT optionGroupName FROM option_group AS grp WHERE grp.optionGroupCode = prod.optionGroupCode) AS optionGroupName,
-  			(SELECT optionName FROM option AS opt WHERE opt.optionCode = prod.optionCode) AS optionName
-  		FROM shop_product as prod
+  			(SELECT optionName FROM option_table AS opt WHERE opt.optionCode = prod.optionCode) AS optionName
+  		FROM product as prod
   		WHERE shopCode = #{shopCode}
   	</select>
   	
@@ -68,7 +68,7 @@
   			productCode, itemCode,
   			(SELECT optionGroupName FROM option_group AS grp WHERE grp.optionGroupCode = product_item.optionGroupCode) AS optionGroupName,
   			optionGroupCode, 
-  			(SELECT optionName FROM option AS opt WHERE opt.optionCode = product_item.optionCode) AS optionName,
+  			(SELECT optionName FROM option_table AS opt WHERE opt.optionCode = product_item.optionCode) AS optionName,
   			optionCode
   		FROM product_item
   		WHERE productCode = #{productCode}
@@ -92,8 +92,8 @@
 			ON sub.mainCategoryCode = main.mainCategoryCode
 			) AS cat 
 		ON shop.subCategoryCode = cat.subCategoryCode 
-		LEFT JOIN shop_product 
-		ON shop.shopCode = shop_product.shopCode
+		LEFT JOIN product 
+		ON shop.shopCode = product.shopCode
 		WHERE productCode = #{productCode}
   	</select>
   	

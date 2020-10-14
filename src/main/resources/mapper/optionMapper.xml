@@ -5,13 +5,13 @@
   <mapper namespace="com.bit.backpackers.option.model.OptionDao">
   	<select id="selectOptionFilteredBy" resultType="OptionVo">
   		SELECT 
-  			option.optionGroupCode, 
+  			option_table.optionGroupCode, 
   			optionGroupName,
   			optionCode, 
   			optionName   
-  		FROM option
+  		FROM option_table
   		LEFT JOIN option_group 
-  		ON option.optionGroupCode = option_group.optionGroupCode 
+  		ON option_table.optionGroupCode = option_group.optionGroupCode 
   		WHERE optionCode = #{optionCode}
   	</select>
   </mapper>

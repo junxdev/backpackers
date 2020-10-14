@@ -11,8 +11,9 @@ import com.bit.backpackers.order.model.entity.OrderedProductVo;
 public interface OrderService {
 	
 	String createOrder() throws SQLException;
-	void putOrder(String productCode, String optionCode, int quantity) throws SQLException;
-	void getOrderDetailByOrderCode(Model model) throws SQLException;
-	int setOrderStatus(OrderVo order, OrderStatus status); 
+	String putOrder(String productCode, String optionCode, int quantity) throws SQLException;
+	void getOrderDetail(Model model) throws SQLException;
+	void getOrderDetailByOrderCode(Model model, String orderCode) throws SQLException;
+	int changeOrderStatus(OrderVo order, OrderStatus status);
 
 }

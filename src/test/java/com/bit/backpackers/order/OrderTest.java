@@ -26,7 +26,7 @@ public class OrderTest {
 	@Inject
 	SqlSession sqlSession;
 
-	/* OrderCode 생성 테스트 */
+	/* OrderCode �깮�꽦 �뀒�뒪�듃 */
 	@Test
 	public void createOrderCode() {
 		Order order = new Order();
@@ -80,5 +80,14 @@ public class OrderTest {
 		dao.updateOrder(order);
 		order = dao.selectOrder("20201012045309");
 		assertEquals(test, order.getOrderStatus());
+	}
+	
+	@Test
+	public void ifNoOrderIsNull() throws SQLException {
+		OrderDao dao = sqlSession.getMapper(OrderDao.class);
+		OrderVo order = dao.selectOrdersFilteredBy(OrderStatus.DELIVERED);
+		System.out.println(order);
+		assertNull(order);
+		
 	}
 }

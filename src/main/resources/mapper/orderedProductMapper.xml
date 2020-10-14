@@ -6,17 +6,17 @@
   	<select id="selectProductsFilteredBy" resultType="OrderedProductVo">
   		SELECT 
 			orders.orderCode,
-  			shop.productCode, 
-  			shop.optionCode as firstOptionCode,
+  			prod.productCode, 
+  			prod.optionCode as firstOptionCode,
             orders.optionCode as secondOptionCode,
             count(orders.optionCode) as quantity
   		FROM order_item AS orders 
-  		LEFT JOIN shop_product AS shop
-  		ON orders.productCode = shop.productCode
+  		LEFT JOIN product AS prod
+  		ON orders.productCode = prod.productCode
   		WHERE orderCode = #{orderCode}
         GROUP BY 
         	orders.orderCode,
-  			shop.productCode,
+  			prod.productCode,
             firstOptionCode,
             secondOptionCode
   	</select>

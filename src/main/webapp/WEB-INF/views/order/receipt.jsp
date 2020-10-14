@@ -15,7 +15,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="content">
-						<div class="order-form"><!-- 주문상품내역 -->
+						<div class="receipt-form"><!-- 주문상품내역 -->
 							<table class="table">
 								<thead>
 									<tr>
@@ -56,39 +56,14 @@
 							</table>
 						</div><!-- 주문상품내역 end -->
 						<div class="pricetag"><!-- 총 결제 금액 -->
-							<span>총 결제 금액 : </span>
-							<span></span>
+							<span>총 결제 금액 : ${order.orderAmount }</span>
 						</div><!-- 총 결제 금액 end -->
 						<div class="delivery-info"><!-- 배송 정보 -->
 							<span>배송 정보 작업 중 : 회원 api 필요</span>
 						</div><!-- 배송 정보 end -->
 						<div class="purchase-form"><!-- 버튼 -->
-							<form action="${root }/order/checkout" method="POST">
-								<input type="number" name="orderAmount" hidden="true">
-								<input type="text" name="orderCode" value="${order.orderCode }" hidden="true">
-								<button type="submit" class="btn btn-default">결제하기</button>
-								<button type="button" class="btn btn-default">취소하기</button>
-							</form>
+							<a href="${root }/shop" class="btn btn-default" role="btn">다른 상품 쇼핑하기</a>
 						</div><!-- 버튼 end -->
-						<script type="text/javascript">
-							var orderAmount = 0;
-							function sumOrderAmount() {
-								document.querySelectorAll('.order-form tbody tr').forEach(function(e) {
-								    console.log(e.children.item(1).innerText);
-								    console.log(e.children.item(2).innerText);
-								    orderAmount += e.children.item(1).innerText * e.children.item(2).innerText;
-								});
-							}
-							function presentOrderAmount() {
-								document.querySelector('.pricetag').lastElementChild.innerText = orderAmount;
-							}
-							function setPurchaseAmount() {
-								document.querySelector('.purchase-form input:first-child').value = orderAmount;
-							}
-							sumOrderAmount();
-							presentOrderAmount();
-							setPurchaseAmount();
-						</script>
 					</div><!-- content end -->
 				</div><!-- col end -->
 			</div><!-- row end -->

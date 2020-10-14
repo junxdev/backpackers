@@ -13,6 +13,13 @@
 		.input-group {
 			width: 50%;
 		}
+		.modalHidden {
+			display: none;
+		}
+		.modalShow {
+			position: 
+			display: block;
+		}
 	</style>
 </head>
 <body>
@@ -73,7 +80,7 @@
 						<!-- 1개의 상품을 출력 -->
 						<c:forEach items="${shop.productList }" var="product">
 							<c:if test="${product.productCode eq productCode }">
-							<input type="text" name="productCode" value="${productCode }" hidden="true">
+							<input type="text" id="productCode" name="productCode" value="${product.productCode }" hidden="true">
 							<!-- 등록된 옵션(주로 사이즈)들을 나열 -->
 								<div>${product.productItemList[0].optionGroupName }</div>
 								<div class="radio-toolbar">
@@ -125,7 +132,7 @@
 						<script type="text/javascript">
 							var orderItemForm = document.querySelector('#orderItemForm');
 							function buyNow() {
-								orderItemForm.action = '"${root}"/order';
+								orderItemForm.action = '${root}/order';
 								console.log(orderItemForm.action);
 								orderItemForm.method = 'POST';
 								console.log(orderItemForm.method);
@@ -138,23 +145,25 @@
 									console.log('buy after');
 								});								
 							})();
-							/* (function() {
+							(function() {
 								document.querySelector('#btnCart').addEventListener('click', function() {
-									var itemCode = document.querySelector('input[name="radioOption"]:checked').value;
+									console.log('works');
+									var productCode = document.querySelector('#productCode').value;
+									var optionCode = document.querySelector('input[name="optionCode"]:checked').value;
 									var quantity = document.querySelector('#quantity').value;
 									$.ajax({
-										url:'/backpackers/order',
+										url:'/backpackers/order/cart',
 										method:'POST',
-										data:JSON.stringify({ 'itemCode': itemCode, 'quantity': quantity }),
+										data: JSON.stringify({ 'productCode': productCode, 'optionCode': optionCode, 'quantity': quantity}),
+										//data: { 'productCode': 'test', 'optionCode': 'test', 'quantity': 'test'},
 										contentType:'application/json; charset=utf-8',
 										dataType:'text',
 										success:function(data){
-											console.log('sth');
-											window.alert(data);
+											$('#myModal').modal('show');
 										}
 									});
 								});
-							})(); */
+							})();
 						</script>
 					</div>
 				</div><!-- info end -->
@@ -162,5 +171,22 @@
 		</section>
 		<!-- Content ends -->
 	<%@ include file="/WEB-INF/views/template/footer.jspf" %>
+	<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<p>One fine body&hellip;</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 </body>
 </html>

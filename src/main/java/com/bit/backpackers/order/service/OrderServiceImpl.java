@@ -48,15 +48,17 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public void putOrder(String productCode, String optionCode, int quantity) throws SQLException {
+	public String putOrder(String productCode, String optionCode, int quantity) throws SQLException {
+		orderSupport.checkAnyOrder();
 		String orderCode = createOrder();
 		for(int i = 0; i < quantity; i++) {
 			sqlSession.getMapper(OrderDao.class).insertOrderItem(orderCode, productCode, optionCode);
 		}
+		return orderCode;
 	}
 	
 	@Override
-	public void getOrderDetailByOrderCode(Model model) throws SQLException {
+	public void getOrderDetail(Model model) throws SQLException {
 		OrderVo order = sqlSession.getMapper(OrderDao.class).selectOrdersFilteredBy(OrderStatus.CHECKING);
 		List<OrderedProductVo> orderedProductList = sqlSession.getMapper(OrderedProductDao.class).selectProductsFilteredBy(order.getOrderCode());
 		List<ImageVo> orderedProductImageList = new ArrayList<ImageVo>();
@@ -74,8 +76,28 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public int setOrderStatus(OrderVo order, OrderStatus status) {
+	public void getOrderDetailByOrderCode(Model model, String orderCode) throws SQLException {
+		OrderVo order = sqlSession.getMapper(OrderDao.class).selectOrder(orderCode);
+		List<OrderedProductVo> orderedProductList = sqlSession.getMapper(OrderedProductDao.class).selectProductsFilteredBy(orderCode);
+		List<ImageVo> orderedProductImageList = new ArrayList<ImageVo>();
+		List<ShopVo> orderedProductShopList = new ArrayList<ShopVo>();
+		for(OrderedProductVo product : orderedProductList) {
+			log.info(product.getProductCode());
+			orderedProductImageList.add(productSupport.getTitleImage(product.getProductCode()));
+			orderedProductShopList.add(shopSupport.getShopFilteredBy(product.getProductCode()));
+			product = orderSupport.findOption(product);
+		}
+		model.addAttribute("order", order);
+		model.addAttribute("productList", orderedProductList);
+		model.addAttribute("imageList", orderedProductImageList);
+		model.addAttribute("shopList", orderedProductShopList);
+	}
+	
+	@Override
+	public int changeOrderStatus(OrderVo order, OrderStatus status) {
 		order.setOrderStatus(status);
 		return sqlSession.getMapper(OrderDao.class).updateOrder(order);
 	}
+	
+	
 }

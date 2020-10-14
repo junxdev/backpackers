@@ -12,5 +12,6 @@
   		<typeAlias alias="OrderVo" type="com.bit.backpackers.order.model.entity.OrderVo"/>
   		<typeAlias alias="ItemVo" type="com.bit.backpackers.item.model.entity.ItemVo"/>
   		<typeAlias alias="OptionVo" type="com.bit.backpackers.option.model.entity.OptionVo"/>
+  		<typeAlias alias="CartProductVo" type="com.bit.backpackers.cart.model.entity.CartProductVo"/>
   	</typeAliases>
   </configuration>

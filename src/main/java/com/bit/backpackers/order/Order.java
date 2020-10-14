@@ -1,5 +1,6 @@
 package com.bit.backpackers.order;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Component;
 
 import com.bit.backpackers.option.model.OptionDao;
 import com.bit.backpackers.option.model.entity.OptionVo;
+import com.bit.backpackers.order.model.OrderDao;
+import com.bit.backpackers.order.model.entity.OrderVo;
 import com.bit.backpackers.order.model.entity.OrderedProductVo;
 
 @Component
@@ -33,5 +36,14 @@ public class Order {
 		orderedProduct.setSecondOptionGroupName(option.getOptionGroupName());
 		orderedProduct.setSecondOptionName(option.getOptionName());
 		return orderedProduct;
+	}
+	
+	public void checkAnyOrder() throws SQLException {
+		OrderDao dao = sqlSession.getMapper(OrderDao.class);
+		OrderVo order = dao.selectOrdersFilteredBy(OrderStatus.CHECKING);
+		if(order != null) {
+			order.setOrderStatus(OrderStatus.CANCELED);
+			dao.updateOrder(order);
+		}
 	}
 }
