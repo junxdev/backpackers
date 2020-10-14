@@ -43,6 +43,7 @@
 	<!-- 
 	<aop:aspectj-autoproxy> </aop:aspectj-autoproxy>
 	
+
 	<beans:bean id="transactionManager" 
 	class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<beans:property name="dataSource" ref="dataSource"/>
@@ -53,6 +54,7 @@
 			<tx:method name="*" propagation="REQUIRED" isolation="DEFAULT"/>
 		</tx:attributes>
 	</tx:advice>
+
 
 	
 	<aop:config>
