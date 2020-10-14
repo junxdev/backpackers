@@ -26,7 +26,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations">
 			<array>
-				<value>classpath:/mapper/deptMapper.xml</value>
+				<value>classpath:/mapper/gearMapper.xml</value>
 			</array>
 		</property>
 	</bean>
