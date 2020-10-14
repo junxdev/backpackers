@@ -49,6 +49,7 @@
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:/mybatis-config.xml" />
 		<property name="mapperLocations">
 			<array>
 				<value>classpath:/mapper/*Mapper.xml</value>
@@ -62,7 +63,11 @@
 	</bean>
 
 	<!-- gmail -->
+<<<<<<< HEAD
 	<!-- <bean id="mailSender"
+=======
+	<bean id="mailSender"
+>>>>>>> master-test
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
@@ -74,9 +79,17 @@
 				<prop key="mail.smtp.auth">true</prop>
 			</props>
 		</property>
+<<<<<<< HEAD
 	</bean> -->
+=======
+	</bean>
+>>>>>>> master-test
 	<!-- <bean id="email" class="com.bit.backpackers.member.model.entity.EmailVo">
 	</bean>
 	<bean id="emailSender" class="com.bit.backpackers.member.mail.EmailSender">
 	</bean> -->
+<<<<<<< HEAD
 </beans>
+=======
+</beans>
+>>>>>>> master-test

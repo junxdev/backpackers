@@ -5,14 +5,19 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<% request.setAttribute("root", request.getContextPath()); %>
-	<link rel="stylesheet" type="text/css" href="/${root }/resources/css/bootstrap.css">
-	<script type="text/javascript" src="/${root }/resources/js/bootstrap.js"></script>
-	<script type="text/javascript" src="/${root }/resources/js/jquery-1.12.4.js"></script>
-	<title>Insert title here</title>
-</head>
-<body>
-	
-
+	<%@ include file="/WEB-INF/views/template/head.jspf" %>
+	<%@ include file="/WEB-INF/views/template/nav.jspf" %>
+	<%@ include file="/WEB-INF/views/template/header.jspf" %>
+		<!-- Content starts 필요 시 임의로 그리드 조정 -->
+		<section>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="content">
+						콘텐츠를 입력하세요
+					</div>
+				</div>
+			</div>
+		</section>
+	<%@ include file="/WEB-INF/views/template/footer.jspf" %>
 </body>
 </html>

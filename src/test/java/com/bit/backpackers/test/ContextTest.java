@@ -19,8 +19,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bit.backpackers.DeptDao;
-import com.bit.backpackers.DeptVo;
+import com.bit.backpackers.member.model.MemberDAO;
+import com.bit.backpackers.member.model.entity.LoginDTO;
+import com.bit.backpackers.member.model.entity.MemberVo;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/applicationContext.xml")
@@ -31,8 +33,23 @@ public class ContextTest {
 	
 	@Test
 	public void dataSource() throws SQLException {
-		DeptDao deptDao = sqlSession.getMapper(DeptDao.class);
-		List<DeptVo> list = deptDao.selectAll();
+		/*
+		 * DeptDao deptDao = sqlSession.getMapper(DeptDao.class); List<DeptVo> list =
+		 * deptDao.selectAll();
+		 */
+	}
+	
+	//@Test
+	public void member() throws Exception {
+		MemberDAO dao = sqlSession.getMapper(MemberDAO.class);
+		//MemberVo bean = dao.idCheck("yoursitup");
+		//System.out.println(bean.toString());
 	}
 
+	//@Test
+	public void login() throws Exception {
+		MemberDAO dao = sqlSession.getMapper(MemberDAO.class);
+		MemberVo bean = dao.login(new LoginDTO("yoursitup", "123", false));
+		System.out.println(bean.toString());
+	}
 }
