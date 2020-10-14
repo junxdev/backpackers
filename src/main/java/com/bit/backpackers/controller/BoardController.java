@@ -66,7 +66,7 @@ public class BoardController {
 //		 boardService.ditailService(model, board_no);
 //			 return "board/boardpost";
 //		 }
-	 
+	   
 	 //�뜝�럥�냺�뼨�먯삕
 	 @RequestMapping(value = "{board_no}",method =RequestMethod.POST )
 	 public String replyinsert(@ModelAttribute ReplyVo reply,HttpSession session){
