@@ -17,6 +17,7 @@
             , address
             , detailAddress
             , extraAddress
+            , phoneNum
         ) VALUES (
             #{userId}
             , #{userPw}
@@ -26,6 +27,7 @@
             , #{address}
             , #{detailAddress}
             , #{extraAddress}
+            , #{phoneNum}
         )
     </insert>
     

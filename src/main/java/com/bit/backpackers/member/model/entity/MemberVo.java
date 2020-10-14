@@ -11,24 +11,21 @@ public class MemberVo {
     private Date userJoinDate;
     private Date userLoginDate;
     private int grade;
-    private String authkey;
-    private int authstatus;
-    private String sessionkey;
-	private Date sessionLimit;
 	private int postCode;
 	private String address;
 	private String detailAddress;
 	private String extraAddress;
+	private int phoneNum;
+	
     
     public MemberVo() {
 		// TODO Auto-generated constructor stub
 	}
 
-    
-    
+
 	public MemberVo(String userId, String userPw, String userName, String userEmail, Date userJoinDate,
-			Date userLoginDate, int grade, String authkey, int authstatus, String sessionkey, Date sessionLimit,
-			int postCode, String address, String detailAddress, String extraAddress) {
+			Date userLoginDate, int grade, int postCode, String address, String detailAddress, String extraAddress,
+			int phoneNum) {
 		super();
 		this.userId = userId;
 		this.userPw = userPw;
@@ -37,151 +34,144 @@ public class MemberVo {
 		this.userJoinDate = userJoinDate;
 		this.userLoginDate = userLoginDate;
 		this.grade = grade;
-		this.authkey = authkey;
-		this.authstatus = authstatus;
-		this.sessionkey = sessionkey;
-		this.sessionLimit = sessionLimit;
 		this.postCode = postCode;
 		this.address = address;
 		this.detailAddress = detailAddress;
 		this.extraAddress = extraAddress;
+		this.phoneNum = phoneNum;
 	}
-
 
 
 	public String getUserId() {
 		return userId;
 	}
 
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
 
 	public String getUserPw() {
 		return userPw;
 	}
 
+
 	public void setUserPw(String userPw) {
 		this.userPw = userPw;
 	}
+
 
 	public String getUserName() {
 		return userName;
 	}
 
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
 
 	public String getUserEmail() {
 		return userEmail;
 	}
 
+
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
+
 
 	public Date getUserJoinDate() {
 		return userJoinDate;
 	}
 
+
 	public void setUserJoinDate(Date userJoinDate) {
 		this.userJoinDate = userJoinDate;
 	}
+
 
 	public Date getUserLoginDate() {
 		return userLoginDate;
 	}
 
+
 	public void setUserLoginDate(Date userLoginDate) {
 		this.userLoginDate = userLoginDate;
 	}
+
 
 	public int getGrade() {
 		return grade;
 	}
 
+
 	public void setGrade(int grade) {
 		this.grade = grade;
 	}
 
-	public String getAuthkey() {
-		return authkey;
-	}
-
-	public void setAuthkey(String authkey) {
-		this.authkey = authkey;
-	}
-
-	public int getAuthstatus() {
-		return authstatus;
-	}
-
-	public void setAuthstatus(int authstatus) {
-		this.authstatus = authstatus;
-	}
-
-	public String getSessionkey() {
-		return sessionkey;
-	}
-
-	public void setSessionkey(String sessionkey) {
-		this.sessionkey = sessionkey;
-	}
-
-	public Date getSessionLimit() {
-		return sessionLimit;
-	}
-
-	public void setSessionLimit(Date sessionLimit) {
-		this.sessionLimit = sessionLimit;
-	}
 
 	public int getPostCode() {
 		return postCode;
 	}
 
+
 	public void setPostCode(int postCode) {
 		this.postCode = postCode;
 	}
+
 
 	public String getAddress() {
 		return address;
 	}
 
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 
 	public String getDetailAddress() {
 		return detailAddress;
 	}
 
+
 	public void setDetailAddress(String detailAddress) {
 		this.detailAddress = detailAddress;
 	}
+
 
 	public String getExtraAddress() {
 		return extraAddress;
 	}
 
+
 	public void setExtraAddress(String extraAddress) {
 		this.extraAddress = extraAddress;
 	}
+
+
+	public int getPhoneNum() {
+		return phoneNum;
+	}
+
+
+	public void setPhoneNum(int phoneNum) {
+		this.phoneNum = phoneNum;
+	}
+
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((authkey == null) ? 0 : authkey.hashCode());
-		result = prime * result + authstatus;
 		result = prime * result + ((detailAddress == null) ? 0 : detailAddress.hashCode());
 		result = prime * result + ((extraAddress == null) ? 0 : extraAddress.hashCode());
 		result = prime * result + grade;
+		result = prime * result + phoneNum;
 		result = prime * result + postCode;
-		result = prime * result + ((sessionLimit == null) ? 0 : sessionLimit.hashCode());
-		result = prime * result + ((sessionkey == null) ? 0 : sessionkey.hashCode());
 		result = prime * result + ((userEmail == null) ? 0 : userEmail.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		result = prime * result + ((userJoinDate == null) ? 0 : userJoinDate.hashCode());
@@ -190,6 +180,7 @@ public class MemberVo {
 		result = prime * result + ((userPw == null) ? 0 : userPw.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -205,13 +196,6 @@ public class MemberVo {
 				return false;
 		} else if (!address.equals(other.address))
 			return false;
-		if (authkey == null) {
-			if (other.authkey != null)
-				return false;
-		} else if (!authkey.equals(other.authkey))
-			return false;
-		if (authstatus != other.authstatus)
-			return false;
 		if (detailAddress == null) {
 			if (other.detailAddress != null)
 				return false;
@@ -224,17 +208,9 @@ public class MemberVo {
 			return false;
 		if (grade != other.grade)
 			return false;
+		if (phoneNum != other.phoneNum)
+			return false;
 		if (postCode != other.postCode)
-			return false;
-		if (sessionLimit == null) {
-			if (other.sessionLimit != null)
-				return false;
-		} else if (!sessionLimit.equals(other.sessionLimit))
-			return false;
-		if (sessionkey == null) {
-			if (other.sessionkey != null)
-				return false;
-		} else if (!sessionkey.equals(other.sessionkey))
 			return false;
 		if (userEmail == null) {
 			if (other.userEmail != null)
@@ -269,14 +245,18 @@ public class MemberVo {
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
 		return "MemberVo [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userEmail="
 				+ userEmail + ", userJoinDate=" + userJoinDate + ", userLoginDate=" + userLoginDate + ", grade=" + grade
-				+ ", authkey=" + authkey + ", authstatus=" + authstatus + ", sessionkey=" + sessionkey
-				+ ", sessionLimit=" + sessionLimit + ", postCode=" + postCode + ", address=" + address
-				+ ", detailAddress=" + detailAddress + ", extraAddress=" + extraAddress + "]";
+				+ ", postCode=" + postCode + ", address=" + address + ", detailAddress=" + detailAddress
+				+ ", extraAddress=" + extraAddress + ", phoneNum=" + phoneNum + "]";
 	}
+	
+    
+    
+	
     
     
 }    

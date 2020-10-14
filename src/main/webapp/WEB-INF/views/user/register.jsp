@@ -11,7 +11,8 @@
 	request.setAttribute("root", request.getContextPath());
 %>
 <style type="text/css">
-.container {
+
+container {
 	margin-top: 50px;
 	margin-left: auto;
 	margin-right: auto;
@@ -40,7 +41,6 @@
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-
 		$("#btn1").on("click", function() {
 			if ($("#userId").val() == "") {
 				alert("아이디를 입력해주세요.");
@@ -67,6 +67,11 @@
 				$("#userPw2").focus();
 				return false;
 			}
+			if ($("#phoneNum").val() == "") {
+				alert("휴대전화 번호를 입력해주세요.");
+				$("#phoneNum").focus();
+				return false;
+			}
 			var idChkVal = $("#idChk").val();
 			if (idChkVal == "N") {
 				alert("중복확인 버튼을 눌러주세요.");
@@ -77,53 +82,52 @@
 		});
 	});
 	function sample6_execDaumPostcode() {
-		new daum.Postcode({
-			oncomplete : function(data) {
-				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-				// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-				// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-				var addr = ''; // 주소 변수
-				var extraAddr = ''; // 참고항목 변수
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
 
-				//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-				if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-					addr = data.roadAddress;
-				} else { // 사용자가 지번 주소를 선택했을 경우(J)
-					addr = data.jibunAddress;
-				}
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
 
-				// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-				if (data.userSelectedType === 'R') {
-					// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-					// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-					if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-						extraAddr += data.bname;
-					}
-					// 건물명이 있고, 공동주택일 경우 추가한다.
-					if (data.buildingName !== '' && data.apartment === 'Y') {
-						extraAddr += (extraAddr !== '' ? ', '
-								+ data.buildingName : data.buildingName);
-					}
-					// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-					if (extraAddr !== '') {
-						extraAddr = ' (' + extraAddr + ')';
-					}
-					// 조합된 참고항목을 해당 필드에 넣는다.
-					document.getElementById("extraAddress").value = extraAddr;
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
 
-				} else {
-					document.getElementById("extraAddress").value = '';
-				}
-
-				// 우편번호와 주소 정보를 해당 필드에 넣는다.
-				document.getElementById('postcode').value = data.zonecode;
-				document.getElementById("address").value = addr;
-				// 커서를 상세주소 필드로 이동한다.
-				document.getElementById("detailAddress").focus();
-			}
-		}).open();
-	}
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
 	//아이디체크
 	function fn_idCheck() {
 		$.ajax({
@@ -143,13 +147,51 @@
 			}
 		})
 	}
+	$(document).ready(function() {
+
+		//정규식 시작
+
+		//모든 공백 체크 정규식
+			var empJ = /\s/g;
+			// 비밀번호 정규식
+			var pwJ = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,14}$/;
+
+			$("#userPw").blur(function() {
+				if (pwJ.test($(this).val())) {
+						// console.log(pwJ.test($(this).val()));
+						console.log('Password Check');
+				} else {
+					$("#userPw").val('');
+					$("#userPw").focus();
+					$('#pw-check-msg').text('대소문자, 숫자와 특수문자를 하나 이상 넣어 7~14자 사이로 작성해야 합니다');
+					$('#pw-check-msg').css('color', 'red');
+				}
+			});
+
+		// 정규식 끝
+
+		// 비밀번호 일치여부
+		    $(function(){
+		        $('#userPw2').blur(function(){
+		        	if($('#userPw').val() != $('#userPw2').val()){
+		                $('#pw-check-msg1').html('비밀번호가 일치하지 않습니다<br><br>');
+		                $('#pw-check-msg1').css('color', '#f82a2aa3');
+		                $('#userPw2').val('');
+		              } else {
+		                $('#pw-check-msg1').html('비밀번호가 일치합니다!<br><br>');
+		                $('#pw-check-msg1').css('color', '#199894b3');
+		              }
+		          });
+		    });
+		});
+
+	
 </script>
 </head>
 
 <body>
 	<div class="container">
 		<p>회원가입 페이지</p>
-
 		<form action="${root}/user/registerPost"  method="post" id="regForm">
 			<div class="form-group has-feedback">
 				<input type="text" id="userId" name="userId" class="form-control"
@@ -175,18 +217,26 @@
 					class="form-control" placeholder="비밀번호"> <span
 					class="glyphicon glyphicon-lock form-control-feedback"></span>
 			</div>
+			<span id="pw-check-msg" class="pw-check-msg" style="font-size: 13px; text-align: center;"></span>
 			<div class="form-group has-feedback">
 				<input type="password" id="userPw2" class="form-control"
 					placeholder="비밀번호 확인"> <span
 					class="glyphicon glyphicon-log-in form-control-feedback"></span>
 			</div>
-
-			<input type="text" id="postcode" name="postcode" placeholder="우편번호"> <input
-				type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-			<input type="text" id="address" name="address"  placeholder="주소"><br> <input
-				type="text" id="detailAddress"  name="detailAddress"  placeholder="상세주소"> <input
-				type="text" id="extraAddress"  name="extraAddress"  placeholder="참고항목">
-
+			<span id="pw-check-msg1" class="pw-check-msg1" style="font-size: 13px; text-align: center;"></span>
+			
+			<div class="form-group has-feedback">
+				<input type="text" id="phoneNum" name="phoneNum"
+					class="form-control" placeholder="핸드폰 번호를 입력해주세요(-제외한 숫자만 입력)"> <span
+					class="glyphicon glyphicon-lock form-control-feedback"></span>
+			</div>
+			<div class="form-group has-feedback">
+			<input type="text" id="sample6_postcode" class="form-control" name="postCode" placeholder="우편번호"> 
+			<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+			<input type="text" id="sample6_address" name="address"   class="form-control" placeholder="주소"><br> 
+			<input type="text" id="sample6_detailAddress"  name="detailAddress"   class="form-control" placeholder="상세주소"> 
+			<input type="text" id="sample6_extraAddress"  name="extraAddress"  class="form-control"  placeholder="참고항목">
+			</div>
 		
 
 			<div style="margin-left: -15px;">
@@ -234,13 +284,6 @@
 						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; margin-top: 15px; padding-left: 10px; font-size: 13px; list-style-type: none; color: rgb(68, 68, 68);">회사는
 						개인정보 수집 및 이용목적이 달성된 후에는 예외 없이 해당 정보를 지체 없이 파기합니다.</p>
 				</div>
-
-				<p>
-					<label class="form-check-label"><input type="checkbox"
-						required="required"> 위 이용약관에 동의합니다.</label>
-				</p>
-
-
 
 				<h4 class="glores-A-title">이용약관</h4>
 				<div class="glores-A-agree"
@@ -638,6 +681,10 @@
 						</ol>
 					</div>
 				</div>
+				<p>
+					<label class="form-check-label"><input type="checkbox"
+						required="required"> 위 이용약관에 동의합니다.</label>
+				</p>
 			</div>
 			
 				
