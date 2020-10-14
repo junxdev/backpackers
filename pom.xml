@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
@@ -50,6 +51,8 @@
 
 					<artifactId>commons-logging</artifactId>
 
+
+
 				 </exclusion>
 
 			</exclusions>
@@ -96,7 +99,17 @@
 
 		</dependency>
 
-				
+
+
+		<!--민철 추가 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
+
+
 
 		<!-- AspectJ -->
 
@@ -108,9 +121,11 @@
 
 			<version>${org.aspectj-version}</version>
 
+
 		</dependency>	
 
 		
+
 
 		<!-- Logging -->
 
@@ -210,7 +225,6 @@
 
 		</dependency>
 
-				
 
 		<!-- Servlet -->
 
@@ -219,12 +233,10 @@
 		<dependency>
 
 		    <groupId>javax.servlet</groupId>
-
 		    <artifactId>javax.servlet-api</artifactId>
-
 		    <version>3.0.1</version>
-
 		    <scope>provided</scope>
+
 
 		</dependency>
 
@@ -250,7 +262,7 @@
 
 		</dependency>
 
-	
+
 
 		<!-- Test -->
 
@@ -264,6 +276,8 @@
 
 			<scope>test</scope>
 
+
+
 		</dependency> 
 
 		
@@ -271,6 +285,7 @@
 		<!-- User Libraries -->
 
 		<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+
 
 		<!-- mariadb에서 mysql로 교체
 
@@ -301,17 +316,15 @@
 
 
 
+
 		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
 
 		<dependency>
 
-		    <groupId>com.h2database</groupId>
-
-		    <artifactId>h2</artifactId>
-
-		    <version>1.4.200</version>
-
-		    <scope>test</scope>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.200</version>
+			<scope>test</scope>
 
 		</dependency>
 
@@ -319,11 +332,9 @@
 
 		<dependency>
 
-		    <groupId>org.mybatis</groupId>
-
-		    <artifactId>mybatis</artifactId>
-
-		    <version>3.5.5</version>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.5</version>
 
 		</dependency>
 
@@ -331,11 +342,9 @@
 
 		<dependency>
 
-		    <groupId>org.mybatis</groupId>
-
-		    <artifactId>mybatis-spring</artifactId>
-
-		    <version>2.0.5</version>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>2.0.5</version>
 
 		</dependency>
 
@@ -343,14 +352,70 @@
 
 		<dependency>
 
+		
+
+	
+	
+			
+		
+
 		    <groupId>org.bgee.log4jdbc-log4j2</groupId>
-
 		    <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
-
 		    <version>1.16</version>
-
 		</dependency>
+<!--민철 시작 -->
+		<!--비밀번호 암호화 -->
+		<!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt 
+		<dependency>
+			<groupId>org.mindrot</groupId>
+			<artifactId>jbcrypt</artifactId>
+			<version>0.4</version>
+		</dependency>
+		-->
+		<!-- naver -->
+		<dependency>
+			<groupId>com.github.scribejava</groupId>
+			<artifactId>scribejava-core</artifactId>
+			<version>2.8.1</version>
+		</dependency>
+		<!-- 제이슨 파싱 -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		
+		<!-- ajax의 데이터를 컨트롤러에서 사용  아이디,비번찾기 -->
+	<dependency>
+       <groupId>org.codehaus.jackson</groupId>
+       <artifactId>jackson-mapper-asl</artifactId>
+       <version>1.9.13</version>
+</dependency>
+<dependency>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-core-asl</artifactId>
+        <version>1.9.13</version>
+</dependency>
 
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+       <version>2.9.8</version>
+</dependency>
+<!--메일인증  -->
+ <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+ <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${org.springframework-version}</version>
+        </dependency>
+		<!--민철 끝 -->
+
+		
 		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
 		<dependency>
 		    <groupId>javax.servlet</groupId>
@@ -380,8 +445,6 @@
     <version>2.11.2</version>
 </dependency>
     <dependency>
-
-
 		    <groupId>commons-fileupload</groupId>
 		    <artifactId>commons-fileupload</artifactId>
 		    <version>1.2.1</version>
@@ -393,73 +456,39 @@
 			<version>2.4</version>
 		</dependency>
 	</dependencies>
-
     <build>
-
         <plugins>
-
             <plugin>
-
                 <artifactId>maven-eclipse-plugin</artifactId>
-
                 <version>2.9</version>
-
                 <configuration>
-
                     <additionalProjectnatures>
-
                         <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-
                     </additionalProjectnatures>
-
                     <additionalBuildcommands>
-
                         <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
-
                     </additionalBuildcommands>
-
                     <downloadSources>true</downloadSources>
-
                     <downloadJavadocs>true</downloadJavadocs>
-
                 </configuration>
-
             </plugin>
-
             <plugin>
-
                 <groupId>org.apache.maven.plugins</groupId>
-
                 <artifactId>maven-compiler-plugin</artifactId>
-
                 <version>2.5.1</version>
-
                 <configuration>
-
                     <source>1.8</source>
-
                     <target>1.8</target>
-
                     <compilerArgument>-Xlint:all</compilerArgument>
-
                     <showWarnings>true</showWarnings>
-
                     <showDeprecation>true</showDeprecation>
-
                 </configuration>
-
             </plugin>
-
             <plugin>
-
                 <groupId>org.codehaus.mojo</groupId>
-
                 <artifactId>exec-maven-plugin</artifactId>
-
                 <version>1.2.1</version>
-
                 <configuration>
-
                     <mainClass>org.test.int1.Main</mainClass>
                 </configuration>
             </plugin>
@@ -474,7 +503,6 @@
                 	</configuration>
                 </plugin>
         </plugins>
-
     </build>
-
 </project>
+

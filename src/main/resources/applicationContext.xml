@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
-	<bean id="placeHolder" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<bean id="placeHolder"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<array>
 				<value>classpath:/jdbc.properties</value>
 			</array>
 		</property>
 	</bean>
+
+
+
 	 
 	<bean id="dataSourceSpied" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
 	
@@ -17,27 +27,27 @@
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
 	 -->
 	 	
+
 		<property name="driverClass" value="${jdbc.class}" />
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.user}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
-	
-	 
-<!-- 
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-		<property name="driverClass" value="org.mariadb.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost:3306/xe" />
-		<property name="username" value="scott" />
-		<property name="password" value="tiger" />
-	</bean>
- -->
-	 
-	<bean id="dataSource" class="net.sf.log4jdbc.sql.jdbcapi.DataSourceSpy">
+
+
+	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource"> 
+		<property name="driverClass" value="org.mariadb.jdbc.Driver"></property> 
+		<property name="url" value="jdbc:mysql://localhost:3306/xe" /> <property 
+		name="username" value="scott" /> <property name="password" value="tiger" 
+		/> </bean> -->
+
+	<bean id="dataSource"
+		class="net.sf.log4jdbc.sql.jdbcapi.DataSourceSpy">
 		<constructor-arg ref="dataSourceSpied" />
 	</bean>
-	
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations">
 			<array>
@@ -45,9 +55,28 @@
 			</array>
 		</property>
 	</bean>
-	
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory" index="0" />
 	</bean>
-	
+
+	<!-- gmail -->
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="yoursitup90@gmail.com" />
+		<property name="password" value="@Als12345" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.auth">true</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- <bean id="email" class="com.bit.backpackers.member.model.entity.EmailVo">
+	</bean>
+	<bean id="emailSender" class="com.bit.backpackers.member.mail.EmailSender">
+	</bean> -->
 </beans>

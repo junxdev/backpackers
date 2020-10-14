@@ -21,6 +21,23 @@
 				  <li><a href="${root }/board/">게시판</a></li>
 					<li><a href="${root }/#">쇼핑</a></li>
 				</ul>
+				<ul class="navbar-form navbar-right">
+        <c:if test="${user != null}">
+        	<c:if test="${user.grade == 1}">
+		 ${user.userId }님 입장을 환영합니다
+ 		<button type="submit" class="btn btn-default"><a href="${root }/admin/adminPage">관리자 페이지</a></button>
+		</c:if>
+        	<c:if test="${user.grade == 0}">
+		 ${user.userId }님 입장을 환영합니다
+ 		<button type="submit" class="btn btn-default"><a href="${root }/user/myPage">마이 페이지</a></button> 
+		</c:if>	
+        <button type="submit" class="btn btn-default"><a href="${root }/user/logout">로그아웃</a></button>
+        </c:if>
+		<c:if test="${user == null}"> 	  
+		<button type="submit" class="btn btn-default"><a href="${root }/user/login">로그인</a></button>
+        <button type="submit" class="btn btn-default"><a href="${root }/user/register">회원가입</a></button>	 	  
+		</c:if>
+        </ul>
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
 	</nav>

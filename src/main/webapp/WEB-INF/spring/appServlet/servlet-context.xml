@@ -3,11 +3,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+
+
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
@@ -27,6 +29,17 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/admin/**"/>
+		<beans:bean id="AdminInterceptor" class="com.bit.backpackers.member.controller.AdminInterceptor"/>
+		</interceptor>
+		
+	</interceptors> 
+	
+		<!-- NaverLoginBO Class에 대한 Bean설정 추가 -->
+<beans:bean id="naverLoginBO" class="com.bit.backpackers.member.controller.NaverLoginBO" />
+
 	<context:component-scan base-package="com.bit.backpackers" />
 	<!-- 파일 업로드 관련 설정 -->
 	<beans:bean id="multipartResolver"
@@ -57,10 +70,12 @@
 
 
 	
+
 	<aop:config>
 		<aop:pointcut expression="execution(* com.bit.backpackers.*.*.*(..))" id="txCut"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txCut"/>
 	</aop:config>
 	 -->
+
 </beans:beans>
 
