@@ -22,7 +22,7 @@
 <th>조회</th>
 <th>주천</th>
 </tr>
-<c:forEach items="${board}" var="title">
+<c:forEach items="${list}" var="title">
 <tr>
 <td>${title.board_no}</td>
 <td><a href="./${title.board_no}">${title.board_subject}</a></td>
@@ -34,20 +34,43 @@
 </tr>
 </c:forEach>
 </table>
-<div class="ex1">
-<select class="form-control">
-  <option>검색</option>
-  <option>전체</option>
-  <option>작성자</option>
-  <option>글제목</option>
-  
+<div class="search_board">
+<form name="form1" method="post" action="./search">
+<select class="form-control" name="searchOption">
+  <option value="all"<c:out value="${map.searchOption == 'all'?'selected':''}"/> >전체</option>
+  <option value="board_subject"<c:out value="${map.searchOption == 'board_subject'?'selected':''}"/> >제목</option>
+  <option value="user_ID"<c:out value="${map.searchOption == 'user_ID'?'selected':''}"/> >이름</option>
+  <option value="board_content"<c:out value="${map.earchOption == 'board_content'?'selected':''}"/> >내용</option>
 </select>
- <input type="text" class="form-control" placeholder="검색">
- 
+ <input type="text" name="keyword" value="${map.keyword}" class="form-control" placeholder="검색">
+ <button class="btn btn-primary" type="submit">검색</button>
+ </form>
 <p><a class="btn btn-primary" href="./boardwrite" role="button">글쓰기</a></p>
 </div>
 <div class="boardpaging">
-<nav>
+
+
+<ul class="btn-group pagination">
+    <c:if test="${pageMaker.prev }">
+    <li>
+        <a href='<c:url value="/board/?page=${pageMaker.startPage-1 }"/>'><i class="fa fa-chevron-left"></i></a>
+    </li>
+    </c:if>
+    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+    <li>
+        <a href='<c:url value="/board/?page=${pageNum }"/>'><i class="fa">${pageNum }</i></a>
+    </li>
+    </c:forEach>
+    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+    <li>
+        <a href='<c:url value="/board/?page=${pageMaker.endPage+1 }"/>'><i class="fa fa-chevron-right"></i></a>
+    </li>
+    </c:if>
+</ul>
+
+
+
+<!-- <nav>
   <ul class="pagination">
     <li>
       <a href="#" aria-label="Previous">
@@ -65,7 +88,7 @@
       </a>
     </li>
   </ul>
-</nav>
+</nav> -->
 
 </div>
 

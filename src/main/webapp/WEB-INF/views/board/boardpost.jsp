@@ -5,6 +5,9 @@
 <html>
 <head>
 <%@include file="../template/head.jspf" %>
+
+
+
 <style type="text/css">
  .board_subject{
  background-color: white;
@@ -76,10 +79,66 @@ height: 75px;
   margin: 10px auto;
   width: 1554px; 
  }
+ #reply_content{
+  border: solid 2px white;
+ }
  
  
  
 </style>
+
+<script type="text/javascript">
+$(function() {	
+
+ 	$("#delete_button").click(function (){
+		alert("삭제되었습니다.");
+		$(location).attr('href', '123');
+	});
+ 
+	$("#replyUpdate").one("click",function (){
+		alert("ok");
+	
+		
+	$.ajax({
+		    url :"/backpackers/board/${boardDitail.board_no}/replyedit",
+		    type : "PUT",
+		    contentType: "application/json; charset=UTF-8",
+		    data : $("reply").serialize(),
+		    dataType: "text",
+		    success: function(result) {
+		    	alert("수정되었습니다");
+		    }
+		}); 
+	
+		
+		/* 	$.ajax({
+			type:'put',
+			url:'/board/${boardDitail.board_no}/edit',
+			contentType: "application/json; charset=UTF-8",
+			dataType: "text",
+			data : $("reply").serialize()
+			   success: function(result) {
+	    	alert("삭제되었습니다.");
+	    }
+				
+				if(result=='SUCCESS'){
+					alert("수정되었습니다.");
+	
+				} 
+			 
+		}); */
+		
+	});
+ 	$("#replyDelete").click(function (){
+ 		alert("삭제되었습니다.");
+		
+	 }); 
+	  
+		
+	});
+	</script>
+	
+	
 <title>게시글</title>
 </head>
 <body>
@@ -108,14 +167,20 @@ ${boardDitail.board_content}
 </pre>
 </div>
 
-<pre class="reply_content_send"><input type="text" class="form-control"  id="reply_content_send" name="reply_content" placeholder="댓글을 입력하시오"><button class="btn btn-primary" id="reply_content_btn" type="submit">댓글등록</button></pre>
-
+<form method="post">
+<pre class="reply_content_send">
+<input type="text" class="form-control"  id="reply_content_send" name="reply_content" placeholder="댓글을 입력하시오">
+<input type="hidden" name="board_no" value="${boardDitail.board_no}">
+<button class="btn btn-primary" id="reply_content_btn" type="submit">댓글등록</button></pre>
 </div>
+</form>
 <div class="delete">
+<c:if test="${sessionScope.username == boardDitail.user_ID}">
 <a href="./${boardDitail.board_no}/edit" class="btn btn-primary" role="button">수정</a>
 <form method="post">
 <input type="hidden" name="_method" value="delete">
-<button type="submit" class="btn btn-danger" id=delete_button>글삭제</button>
+<button type="submit" class="btn btn-danger" name="board_no" id="delete_button" value="${boardDitail.board_no}" >글삭제</button>
+</c:if>
 </form>
 </div>
 <div class="ex04">
@@ -127,11 +192,23 @@ ${boardDitail.board_content}
 <pre class="reply_time">작성시간</pre>
 </pre> -->
 <table class="table">
+<form method="post" name="reply" action="${boardDitail.board_no}/replyedit">
+<input type="hidden" name="_method" value="put">
+<c:forEach items="${reply}" var="reply">
 <tr>
-<td style="width: 20%;">댓글아이디</td>
-<td style="width: 70%;">댓글내용</td>
-<td style="width: 10%;">댓글단시간</td>
+<td style="width: 20%;">${reply.reply_id}</td>
+<td style="width: 70%;"><input type="text" value="${reply.reply_content}"  id="reply_content" name="reply_content" ></td>
+<td style="width: 10%;">${reply.reply_time}</td>
+<c:if test="${sessionScope.username == reply.reply_id}">
+<td><button type="submit" class="btn btn-primary" id="replyUpdate" name="reply_no" value="${reply.reply_no}">댓글수정</button></td>
+</form>
+<form method="post">
+<input type="hidden" name="_method" value="delete">
+<td><button type="submit" class="btn btn-danger" name="reply_no" id="replyDelete" value="${reply.reply_no}">댓글삭제</button></td>
+</form> 
+</c:if>
 </tr>
+</c:forEach>
 </table>
 </div>
 <div class="ex06">
