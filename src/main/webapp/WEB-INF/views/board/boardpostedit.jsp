@@ -6,7 +6,7 @@
 <head>
 <%@include file="../template/head.jspf" %>
 <style type="text/css">
- .board_subject{
+ #board_subject{
  background-color: white;
   color: blue;
   text-align: center;
@@ -19,7 +19,7 @@
  float: right;
 
  }
- .board_content{
+ #board_content{
   width: 1554px;    
    height: 400px;
    background-color: white;
@@ -68,51 +68,27 @@ height: 75px;
  
  
  
- #delete_button{
+ #update_button,#delete_button{
   float: right;
  }
+ 
  
  .ex04{
   margin: 10px auto;
   width: 1554px; 
  }
- #reply_content{
-  border: solid 2px white;
- }
  
  
  
 </style>
-
-<script type="text/javascript">
-$(document).ready(function(){
-	
-	
-
-	$("#replyUpdate").click(function (){
-		alert("댓글이 수정되었습니다.");
-	});
-	
-	
- 	$("#replyDelete").click(function (){
- 		alert("삭제되었습니다.");
-		
-	 });
-	  
-		
-
-	 
-	
-	
-});
-</script>
 <title>게시글</title>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/template/nav.jspf" %>
 <%@include file="../template/header.jspf" %>
+<form method="post">
 <div class="ex1">
-<pre class="board_subject">${boardDitail.board_subject}</pre>
+<input class="form-control" id="board_subject" name="board_subject" value="${boardDitail.board_subject}">
 </div>
 <div class="ex2" >
 <pre class="user_ID">${boardDitail.user_ID}</pre>
@@ -125,33 +101,23 @@ $(document).ready(function(){
 
 
 <div class="ex3">
-<pre class="board_content">
-${boardDitail.board_content}
+<input id="board_content" class="form-control" name="board_content" value="${boardDitail.board_content}"/>
 <pre class="board_hits">
 <button  type="submit" class="btn btn-primary" id="board_hits_btn">${boardDitail.board_hits}</button>
 추천수
 </pre>
-</pre>
+
 </div>
 
-<form method="post">
-<pre class="reply_content_send">
-<input type="text" class="form-control"  id="reply_content_send" name="reply_content" placeholder="댓글을 입력하시오">
-<input type="hidden" name="board_no" value="${boardDitail.board_no}">
-<button class="btn btn-primary" id="reply_content_btn" type="submit">댓글등록</button></pre>
+<pre class="reply_content_send"><input type="text" class="form-control"  id="reply_content_send" name="reply_content" placeholder="댓글을 입력하시오"><button class="btn btn-primary" id="reply_content_btn" type="submit">댓글등록</button></pre>
+
 </div>
-</form>
-<div class="delete">
-<c:if test="${sessionScope.username == boardDitail.user_ID}">
-<a href="./${boardDitail.board_no}/edit" class="btn btn-primary" role="button">수정</a>
-<form method="post">
-<input type="hidden" name="_method" value="delete">
-<button type="submit" class="btn btn-danger" name="board_no" id="delete_button" value="${boardDitail.board_no}" >글삭제</button>
-</c:if>
+<div class="put">
+<input type="hidden" name="_method" value="put">
+<button type="submit" class="btn btn-primary" id="update_button" name="boardupdate">글수정</button>
 </form>
 </div>
 <div class="ex04">
-
 <div>
 <div class="ex05">
 <!-- <pre class="reply">
@@ -160,22 +126,11 @@ ${boardDitail.board_content}
 <pre class="reply_time">작성시간</pre>
 </pre> -->
 <table class="table">
-<c:forEach items="${reply}" var="reply">
-<form method="post" action="${reply.reply_no}/replyedit">
-<input type="hidden" name="_method" value="put">
 <tr>
-<th style="width: 20%;">${reply.reply_id}</th>
-<th style="width: 70%;"><input type="text" value="${reply.reply_content}"  id="reply_content" name="reply_content"></th>
-<th style="width: 10%;">${reply.reply_time}</th>
-<c:if test="${sessionScope.username == reply.reply_id}">
-<td><button type="submit" class="btn btn-primary" id="replyUpdate" name="reply_no" value="${reply.reply_no}">댓글수정</button></td>
-</form>
-<form method="post"></form> 
-<input type="hidden" name="_method" value="delete">
-<td><button type="submit" class="btn btn-danger" name="reply_no" id="replyDelete" value="${reply.reply_no}">댓글삭제</button></td>
-</c:if>
+<td style="width: 20%;">댓글아이디</td>
+<td style="width: 70%;">댓글내용</td>
+<td style="width: 10%;">댓글단시간</td>
 </tr>
-</c:forEach>
 </table>
 </div>
 <div class="ex06">

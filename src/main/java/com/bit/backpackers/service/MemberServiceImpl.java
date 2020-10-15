@@ -1,4 +1,4 @@
-package com.bit.backpackers.member.service;
+package com.bit.backpackers.service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -17,9 +17,9 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bit.backpackers.member.model.MemberDAO;
-import com.bit.backpackers.member.model.entity.LoginDTO;
-import com.bit.backpackers.member.model.entity.MemberVo;
+import com.bit.backpackers.model.MemberDAO;
+import com.bit.backpackers.model.entity.LoginDTO;
+import com.bit.backpackers.model.entity.MemberVo;
 
 import common.exception.MailException;
 
@@ -41,13 +41,13 @@ public class MemberServiceImpl implements MemberService {
 	this.memberDAo=memberDAo;
 	}
 	
-	// íšŒì›ê°€ì… ì²˜ë¦¬
+	// ?šŒ?›ê°??… ì²˜ë¦¬
 	@Override
 	public void register(MemberVo memberVo) throws Exception {
 		memberDAo.register(memberVo);
 		
 	}
-	// ë¡œê·¸ì¸ ì²˜ë¦¬
+	// ë¡œê·¸?¸ ì²˜ë¦¬
 	@Override
 	public MemberVo login(LoginDTO loginDTO) throws Exception {
 		 return memberDAo.login(loginDTO);
@@ -61,7 +61,7 @@ public class MemberServiceImpl implements MemberService {
 	// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 
 	
-	//ì•„ì´ë”” ì¤‘ë³µì²´í¬
+	//?•„?´?”” ì¤‘ë³µì²´í¬
 	@Override
 	public int idCheck(MemberVo memberVo) throws Exception {
 		MemberVo bean = memberDAo.idCheck(memberVo);
@@ -75,9 +75,9 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberVo findId(Map<String, Object> memberMap) throws Exception {
-		// ì…ë ¥í•œ ì´ë¦„
+		// ?…? ¥?•œ ?´ë¦?
 		// String userName = (String) memberMap.get("userName");
-		// ì…ë ¥í•œ ì´ë©”ì¼
+		// ?…? ¥?•œ ?´ë©”ì¼
 		// String userEmail = (String) memberMap.get("userEmail");
 
 		MemberVo memberVo = memberDAo.findId(memberMap);
@@ -89,11 +89,11 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVo findPw(Map<String, Object> memberMap) throws Exception {
 		MemberVo memberVo = memberDAo.findPw(memberMap);
 
-		// System.out.println("ë¹„ë°€ë²ˆí˜¸ëŠ” " + member.getUserPw());
+		// System.out.println("ë¹„ë?ë²ˆí˜¸?Š” " + member.getUserPw());
 
 		return memberVo;
 	}
-	//ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì •
+	//ë¹„ë?ë²ˆí˜¸ ?ˆ˜? •
 	@Override
 	public int modifyPw(MemberVo memberVo) throws Exception {
 		
@@ -101,46 +101,46 @@ public class MemberServiceImpl implements MemberService {
 		String secPw = "";
 		
 		if (password.equals(null)) {
-			// ê°œì¸ì •ë³´ update
+			// ê°œì¸? •ë³? update
 			memberDAo.modifyPw(memberVo);
 		} else {
-			 System.out.println(password + " ê²€ì¦");
+			 System.out.println(password + " ê²?ì¦?");
 
-			// ë¹„ë°€ë²ˆí˜¸ ì•”í˜¸í™”
+			// ë¹„ë?ë²ˆí˜¸ ?•”?˜¸?™”
 			//secPw = passwordEncoder.encode(password);
 
-			// System.out.println(secPw + "ë¹„ë°€ë²ˆí˜¸ ì•”í˜¸í™” ëœ ê±° í™•ì¸");
+			// System.out.println(secPw + "ë¹„ë?ë²ˆí˜¸ ?•”?˜¸?™” ?œ ê±? ?™•?¸");
 			
-			// ë¹„ë°€ë²ˆí˜¸ set
+			// ë¹„ë?ë²ˆí˜¸ set
 			memberVo.setUserPw(password);
 			
-			// System.out.println(secPw + " ê²€ì¦");
+			// System.out.println(secPw + " ê²?ì¦?");
 		}
 		return memberDAo.modifyPw(memberVo);
 	}
 
 
-	//ì´ë©”ì¼ì¸ì¦
+	//?´ë©”ì¼?¸ì¦?
 	public void mailSending(String email, int code_check) throws MailException {
 
 		String setfrom = "yoursitup90@gmail.com";
 		String tomail = email;
-		String title = "ì´ë©”ì¼ ë³€ê²½ ì¸ì¦ë©”ì¼ ì…ë‹ˆë‹¤.";
-		String htmlBody = "<h2> ì¸ì¦ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”!</h2>" + " ì¸ì¦ë²ˆí˜¸ëŠ” " + code_check + " ì…ë‹ˆë‹¤!";
+		String title = "?´ë©”ì¼ ë³?ê²? ?¸ì¦ë©”?¼ ?…?‹ˆ?‹¤.";
+		String htmlBody = "<h2> ?¸ì¦ë²ˆ?˜¸ë¥? ?…? ¥?•´ì£¼ì„¸?š”!</h2>" + " ?¸ì¦ë²ˆ?˜¸?Š” " + code_check + " ?…?‹ˆ?‹¤!";
 
 		try {
 
 			mailSender.send(new MimeMessagePreparator() {
 				public void prepare(MimeMessage mimeMessage) throws MessagingException {
 					MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-					// ë³´ë‚´ëŠ” ì´
+					// ë³´ë‚´?Š” ?´
 					message.setFrom(setfrom);
-					// ë°›ëŠ” ì´
+					// ë°›ëŠ” ?´
 					message.setTo(tomail);
-					// ë©”ì¼ ì œëª©
+					// ë©”ì¼ ? œëª?
 					message.setSubject(title);
-					// ë©”ì¼ ë‚´ìš©
-					// ë‘ë²ˆì§¸ booleanê°’ì€ html ì—¬ë¶€ (true : html , false : text)
+					// ë©”ì¼ ?‚´?š©
+					// ?‘ë²ˆì§¸ booleanê°’ì? html ?—¬ë¶? (true : html , false : text)
 					message.setText(htmlBody, true);
 				};
 			});

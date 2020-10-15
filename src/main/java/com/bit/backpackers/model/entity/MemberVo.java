@@ -1,4 +1,4 @@
-package com.bit.backpackers.member.model.entity;
+package com.bit.backpackers.model.entity;
 
 import java.util.Date;
 

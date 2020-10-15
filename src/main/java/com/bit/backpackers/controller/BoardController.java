@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.backpackers.model.entity.BoardVo;
@@ -39,18 +38,17 @@ public class BoardController {
     ReplyService replyService;
     
 	
-	
-	 //野껊슣�뻻占쎈솇 疫뀐옙占쎄문
+	 //�뇦猿딆뒩占쎈뻣�뜝�럥�냷 �뼨�먯삕�뜝�럡臾�
 	 @RequestMapping(value = "/",method=RequestMethod.POST)
 	 public String intsertinfo(@ModelAttribute BoardVo info, HttpSession session) {
 		
-		 String user_id= (String) session.getAttribute("username");
+		 String user_id=  (String) session.getAttribute("username");
 //		 String user_id="kimdeayoung";
 		 try {
 			 info.setUser_ID(user_id);
 			boardService.insertService(info);
 		} catch (SQLException e) {
-			System.out.println("占쎄쉐�⑨옙!");
+			System.out.println("�뜝�럡�뎽占썩뫅�삕!");
 		}
 		 System.out.println(info.toString());
 		 return "redirect:./";
@@ -68,7 +66,7 @@ public class BoardController {
 //			 return "board/boardpost";
 //		 }
 	 
-	 //占쎈솊疫뀐옙
+	 //댓글입력
 	 @RequestMapping(value = "{board_no}",method =RequestMethod.POST )
 	 public String replyinsert(@ModelAttribute ReplyVo reply,HttpSession session){
 	 
@@ -77,7 +75,7 @@ public class BoardController {
 			 reply.setReply_id(reply_id);
 		replyService.insertReply(reply);
 	} catch (SQLException e) {
-		System.out.println("占쎈뻻獄쏆뮇�뼄占쎈솭 占쎈�ο옙��.");
+		System.out.println("�뜝�럥六사뛾�룇裕뉛옙堉꾢뜝�럥�넮 �뜝�럥占싸우삕占쏙옙.");
 	}
 	 	 
 	 return "redirect:{board_no}";
@@ -105,22 +103,21 @@ public class BoardController {
 	 
 	
 	 
-	 //글수정
+	 //湲��닔�젙
 	 @RequestMapping(value = "/{board_no}/edit",method = RequestMethod.PUT)
 	 public String boardupdate(@PathVariable int board_no,@ModelAttribute BoardVo info,HttpServletRequest request) throws SQLException {
 		 if(request.getParameter("boardupdate") != null) {
 		   boardService.updateService(info);
-		   System.out.println("업데이트 글");
+		   System.out.println("�뾽�뜲�씠�듃 湲�");
 	   }
 		 return "redirect:../";
 	 }
 	 //댓글수정
-	 
 	 @RequestMapping(value = "/{reply_no}/replyedit",method = RequestMethod.PUT)
-	 public String replyupdate(@PathVariable int reply_no,@ModelAttribute ReplyVo replyinfo,HttpServletRequest request) throws SQLException {
+	 public String replyupdate(@PathVariable Integer reply_no,@ModelAttribute ReplyVo replyinfo,HttpServletRequest request) throws SQLException {
 		 if(request.getParameter("reply_no") != null) {
 		   replyService.updateReply(replyinfo);
-		   System.out.println("업데이트 댓글");
+		   System.out.println("댓글수정완료");
 	   }
 		 return "redirect:../";
 	 }
@@ -128,9 +125,9 @@ public class BoardController {
 	 
 	 
 	 
-     //疫뀐옙占쎄텣占쎌젫,占쎈솊疫뀐옙占쎄텣占쎌젫
-	 @RequestMapping(value = "{board_no}",method =RequestMethod.DELETE)
-		 public String delboard(@PathVariable int board_no,Integer reply_no,HttpServletRequest request,HttpServletResponse response) throws SQLException {
+	//글삭제,댓글삭제
+	 @RequestMapping(value = "{board_no}",method = RequestMethod.DELETE)
+		 public String delboard(@PathVariable int board_no,Integer reply_no,HttpServletRequest request) throws SQLException {
 			if(request.getParameter("board_no") != null) {
 				 boardService.deleteService(board_no);
 				 
@@ -179,9 +176,7 @@ public class BoardController {
 		  return mav;
 	  }
       
-//	 @RequestParam(value = "")
-//	 public ModelAndView 
-//	 
+
 	 
 		 
 	 }
