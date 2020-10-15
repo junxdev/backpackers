@@ -1,36 +1,26 @@
 package com.bit.backpackers.member.controller;
 
-import java.lang.reflect.Member;
-import java.util.Date;
+import com.bit.backpackers.member.model.entity.LoginDTO;
+import com.bit.backpackers.member.model.entity.MemberVo;
+import com.bit.backpackers.member.service.MemberService;
+import common.exception.MailException;
+import java.io.PrintStream;
 import java.util.Map;
-
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bit.backpackers.member.model.entity.LoginDTO;
-import com.bit.backpackers.member.model.entity.MemberVo;
-import com.bit.backpackers.member.service.MemberService;
-
-import common.exception.MailException;
-
 @Controller
-@RequestMapping("/user")
+@RequestMapping({ "/user" })
 public class MemberController {
-
 	private static final Logger logger = LoggerFactory.getLogger(AdminInterceptor.class);
 	private final MemberService memberService;
 
@@ -39,140 +29,119 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 
-	// 로그인 페이지
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = { "/login" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	public String loginGET(@ModelAttribute("loginDTO") LoginDTO loginDTO) {
 		logger.info("login");
 		return "/user/login";
 	}
 
-	// 로그인 처리
-	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
+	@RequestMapping(value = { "/loginPost" }, method = { org.springframework.web.bind.annotation.RequestMethod.POST })
 	public String loginPOST(@ModelAttribute LoginDTO loginDTO, HttpSession httpSession, RedirectAttributes rttr)
 			throws Exception {
 		logger.info("loginPost");
-		MemberVo user = memberService.login(loginDTO);
+		MemberVo user = this.memberService.login(loginDTO);
 
 		if (user != null) {
 			System.out.println("로그인 성공");
 			httpSession.setAttribute("user", user);
-			// 로그인 유지를 선택할 경우
+
 			return "redirect:/";
-		} else {
-			System.out.println("로그인 실패");
-			httpSession.setAttribute("user", null);
-			// rttr.addFlashAttribute("msg", false);
-			return "user/loginPost";
 		}
+		System.out.println("로그인 실패");
+		httpSession.setAttribute("user", null);
+
+		return "user/loginPost";
 	}
 
-	// 로그아웃
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	@RequestMapping(value = { "/logout" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	public String logout(HttpSession session) throws Exception {
-
 		session.invalidate();
 
 		return "redirect:/";
 	}
 
-	// user마이 페이지
-	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
+	@RequestMapping(value = { "/myPage" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	public String mypage(@ModelAttribute("loginDTO") LoginDTO loginDTO) throws Exception {
 		logger.info("user Login");
 		return "/user/myPage";
 	}
 
-	// 회원가입 페이지
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@RequestMapping(value = { "/register" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	public String registerGET() throws Exception {
 		System.out.println("00000001");
 		return "user/register";
 	}
 
-	// 회원가입 처리
-	@RequestMapping(value = "/registerPost", method = RequestMethod.POST)
-	public String registerPOST(@ModelAttribute MemberVo memberVo, RedirectAttributes redirectAttributes)
-			throws Exception {
-
-//        String hashedPw = BCrypt.hashpw(memberVo.getUserPw(), BCrypt.gensalt());
-//        memberVo.setUserPw(hashedPw);
-		memberService.register(memberVo);
+	@RequestMapping(value = { "/registerPost" }, method = {
+			org.springframework.web.bind.annotation.RequestMethod.POST })
+	public String registerPOST(@ModelAttribute MemberVo memberVo, RedirectAttributes redirectAttributes)throws Exception {
+		this.memberService.register(memberVo);
 		redirectAttributes.addFlashAttribute("msg", "REGISTERED");
 
 		System.out.println("00000002");
 		return "/user/registerPost";
 	}
 
-	// 아이디 중복 체크
 	@ResponseBody
-	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
+	@RequestMapping(value = { "/idCheck" }, method = { org.springframework.web.bind.annotation.RequestMethod.POST })
 	public int idCheck(@ModelAttribute MemberVo memberVo) throws Exception {
-		int result = memberService.idCheck(memberVo);
+		int result = this.memberService.idCheck(memberVo);
 		System.out.println("login check");
 		return result;
 	}
-//아이디 찾기 페이지
-	@RequestMapping(value = "/findid", method = RequestMethod.GET)
-	public String getFindId() {
-		// System.out.println("findid Call");
 
+	@RequestMapping(value = { "/findid" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	public String getFindId() {
 		return "/user/findid";
 	}
-//아이디 찾기
-	@RequestMapping(value = "/findidAjax")
+	//아이디찾기
+	@RequestMapping({ "/findidAjax" })
 	@ResponseBody
 	public String findId(@RequestParam Map<String, Object> memberMap) throws Exception {
-		//System.out.println(memberMap);
-		
-		MemberVo memberVo = memberService.findId(memberMap);
-		String result = "";
+		MemberVo memberVo = this.memberService.findId(memberMap);
+		String result = "fail";
 
-		if(memberVo != null) {
+		if (memberVo != null) {
 			String res = memberVo.getUserId();
-		
+			System.out.println(res);
+
 			if (res.equals(null)) {
-				return "/user/login";
-			} else {
-				result = memberVo.getUserId();
+				return "fail";
 			}
+			result = memberVo.getUserId();
 		}
 		return result;
-	
 	}
-//비밀번호 찾기 페이지
-	@RequestMapping(value = "/findpw", method = RequestMethod.GET)
-	public String getFindPw() {
-		// System.out.println("findpw Call");
 
+	@RequestMapping(value = { "/findpw" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	public String getFindPw() {
 		return "/user/findpw";
 	}
-//비밀번호 찾기
-	@RequestMapping(value = "/findpwAjax")
+
+	@RequestMapping({ "/findpwAjax" })
 	@ResponseBody
 	public String FindPw(@RequestParam Map<String, Object> memberMap) throws Exception {
-		
-		MemberVo memberVo = memberService.findPw(memberMap);
+		MemberVo memberVo = this.memberService.findPw(memberMap);
 		String result = "";
 
-		if(memberVo != null) {
+		if (memberVo != null) {
 			String res = memberVo.getUserPw();
-		
+
 			if (res.equals(null)) {
 				return "null";
-			} else {
-				result = memberVo.getUserPw();
 			}
+			result = memberVo.getUserPw();
 		}
+
 		return result;
 	}
-	//비밀번호 변경
-	@RequestMapping("/pwModify")
+
+	@RequestMapping({ "/pwModify" })
 	public ModelAndView modifyPw(MemberVo memberVo) throws Exception {
-		
 		ModelAndView mav = new ModelAndView();
-		
-		int res = memberService.modifyPw(memberVo);
-		
+
+		int res = this.memberService.modifyPw(memberVo);
+
 		if (res < 0) {
 			System.out.println("비밀번호 수정 실패");
 			mav.setViewName("redirect:findpw");
@@ -180,51 +149,18 @@ public class MemberController {
 			System.out.println("비밀번호 수정 성공");
 			mav.setViewName("redirect:login");
 		}
-		
+
 		return mav;
 	}
-	
-	
-	//메일발송
-	@RequestMapping("/send")
-	public ModelAndView joinEmailCheck(String email, int code_check) throws MailException {
 
+	@RequestMapping({ "/send" })
+	public ModelAndView joinEmailCheck(String email, int code_check) throws MailException {
 		ModelAndView mav = new ModelAndView();
 
-		memberService.mailSending(email, code_check);
+		this.memberService.mailSending(email, code_check);
 
 		System.out.println("메일 발송 성공");
-		
 
 		return mav;
-	}
-
-
-	
-
-	// 회원 탈퇴 get
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public String memberDeleteView() throws Exception {
-		return "user/delete";
-	}
-
-	// 회원 탈퇴 post
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String Delete(MemberVo memberVo, HttpSession session, RedirectAttributes rttr) throws Exception {
-
-		// 세션에 있는 member를 가져와 member변수에 넣어줍니다.
-		MemberVo user = (MemberVo) session.getAttribute("user");
-		// 세션에있는 비밀번호
-		String sessionPass = user.getUserPw();
-		// vo로 들어오는 비밀번호
-		String voPass = memberVo.getUserPw();
-
-		if (!(sessionPass.equals(voPass))) {
-			rttr.addFlashAttribute("msg", false);
-			return "redirect:/delete";
-		}
-		memberService.delete(memberVo);
-		session.invalidate();
-		return "redirect:/";
 	}
 }

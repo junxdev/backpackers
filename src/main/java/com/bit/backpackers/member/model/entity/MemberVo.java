@@ -15,17 +15,17 @@ public class MemberVo {
 	private String address;
 	private String detailAddress;
 	private String extraAddress;
-	private int phoneNum;
+	private String phoneNum;
 	
     
     public MemberVo() {
 		// TODO Auto-generated constructor stub
 	}
-
+    
 
 	public MemberVo(String userId, String userPw, String userName, String userEmail, Date userJoinDate,
 			Date userLoginDate, int grade, int postCode, String address, String detailAddress, String extraAddress,
-			int phoneNum) {
+			String phoneNum) {
 		super();
 		this.userId = userId;
 		this.userPw = userPw;
@@ -152,12 +152,12 @@ public class MemberVo {
 	}
 
 
-	public int getPhoneNum() {
+	public String getPhoneNum() {
 		return phoneNum;
 	}
 
 
-	public void setPhoneNum(int phoneNum) {
+	public void setPhoneNum(String phoneNum) {
 		this.phoneNum = phoneNum;
 	}
 
@@ -170,7 +170,7 @@ public class MemberVo {
 		result = prime * result + ((detailAddress == null) ? 0 : detailAddress.hashCode());
 		result = prime * result + ((extraAddress == null) ? 0 : extraAddress.hashCode());
 		result = prime * result + grade;
-		result = prime * result + phoneNum;
+		result = prime * result + ((phoneNum == null) ? 0 : phoneNum.hashCode());
 		result = prime * result + postCode;
 		result = prime * result + ((userEmail == null) ? 0 : userEmail.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
@@ -208,7 +208,10 @@ public class MemberVo {
 			return false;
 		if (grade != other.grade)
 			return false;
-		if (phoneNum != other.phoneNum)
+		if (phoneNum == null) {
+			if (other.phoneNum != null)
+				return false;
+		} else if (!phoneNum.equals(other.phoneNum))
 			return false;
 		if (postCode != other.postCode)
 			return false;
@@ -253,10 +256,6 @@ public class MemberVo {
 				+ ", postCode=" + postCode + ", address=" + address + ", detailAddress=" + detailAddress
 				+ ", extraAddress=" + extraAddress + ", phoneNum=" + phoneNum + "]";
 	}
-	
-    
-    
-	
     
     
 }    
