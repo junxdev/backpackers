@@ -1,26 +1,36 @@
 package com.bit.backpackers.member.controller;
 
-import com.bit.backpackers.member.model.entity.LoginDTO;
-import com.bit.backpackers.member.model.entity.MemberVo;
-import com.bit.backpackers.member.service.MemberService;
-import common.exception.MailException;
-import java.io.PrintStream;
+import java.lang.reflect.Member;
+import java.util.Date;
 import java.util.Map;
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bit.backpackers.member.model.entity.LoginDTO;
+import com.bit.backpackers.member.model.entity.MemberVo;
+import com.bit.backpackers.member.service.MemberService;
+
+import common.exception.MailException;
+
 @Controller
-@RequestMapping({ "/user" })
+@RequestMapping("/user")
 public class MemberController {
+
 	private static final Logger logger = LoggerFactory.getLogger(AdminInterceptor.class);
 	private final MemberService memberService;
 
@@ -28,18 +38,19 @@ public class MemberController {
 	public MemberController(MemberService memberService) {
 		this.memberService = memberService;
 	}
-
-	@RequestMapping(value = { "/login" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	//로그인 페이지 이동
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET(@ModelAttribute("loginDTO") LoginDTO loginDTO) {
 		logger.info("login");
 		return "/user/login";
 	}
 
-	@RequestMapping(value = { "/loginPost" }, method = { org.springframework.web.bind.annotation.RequestMethod.POST })
+		// 로그인 처리
+	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public String loginPOST(@ModelAttribute LoginDTO loginDTO, HttpSession httpSession, RedirectAttributes rttr)
-			throws Exception {
-		logger.info("loginPost");
-		MemberVo user = this.memberService.login(loginDTO);
+				throws Exception {
+			logger.info("loginPost");
+			MemberVo user = memberService.login(loginDTO);
 
 		if (user != null) {
 			System.out.println("로그인 성공");
@@ -52,53 +63,53 @@ public class MemberController {
 
 		return "user/loginPost";
 	}
-
-	@RequestMapping(value = { "/logout" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	//로그아웃
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception {
-		session.invalidate();
-
-		return "redirect:/";
-	}
-
-	@RequestMapping(value = { "/myPage" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+			session.invalidate();
+			return "redirect:/";
+		}
+	//마이페이지 이동
+	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
 	public String mypage(@ModelAttribute("loginDTO") LoginDTO loginDTO) throws Exception {
 		logger.info("user Login");
 		return "/user/myPage";
 	}
-
+	//회원가입페이지 이동
 	@RequestMapping(value = { "/register" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	public String registerGET() throws Exception {
-		System.out.println("00000001");
+		System.out.println("회원가입페이지 이동");
 		return "user/register";
 	}
-
-	@RequestMapping(value = { "/registerPost" }, method = {
-			org.springframework.web.bind.annotation.RequestMethod.POST })
+	//회원가입 
+	@RequestMapping(value = "/registerPost", method = RequestMethod.POST)
 	public String registerPOST(@ModelAttribute MemberVo memberVo, RedirectAttributes redirectAttributes)throws Exception {
-		this.memberService.register(memberVo);
+		memberService.register(memberVo);
 		redirectAttributes.addFlashAttribute("msg", "REGISTERED");
 
-		System.out.println("00000002");
+		System.out.println("회원가입 완료");
 		return "/user/registerPost";
 	}
-
+	//아이디 중복체크
 	@ResponseBody
-	@RequestMapping(value = { "/idCheck" }, method = { org.springframework.web.bind.annotation.RequestMethod.POST })
+	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
 	public int idCheck(@ModelAttribute MemberVo memberVo) throws Exception {
-		int result = this.memberService.idCheck(memberVo);
+		int result = memberService.idCheck(memberVo);
 		System.out.println("login check");
 		return result;
 	}
-
-	@RequestMapping(value = { "/findid" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	//아이디찾기 이동
+	@RequestMapping(value = "/findid", method = RequestMethod.GET)
 	public String getFindId() {
+		// System.out.println("findid Call");
+
 		return "/user/findid";
 	}
 	//아이디찾기
-	@RequestMapping({ "/findidAjax" })
+	@RequestMapping(value = "/findidAjax")
 	@ResponseBody
 	public String findId(@RequestParam Map<String, Object> memberMap) throws Exception {
-		MemberVo memberVo = this.memberService.findId(memberMap);
+		MemberVo memberVo = memberService.findId(memberMap);
 		String result = "fail";
 
 		if (memberVo != null) {
@@ -112,16 +123,19 @@ public class MemberController {
 		}
 		return result;
 	}
-
-	@RequestMapping(value = { "/findpw" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	//비밀번호 찾기 이동
+	@RequestMapping(value = "/findpw", method = RequestMethod.GET)
 	public String getFindPw() {
+		// System.out.println("findpw Call");
+
 		return "/user/findpw";
 	}
-
-	@RequestMapping({ "/findpwAjax" })
+	//비밀번호 찾기
+	@RequestMapping(value = "/findpwAjax")
 	@ResponseBody
 	public String FindPw(@RequestParam Map<String, Object> memberMap) throws Exception {
-		MemberVo memberVo = this.memberService.findPw(memberMap);
+		
+		MemberVo memberVo = memberService.findPw(memberMap);
 		String result = "";
 
 		if (memberVo != null) {
@@ -132,15 +146,15 @@ public class MemberController {
 			}
 			result = memberVo.getUserPw();
 		}
-
 		return result;
 	}
-
-	@RequestMapping({ "/pwModify" })
+	//비밀번호 변경
+	@RequestMapping("/pwModify")
 	public ModelAndView modifyPw(MemberVo memberVo) throws Exception {
+		
 		ModelAndView mav = new ModelAndView();
-
-		int res = this.memberService.modifyPw(memberVo);
+		
+		int res = memberService.modifyPw(memberVo);
 
 		if (res < 0) {
 			System.out.println("비밀번호 수정 실패");
@@ -153,8 +167,9 @@ public class MemberController {
 		return mav;
 	}
 
-	@RequestMapping({ "/send" })
-	public ModelAndView joinEmailCheck(String email, int code_check) throws MailException {
+		//메일발송
+		@RequestMapping("/send")
+		public ModelAndView joinEmailCheck(String email, int code_check) throws MailException {
 		ModelAndView mav = new ModelAndView();
 
 		this.memberService.mailSending(email, code_check);
