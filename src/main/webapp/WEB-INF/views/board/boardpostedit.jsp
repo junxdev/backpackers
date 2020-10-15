@@ -5,6 +5,9 @@
 <html>
 <head>
 <%@include file="../template/head.jspf" %>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
+<script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
 <style type="text/css">
  #board_subject{
  background-color: white;
@@ -81,6 +84,44 @@ height: 75px;
  
  
 </style>
+<script type="text/javascript">
+ $(document).ready(function() {
+	$('#summernote').summernote({
+		height : 300,
+		minHeight : null,
+		maxHeight : null,
+		focus : true,
+		callbacks : {
+			onImageUpload : function(files, editor, welEditable) {
+				for (var i = 0; i < files.length; i++) {
+					sendFile(files[i], this);
+				}
+			}
+		}
+	});
+});
+
+function sendFile(file, el) {
+	console.log(file)
+	var form_data = new FormData();
+	form_data.append("file",file);
+	$.ajax({
+		data : form_data,
+		type : "POST",
+		url : '/backpackers/board/image',
+		cache : false,
+		contentType : false,
+		enctype : 'multipart/form-data',
+		processData : false,
+		success : function(url) {
+			$(el).summernote('insertImage', url, function($image) {
+				$image.css('width', "50%");
+				//$('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>')
+			});
+		}
+	});
+} 
+</script>
 <title>게시글</title>
 </head>
 <body>
@@ -101,16 +142,12 @@ height: 75px;
 
 
 <div class="ex3">
-<input id="board_content" class="form-control" name="board_content" value="${boardDitail.board_content}"/>
-<pre class="board_hits">
-<button  type="submit" class="btn btn-primary" id="board_hits_btn">${boardDitail.board_hits}</button>
-추천수
-</pre>
-
+<div class="form-group">
+			<textarea class="form-control" id="summernote" name="board_content"
+				 maxlength="140" rows="7">${boardDitail.board_content}</textarea>
+		</div>
+		
 </div>
-
-<pre class="reply_content_send"><input type="text" class="form-control"  id="reply_content_send" name="reply_content" placeholder="댓글을 입력하시오"><button class="btn btn-primary" id="reply_content_btn" type="submit">댓글등록</button></pre>
-
 </div>
 <div class="put">
 <input type="hidden" name="_method" value="put">
@@ -119,20 +156,7 @@ height: 75px;
 </div>
 <div class="ex04">
 <div>
-<div class="ex05">
-<!-- <pre class="reply">
-<pre class="reply_id">답글아이디</pre>
-<pre class="reply_content">답글내용</pre>
-<pre class="reply_time">작성시간</pre>
-</pre> -->
-<table class="table">
-<tr>
-<td style="width: 20%;">댓글아이디</td>
-<td style="width: 70%;">댓글내용</td>
-<td style="width: 10%;">댓글단시간</td>
-</tr>
-</table>
-</div>
+
 <div class="ex06">
 
 </div>
