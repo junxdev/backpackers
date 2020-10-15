@@ -99,10 +99,10 @@ $(document).ready(function(){
 		
 	 });
 	  
-		
-
-	 
-	
+ 
+ 	
+ 	
+ 	
 	
 });
 </script>
@@ -127,10 +127,7 @@ $(document).ready(function(){
 <div class="ex3">
 <pre class="board_content">
 ${boardDitail.board_content}
-<pre class="board_hits">
-<button  type="submit" class="btn btn-primary" id="board_hits_btn">${boardDitail.board_hits}</button>
-추천수
-</pre>
+
 </pre>
 </div>
 
@@ -161,7 +158,7 @@ ${boardDitail.board_content}
 </pre> -->
 <table class="table">
 <c:forEach items="${reply}" var="reply">
-<form method="post" action="${reply.reply_no}/replyedit">
+<form method="post" action="${boardDitail.board_no}/edit">
 <input type="hidden" name="_method" value="put">
 <tr>
 <th style="width: 20%;">${reply.reply_id}</th>
@@ -170,9 +167,10 @@ ${boardDitail.board_content}
 <c:if test="${sessionScope.username == reply.reply_id}">
 <td><button type="submit" class="btn btn-primary" id="replyUpdate" name="reply_no" value="${reply.reply_no}">댓글수정</button></td>
 </form>
-<form method="post"></form> 
+<form method="post">
 <input type="hidden" name="_method" value="delete">
 <td><button type="submit" class="btn btn-danger" name="reply_no" id="replyDelete" value="${reply.reply_no}">댓글삭제</button></td>
+</form> 
 </c:if>
 </tr>
 </c:forEach>
