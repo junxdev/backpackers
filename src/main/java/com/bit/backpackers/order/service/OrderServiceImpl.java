@@ -12,8 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.bit.backpackers.cart.model.entity.CartProductVo;
 import com.bit.backpackers.image.model.entity.ImageVo;
 import com.bit.backpackers.item.model.entity.ItemVo;
+import com.bit.backpackers.member.model.entity.MemberVo;
 import com.bit.backpackers.order.OrderedItem;
 import com.bit.backpackers.order.Order;
 import com.bit.backpackers.order.OrderStatus;
@@ -41,48 +43,63 @@ public class OrderServiceImpl implements OrderService {
 	Order orderSupport;
 	
 	@Override
-	public String createOrder() throws SQLException {
-		String orderCode = new Order().makeOrderCode();
-		sqlSession.getMapper(OrderDao.class).insertOrder(orderCode);
-		return orderCode;
-	}
-	
-	@Override
-	public String putOrder(OrderedProductVo product) throws SQLException {
-		orderSupport.checkAnyOrder();
-		String orderCode = createOrder();
+	public String orderThisNow(OrderedProductVo product, MemberVo user) throws SQLException {
+		orderSupport.checkAnyOrder(user);
+		
+		String orderCode = orderSupport.createOrderCode();
+		orderSupport.createOrder(orderCode, user);
+		
 		for(int i = 0; i < product.getQuantity(); i++) {
 			sqlSession.getMapper(OrderDao.class).insertOrderItem(orderCode, product.getProductCode(), product.getSecondOptionCode());
 		}
 		return orderCode;
 	}
 	
-	// CHECKING ¡ﬂ¿Œ order ¡∂»∏
 	@Override
-	public void getOrderDetail(Model model) throws SQLException {
-		OrderVo order = sqlSession.getMapper(OrderDao.class).selectOrdersFilteredBy(OrderStatus.CHECKING);
-		List<OrderedProductVo> orderedProductList = sqlSession.getMapper(OrderedProductDao.class).selectProductsFilteredBy(order.getOrderCode());
-		for(OrderedProductVo product : orderedProductList) {
-			product = (OrderedProductVo) orderSupport.nameOption(product);
+	public String orderCart(List<CartProductVo> cart, MemberVo user) throws SQLException {
+		orderSupport.checkAnyOrder(user);
+		
+		String orderCode = orderSupport.createOrderCode();
+		orderSupport.createOrder(orderCode, user);
+		
+		for(CartProductVo product : cart) {
+			System.out.println("*****************" + cart.toString());
+			for(int i = 0; i < product.getQuantity(); i++) {
+				sqlSession.getMapper(OrderDao.class).insertOrderItem(orderCode, product.getProductCode(), product.getSecondOptionCode());
+			}
 		}
+		return orderCode;
+	}
+	
+	// CHECKING Ï§ëÏù∏ order ÌôïÏù∏
+	@Override
+	public void getOrderDetail(Model model, MemberVo user) throws SQLException {
+		OrderVo order = sqlSession.getMapper(OrderDao.class).selectOrdersFilteredBy(OrderStatus.CHECKING, user.getUserId());
+		List<OrderedProductVo> orderedProductList = sqlSession.getMapper(OrderedProductDao.class).selectProductsFilteredBy(order.getOrderCode());
+//		for(OrderedProductVo product : orderedProductList) {
+//			product = (OrderedProductVo) orderSupport.nameOption(product);
+//		}
+		orderSupport.nameOptionForProducts(orderedProductList);
 		model.addAttribute("order", order);
 		model.addAttribute("productList", orderedProductList);
 		model.addAttribute("imageList", productSupport.getTitleImageList(orderedProductList));
 		model.addAttribute("shopList", productSupport.getShopList(orderedProductList));
 	}
 	
-	// orderCode∑Œ order ¡∂»∏
+	// orderCodeÎ°ú order ÌôïÏù∏
 	@Override
-	public void getOrderDetailByOrderCode(Model model, String orderCode) throws SQLException {
+	public List<? extends ProductVo> getOrderDetailByOrderCode(Model model, String orderCode) throws SQLException {
 		OrderVo order = sqlSession.getMapper(OrderDao.class).selectOrder(orderCode);
 		List<OrderedProductVo> orderedProductList = sqlSession.getMapper(OrderedProductDao.class).selectProductsFilteredBy(orderCode);
-		for(OrderedProductVo product : orderedProductList) {
-			product = (OrderedProductVo) orderSupport.nameOption(product);
-		}
+//		for(OrderedProductVo product : orderedProductList) {
+//			product = (OrderedProductVo) orderSupport.nameOption(product);
+//		}
+		orderSupport.nameOptionForProducts(orderedProductList);
 		model.addAttribute("order", order);
 		model.addAttribute("productList", orderedProductList);
 		model.addAttribute("imageList", productSupport.getTitleImageList(orderedProductList));
 		model.addAttribute("shopList", productSupport.getShopList(orderedProductList));
+		return orderedProductList;
 	}
 	
 	@Override

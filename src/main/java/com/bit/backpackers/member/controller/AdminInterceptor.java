@@ -19,13 +19,7 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		MemberVo user = (MemberVo)session.getAttribute("user");
 	
-		// 로그인하지 않은 경우
-		if(user == null) {
-			response.sendRedirect("/backpackers/user/login");
-			return false;
-		}
-		
-		// 일반 회원이 로그인한 경우
+		// 관리자가 아닌 경우
 		if(user.getGrade() != 1) {
 			response.sendRedirect("/backpackers");
 			return false;

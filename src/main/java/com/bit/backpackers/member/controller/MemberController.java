@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -56,7 +57,6 @@ public class MemberController {
 		if (user != null) {
 			System.out.println("로그인 성공");
 			httpSession.setAttribute("user", user);
-			// 로그인 유지를 선택할 경우
 			return "redirect:/";
 		} else {
 			System.out.println("로그인 실패");
@@ -103,7 +103,7 @@ public class MemberController {
 		return "/user/registerPost";
 	}
 
-	// 아이디 중복 체크
+	// �븘�씠�뵒 以묐났 泥댄겕
 	@ResponseBody
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
 	public int idCheck(@ModelAttribute MemberVo memberVo) throws Exception {
@@ -111,14 +111,14 @@ public class MemberController {
 		System.out.println("login check");
 		return result;
 	}
-//아이디 찾기 페이지
+//�븘�씠�뵒 李얘린 �럹�씠吏�
 	@RequestMapping(value = "/findid", method = RequestMethod.GET)
 	public String getFindId() {
 		// System.out.println("findid Call");
 
 		return "/user/findid";
 	}
-//아이디 찾기
+//�븘�씠�뵒 李얘린
 	@RequestMapping(value = "/findidAjax")
 	@ResponseBody
 	public String findId(@RequestParam Map<String, Object> memberMap) throws Exception {
@@ -139,14 +139,14 @@ public class MemberController {
 		return result;
 	
 	}
-//비밀번호 찾기 페이지
+//鍮꾨�踰덊샇 李얘린 �럹�씠吏�
 	@RequestMapping(value = "/findpw", method = RequestMethod.GET)
 	public String getFindPw() {
 		// System.out.println("findpw Call");
 
 		return "/user/findpw";
 	}
-//비밀번호 찾기
+//鍮꾨�踰덊샇 李얘린
 	@RequestMapping(value = "/findpwAjax")
 	@ResponseBody
 	public String FindPw(@RequestParam Map<String, Object> memberMap) throws Exception {
@@ -165,7 +165,7 @@ public class MemberController {
 		}
 		return result;
 	}
-	//비밀번호 변경
+	//鍮꾨�踰덊샇 蹂�寃�
 	@RequestMapping("/pwModify")
 	public ModelAndView modifyPw(MemberVo memberVo) throws Exception {
 		
@@ -174,10 +174,10 @@ public class MemberController {
 		int res = memberService.modifyPw(memberVo);
 		
 		if (res < 0) {
-			System.out.println("비밀번호 수정 실패");
+			System.out.println("鍮꾨�踰덊샇 �닔�젙 �떎�뙣");
 			mav.setViewName("redirect:findpw");
 		} else {
-			System.out.println("비밀번호 수정 성공");
+			System.out.println("鍮꾨�踰덊샇 �닔�젙 �꽦怨�");
 			mav.setViewName("redirect:login");
 		}
 		
@@ -185,7 +185,7 @@ public class MemberController {
 	}
 	
 	
-	//메일발송
+	//硫붿씪諛쒖넚
 	@RequestMapping("/send")
 	public ModelAndView joinEmailCheck(String email, int code_check) throws MailException {
 
@@ -193,7 +193,7 @@ public class MemberController {
 
 		memberService.mailSending(email, code_check);
 
-		System.out.println("메일 발송 성공");
+		System.out.println("硫붿씪 諛쒖넚 �꽦怨�");
 		
 
 		return mav;
@@ -202,21 +202,21 @@ public class MemberController {
 
 	
 
-	// 회원 탈퇴 get
+	// �쉶�썝 �깉�눜 get
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String memberDeleteView() throws Exception {
 		return "user/delete";
 	}
 
-	// 회원 탈퇴 post
+	// �쉶�썝 �깉�눜 post
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String Delete(MemberVo memberVo, HttpSession session, RedirectAttributes rttr) throws Exception {
 
-		// 세션에 있는 member를 가져와 member변수에 넣어줍니다.
+		// �꽭�뀡�뿉 �엳�뒗 member瑜� 媛��졇�� member蹂��닔�뿉 �꽔�뼱以띾땲�떎.
 		MemberVo user = (MemberVo) session.getAttribute("user");
-		// 세션에있는 비밀번호
+		// �꽭�뀡�뿉�엳�뒗 鍮꾨�踰덊샇
 		String sessionPass = user.getUserPw();
-		// vo로 들어오는 비밀번호
+		// vo濡� �뱾�뼱�삤�뒗 鍮꾨�踰덊샇
 		String voPass = memberVo.getUserPw();
 
 		if (!(sessionPass.equals(voPass))) {
