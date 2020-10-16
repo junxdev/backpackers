@@ -1,4 +1,4 @@
-package com.bit.backpackers.member.controller;
+package com.bit.backpackers.controller;
 
 import java.lang.reflect.Member;
 import java.util.Date;
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,9 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bit.backpackers.member.model.entity.LoginDTO;
-import com.bit.backpackers.member.model.entity.MemberVo;
-import com.bit.backpackers.member.service.MemberService;
+import com.bit.backpackers.model.entity.LoginDTO;
+import com.bit.backpackers.model.entity.MemberVo;
+import com.bit.backpackers.service.MemberService;
 
 import common.exception.MailException;
 
@@ -39,8 +38,7 @@ public class MemberController {
 	public MemberController(MemberService memberService) {
 		this.memberService = memberService;
 	}
-
-	// 로그인 페이지
+	//로그인 페이지 이동
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET(@ModelAttribute("loginDTO") LoginDTO loginDTO) {
 		logger.info("login");
@@ -50,60 +48,49 @@ public class MemberController {
 	// 로그인 처리
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public String loginPOST(@ModelAttribute LoginDTO loginDTO, HttpSession httpSession, RedirectAttributes rttr)
-			throws Exception {
-		logger.info("loginPost");
-		MemberVo user = memberService.login(loginDTO);
+				throws Exception {
+			logger.info("loginPost");
+			MemberVo user = memberService.login(loginDTO);
 
 		if (user != null) {
 			System.out.println("로그인 성공");
 			httpSession.setAttribute("user", user);
-			return "redirect:/";
-		} else {
-			System.out.println("로그인 실패");
-			httpSession.setAttribute("user", null);
-			// rttr.addFlashAttribute("msg", false);
-			return "user/loginPost";
-		}
-	}
 
-	// 로그아웃
+			return "redirect:/";
+		}
+		System.out.println("로그인 실패");
+		httpSession.setAttribute("user", null);
+
+		return "user/login";
+	}
+	//로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception {
-
-		session.invalidate();
-
-		return "redirect:/";
-	}
-
-	// user마이 페이지
+			session.invalidate();
+			return "redirect:/";
+		}
+	//마이페이지 이동
 	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
 	public String mypage(@ModelAttribute("loginDTO") LoginDTO loginDTO) throws Exception {
 		logger.info("user Login");
 		return "/user/myPage";
 	}
-
-	// 회원가입 페이지
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	//회원가입페이지 이동
+	@RequestMapping(value = { "/register" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	public String registerGET() throws Exception {
-		System.out.println("00000001");
+		System.out.println("회원가입페이지 이동");
 		return "user/register";
 	}
-
-	// 회원가입 처리
+	//회원가입 
 	@RequestMapping(value = "/registerPost", method = RequestMethod.POST)
-	public String registerPOST(@ModelAttribute MemberVo memberVo, RedirectAttributes redirectAttributes)
-			throws Exception {
-
-//        String hashedPw = BCrypt.hashpw(memberVo.getUserPw(), BCrypt.gensalt());
-//        memberVo.setUserPw(hashedPw);
+	public String registerPOST(@ModelAttribute MemberVo memberVo, RedirectAttributes redirectAttributes)throws Exception {
 		memberService.register(memberVo);
 		redirectAttributes.addFlashAttribute("msg", "REGISTERED");
 
-		System.out.println("00000002");
+		System.out.println("회원가입 완료");
 		return "/user/registerPost";
 	}
-
-	// �븘�씠�뵒 以묐났 泥댄겕
+	//아이디 중복체크
 	@ResponseBody
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
 	public int idCheck(@ModelAttribute MemberVo memberVo) throws Exception {
@@ -111,42 +98,39 @@ public class MemberController {
 		System.out.println("login check");
 		return result;
 	}
-//�븘�씠�뵒 李얘린 �럹�씠吏�
+	//아이디찾기 이동
 	@RequestMapping(value = "/findid", method = RequestMethod.GET)
 	public String getFindId() {
 		// System.out.println("findid Call");
 
 		return "/user/findid";
 	}
-//�븘�씠�뵒 李얘린
+	//아이디찾기
 	@RequestMapping(value = "/findidAjax")
 	@ResponseBody
 	public String findId(@RequestParam Map<String, Object> memberMap) throws Exception {
-		//System.out.println(memberMap);
-		
 		MemberVo memberVo = memberService.findId(memberMap);
-		String result = "";
+		String result = "fail";
 
-		if(memberVo != null) {
+		if (memberVo != null) {
 			String res = memberVo.getUserId();
-		
+			System.out.println(res);
+
 			if (res.equals(null)) {
-				return "/user/login";
-			} else {
-				result = memberVo.getUserId();
+				return "fail";
 			}
+			result = memberVo.getUserId();
 		}
 		return result;
-	
 	}
-//鍮꾨�踰덊샇 李얘린 �럹�씠吏�
+	//비밀번호 찾기 이동
 	@RequestMapping(value = "/findpw", method = RequestMethod.GET)
 	public String getFindPw() {
 		// System.out.println("findpw Call");
 
 		return "/user/findpw";
 	}
-//鍮꾨�踰덊샇 李얘린
+	//비밀번호 찾기
 	@RequestMapping(value = "/findpwAjax")
 	@ResponseBody
 	public String FindPw(@RequestParam Map<String, Object> memberMap) throws Exception {
@@ -154,77 +138,89 @@ public class MemberController {
 		MemberVo memberVo = memberService.findPw(memberMap);
 		String result = "";
 
-		if(memberVo != null) {
+		if (memberVo != null) {
 			String res = memberVo.getUserPw();
-		
+
 			if (res.equals(null)) {
 				return "null";
-			} else {
-				result = memberVo.getUserPw();
 			}
+			result = memberVo.getUserPw();
 		}
 		return result;
 	}
-	//鍮꾨�踰덊샇 蹂�寃�
+	//비밀번호 변경
 	@RequestMapping("/pwModify")
 	public ModelAndView modifyPw(MemberVo memberVo) throws Exception {
 		
 		ModelAndView mav = new ModelAndView();
 		
 		int res = memberService.modifyPw(memberVo);
-		
+
 		if (res < 0) {
-			System.out.println("鍮꾨�踰덊샇 �닔�젙 �떎�뙣");
+			System.out.println("비밀번호 수정 실패");
 			mav.setViewName("redirect:findpw");
 		} else {
-			System.out.println("鍮꾨�踰덊샇 �닔�젙 �꽦怨�");
+			System.out.println("비밀번호 수정 성공");
 			mav.setViewName("redirect:login");
 		}
-		
+
 		return mav;
 	}
-	
-	
-	//硫붿씪諛쒖넚
+
+		//메일발송
 	@RequestMapping("/send")
 	public ModelAndView joinEmailCheck(String email, int code_check) throws MailException {
-
 		ModelAndView mav = new ModelAndView();
 
-		memberService.mailSending(email, code_check);
+			this.memberService.mailSending(email, code_check);
 
-		System.out.println("硫붿씪 諛쒖넚 �꽦怨�");
-		
+				System.out.println("메일 발송 성공");
 
-		return mav;
+				return mav;
 	}
-
-
 	
-
-	// �쉶�썝 �깉�눜 get
+	//회원정보 수정 이동
+		@RequestMapping(value = "/registerEdit", method = RequestMethod.GET)
+		public void ModifyGET() {
+			logger.info("Modify");
+		}
+		// 회원정보 수정 
+		@RequestMapping(value = "/modify", method = RequestMethod.POST)
+		public String postModify(HttpSession session,MemberVo memberVo) throws Exception {
+		 logger.info("post modify");
+		 
+		 memberService.modify(memberVo);
+		 
+		 session.invalidate();
+		 
+		 return "redirect:/";
+		}
+		
+		
+		
+	// 회원 탈퇴 get
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String memberDeleteView() throws Exception {
-		return "user/delete";
-	}
+			return "user/delete";
+		}
 
-	// �쉶�썝 �깉�눜 post
+	// 회원 탈퇴 post
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String Delete(MemberVo memberVo, HttpSession session, RedirectAttributes rttr) throws Exception {
 
-		// �꽭�뀡�뿉 �엳�뒗 member瑜� 媛��졇�� member蹂��닔�뿉 �꽔�뼱以띾땲�떎.
-		MemberVo user = (MemberVo) session.getAttribute("user");
-		// �꽭�뀡�뿉�엳�뒗 鍮꾨�踰덊샇
-		String sessionPass = user.getUserPw();
-		// vo濡� �뱾�뼱�삤�뒗 鍮꾨�踰덊샇
-		String voPass = memberVo.getUserPw();
+			// 세션에 있는 member를 가져와 member변수에 넣어줍니다.
+			MemberVo user = (MemberVo) session.getAttribute("user");
+			// 세션에있는 비밀번호
+			String sessionPass = user.getUserPw(); 
+			// vo로 들어오는 비밀번호
+			String voPass = memberVo.getUserPw();
 
-		if (!(sessionPass.equals(voPass))) {
-			rttr.addFlashAttribute("msg", false);
-			return "redirect:/delete";
+				if (!(sessionPass.equals(voPass))) {
+					rttr.addFlashAttribute("msg", false);
+				return "redirect:/delete";
+			}
+			memberService.delete(memberVo);
+			session.invalidate();
+			return "redirect:/";
 		}
-		memberService.delete(memberVo);
-		session.invalidate();
-		return "redirect:/";
 	}
-}

@@ -53,11 +53,6 @@ body {
 	var idCheckPassed = false;
 	$(document).ready(function() {
 		$("#btn1").on("click", function() {
-			if ($("#userId").val() == "") {
-				swal("아이디를 입력해주세요.");
-				$("#userId").focus();
-				return false;
-			}
 			if ($("#userName").val() == "") {
 				swal("이름을 입력해주세요.");
 				$("#userName").focus();
@@ -87,13 +82,13 @@ body {
 				swal("중복된 아이디입니다");
 				return false;
 			}
-			var idChkVal = $("#idChk").val();
+			/* var idChkVal = $("#idChk").val();
 			if (idChkVal == "N") {
 				swal("중복확인 버튼을 눌러주세요.");
 				return false;
 			} else if (idChkVal == "Y") {
 				$("#regForm").submit();
-			}
+			} */
 		});
 	});
 	function sample6_execDaumPostcode() {
@@ -148,28 +143,7 @@ body {
 					}
 				}).open();
 	}
-	//아이디체크
-	function fn_idCheck() {
-		$.ajax({
-			url : "${root}/user/idCheck",
-			type : "post",
-			dataType : "text",
-			data : {
-				"userId" : $("#userId").val()
-			},
-			success : function(data) {
-				if (data == 1) {
-					swal("중복된 아이디입니다.");
-					idCheckPassed = false;
-				} else if (data == 0) {
-					$("#idCheck").attr("value", "Y");
-					swal("사용가능한 아이디입니다.");
-					idCheckPassed = true;
-				}
-				console.log(idCheckPassed);
-			}
-		})
-	}
+	
 	$(document).ready(
 			function() {
 			//정규식 시작
@@ -230,16 +204,11 @@ body {
 
 <body>
 	<div class="container">
-		<p>회원가입 페이지</p>
-		<form action="${root}/user/registerPost" method="post" id="registerPage">
+		<p>회원정보 수정 페이지</p>
+		<form <%-- action="${root}/user/registerEdit"  --%>method="post" id="registerPage">
 			<div class="form-group has-feedback">
-				<input type="text" id="userId" name="userId" class="form-control"
-					placeholder="아아디">
-				<button class="idCheck" type="button" id="idCheck"
-					onclick="fn_idCheck();" value="N">중복확인</button>
-				<span
-					class="glyphicon glyphicon-exclamation-sign form-control-feedback"></span>
-			</div>
+				<input type="text" id="userId" name="userId" value="${.userId }" class="form-control">
+					
 
 			<div class="form-group has-feedback">
 				<input type="text" id="userName" name="userName"
@@ -266,7 +235,7 @@ body {
 			<span id="pw-check-msg1" class="pw-check-msg1"
 				style="font-size: 13px; text-align: center;"></span>
 
-			<div class="form-group has-feedback">
+			<!-- <div class="form-group has-feedback">
 				<input type="text" id="phoneNum" name="phoneNum"
 					class="form-control" placeholder="핸드폰 번호를 입력해주세요(-제외한 숫자만 입력)">
 				<span class="glyphicon glyphicon-lock form-control-feedback"></span>
@@ -281,10 +250,10 @@ body {
 					class="form-control" placeholder="상세주소"> <input type="text"
 					id="sample6_extraAddress" name="extraAddress" class="form-control"
 					placeholder="참고항목">
-			</div>
+			</div> -->
 
 
-			<div style="margin-left: 15px;">
+			<!-- <div style="margin-left: 15px;"> -->
 				<h4 class="glores-A-title">개인정보처리방침</h4>
 				<div class="glores-A-agree"
 					style="width: 500px; height: 200px; overflow: scroll; overflow-x: hidden; magin: 0 auto; border: 1px solid #ccc; padding: 10px; background: white">

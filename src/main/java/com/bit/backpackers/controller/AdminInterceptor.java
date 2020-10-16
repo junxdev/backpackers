@@ -1,4 +1,4 @@
-package com.bit.backpackers.member.controller;
+package com.bit.backpackers.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.bit.backpackers.member.model.entity.MemberVo;
+import com.bit.backpackers.model.entity.MemberVo;
 
 
 

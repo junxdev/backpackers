@@ -19,23 +19,25 @@ import common.exception.MailException;
 
 public interface MemberService {
 
-	// ?šŒ?›ê°??… ì²˜ë¦¬
+	//íšŒì›ê°€ì… ì²˜ë¦¬
     void register(MemberVo memberVo) throws Exception;
-    // ë¡œê·¸?¸ ì²˜ë¦¬
+    // ë¡œê·¸ì¸ ì²˜ë¦¬
     MemberVo login(LoginDTO loginDTO) throws Exception;
-    //?•„?´?”” ì¤‘ë³µì²´í¬    
+    //íšŒì›ê°€ì… ì•„ì´ë””ì¤‘ë³µ ì¤‘ë³µì²´í¬    
     int idCheck(MemberVo memberVo) throws Exception;
-      // ?šŒ?› ?•„?´?”” ì°¾ê¸°
+    //ì•„ì´ë”” ì°¾ê¸°
     MemberVo findId(Map<String, Object> memberMap) throws Exception;
-    // ?šŒ?› ë¹„ë?ë²ˆí˜¸ ì°¾ê¸°
+    //ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°
     MemberVo findPw(Map<String, Object> memberMap) throws Exception;
-    // ë©”ì¼ ? „?†¡
+    //ë©”ì¼ ë°œì†¡
     public void mailSending(String email, int mailCode) throws MailException;
     
-    // ?Œ¨?Š¤?›Œ?“œ ì°¾ê¸° ê¸°ëŠ¥
+    //ë¹„ë°€ë²ˆí˜¸ ë³€ê²½
     public int modifyPw(MemberVo memberVo) throws Exception;
-    //?šŒ?›?ƒˆ?‡´
+    //íšŒì›íƒˆí‡´
     void delete(MemberVo memberVo) throws Exception;
+  //íšŒì› ìˆ˜ì •
+   	public void modify(MemberVo memberVo)throws Exception;
     
 
 	

@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.bit.backpackers.item.model.entity.ItemVo;
-import com.bit.backpackers.member.model.entity.MemberVo;
+import com.bit.backpackers.model.entity.MemberVo;
 import com.bit.backpackers.order.OrderStatus;
 import com.bit.backpackers.order.model.entity.OrderedProductVo;
 import com.bit.backpackers.order.model.entity.OrderVo;

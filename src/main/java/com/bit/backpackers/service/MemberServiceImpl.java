@@ -34,20 +34,17 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	JavaMailSender mailSender;
 	
-	@Autowired
-	//BCryptPasswordEncoder passwordEncoder;
-	
 	public MemberServiceImpl(MemberDAO memberDAo) {
 	this.memberDAo=memberDAo;
 	}
 	
-	// ?šŒ?›ê°??… ì²˜ë¦¬
+	//íšŒì›ê°€ì… ì²˜ë¦¬
 	@Override
 	public void register(MemberVo memberVo) throws Exception {
 		memberDAo.register(memberVo);
 		
 	}
-	// ë¡œê·¸?¸ ì²˜ë¦¬
+	// ë¡œê·¸ì¸ ì²˜ë¦¬
 	@Override
 	public MemberVo login(LoginDTO loginDTO) throws Exception {
 		 return memberDAo.login(loginDTO);
@@ -61,7 +58,7 @@ public class MemberServiceImpl implements MemberService {
 	// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 
 	
-	//?•„?´?”” ì¤‘ë³µì²´í¬
+	//íšŒì›ê°€ì… ì•„ì´ë””ì¤‘ë³µ ì¤‘ë³µì²´í¬
 	@Override
 	public int idCheck(MemberVo memberVo) throws Exception {
 		MemberVo bean = memberDAo.idCheck(memberVo);
@@ -72,28 +69,24 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
-
+	//ì•„ì´ë”” ì°¾ê¸°
 	@Override
 	public MemberVo findId(Map<String, Object> memberMap) throws Exception {
-		// ?…? ¥?•œ ?´ë¦?
-		// String userName = (String) memberMap.get("userName");
-		// ?…? ¥?•œ ?´ë©”ì¼
-		// String userEmail = (String) memberMap.get("userEmail");
-
+	
 		MemberVo memberVo = memberDAo.findId(memberMap);
 
 		return memberVo;
 	}
-
+	//ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°
 	@Override
 	public MemberVo findPw(Map<String, Object> memberMap) throws Exception {
 		MemberVo memberVo = memberDAo.findPw(memberMap);
 
-		// System.out.println("ë¹„ë?ë²ˆí˜¸?Š” " + member.getUserPw());
+		 System.out.println("ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°" + memberVo.getUserPw());
 
 		return memberVo;
 	}
-	//ë¹„ë?ë²ˆí˜¸ ?ˆ˜? •
+	//ë¹„ë°€ë²ˆí˜¸ ë³€ê²½
 	@Override
 	public int modifyPw(MemberVo memberVo) throws Exception {
 		
@@ -101,60 +94,58 @@ public class MemberServiceImpl implements MemberService {
 		String secPw = "";
 		
 		if (password.equals(null)) {
-			// ê°œì¸? •ë³? update
+			// ê°œì¸ì •ë³´ update
 			memberDAo.modifyPw(memberVo);
 		} else {
-			 System.out.println(password + " ê²?ì¦?");
-
-			// ë¹„ë?ë²ˆí˜¸ ?•”?˜¸?™”
-			//secPw = passwordEncoder.encode(password);
-
-			// System.out.println(secPw + "ë¹„ë?ë²ˆí˜¸ ?•”?˜¸?™” ?œ ê±? ?™•?¸");
-			
-			// ë¹„ë?ë²ˆí˜¸ set
+			 System.out.println(password + "ê²€ì¦");
+			// ë¹„ë°€ë²ˆí˜¸ set
 			memberVo.setUserPw(password);
-			
-			// System.out.println(secPw + " ê²?ì¦?");
 		}
 		return memberDAo.modifyPw(memberVo);
 	}
 
 
-	//?´ë©”ì¼?¸ì¦?
+	//ì´ë©”ì¼ì¸ì¦
 	public void mailSending(String email, int code_check) throws MailException {
 
-		String setfrom = "yoursitup90@gmail.com";
+		String setfrom = "bit03final@gmail.com";
 		String tomail = email;
-		String title = "?´ë©”ì¼ ë³?ê²? ?¸ì¦ë©”?¼ ?…?‹ˆ?‹¤.";
-		String htmlBody = "<h2> ?¸ì¦ë²ˆ?˜¸ë¥? ?…? ¥?•´ì£¼ì„¸?š”!</h2>" + " ?¸ì¦ë²ˆ?˜¸?Š” " + code_check + " ?…?‹ˆ?‹¤!";
+		String title = "ì´ë©”ì¼ ë³€ê²½ ì¸ì¦ë©”ì¼ ì…ë‹ˆë‹¤.";
+		String htmlBody = "<h2> ì¸ì¦ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”!</h2>" + " ì¸ì¦ë²ˆí˜¸ëŠ” " + code_check + " ì…ë‹ˆë‹¤!";
 
 		try {
 
 			mailSender.send(new MimeMessagePreparator() {
 				public void prepare(MimeMessage mimeMessage) throws MessagingException {
 					MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-					// ë³´ë‚´?Š” ?´
+					// ë³´ë‚´ëŠ” ì´
 					message.setFrom(setfrom);
-					// ë°›ëŠ” ?´
+					// ë°›ëŠ” ì´
 					message.setTo(tomail);
-					// ë©”ì¼ ? œëª?
+					// ë©”ì¼ ì œëª©
 					message.setSubject(title);
-					// ë©”ì¼ ?‚´?š©
-					// ?‘ë²ˆì§¸ booleanê°’ì? html ?—¬ë¶? (true : html , false : text)
+					// ë©”ì¼ ë‚´ìš©
+					// ë‘ë²ˆì§¸ booleanê°’ì€ html ì—¬ë¶€ (true : html , false : text)
 					message.setText(htmlBody, true);
 				};
 			});
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new MailException("M_ERROR_01");
+			throw new MailException("mail_err");
 
 		}
 	}
 
-
+	//íšŒì›íƒˆí‡´
 	@Override
 	public void delete(MemberVo memberVo) throws Exception {
 		memberDAo.delete(memberVo);
+	//ë©¤ë²„ì„œë¹„ìŠ¤ì—ì„œ ë‹¤ì˜¤ë¡œ íŒŒë¼ë¯¸í„° ì „ë‹¬
+	}
+	//íšŒì› ìˆ˜ì •
+	@Override
+	public void modify(MemberVo memberVo) throws Exception {
+		memberDAo.modify(memberVo);
 		
 	}
 
