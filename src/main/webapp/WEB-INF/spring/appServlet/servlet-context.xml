@@ -34,6 +34,10 @@
 			<mapping path="/admin/**"/>
 		<beans:bean id="AdminInterceptor" class="com.bit.backpackers.controller.AdminInterceptor"/>
 		</interceptor>
+		<interceptor>
+			<mapping path="/order/**"/>
+			<beans:bean id="LoginInterceptor" class="com.bit.backpackers.member.controller.LoginInterceptor"/>
+		</interceptor>
 		
 	</interceptors> 
 	

@@ -51,7 +51,7 @@
 												<c:if test="${not imageMap.containsKey(product.productCode)}">
 													<li>
 														<a href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }">
-															<img src="${root }/resources/img/no-image.jpg" style="width:300px;height:300px;"/>
+															<img src="${productImage }/no-image.jpg" style="width:300px;height:300px;"/>
 														</a>
 													</li>
 												</c:if>
@@ -59,7 +59,7 @@
 												<c:if test="${imageMap.containsKey(product.productCode)}">
 													<li>
 														<a href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }">
-															<img src="${root }/resources/img/${imageMap[product.productCode].imageURL }" style="width:300px;height:300px;"/>
+															<img src="${productImage }/${imageMap[product.productCode].imageURL }" style="width:300px;height:300px;"/>
 														</a>
 													</li>
 												</c:if>

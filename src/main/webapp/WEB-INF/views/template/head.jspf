@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 
     pageEncoding="UTF-8"%>
-	<% request.setAttribute("root", request.getContextPath()); %>
+	<% 
+		request.setAttribute("root", request.getContextPath()); 
+		request.setAttribute("productImage", request.getContextPath() + "/resources/img/product");
+	%>
 	<link rel="stylesheet" type="text/css" href="${root }/resources/css/bootstrap.css">
 	<script type="text/javascript" src="${root }/resources/js/jquery-1.12.4.js"></script>
 	<script type="text/javascript" src="${root }/resources/js/bootstrap.js"></script>
-<!-- kakao -->
-<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
-
 
 <title>Backpackers : 3rd project by group 3</title>
 

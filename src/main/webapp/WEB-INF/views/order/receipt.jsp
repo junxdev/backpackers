@@ -34,11 +34,11 @@
 											<span>
 												<!-- 등록된 이미지가 없을 때 -->
 												<c:if test="${image.imageURL eq null }">
-													<img src="${root }/resources/img/no-image.jpg" style="width:50px;height:50px;"/>
+													<img src="${productImage }/no-image.jpg" style="width:50px;height:50px;"/>
 												</c:if>
 												<!-- 등록된 이미지들을 나열 -->
 												<c:if test="${image.imageURL ne null }">
-												<img src="${root }/resources/img/${image.imageURL}"  style="width:50px;height:50px;"/>
+												<img src="${productImage }/${image.imageURL}"  style="width:50px;height:50px;"/>
 												</c:if>
 											</span>
 											<span>${shop.shopTitle }</span>

@@ -1,4 +1,4 @@
-package com.bit.backpackers.controller;
+package com.bit.backpackers.member.controller;
 
 import java.lang.reflect.Member;
 import java.util.Date;
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,9 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bit.backpackers.model.entity.LoginDTO;
-import com.bit.backpackers.model.entity.MemberVo;
-import com.bit.backpackers.service.MemberService;
+import com.bit.backpackers.member.model.entity.LoginDTO;
+import com.bit.backpackers.member.model.entity.MemberVo;
+import com.bit.backpackers.member.service.MemberService;
 
 import common.exception.MailException;
 
@@ -39,14 +40,14 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 
-	// ë¡œê·¸?¸ ?˜?´ì§?
+	// ë¡œê·¸ì¸ í˜ì´ì§€
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginGET(@ModelAttribute("loginDTO") LoginDTO loginDTO) {
 		logger.info("login");
 		return "/user/login";
 	}
 
-	// ë¡œê·¸?¸ ì²˜ë¦¬
+	// ë¡œê·¸ì¸ ì²˜ë¦¬
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public String loginPOST(@ModelAttribute LoginDTO loginDTO, HttpSession httpSession, RedirectAttributes rttr)
 			throws Exception {
@@ -54,20 +55,18 @@ public class MemberController {
 		MemberVo user = memberService.login(loginDTO);
 
 		if (user != null) {
-			System.out.println("·Î±×ÀÎ ¼º°ø");
+			System.out.println("ë¡œê·¸ì¸ ì„±ê³µ");
 			httpSession.setAttribute("user", user);
-			httpSession.setAttribute("username",loginDTO.getUserId());
-			// ë¡œê·¸?¸ ?œ ì§?ë¥? ?„ ?ƒ?•  ê²½ìš°
 			return "redirect:/";
 		} else {
-			System.out.println("ë¡œê·¸?¸ ?‹¤?Œ¨");
+			System.out.println("ë¡œê·¸ì¸ ì‹¤íŒ¨");
 			httpSession.setAttribute("user", null);
 			// rttr.addFlashAttribute("msg", false);
 			return "user/loginPost";
 		}
 	}
 
-	// ë¡œê·¸?•„?›ƒ
+	// ë¡œê·¸ì•„ì›ƒ
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception {
 
@@ -76,21 +75,21 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	// userë§ˆì´ ?˜?´ì§?
+	// userë§ˆì´ í˜ì´ì§€
 	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
 	public String mypage(@ModelAttribute("loginDTO") LoginDTO loginDTO) throws Exception {
 		logger.info("user Login");
 		return "/user/myPage";
 	}
 
-	// ?šŒ?›ê°??… ?˜?´ì§?
+	// íšŒì›ê°€ì… í˜ì´ì§€
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String registerGET() throws Exception {
 		System.out.println("00000001");
 		return "user/register";
 	}
 
-	// ?šŒ?›ê°??… ì²˜ë¦¬
+	// íšŒì›ê°€ì… ì²˜ë¦¬
 	@RequestMapping(value = "/registerPost", method = RequestMethod.POST)
 	public String registerPOST(@ModelAttribute MemberVo memberVo, RedirectAttributes redirectAttributes)
 			throws Exception {
@@ -104,7 +103,7 @@ public class MemberController {
 		return "/user/registerPost";
 	}
 
-	// ?•„?´?”” ì¤‘ë³µ ì²´í¬
+	// ï¿½ë¸˜ï¿½ì” ï¿½ëµ’ ä»¥ë¬ë‚¬ ï§£ëŒ„ê²•
 	@ResponseBody
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
 	public int idCheck(@ModelAttribute MemberVo memberVo) throws Exception {
@@ -112,14 +111,14 @@ public class MemberController {
 		System.out.println("login check");
 		return result;
 	}
-//?•„?´?”” ì°¾ê¸° ?˜?´ì§?
+//ï¿½ë¸˜ï¿½ì” ï¿½ëµ’ ï§¡ì–˜ë¦° ï¿½ëŸ¹ï¿½ì” ï§ï¿½
 	@RequestMapping(value = "/findid", method = RequestMethod.GET)
 	public String getFindId() {
 		// System.out.println("findid Call");
 
 		return "/user/findid";
 	}
-//?•„?´?”” ì°¾ê¸°
+//ï¿½ë¸˜ï¿½ì” ï¿½ëµ’ ï§¡ì–˜ë¦°
 	@RequestMapping(value = "/findidAjax")
 	@ResponseBody
 	public String findId(@RequestParam Map<String, Object> memberMap) throws Exception {
@@ -140,14 +139,14 @@ public class MemberController {
 		return result;
 	
 	}
-//ë¹„ë?ë²ˆí˜¸ ì°¾ê¸° ?˜?´ì§?
+//é®ê¾¨ï¿½è¸°ëŠìƒ‡ ï§¡ì–˜ë¦° ï¿½ëŸ¹ï¿½ì” ï§ï¿½
 	@RequestMapping(value = "/findpw", method = RequestMethod.GET)
 	public String getFindPw() {
 		// System.out.println("findpw Call");
 
 		return "/user/findpw";
 	}
-//ë¹„ë?ë²ˆí˜¸ ì°¾ê¸°
+//é®ê¾¨ï¿½è¸°ëŠìƒ‡ ï§¡ì–˜ë¦°
 	@RequestMapping(value = "/findpwAjax")
 	@ResponseBody
 	public String FindPw(@RequestParam Map<String, Object> memberMap) throws Exception {
@@ -166,7 +165,7 @@ public class MemberController {
 		}
 		return result;
 	}
-	//ë¹„ë?ë²ˆí˜¸ ë³?ê²?
+	//é®ê¾¨ï¿½è¸°ëŠìƒ‡ è¹‚ï¿½å¯ƒï¿½
 	@RequestMapping("/pwModify")
 	public ModelAndView modifyPw(MemberVo memberVo) throws Exception {
 		
@@ -175,10 +174,10 @@ public class MemberController {
 		int res = memberService.modifyPw(memberVo);
 		
 		if (res < 0) {
-			System.out.println("ë¹„ë?ë²ˆí˜¸ ?ˆ˜? • ?‹¤?Œ¨");
+			System.out.println("é®ê¾¨ï¿½è¸°ëŠìƒ‡ ï¿½ë‹”ï¿½ì ™ ï¿½ë–ï¿½ë™£");
 			mav.setViewName("redirect:findpw");
 		} else {
-			System.out.println("ë¹„ë?ë²ˆí˜¸ ?ˆ˜? • ?„±ê³?");
+			System.out.println("é®ê¾¨ï¿½è¸°ëŠìƒ‡ ï¿½ë‹”ï¿½ì ™ ï¿½ê½¦æ€¨ï¿½");
 			mav.setViewName("redirect:login");
 		}
 		
@@ -186,7 +185,7 @@ public class MemberController {
 	}
 	
 	
-	//ë©”ì¼ë°œì†¡
+	//ï§ë¶¿ì”ªè«›ì’–ë„š
 	@RequestMapping("/send")
 	public ModelAndView joinEmailCheck(String email, int code_check) throws MailException {
 
@@ -194,7 +193,7 @@ public class MemberController {
 
 		memberService.mailSending(email, code_check);
 
-		System.out.println("ë©”ì¼ ë°œì†¡ ?„±ê³?");
+		System.out.println("ï§ë¶¿ì”ª è«›ì’–ë„š ï¿½ê½¦æ€¨ï¿½");
 		
 
 		return mav;
@@ -203,21 +202,21 @@ public class MemberController {
 
 	
 
-	// ?šŒ?› ?ƒˆ?‡´ get
+	// ï¿½ì‰¶ï¿½ì ï¿½ê¹‰ï¿½ëˆœ get
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String memberDeleteView() throws Exception {
 		return "user/delete";
 	}
 
-	// ?šŒ?› ?ƒˆ?‡´ post
+	// ï¿½ì‰¶ï¿½ì ï¿½ê¹‰ï¿½ëˆœ post
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String Delete(MemberVo memberVo, HttpSession session, RedirectAttributes rttr) throws Exception {
 
-		// ?„¸?…˜?— ?ˆ?Š” memberë¥? ê°?? ¸?? memberë³??ˆ˜?— ?„£?–´ì¤ë‹ˆ?‹¤.
+		// ï¿½ê½­ï¿½ë€¡ï¿½ë¿‰ ï¿½ì—³ï¿½ë’— memberç‘œï¿½ åª›ï¿½ï¿½ì¡‡ï¿½ï¿½ memberè¹‚ï¿½ï¿½ë‹”ï¿½ë¿‰ ï¿½ê½”ï¿½ë¼±ä»¥ë¾ë•²ï¿½ë–.
 		MemberVo user = (MemberVo) session.getAttribute("user");
-		// ?„¸?…˜?—?ˆ?Š” ë¹„ë?ë²ˆí˜¸
+		// ï¿½ê½­ï¿½ë€¡ï¿½ë¿‰ï¿½ì—³ï¿½ë’— é®ê¾¨ï¿½è¸°ëŠìƒ‡
 		String sessionPass = user.getUserPw();
-		// voë¡? ?“¤?–´?˜¤?Š” ë¹„ë?ë²ˆí˜¸
+		// voæ¿¡ï¿½ ï¿½ë±¾ï¿½ë¼±ï¿½ì‚¤ï¿½ë’— é®ê¾¨ï¿½è¸°ëŠìƒ‡
 		String voPass = memberVo.getUserPw();
 
 		if (!(sessionPass.equals(voPass))) {

@@ -3,28 +3,40 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.bit.backpackers.cart.model.CartDao">
+  
   	<insert id="insertItem">
-  		INSERT INTO cart (productCode, cartDate, cartRemoved, optionCode) VALUES (#{productCode}, NOW(), 0, #{optionCode})
+  		INSERT INTO cart (productCode, userId, cartDate, cartRemoved, optionCode) VALUES (#{productCode}, #{userId}, NOW(), 0, #{optionCode})
   	</insert>
+  	
   	<select id="selectCart" resultType="CartProductVo">
   		SELECT 
-  			cartId,
-  			productCode,
-  			cartDate,
-  			optionCode,
-  			COUNT(optionCode) AS quantity 
+  			cart.cartId,
+  			cart.productCode,
+  			cart.cartDate,
+  			product.optionCode AS firstOptionCode,
+  			cart.optionCode AS secondOptionCode,
+  			COUNT(cart.optionCode) AS quantity 
   		FROM cart 
-  		WHERE cartRemoved = 0
+        LEFT JOIN product
+        ON cart.productCode = product.productCode
+  		WHERE cart.cartRemoved = 0 AND cart.userId = #{userId}
   		GROUP BY
-  			productCode,
-  			optionCode
+  			cart.productCode,
+  			cart.optionCode
   		ORDER BY
-  			cartDate ASC
+  			cart.cartDate ASC;
   	</select>
+  	
+  	<delete id="minusItemQuantity">
+  		DELETE FROM cart 
+  		WHERE productCode = #{productCode} AND optionCode = #{optionCode} AND userID = #{userId}
+  		ORDER BY cartId
+	  	LIMIT 1
+  	</delete>
+  	
   	<delete id="removeItem">
   		DELETE FROM cart 
-  		WHERE productCode = #{productCode} AND optionCode = #{optionCode} 
+  		WHERE productCode = #{productCode} AND optionCode = #{optionCode} AND userID = #{userId}
   		ORDER BY cartId
-  		LIMIT 1
   	</delete>
   </mapper>

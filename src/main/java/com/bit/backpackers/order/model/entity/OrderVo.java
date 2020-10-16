@@ -12,6 +12,7 @@ import lombok.ToString;
 public class OrderVo {
 
 	private String orderCode;
+	private String userId;
 	private Date orderDate;
 	private OrderStatus orderStatus;
 	private int orderAmount;
