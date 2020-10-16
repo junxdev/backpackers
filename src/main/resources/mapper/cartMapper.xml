@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.bit.backpackers.cart.model.CartDao">
+  	<insert id="insertItem">
+  		INSERT INTO cart (productCode, cartDate, cartRemoved, optionCode) VALUES (#{productCode}, NOW(), 0, #{optionCode})
+  	</insert>
+  	<select id="selectCart" resultType="CartProductVo">
+  		SELECT 
+  			cartId,
+  			productCode,
+  			cartDate,
+  			optionCode,
+  			COUNT(optionCode) AS quantity 
+  		FROM cart 
+  		WHERE cartRemoved = 0
+  		GROUP BY
+  			productCode,
+  			optionCode
+  		ORDER BY
+  			cartDate ASC
+  	</select>
+  	<delete id="removeItem">
+  		DELETE FROM cart 
+  		WHERE productCode = #{productCode} AND optionCode = #{optionCode} 
+  		ORDER BY cartId
+  		LIMIT 1
+  	</delete>
+  </mapper>

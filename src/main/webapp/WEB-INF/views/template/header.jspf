@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%><div class="container-fluid">
+    pageEncoding="UTF-8"%>
+    <div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="header">
+<<<<<<< HEAD
+=======
+					
+					<!--<h1>${user.toString() }님 입장을 환영합니다</h1>--> 
+>>>>>>> 95eed35ef2b3ddd2ea4f720972985b26fea7ea74
 				</div>
 				<div class="content">
