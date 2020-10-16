@@ -9,6 +9,8 @@
 
 <!-- 글쓰기 api 오류 나서, 이 페이지는 template을 따로 넣었음 -->
 
+<!-- 헤더 css --> -->
+
 <% request.setAttribute("root", request.getContextPath()); %>
 
 	<link rel="stylesheet" type="text/css" href="/backpackers/resources/css/bootstrap.css">
@@ -17,6 +19,7 @@
 
 <title>Backpackers : 3rd project by group 3</title>
 
+<!-- 글쓰기 api css -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
 <script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
