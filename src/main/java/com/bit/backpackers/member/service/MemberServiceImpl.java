@@ -123,7 +123,7 @@ public class MemberServiceImpl implements MemberService {
 	//이메일인증
 	public void mailSending(String email, int code_check) throws MailException {
 
-		String setfrom = "yoursitup90@gmail.com";
+		String setfrom = "bit03final@gmail.com";
 		String tomail = email;
 		String title = "이메일 변경 인증메일 입니다.";
 		String htmlBody = "<h2> 인증번호를 입력해주세요!</h2>" + " 인증번호는 " + code_check + " 입니다!";
@@ -146,7 +146,7 @@ public class MemberServiceImpl implements MemberService {
 			});
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new MailException("M_ERROR_01");
+			throw new MailException("mail_err");
 
 		}
 	}

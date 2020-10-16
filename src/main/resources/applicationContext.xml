@@ -64,8 +64,8 @@
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
-		<property name="username" value="yoursitup90@gmail.com" />
-		<property name="password" value="@Als12345" />
+		<property name="username" value="bitfinal03@gmail.com" />
+		<property name="password" value="akawvksagzqktonq" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.starttls.enable">true</prop>
