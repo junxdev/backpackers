@@ -108,7 +108,7 @@ public class BoardController {
 	 }
 	 
 	
-	 
+
 	 //글수정
 	 @RequestMapping(value = "{board_no}/edit",method = RequestMethod.PUT)
 	 public String boardupdate(@PathVariable int board_no,Integer reply_no,@ModelAttribute BoardVo info,ReplyVo replyinfo,HttpServletRequest request) throws SQLException {
@@ -120,6 +120,7 @@ public class BoardController {
 	   }
 		 return "redirect:../{board_no}";
 	 }
+
 //	 //댓글수정
 //	 @RequestMapping(value = "/{reply_no}/replyedit",method = RequestMethod.PUT)
 //	 public String replyupdate(@PathVariable Integer reply_no,@ModelAttribute ReplyVo replyinfo,HttpServletRequest request) throws SQLException {
@@ -142,7 +143,7 @@ public class BoardController {
 				replyService.deleteReply(reply_no);
 				return "redirect:./{board_no}";
 			}
-			
+
 			
 	 }
 	 
@@ -151,7 +152,9 @@ public class BoardController {
 	 public ModelAndView openBoardList(Criteria cri) throws Exception {
 	         
 	     ModelAndView mav = new ModelAndView("/board/board");
-	     ModelAndView mav2 = new ModelAndView("/board/search");
+
+	  
+
 	     PageMaker pageMaker = new PageMaker();
 	     pageMaker.setCri(cri);
 	     pageMaker.setTotalCount(boardService.countBoardListTotal());
@@ -165,7 +168,7 @@ public class BoardController {
 	     return mav;
 	         
 	 }
-
+   
 	  @RequestMapping(value = "/search")
       public ModelAndView list(@RequestParam(defaultValue ="title") String searchOption, @RequestParam(defaultValue="") String keyword,@RequestParam(defaultValue="1")int curPage)throws Exception {
 		
@@ -185,7 +188,7 @@ public class BoardController {
 		  map.put("keyword",keyword);
 		  map.put("count",count);
 		  map.put("boardPager",boardPager);
-		  
+
 		  mav.addObject("map",map);
 		  mav.setViewName("board/boardsearch");
 		

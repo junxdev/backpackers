@@ -8,6 +8,15 @@
 	<meta charset="UTF-8">
 	<%@ include file="/WEB-INF/views/template/head.jspf" %>
 	<link type="text/css" rel="stylesheet" href="${root }/resources/css/shop.css"/>
+	<style type="text/css">
+	
+	
+		li{
+		 list-style: none;
+		}
+		
+		
+	</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/template/nav.jspf" %>
@@ -31,20 +40,14 @@
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-10">
 				<div class="content">
-					<table class="table">
-						<thead>
-							<tr>
-								<th>이름</th>
-								<th>가격</th>
-							</tr>
-						</thead>
-						<tbody>
+					<div class="row">
 							<!-- 등록된 상품 페이지를 나열 -->
 							<c:forEach items="${shopList }" var="shop">
+							<div class="col-md-4">
 							<c:set value="${productMap[shop.shopCode] }" var="productList"></c:set>
 								<tr>
 									<td>
-										<ul><span>${shop.shopTitle }</span>
+										<ul>
 											<!-- 상품 페이지에 등록된 상품을 나열 -->
 											<c:forEach items="${productList }" var="product">
 												<!-- 상품에 등록된 이미지가 없을 때 -->
@@ -66,10 +69,11 @@
 											</c:forEach>
 										</ul>
 									</td>
-									<td>${shop.shopPrice }</td>
+									<th>${shop.shopTitle }</th>
+									<th>가격:${shop.shopPrice }</th>
 								</tr>
+								</div>
 							</c:forEach>
-						</tbody>
 						<!-- 카테고리에 등록된 상품이 없을 때 -->
 						<script type="text/javascript">
 							(function ab() {
@@ -79,7 +83,7 @@
 							    }
 							})();
 						</script>
-					</table>
+					</div>
 				</div>
 			</div>
 		</div>
