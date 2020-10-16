@@ -1,5 +1,7 @@
 package com.bit.backpackers.member.controller;
 
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,7 +13,7 @@ import com.bit.backpackers.member.model.entity.MemberVo;
 
 
 
-public class AdminInterceptor extends HandlerInterceptorAdapter {
+public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -19,13 +21,26 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		MemberVo user = (MemberVo)session.getAttribute("user");
 	
-		// 관리자가 아닌 경우
-		if(user.getGrade() != 1) {
-			response.sendRedirect("/backpackers");
+		// 로그인하지 않은 경우
+		if(user == null) {
+			// ajax 요청인 경우
+			if(isAjaxRequest(request)) {
+				response.sendError(400);
+				return false;
+			}
+			response.sendRedirect("/backpackers/user/login");
 			return false;
 		}
 		
 		return true;
 		
+	}
+	
+	private boolean isAjaxRequest(HttpServletRequest request) {
+		String header = request.getHeader("ajax-need-login");
+		if("true".equals(header)) {
+			return true;
+		}
+		return false;
 	}
 }

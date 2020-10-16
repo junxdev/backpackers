@@ -10,12 +10,20 @@
   		<collection property="subCategoryList" select="selectSubCategory" column="mainCategoryCode" javaType="ArrayList" ofType="String" />
   	</resultMap>
   	
-  	<select id="selectCategoryList" resultMap="categoryMap">
+  	<select id="selectCategoryListByMainCategoryCode" resultMap="categoryMap">
   		SELECT * FROM main_category
   	</select>
   	
   	<select id="selectSubCategory" resultType="String">
   		SELECT subCategoryName FROM sub_category WHERE mainCategoryCode = #{mainCategoryCode}
+  	</select>
+  	
+  	<select id="findSubCategory" resultType="String">
+  		SELECT subCategoryCode FROM sub_category WHERE subCategoryName = #{subCategoryName}
+  	</select>
+  	
+  	<select id="findMainCategory" resultType="String">
+  		SELECT mainCategoryCode FROM main_category WHERE mainCategoryName = #{mainCategoryName}
   	</select>
   	
   </mapper>
