@@ -21,8 +21,25 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@Override
 	public void getCategoryList(Model model) throws SQLException {
-		List<CategoryVo> list = sqlSession.getMapper(CategoryDao.class).selectCategoryList();
+		List<CategoryVo> list = sqlSession.getMapper(CategoryDao.class).selectCategoryListByMainCategoryCode();
 		model.addAttribute("categoryList", list);
+	}
+
+	@Override
+	public void checkCategory(String mainCategoryName) throws SQLException {
+		String mainCategoryCode = sqlSession.getMapper(CategoryDao.class).findMainCategory(mainCategoryName);
+		if(mainCategoryCode == null) {
+			throw new NullPointerException("No matched main-category");
+		}
+	}
+
+	@Override
+	public void checkCategory(String mainCategoryName, String subCategoryName) throws SQLException {
+		String mainCategoryCode = sqlSession.getMapper(CategoryDao.class).findMainCategory(mainCategoryName);
+		String subCategoryCode = sqlSession.getMapper(CategoryDao.class).findSubCategory(subCategoryName);
+		if(mainCategoryCode == null || subCategoryCode == null) {
+			throw new NullPointerException("No matched main-category");
+		}
 	}
 	
 }

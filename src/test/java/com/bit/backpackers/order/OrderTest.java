@@ -30,7 +30,7 @@ public class OrderTest {
 	@Test
 	public void createOrderCode() {
 		Order order = new Order();
-		String orderCode = order.makeOrderCode();
+		String orderCode = order.createOrderCode();
 		System.out.println(orderCode);
 		assertNotNull(orderCode);
 	}

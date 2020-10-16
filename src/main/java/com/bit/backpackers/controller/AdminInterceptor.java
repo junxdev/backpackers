@@ -19,13 +19,7 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		MemberVo user = (MemberVo)session.getAttribute("user");
 	
-		// ë¡œê·¸?¸?•˜ì§? ?•Š?? ê²½ìš°
-		if(user == null) {
-			response.sendRedirect("/backpackers/user/login");
-			return false;
-		}
-		
-		// ?¼ë°? ?šŒ?›?´ ë¡œê·¸?¸?•œ ê²½ìš°
+		// ê´€ë¦¬ìê°€ ì•„ë‹Œ ê²½ìš°
 		if(user.getGrade() != 1) {
 			response.sendRedirect("/backpackers");
 			return false;

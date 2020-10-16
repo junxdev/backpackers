@@ -4,7 +4,6 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="header">
-					해더
-					<!--<h1>${user.toString() }님 입장을 환영합니다</h1>--> 
+
 				</div>
 				<div class="content">
