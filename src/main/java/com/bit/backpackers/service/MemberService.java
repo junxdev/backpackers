@@ -1,4 +1,4 @@
-package com.bit.backpackers.member.service;
+package com.bit.backpackers.service;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Member;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.mail.javamail.JavaMailSender;
 
-import com.bit.backpackers.member.model.entity.LoginDTO;
-import com.bit.backpackers.member.model.entity.MemberVo;
+import com.bit.backpackers.model.entity.LoginDTO;
+import com.bit.backpackers.model.entity.MemberVo;
 
 import common.exception.MailException;
 
@@ -19,22 +19,22 @@ import common.exception.MailException;
 
 public interface MemberService {
 
-	// íšŒì›ê°€ì… ì²˜ë¦¬
+	// ?šŒ?›ê°??… ì²˜ë¦¬
     void register(MemberVo memberVo) throws Exception;
-    // ë¡œê·¸ì¸ ì²˜ë¦¬
+    // ë¡œê·¸?¸ ì²˜ë¦¬
     MemberVo login(LoginDTO loginDTO) throws Exception;
-    //ì•„ì´ë”” ì¤‘ë³µì²´í¬    
+    //?•„?´?”” ì¤‘ë³µì²´í¬    
     int idCheck(MemberVo memberVo) throws Exception;
-      // íšŒì› ì•„ì´ë”” ì°¾ê¸°
+      // ?šŒ?› ?•„?´?”” ì°¾ê¸°
     MemberVo findId(Map<String, Object> memberMap) throws Exception;
-    // íšŒì› ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°
+    // ?šŒ?› ë¹„ë?ë²ˆí˜¸ ì°¾ê¸°
     MemberVo findPw(Map<String, Object> memberMap) throws Exception;
-    // ë©”ì¼ ì „ì†¡
+    // ë©”ì¼ ? „?†¡
     public void mailSending(String email, int mailCode) throws MailException;
     
-    // íŒ¨ìŠ¤ì›Œë“œ ì°¾ê¸° ê¸°ëŠ¥
+    // ?Œ¨?Š¤?›Œ?“œ ì°¾ê¸° ê¸°ëŠ¥
     public int modifyPw(MemberVo memberVo) throws Exception;
-    //íšŒì›íƒˆí‡´
+    //?šŒ?›?ƒˆ?‡´
     void delete(MemberVo memberVo) throws Exception;
     
 

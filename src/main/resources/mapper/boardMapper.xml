@@ -4,8 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit.backpackers.model.BoardDao">
   <select id="searchBoard" resultType="com.bit.backpackers.model.entity.BoardVo" parameterType="map">
-    select * from board<include refid="search"></include>order by board_no desc
+    select * from board<include refid="search"></include>order by board_no desc <!-- limit #{start}, #{end} -->
   </select>
+  
   <select id="selectBoardList" resultType="hashmap" parameterType="hashmap">
    <![CDATA[ select * from 
    board order by board_no desc limit #{pageStart}, #{perPageNum}  ]]>
@@ -44,7 +45,7 @@ select count(*) from board<include refid="search"></include>
    and board_content like CONCAT('%',#{keyword},'%')
    </when>
    <otherwise>
-   where ${searchOption} like CONCAT('%',#{keyword},'%')
+   where ${searchOption} like CONCAT('%',#{keyword},'%') 
    </otherwise>
    </choose>
    </sql>

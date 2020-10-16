@@ -7,6 +7,18 @@
 <%@include file="../template/head.jspf" %>
 <style type="text/css">
 
+
+#searchbar,#searchOptionbar{
+width: 5%;
+ float: left;
+}
+
+#boardwrite{
+float: right;
+
+}
+
+
 </style>
 <title>게시판</title>
 </head>
@@ -20,7 +32,6 @@
 <th>글쓴이</th>
 <th>작성일</th>
 <th>조회</th>
-<th>주천</th>
 </tr>
 <c:forEach items="${list}" var="title">
 <tr>
@@ -29,23 +40,20 @@
 <td>${title.user_ID}</td>
 <td>${title.board_date}</td>
 <td>${title.board_views}</td>
-<td>${title.board_hits}</td>
-
 </tr>
 </c:forEach>
 </table>
 <div class="search_board">
 <form name="form1" method="post" action="./search">
-<select class="form-control" name="searchOption">
-  <option value="all"<c:out value="${map.searchOption == 'all'?'selected':''}"/> >전체</option>
+<select class="form-control" name="searchOption" id="searchOptionbar">
   <option value="board_subject"<c:out value="${map.searchOption == 'board_subject'?'selected':''}"/> >제목</option>
   <option value="user_ID"<c:out value="${map.searchOption == 'user_ID'?'selected':''}"/> >이름</option>
   <option value="board_content"<c:out value="${map.earchOption == 'board_content'?'selected':''}"/> >내용</option>
 </select>
- <input type="text" name="keyword" value="${map.keyword}" class="form-control" placeholder="검색">
- <button class="btn btn-primary" type="submit">검색</button>
+ <div><input type="text" name="keyword" value="${map.keyword}" class="form-control" id="searchbar" placeholder="검색">
+ <button class="btn btn-primary" type="submit">검색</button></div>
  </form>
-<p><a class="btn btn-primary" href="./boardwrite" role="button">글쓰기</a></p>
+<p><a class="btn btn-primary" href="./boardwrite" role="button" id="boardwrite">글쓰기</a></p>
 </div>
 <div class="boardpaging">
 
@@ -53,7 +61,7 @@
 <ul class="btn-group pagination">
     <c:if test="${pageMaker.prev }">
     <li>
-        <a href='<c:url value="/board/?page=${pageMaker.startPage-1 }"/>'><i class="fa fa-chevron-left"></i></a>
+        <a href='<c:url value="/board/?page=${pageMaker.startPage-1 }"/>'><i class="fa fa-chevron-left">이전</i></a>
     </li>
     </c:if>
     <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
@@ -63,32 +71,12 @@
     </c:forEach>
     <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
     <li>
-        <a href='<c:url value="/board/?page=${pageMaker.endPage+1 }"/>'><i class="fa fa-chevron-right"></i></a>
+        <a href='<c:url value="/board/?page=${pageMaker.endPage+1 }"/>'><i class="fa fa-chevron-right">다음</i></a>
     </li>
     </c:if>
 </ul>
 
 
-
-<!-- <nav>
-  <ul class="pagination">
-    <li>
-      <a href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li>
-      <a href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav> -->
 
 </div>
 

@@ -32,7 +32,7 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/admin/**"/>
-		<beans:bean id="AdminInterceptor" class="com.bit.backpackers.member.controller.AdminInterceptor"/>
+		<beans:bean id="AdminInterceptor" class="com.bit.backpackers.controller.AdminInterceptor"/>
 		</interceptor>
 		<interceptor>
 			<mapping path="/order/**"/>

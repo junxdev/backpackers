@@ -55,6 +55,11 @@
 
 <script>
 $(document).ready(function() {
+	
+	$('.summernote').summernote({ dialogsInBody: true, });
+
+	
+	
 	$('#summernote').summernote({
 		height : 300,
 		minHeight : null,
