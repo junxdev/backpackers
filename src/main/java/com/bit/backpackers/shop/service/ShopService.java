@@ -21,5 +21,5 @@ public interface ShopService {
 	// 상품 리뷰 작성
 	public void registReview(ReviewVo bean) throws Exception;
 	// 상품 리뷰 목록
-	public List<ReviewVo> reviewList(int itemNo) throws Exception;
+	public List<ReviewVo> reviewList(String shopCode) throws Exception;
 }

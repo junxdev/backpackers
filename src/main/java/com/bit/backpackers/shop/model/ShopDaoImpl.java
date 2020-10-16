@@ -28,8 +28,8 @@ public class ShopDaoImpl implements ShopDao {
 
 	// 상품 리뷰 목록
 	@Override
-	public List<ReviewVo> reviewList(int itemNo) throws Exception {
-		return sqlSession.selectList(namespace + ".reviewList", itemNo);
+	public List<ReviewVo> reviewList(String shopCode) throws Exception {
+		return sqlSession.selectList(namespace + ".reviewList", shopCode);
 	}
 
 	@Override

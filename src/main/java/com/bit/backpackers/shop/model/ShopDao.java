@@ -18,5 +18,5 @@ public interface ShopDao {
 	// 상품 리뷰 작성
 	void registReview(ReviewVo bean) throws Exception;
 	// 상품 리뷰 목록
-	List<ReviewVo> reviewList(int itemNo) throws Exception;
+	List<ReviewVo> reviewList(String shopCode) throws Exception;
 }

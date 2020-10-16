@@ -113,8 +113,8 @@ public class ShopServiceImpl implements ShopService {
 	
 	// 상품 리뷰 목록
 	@Override
-	public List<ReviewVo> reviewList(int itemNo) throws Exception {
-		return dao.reviewList(itemNo);
+	public List<ReviewVo> reviewList(String shopCode) throws Exception {
+		return dao.reviewList(shopCode);
 	}
 
 }

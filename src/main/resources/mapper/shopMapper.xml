@@ -67,14 +67,14 @@
   		insert into
   			tbl_item_review (
   				reviewNo,
-  				itemNo,
+  				shopCode,
   				userId,
   				reviewContent,
   				reviewDate
   				)
   			values (
   				(select * from (select max(seq)+1 from tbl_review),
-  				#{itemNo},
+  				#{shopCode},
   				#{userId},
   				#{reviewContent},
   				CURTIME()
@@ -83,10 +83,10 @@
   	<!-- 상품 리뷰 목록 -->
   	<select id="reviewList" resultType="com.bit.backpackers.shop.model.entity.ReviewVo">
   		select
-  			itemNo, userId, reviewNo, reviewContent, reviewDate
+  			shopCode, userId, reviewNo, reviewContent, reviewDate
   		from
   			tbl_review_item
   		where
-  			itemNo=#{itemNo}
+  			shopCode=#{shopCode}
   	</select>
   </mapper>

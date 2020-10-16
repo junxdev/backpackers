@@ -213,7 +213,7 @@
 			<section class="reviewForm">
 				<form role="form" method="post" autocomplete="off">
 					<!-- 상품 번호 컨트롤러에 전달(hidden) value=값 수정 필요 -->
-					<input type="hidden" name="itemNo" value="${view.itemNo }">
+					<input type="hidden" name="shopCode" value="${view.shopCode }">
 					<div class="input_area">
 						<textarea name="reviewContent" id="reviewContent"></textarea>
 					</div>
@@ -229,7 +229,7 @@
 				<c:forEach items="${review }" var="review">
 					<li>
 						<div class="userInfo">
-							<span class="userName">${review.userName }</span> <span
+							<span class="userName">${review.userId }</span> <span
 								class="date"><fmt:formatDate
 									value="${review.reviewDate }" pattern="yyyy-MM-dd" /></span>
 						</div>

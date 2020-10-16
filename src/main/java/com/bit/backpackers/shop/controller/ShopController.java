@@ -74,11 +74,11 @@ public class ShopController {
 	}
 	
 	// 리뷰 목록
-	@RequestMapping(value="/view", method = RequestMethod.GET)
-	public void getReview(@RequestParam("n") int itemNo, Model model) throws Exception{
+	@RequestMapping(value="/{mainCategory}/{subCategory}/{shopCode}", method = RequestMethod.GET)
+	public void getReview(@PathVariable String shopCode, Model model) throws Exception{
 		logger.info("get view");
 		
-		List<ReviewVo> review = shopService.reviewList(itemNo);
+		List<ReviewVo> review = shopService.reviewList(shopCode);
 		model.addAttribute("review", review);
 	}
 }
