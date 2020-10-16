@@ -6,6 +6,11 @@
 <head>
 <meta charset="UTF-8">
 	<%@ include file="/WEB-INF/views/template/head.jspf" %>
+	
+	
+	
+	
+	
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/template/nav.jspf" %>
