@@ -7,7 +7,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.ui.Model;
 
 import com.bit.backpackers.cart.model.entity.CartProductVo;
-import com.bit.backpackers.member.model.entity.MemberVo;
+import com.bit.backpackers.model.entity.MemberVo;
 import com.bit.backpackers.product.model.entity.ProductVo;
 
 public interface CartService {

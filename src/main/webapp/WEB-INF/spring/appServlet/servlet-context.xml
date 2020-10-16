@@ -36,7 +36,7 @@
 		</interceptor>
 		<interceptor>
 			<mapping path="/order/**"/>
-			<beans:bean id="LoginInterceptor" class="com.bit.backpackers.member.controller.LoginInterceptor"/>
+			<beans:bean id="LoginInterceptor" class="com.bit.backpackers.controller.LoginInterceptor"/>
 		</interceptor>
 		
 	</interceptors> 
