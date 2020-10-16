@@ -13,26 +13,23 @@ import com.bit.backpackers.model.entity.MemberVo;
 
 public interface MemberDAO {
 
-	// ?šŒ?›ê°??… ì²˜ë¦¬
+	//íšŒì›ê°€ì… ì²˜ë¦¬
     void register(MemberVo memberVo) throws Exception;
-    
-    // ë¡œê·¸?¸ ì²˜ë¦¬
+    // ë¡œê·¸ì¸ ì²˜ë¦¬
     MemberVo login(LoginDTO loginDTO) throws Exception;
-    
-  //?•„?´?”” ì¤‘ë³µì²´í¬ 
+    //íšŒì›ê°€ì… ì•„ì´ë””ì¤‘ë³µ ì¤‘ë³µì²´í¬ 
     MemberVo idCheck(MemberVo memberVo) throws Exception;
-
-        // ?šŒ?› ?•„?´?”” ì°¾ê¸°
+    //ì•„ì´ë”” ì°¾ê¸°
     MemberVo findId(Map<String, Object> memberMap)throws Exception;
-        // ?šŒ?› ë¹„ë?ë²ˆí˜¸ ì°¾ê¸°
+    //ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°
     MemberVo findPw(Map<String, Object> memberMap)throws Exception;
-    // ?šŒ?› ë¹„ë?ë²ˆí˜¸ ë³?ê²?
-    int modifyPw(MemberVo memberVo)throws Exception;
-
-    
-    //?šŒ?›?ƒˆ?‡´
+    //ë¹„ë°€ë²ˆí˜¸ ë³€ê²½
+    int modifyPw(MemberVo memberVo)throws Exception;   
+    //íšŒì›íƒˆí‡´
  	public void delete(MemberVo memberVo)throws Exception;
-
+ 	//íšŒì› ìˆ˜ì •
+ 	public void modify(MemberVo memberVo)throws Exception;
+ 	
 
 
     

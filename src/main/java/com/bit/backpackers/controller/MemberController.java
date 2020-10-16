@@ -1,4 +1,4 @@
-package com.bit.backpackers.member.controller;
+package com.bit.backpackers.controller;
 
 import java.lang.reflect.Member;
 import java.util.Date;
@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bit.backpackers.member.model.entity.LoginDTO;
-import com.bit.backpackers.member.model.entity.MemberVo;
-import com.bit.backpackers.member.service.MemberService;
+import com.bit.backpackers.model.entity.LoginDTO;
+import com.bit.backpackers.model.entity.MemberVo;
+import com.bit.backpackers.service.MemberService;
 
 import common.exception.MailException;
 
@@ -45,7 +45,7 @@ public class MemberController {
 		return "/user/login";
 	}
 
-		// 로그인 처리
+	// 로그인 처리
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public String loginPOST(@ModelAttribute LoginDTO loginDTO, HttpSession httpSession, RedirectAttributes rttr)
 				throws Exception {
@@ -61,7 +61,7 @@ public class MemberController {
 		System.out.println("로그인 실패");
 		httpSession.setAttribute("user", null);
 
-		return "user/loginPost";
+		return "user/login";
 	}
 	//로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -168,14 +168,59 @@ public class MemberController {
 	}
 
 		//메일발송
-		@RequestMapping("/send")
-		public ModelAndView joinEmailCheck(String email, int code_check) throws MailException {
+	@RequestMapping("/send")
+	public ModelAndView joinEmailCheck(String email, int code_check) throws MailException {
 		ModelAndView mav = new ModelAndView();
 
-		this.memberService.mailSending(email, code_check);
+			this.memberService.mailSending(email, code_check);
 
-		System.out.println("메일 발송 성공");
+				System.out.println("메일 발송 성공");
 
-		return mav;
+				return mav;
 	}
-}
+	
+	//회원정보 수정 이동
+		@RequestMapping(value = "/registerEdit", method = RequestMethod.GET)
+		public void ModifyGET() {
+			logger.info("Modify");
+		}
+		// 회원정보 수정 
+		@RequestMapping(value = "/modify", method = RequestMethod.POST)
+		public String postModify(HttpSession session,MemberVo memberVo) throws Exception {
+		 logger.info("post modify");
+		 
+		 memberService.modify(memberVo);
+		 
+		 session.invalidate();
+		 
+		 return "redirect:/";
+		}
+		
+		
+		
+	// 회원 탈퇴 get
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String memberDeleteView() throws Exception {
+			return "user/delete";
+		}
+
+	// 회원 탈퇴 post
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String Delete(MemberVo memberVo, HttpSession session, RedirectAttributes rttr) throws Exception {
+
+			// 세션에 있는 member를 가져와 member변수에 넣어줍니다.
+			MemberVo user = (MemberVo) session.getAttribute("user");
+			// 세션에있는 비밀번호
+			String sessionPass = user.getUserPw(); 
+			// vo로 들어오는 비밀번호
+			String voPass = memberVo.getUserPw();
+
+				if (!(sessionPass.equals(voPass))) {
+					rttr.addFlashAttribute("msg", false);
+				return "redirect:/delete";
+			}
+			memberService.delete(memberVo);
+			session.invalidate();
+			return "redirect:/";
+		}
+	}

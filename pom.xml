@@ -231,7 +231,7 @@
     </dependency>
 		<!--민철 끝 -->
 		
-    <!-- 유저 라이브러리 시작 : 제발 여기다 추가하세요>
+    <!-- 유저 라이브러리 시작 : 제발 여기다 추가하세요-->
 		<dependency>
         <groupId>org.codehaus.jackson</groupId>
         <artifactId>jackson-jaxrs</artifactId>

@@ -17,7 +17,7 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminInterceptor.class);
 	private  MemberService memberService;
 	
-	// ê´?ë¦¬ì ?˜?´ì§?
+	//ê´€ë¦¬ìí˜ì´ì§€ 
 		@RequestMapping(value = "/adminPage", method = RequestMethod.GET)
 		public String adminpage(@ModelAttribute("loginDTO") LoginDTO loginDTO)throws Exception {
 			logger.info("admin Login");

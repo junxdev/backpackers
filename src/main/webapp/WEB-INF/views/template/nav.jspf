@@ -22,7 +22,7 @@
 					<li><a href="${root }/#">쇼핑</a></li>
 				</ul>
 				<ul class="navbar-form navbar-right">
-        <c:if test="${user != null}">
+       		 <c:if test="${user != null}">
         	<c:if test="${user.grade == 1}">
 		 ${user.userId }님 입장을 환영합니다
  		<button type="submit" class="btn btn-default"><a href="${root }/admin/adminPage">관리자 페이지</a></button>

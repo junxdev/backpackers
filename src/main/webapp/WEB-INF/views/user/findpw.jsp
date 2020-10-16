@@ -121,7 +121,6 @@
 					});
 
 			function emailSend() {
-
 				userEmail = document.getElementById('userEmail').value;
 				var param = "email=" + userEmail + "&code_check=" + code;
 				// console.log(param)

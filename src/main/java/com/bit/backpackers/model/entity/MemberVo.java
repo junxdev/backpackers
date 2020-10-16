@@ -3,7 +3,6 @@ package com.bit.backpackers.model.entity;
 import java.util.Date;
 
 public class MemberVo {
-
 	private String userId;
     private String userPw;
     private String userName;

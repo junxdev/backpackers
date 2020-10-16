@@ -14,7 +14,8 @@
 
 <title>Home</title>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
- <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
 #bg {
   position: absolute; 
@@ -65,6 +66,24 @@
 	margin-bottom: 50px;
 }
 </style>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#button1").on("click", function() {
+		if ($("#userId").val() == "") {
+			swal("아이디를 입력해주세요.");
+			$("#userId").focus();
+			return false;
+		}
+		if ($("#userPw").val() == "") {
+			swal("비밀번호를 입력해주세요.");
+			$("#userPw").focus();
+			return false;
+		}		
+	});
+});
+
+
+</script>
 </head>
 
 <body>
@@ -79,16 +98,16 @@
 			<form action="${root}/user/loginPost" method="post">
 			<p class="login-box-msg">로그인 하기전 페이지</p>
 				<div class="form-group has-feedback">
-					<input type="text" name="userId" class="form-control"
+					<input type="text" name="userId"  id="userId" class="form-control"
 						placeholder="아아디"> <span
 						class="glyphicon glyphicon-exclamation-sign form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
-					<input type="password" name="userPw" class="form-control"
+					<input type="password" name="userPw" id="userPw"  class="form-control"
 						placeholder="비밀번호"> <span
 						class="glyphicon glyphicon-lock form-control-feedback"></span>
 				</div>
-				<button type="submit" class="btn btn-primary btn-lg btn-block">로그인</button>
+				<button type="submit" class="btn btn-primary btn-lg btn-block" id="button1" value="N">로그인</button>
 					<a href="register" class="btn btn-default btn-lg btn-block" role="btn">회원가입</a>
 			<div class="text">
 			 <button type="button" class="btn btn-default"><a href="${root}/user/findid">아이디 찾기</a></button>

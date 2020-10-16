@@ -36,12 +36,6 @@
 		</interceptor>
 		
 	</interceptors> 
-	
-<<<<<<< HEAD
-=======
-
->>>>>>> 95eed35ef2b3ddd2ea4f720972985b26fea7ea74
-
 	<context:component-scan base-package="com.bit.backpackers" />
 	<!-- 파일 업로드 관련 설정 -->
 	<beans:bean id="multipartResolver"
