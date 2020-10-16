@@ -10,12 +10,23 @@
 <%
 	request.setAttribute("root", request.getContextPath());
 %>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <style type="text/css">
-.container {
-	margin-top: 50px;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 10px 200px;
+body {
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+}
+
+#registerPage {
+	width: 600px;
+	height: 1300px;
+	position: relative;
+	margin: 3% auto;
+	background: #fff;
+	padding: 5px;
+	overflow: hidden;
 }
 
 #btn1 {
@@ -39,37 +50,46 @@
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <script type="text/javascript">
+	var idCheckPassed = false;
 	$(document).ready(function() {
-
 		$("#btn1").on("click", function() {
 			if ($("#userId").val() == "") {
-				alert("아이디를 입력해주세요.");
+				swal("아이디를 입력해주세요.");
 				$("#userId").focus();
 				return false;
 			}
 			if ($("#userName").val() == "") {
-				alert("이름을 입력해주세요.");
+				swal("이름을 입력해주세요.");
 				$("#userName").focus();
 				return false;
 			}
 			if ($("#userEmail").val() == "") {
-				alert("이메일를 입력해주세요.");
+				swal("이메일를 입력해주세요.");
 				$("#userEmail").focus();
 				return false;
 			}
 			if ($("#userPw").val() == "") {
-				alert("비밀번호 입력해주세요.");
+				swal("비밀번호 입력해주세요.");
 				$("#userPw").focus();
 				return false;
 			}
 			if ($("#userPw2").val() == "") {
-				alert("비밀번호 다시 입력해주세요.");
+				swal("비밀번호 다시 입력해주세요.");
 				$("#userPw2").focus();
+				return false;
+			}
+			if ($("#phoneNum").val() == "") {
+				swal("휴대전화 번호를 입력해주세요.");
+				$("#phoneNum").focus();
+				return false;
+			}
+			if (!idCheckPassed) {
+				swal("중복된 아이디입니다");
 				return false;
 			}
 			var idChkVal = $("#idChk").val();
 			if (idChkVal == "N") {
-				alert("중복확인 버튼을 눌러주세요.");
+				swal("중복확인 버튼을 눌러주세요.");
 				return false;
 			} else if (idChkVal == "Y") {
 				$("#regForm").submit();
@@ -77,52 +97,56 @@
 		});
 	});
 	function sample6_execDaumPostcode() {
-		new daum.Postcode({
-			oncomplete : function(data) {
-				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-				// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-				// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-				var addr = ''; // 주소 변수
-				var extraAddr = ''; // 참고항목 변수
+						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+						var addr = ''; // 주소 변수
+						var extraAddr = ''; // 참고항목 변수
 
-				//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-				if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-					addr = data.roadAddress;
-				} else { // 사용자가 지번 주소를 선택했을 경우(J)
-					addr = data.jibunAddress;
-				}
+						//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+							addr = data.roadAddress;
+						} else { // 사용자가 지번 주소를 선택했을 경우(J)
+							addr = data.jibunAddress;
+						}
 
-				// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-				if (data.userSelectedType === 'R') {
-					// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-					// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-					if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-						extraAddr += data.bname;
+						// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+						if (data.userSelectedType === 'R') {
+							// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+							// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+							if (data.bname !== ''
+									&& /[동|로|가]$/g.test(data.bname)) {
+								extraAddr += data.bname;
+							}
+							// 건물명이 있고, 공동주택일 경우 추가한다.
+							if (data.buildingName !== ''
+									&& data.apartment === 'Y') {
+								extraAddr += (extraAddr !== '' ? ', '
+										+ data.buildingName : data.buildingName);
+							}
+							// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+							if (extraAddr !== '') {
+								extraAddr = ' (' + extraAddr + ')';
+							}
+							// 조합된 참고항목을 해당 필드에 넣는다.
+							document.getElementById("sample6_extraAddress").value = extraAddr;
+
+						} else {
+							document.getElementById("sample6_extraAddress").value = '';
+						}
+
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById('sample6_postcode').value = data.zonecode;
+						document.getElementById("sample6_address").value = addr;
+						// 커서를 상세주소 필드로 이동한다.
+						document.getElementById("sample6_detailAddress")
+								.focus();
 					}
-					// 건물명이 있고, 공동주택일 경우 추가한다.
-					if (data.buildingName !== '' && data.apartment === 'Y') {
-						extraAddr += (extraAddr !== '' ? ', '
-								+ data.buildingName : data.buildingName);
-					}
-					// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-					if (extraAddr !== '') {
-						extraAddr = ' (' + extraAddr + ')';
-					}
-					// 조합된 참고항목을 해당 필드에 넣는다.
-					document.getElementById("extraAddress").value = extraAddr;
-
-				} else {
-					document.getElementById("extraAddress").value = '';
-				}
-
-				// 우편번호와 주소 정보를 해당 필드에 넣는다.
-				document.getElementById('postcode').value = data.zonecode;
-				document.getElementById("address").value = addr;
-				// 커서를 상세주소 필드로 이동한다.
-				document.getElementById("detailAddress").focus();
-			}
-		}).open();
+				}).open();
 	}
 	//아이디체크
 	function fn_idCheck() {
@@ -135,22 +159,79 @@
 			},
 			success : function(data) {
 				if (data == 1) {
-					alert("중복된 아이디입니다.");
+					swal("중복된 아이디입니다.");
+					idCheckPassed = false;
 				} else if (data == 0) {
 					$("#idCheck").attr("value", "Y");
-					alert("사용가능한 아이디입니다.");
+					swal("사용가능한 아이디입니다.");
+					idCheckPassed = true;
 				}
+				console.log(idCheckPassed);
 			}
 		})
 	}
+	$(document).ready(
+			function() {
+			//정규식 시작
+			//모든 공백 체크 정규식
+			var empJ = /\s/g;
+			// 비밀번호 정규식
+			var pwJ = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,14}$/;
+			// 휴대폰번호 체크 정규식
+			var phoneExp =/^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
+			// 이메일 체크 정규식
+			var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+				$("#userPw").blur(function() {
+					if (pwJ.test($(this).val())) {
+					// console.log(pwJ.test($(this).val()));
+						console.log('Password Check');
+						} else {
+						//$("#userPw").val('');
+						//$("#userPw").focus();
+							$('#pw-check-msg').text('대소문자, 숫자와 특수문자를 하나 이상 넣어 7~14자 사이로 작성해야 합니다');
+								$('#pw-check-msg').css('color','red');
+								}
+						});
+						$("#phoneNum").blur(function() {
+							if (!phoneExp.test($('#phoneNum').val())) {
+								swal("잘못된 휴대폰 번호입니다. 숫자, - 를 포함한 숫자만 입력하세요.");
+								return false
+								}
+						});
+						$("#userEmail").blur(function() {
+							if (!regExp.test($('#userEmail').val())) {
+								swal("잘못된 이메일입니다. 정확하게 다시입력하세요");
+								return false
+							}
+						});
+
+						// 정규식 끝
+
+						// 비밀번호 일치여부
+						$(function() {
+							$('#userPw2').blur(
+									function() {
+										if ($('#userPw').val() != $('#userPw2').val()) {
+											$('#pw-check-msg1').html('비밀번호가 일치하지 않습니다<br><br>');
+											$('#pw-check-msg1').css('color','#f82a2aa3');
+											//$('#userPw2').val('');
+										} else {
+											$('#pw-check-msg1').html(
+													'비밀번호가 일치합니다!<br><br>');
+											$('#pw-check-msg1').css('color',
+													'#199894b3');
+										}
+									});
+						});
+					});
 </script>
 </head>
 
 <body>
 	<div class="container">
 		<p>회원가입 페이지</p>
-
-		<form action="${root}/user/registerPost"  method="post" id="regForm">
+		<form action="${root}/user/registerPost" method="post" id="registerPage">
 			<div class="form-group has-feedback">
 				<input type="text" id="userId" name="userId" class="form-control"
 					placeholder="아아디">
@@ -175,32 +256,46 @@
 					class="form-control" placeholder="비밀번호"> <span
 					class="glyphicon glyphicon-lock form-control-feedback"></span>
 			</div>
+			<span id="pw-check-msg" class="pw-check-msg"
+				style="font-size: 13px; text-align: center;"></span>
 			<div class="form-group has-feedback">
 				<input type="password" id="userPw2" class="form-control"
 					placeholder="비밀번호 확인"> <span
 					class="glyphicon glyphicon-log-in form-control-feedback"></span>
 			</div>
+			<span id="pw-check-msg1" class="pw-check-msg1"
+				style="font-size: 13px; text-align: center;"></span>
 
-			<input type="text" id="postcode" name="postcode" placeholder="우편번호"> <input
-				type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-			<input type="text" id="address" name="address"  placeholder="주소"><br> <input
-				type="text" id="detailAddress"  name="detailAddress"  placeholder="상세주소"> <input
-				type="text" id="extraAddress"  name="extraAddress"  placeholder="참고항목">
+			<div class="form-group has-feedback">
+				<input type="text" id="phoneNum" name="phoneNum"
+					class="form-control" placeholder="핸드폰 번호를 입력해주세요(-제외한 숫자만 입력)">
+				<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+			</div>
+			<div class="form-group has-feedback">
+				<input type="text" id="sample6_postcode" class="form-control"
+					name="postCode" placeholder="우편번호"> <input type="button"
+					onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+				<input type="text" id="sample6_address" name="address"
+					class="form-control" placeholder="주소"><br> <input
+					type="text" id="sample6_detailAddress" name="detailAddress"
+					class="form-control" placeholder="상세주소"> <input type="text"
+					id="sample6_extraAddress" name="extraAddress" class="form-control"
+					placeholder="참고항목">
+			</div>
 
-		
 
-			<div style="margin-left: -15px;">
+			<div style="margin-left: 15px;">
 				<h4 class="glores-A-title">개인정보처리방침</h4>
 				<div class="glores-A-agree"
-					style="width: 600px; height: 200px; overflow: scroll; overflow-x: hidden; magin: 0 auto; border: 1px solid #ccc; padding: 10px; background: white">
+					style="width: 500px; height: 200px; overflow: scroll; overflow-x: hidden; magin: 0 auto; border: 1px solid #ccc; padding: 10px; background: white">
 					<h5
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; margin: 0px; padding: 0px; font-size: 15px;">수집하는
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; margin: 0px; padding: 0px; font-size: 15px;">수집하는
 						개인정보의 항목</h5>
 					<p
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; margin-top: 15px; padding-left: 10px; font-size: 13px; list-style-type: none; color: rgb(68, 68, 68);">회사는
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; margin-top: 15px; padding-left: 10px; font-size: 13px; list-style-type: none; color: rgb(68, 68, 68);">회사는
 						회원가입, 상담, 서비스 신청 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.</p>
 					<ul
-						style="margin: 15px 0px 0px; padding: 0px; font-size: 13px; list-style-type: none; color: rgb(68, 68, 68); font-family: &amp; quot;Noto Sans&amp;quot;, &amp;quot;Nanum Gothic&amp;quot;, &amp;quot;Malgun Gothic&amp;quot;, sans-serif;">
+						style="margin: 15px 0px 0px; padding: 0px; font-size: 13px; list-style-type: none; color: rgb(68, 68, 68); font-family: &amp; amp;">
 						<li style="margin-top: 10px; padding-left: 10px;"><strong>-
 								수집항목</strong>&nbsp;:&nbsp;<span class="privacy_column_list">아이디,
 								별명, 패스워드, 성명, e-mail, 주소, 전화번호, 휴대전화, 생년월일, 결혼, 추천인 아이디</span></li>
@@ -208,45 +303,38 @@
 								개인정보 수집방법</strong>&nbsp;:&nbsp;홈페이지(회원가입)</li>
 					</ul>
 					<h5
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; margin: 40px 0px 0px; padding: 0px; font-size: 15px;">개인정보의
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; margin: 40px 0px 0px; padding: 0px; font-size: 15px;">개인정보의
 						수집 및 이용목적</h5>
 					<p
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; margin-top: 15px; padding-left: 10px; font-size: 13px; list-style-type: none; color: rgb(68, 68, 68);">회사는
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; margin-top: 15px; padding-left: 10px; font-size: 13px; list-style-type: none; color: rgb(68, 68, 68);">회사는
 						수집한 개인정보를 다음의 목적을 위해 활용합니다.</p>
 					<ul
-						style="margin: 15px 0px 0px; padding: 0px; font-size: 13px; list-style-type: none; color: rgb(68, 68, 68); font-family: &amp; quot;Noto Sans&amp;quot;, &amp;quot;Nanum Gothic&amp;quot;, &amp;quot;Malgun Gothic&amp;quot;, sans-serif;">
+						style="margin: 15px 0px 0px; padding: 0px; font-size: 13px; list-style-type: none; color: rgb(68, 68, 68); font-family: &amp; amp;">
 						<li style="margin-top: 10px; padding-left: 10px;"><strong>-
 								서비스 제공에 관한 계약 이행 및 서비스 제공에 따른 요금정산</strong>
-						<p
+							<p
 								style="margin-top: 15px; padding-left: 10px; list-style-type: none;">구매
 								및 요금 결제, 물품배송 또는 청구지 등 발송</p></li>
 						<li style="margin-top: 10px; padding-left: 10px;"><strong>-
 								회원 관리</strong>
-						<p
+							<p
 								style="margin-top: 15px; padding-left: 10px; list-style-type: none;">회원제
 								서비스 이용에 따른 본인확인, 개인 식별, 불량회원의 부정 이용 방지와 비인가 사용 방지, 가입 의사 확인,
 								연령확인</p></li>
 					</ul>
 					<h5
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; margin: 40px 0px 0px; padding: 0px; font-size: 15px;">개인정보의
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; margin: 40px 0px 0px; padding: 0px; font-size: 15px;">개인정보의
 						보유 및 이용기간</h5>
 					<p
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; margin-top: 15px; padding-left: 10px; font-size: 13px; list-style-type: none; color: rgb(68, 68, 68);">회사는
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; margin-top: 15px; padding-left: 10px; font-size: 13px; list-style-type: none; color: rgb(68, 68, 68);">회사는
 						개인정보 수집 및 이용목적이 달성된 후에는 예외 없이 해당 정보를 지체 없이 파기합니다.</p>
 				</div>
 
-				<p>
-					<label class="form-check-label"><input type="checkbox"
-						required="required"> 위 이용약관에 동의합니다.</label>
-				</p>
-
-
-
 				<h4 class="glores-A-title">이용약관</h4>
 				<div class="glores-A-agree"
-					style="width: 600px; height: 200px; overflow: scroll; overflow-x: hidden; magin: 0 auto; border: 1px solid #ccc; padding: 10px; background: white">
+					style="width: 500px; height: 200px; overflow: scroll; overflow-x: hidden; magin: 0 auto; border: 1px solid #ccc; padding: 10px; background: white">
 					<div class="acon"
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
 						<h4 style="margin: 0px 0px 0.5em;">제1조(목적)</h4>
 						<p
 							style="font-size: 13px; line-height: 1.5em; margin-top: 15px; padding-left: 10px; list-style-type: none;">
@@ -261,7 +349,7 @@
 						</p>
 					</div>
 					<div class="acon"
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
 						<h4 style="margin: 0px 0px 0.5em;">제2조(정의)</h4>
 						<ol
 							style="padding: 0px; margin: 15px 0px 0px; font-size: 13px; list-style-type: none;">
@@ -287,7 +375,7 @@
 						</p>
 					</div>
 					<div class="acon"
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
 						<h4 style="margin: 0px 0px 0.5em;">제3조 (약관등의 명시와 설명 및 개정)</h4>
 						<ol
 							style="padding: 0px; margin: 15px 0px 0px; font-size: 13px; list-style-type: none;">
@@ -330,7 +418,7 @@
 						</p>
 					</div>
 					<div class="acon"
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
 						<h4 style="margin: 0px 0px 0.5em;">제4조(서비스의 제공 및 변경)</h4>
 						<ol
 							style="padding: 0px; margin: 15px 0px 0px; font-size: 13px; list-style-type: none;">
@@ -370,7 +458,7 @@
 						</p>
 					</div>
 					<div class="acon"
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
 						<h4 style="margin: 0px 0px 0.5em;">제5조(서비스의 중단)</h4>
 						<ol
 							style="padding: 0px; margin: 15px 0px 0px; font-size: 13px; list-style-type: none;">
@@ -395,7 +483,7 @@
 						</p>
 					</div>
 					<div class="acon"
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
 						<h4 style="margin: 0px 0px 0.5em;">제6조(회원가입)</h4>
 						<ol
 							style="padding: 0px; margin: 15px 0px 0px; font-size: 13px; list-style-type: none;">
@@ -434,7 +522,7 @@
 						</p>
 					</div>
 					<div class="acon"
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
 						<h4 style="margin: 0px 0px 0.5em;">제7조(회원 탈퇴 및 자격 상실 등)</h4>
 						<ol
 							style="padding: 0px; margin: 15px 0px 0px; font-size: 13px; list-style-type: none;">
@@ -475,7 +563,7 @@
 						</p>
 					</div>
 					<div class="acon"
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
 						<h4 style="margin: 0px 0px 0.5em;">제8조(회원에 대한 통지)</h4>
 						<ol
 							style="padding: 0px; margin: 15px 0px 0px; font-size: 13px; list-style-type: none;">
@@ -493,7 +581,7 @@
 						</p>
 					</div>
 					<div class="acon"
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
 						<h4 style="margin: 0px 0px 0.5em;">제9조(구매신청)</h4>
 						<div style="font-size: 13px; line-height: 1.4em;">
 							“몰”이용자는 “몰”상에서 다음 또는 이와 유사한 방법에 의하여 구매를 신청하며, “몰”은 이용자가 구매신청을 함에
@@ -527,7 +615,7 @@
 						</p>
 					</div>
 					<div class="acon"
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
 						<h4 style="margin: 0px 0px 0.5em;">제10조 (계약의 성립)</h4>
 						<ol
 							style="padding: 0px; margin: 15px 0px 0px; font-size: 13px; list-style-type: none;">
@@ -563,7 +651,7 @@
 						</p>
 					</div>
 					<div class="acon"
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
 						<h4 style="margin: 0px 0px 0.5em;">제11조(지급방법)</h4>
 						<div style="font-size: 13px; line-height: 1.4em;">
 							“몰”에서 구매한 재화 또는 용역에 대한 대금지급방법은 다음 각호의 방법중 가용한 방법으로 할 수 있습니다. 단,
@@ -601,7 +689,7 @@
 						</p>
 					</div>
 					<div class="acon"
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
 						<h4 style="margin: 0px 0px 0.5em;">제12조(수신확인통지.구매신청 변경 및 취소)</h4>
 						<ol
 							style="padding: 0px; margin: 15px 0px 0px; font-size: 13px; list-style-type: none;">
@@ -620,7 +708,7 @@
 						</p>
 					</div>
 					<div class="acon"
-						style="font-family: &amp; quot; Noto Sans&amp;quot; , &amp; quot; Nanum Gothic&amp;quot; , &amp; quot; Malgun Gothic&amp;quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
+						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
 						<h4 style="margin: 0px 0px 0.5em;">제13조(재화등의 공급)</h4>
 						<ol
 							style="padding: 0px; margin: 15px 0px 0px; font-size: 13px; list-style-type: none;">
@@ -638,10 +726,14 @@
 						</ol>
 					</div>
 				</div>
+				<p>
+					<label class="form-check-label"><input type="checkbox"
+						required="required"> 위 이용약관에 동의합니다.</label>
+				</p>
 			</div>
-			
-				
-					<div class="form-group has-feedback">
+
+
+			<div class="form-group has-feedback">
 				<button type="submit" id="btn1" class="btn btn-primary btn-lg">가입</button>
 				<a href="${root }/user/login" id="btn2"
 					class="btn btn-default btn-lg">취소</a>

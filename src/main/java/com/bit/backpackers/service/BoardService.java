@@ -21,7 +21,8 @@ public interface BoardService {
 	void deleteService(int board_no)throws SQLException;
 	List<Map<String, Object>> selectBoardList(Criteria cri);
 	int countBoardListTotal();
-	List<BoardVo> searchBoard(String searchOption,String keyword)throws Exception;
+	//	searchservice
+    List<BoardVo> searchBoard(int start,int end,String searchOption,String keyword)throws Exception;
 	 int countBoardContent(String searchOption,String keyword);
 	 void increaseViewcnt(int board_no)throws SQLException;
 	 

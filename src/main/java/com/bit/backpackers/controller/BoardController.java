@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +26,7 @@ import com.bit.backpackers.model.entity.BoardVo;
 import com.bit.backpackers.model.entity.ReplyVo;
 import com.bit.backpackers.service.BoardService;
 import com.bit.backpackers.service.ReplyService;
+import com.bit.backpackers.util.BoardPager;
 import com.bit.backpackers.util.Criteria;
 import com.bit.backpackers.util.PageMaker;
 
@@ -38,12 +39,11 @@ public class BoardController {
     ReplyService replyService;
     
 	
-	
-	 //�뇦猿딆뒩占쎈뻣�뜝�럥�냷 �뼨�먯삕�뜝�럡臾�
+	 //게시판글쓰기
 	 @RequestMapping(value = "/",method=RequestMethod.POST)
 	 public String intsertinfo(@ModelAttribute BoardVo info, HttpSession session) {
 		
-		 String user_id= (String) session.getAttribute("username");
+		 String user_id=  (String) session.getAttribute("username");
 //		 String user_id="kimdeayoung";
 		 try {
 			 info.setUser_ID(user_id);
@@ -66,8 +66,13 @@ public class BoardController {
 //		 boardService.ditailService(model, board_no);
 //			 return "board/boardpost";
 //		 }
+
 	   
-	 //�뜝�럥�냺�뼨�먯삕
+	 
+
+	 
+	 //댓글입력
+
 	 @RequestMapping(value = "{board_no}",method =RequestMethod.POST )
 	 public String replyinsert(@ModelAttribute ReplyVo reply,HttpSession session){
 	 
@@ -76,7 +81,7 @@ public class BoardController {
 			 reply.setReply_id(reply_id);
 		replyService.insertReply(reply);
 	} catch (SQLException e) {
-		System.out.println("�뜝�럥六사뛾�룇裕뉛옙堉꾢뜝�럥�넮 �뜝�럥占싸우삕占쏙옙.");
+		System.out.println("�뜝�럥六사뛾�룇裕뉛옙堉꾢뜝�럥�넮 �뜝�럥占싸우삕占쏙옙.");
 	}
 	 	 
 	 return "redirect:{board_no}";
@@ -104,47 +109,49 @@ public class BoardController {
 	 
 	
 	 
-	 //湲��닔�젙
-	 @RequestMapping(value = "/{board_no}/edit",method = RequestMethod.PUT)
-	 public String boardupdate(@PathVariable int board_no,@ModelAttribute BoardVo info,HttpServletRequest request) throws SQLException {
+	 //글수정
+	 @RequestMapping(value = "{board_no}/edit",method = RequestMethod.PUT)
+	 public String boardupdate(@PathVariable int board_no,Integer reply_no,@ModelAttribute BoardVo info,ReplyVo replyinfo,HttpServletRequest request) throws SQLException {
 		 if(request.getParameter("boardupdate") != null) {
 		   boardService.updateService(info);
-		   System.out.println("�뾽�뜲�씠�듃 湲�");
+		   System.out.println("보드업데이트");
+	   }else {
+		   replyService.updateReply(replyinfo);   
 	   }
-		 return "redirect:../";
+		 return "redirect:../{board_no}";
 	 }
-	 //�뙎湲��닔�젙
+//	 //댓글수정
+//	 @RequestMapping(value = "/{reply_no}/replyedit",method = RequestMethod.PUT)
+//	 public String replyupdate(@PathVariable Integer reply_no,@ModelAttribute ReplyVo replyinfo,HttpServletRequest request) throws SQLException {
+//		 if(request.getParameter("reply_no") != null) {
+//		   replyService.updateReply(replyinfo);
+//		   System.out.println("댓글수정완료");
+//	   }
+//		 return "redirect:../";
+//	 }
+//	 
 	 
-	 @RequestMapping(value = "/{reply_no}/replyedit",method = RequestMethod.PUT)
-	 public String replyupdate(@PathVariable int reply_no,@ModelAttribute ReplyVo replyinfo,HttpServletRequest request) throws SQLException {
-		 if(request.getParameter("reply_no") != null) {
-		   replyService.updateReply(replyinfo);
-		   System.out.println("�뾽�뜲�씠�듃 �뙎湲�");
-	   }
-		 return "redirect:../";
-	 }
-	 
-	 
-	 
-	 
-     //�뼨�먯삕�뜝�럡�뀭�뜝�럩�젷,�뜝�럥�냺�뼨�먯삕�뜝�럡�뀭�뜝�럩�젷
-	 @RequestMapping(value = "{board_no}",method =RequestMethod.DELETE)
-		 public String delboard(@PathVariable int board_no,Integer reply_no,HttpServletRequest request,HttpServletResponse response) throws SQLException {
+	//글삭제,댓글삭제
+	 @RequestMapping(value = "{board_no}",method = RequestMethod.DELETE)
+		 public String delreply(@PathVariable int board_no,Integer reply_no,HttpServletRequest request) throws SQLException {
 			if(request.getParameter("board_no") != null) {
 				 boardService.deleteService(board_no);
-				 
-			}else if(request.getParameter("reply_no") != null) {
+				 return "redirect:./";
+				
+			}else {
 				replyService.deleteReply(reply_no);
+				return "redirect:./{board_no}";
 			}
-			return "redirect:./{board_no}";
+			
 			
 	 }
 	 
+	 //게시판 페이징
 	 @RequestMapping(value="/")
 	 public ModelAndView openBoardList(Criteria cri) throws Exception {
 	         
 	     ModelAndView mav = new ModelAndView("/board/board");
-	         
+	     ModelAndView mav2 = new ModelAndView("/board/search");
 	     PageMaker pageMaker = new PageMaker();
 	     pageMaker.setCri(cri);
 	     pageMaker.setTotalCount(boardService.countBoardListTotal());
@@ -153,35 +160,39 @@ public class BoardController {
 	     List<Map<String,Object>> list = boardService.selectBoardList(cri);
 	     mav.addObject("list", list);
 	     mav.addObject("pageMaker", pageMaker);
-
+	    
 	 
 	     return mav;
 	         
 	 }
 
 	  @RequestMapping(value = "/search")
-      public ModelAndView list(@RequestParam(defaultValue ="title") String searchOption, @RequestParam(defaultValue="") String keyword )throws Exception {
+      public ModelAndView list(@RequestParam(defaultValue ="title") String searchOption, @RequestParam(defaultValue="") String keyword,@RequestParam(defaultValue="1")int curPage)throws Exception {
 		
-		  
-		  List<BoardVo> list= boardService.searchBoard(searchOption, keyword);
 		  ModelAndView mav =new ModelAndView();
 		  int count=boardService.countBoardContent(searchOption, keyword);
+		  
+		  
+		  BoardPager boardPager = new BoardPager(count, curPage);
+			int start = boardPager.getPageBegin();
+			int end = boardPager.getPageEnd();
+		  
+		  List<BoardVo> list= boardService.searchBoard(start, end,searchOption, keyword);
 		  
 		  Map<String,Object> map=new HashMap<String,Object>();
 		  map.put("list",list);
 		  map.put("searchOption",searchOption);
 		  map.put("keyword",keyword);
 		  map.put("count",count);
+		  map.put("boardPager",boardPager);
+		  
 		  mav.addObject("map",map);
 		  mav.setViewName("board/boardsearch");
 		
 		  return mav;
 	  }
       
-//	 @RequestParam(value = "")
-//	 public ModelAndView 
-//	 
-	 
+
 		 
 	 }
 	 

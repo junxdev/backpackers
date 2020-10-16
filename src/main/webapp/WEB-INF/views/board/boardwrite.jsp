@@ -141,7 +141,6 @@ function sendFile(file, el) {
 			<textarea class="form-control" id="summernote" name="board_content"
 				placeholder="내용을 입력해주세요" maxlength="140" rows="7"></textarea>
 		</div>
-<!-- <input type="text" class="form-control" id="board_content"  name="board_content" placeholder="내용을 입력해주세요"> -->
 </div>
 <div class="ex3">
 <button class="btn btn-primary" type="submit">등록</button>

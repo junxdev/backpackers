@@ -5,6 +5,7 @@
 <html>
 <head>
 
+
 <meta charset="UTF-8">
 
 <!-- 글쓰기 api 오류 나서, 이 페이지는 template을 따로 넣었음 -->
@@ -24,6 +25,7 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
 <script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
 	
+
 <style type="text/css">
  #board_subject{
  background-color: white;
@@ -200,16 +202,12 @@ function sendFile(file, el) {
 
 
 <div class="ex3">
-<input id="board_content" class="form-control" name="board_content" value="${boardDitail.board_content}"/>
-<pre class="board_hits">
-<button  type="submit" class="btn btn-primary" id="board_hits_btn">${boardDitail.board_hits}</button>
-추천수
-</pre>
-
+<div class="form-group">
+			<textarea class="form-control" id="summernote" name="board_content"
+				 maxlength="140" rows="7">${boardDitail.board_content}</textarea>
+		</div>
+		
 </div>
-
-<pre class="reply_content_send"><input type="text" class="form-control"  id="reply_content_send" name="reply_content" placeholder="댓글을 입력하시오"><button class="btn btn-primary" id="reply_content_btn" type="submit">댓글등록</button></pre>
-
 </div>
 <div class="put">
 <input type="hidden" name="_method" value="put">
@@ -218,20 +216,7 @@ function sendFile(file, el) {
 </div>
 <div class="ex04">
 <div>
-<div class="ex05">
-<!-- <pre class="reply">
-<pre class="reply_id">답글아이디</pre>
-<pre class="reply_content">답글내용</pre>
-<pre class="reply_time">작성시간</pre>
-</pre> -->
-<table class="table">
-<tr>
-<td style="width: 20%;">댓글아이디</td>
-<td style="width: 70%;">댓글내용</td>
-<td style="width: 10%;">댓글단시간</td>
-</tr>
-</table>
-</div>
+
 <div class="ex06">
 
 </div>

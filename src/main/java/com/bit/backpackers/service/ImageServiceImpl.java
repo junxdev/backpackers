@@ -34,8 +34,8 @@ public class ImageServiceImpl implements ImageService{
 	ImageDao imageDao;
 	
 	//Path rootLocation; // d:/image/
-//	String rootLocation = "c:/image";	// 윈도우의 경우 이 경로를 적기 
-	String rootLocation = "/Users/a/img"; // 맥에서 지정 
+	String rootLocation = "c:/image";	// 윈도우의 경우 이 경로를 적기 
+//	String rootLocation = "/Users/a/img"; // 맥에서 지정 
 	
 	
 	public UploadFileVo store(MultipartFile file) throws Exception {                
