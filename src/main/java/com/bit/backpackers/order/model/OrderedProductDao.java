@@ -3,7 +3,7 @@ package com.bit.backpackers.order.model;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.bit.backpackers.DeptVo;
+
 import com.bit.backpackers.item.model.entity.ItemVo;
 import com.bit.backpackers.order.model.entity.OrderedProductVo;
 import com.bit.backpackers.product.model.entity.ProductVo;

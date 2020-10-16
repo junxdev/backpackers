@@ -20,6 +20,9 @@
 		.first-option-now > img {
 			border: 2px solid black;
 		}
+		
+	
+		
 	</style>
 </head>
 <body>
@@ -119,7 +122,22 @@
 					            	$('#quantity').val(quantity - 1);
 					            }
 					    	});
+							
+							$('#btnBuy').click(function(e){
+						        e.preventDefault();
+						        var pointvalue = ($('#itemOption1,#itemOption2,#itemOption3').val());
+					            if(pointvalue == null){
+					            	
+					            }
+					    	});
 						})();
+						
+						${
+							
+							
+							
+						}
+						
 					</script>
 				</div>
 				</form>

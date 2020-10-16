@@ -20,16 +20,8 @@ public interface BoardDao {
 	 @SuppressWarnings("unchecked")
 	 List<Map<String, Object>> selectBoardList(Criteria cri);
 	 int countBoardList();
-	 //search paging
-
-	    
-
-	 
-//		 searchdao
-		  List<BoardVo>searchBoard(int start,int end,String searchOption,String keyword) throws Exception;
-		 
+     List<BoardVo>searchBoard(int start,int end,String searchOption,String keyword) throws Exception;	 
 	 int countBoardContent(String searchOption, String keyword);
 	void increaseViewcnt(int board_no)throws SQLException;
-
 }
  

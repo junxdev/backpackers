@@ -1,9 +1,11 @@
 package com.bit.backpackers.order.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -26,6 +28,8 @@ import com.bit.backpackers.order.model.entity.OrderVo;
 import com.bit.backpackers.order.model.entity.OrderedProductVo;
 import com.bit.backpackers.order.service.OrderService;
 
+import lombok.Data;
+
 @Controller
 @RequestMapping("/order")
 public class OrderController {
@@ -38,11 +42,12 @@ public class OrderController {
 	CartService cartService;
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String createOrder(OrderedProductVo product) throws SQLException {
+	public String createOrder(OrderedProductVo product) throws SQLException, IOException   {
 //		log.info(productCode + quantity);
 		orderService.putOrder(product);
 		return "redirect:/order/checkout";
 	}
+	
 	
 	@RequestMapping(value = "/checkout")
 	public String checkout(Model model, String orderCode) throws SQLException {
