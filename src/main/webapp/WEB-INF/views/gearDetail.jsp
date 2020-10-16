@@ -101,7 +101,6 @@
 </form>
 
 					
-					
 				<!-- Content ends -->
 	<%@ include file="/WEB-INF/views/template/footer.jspf" %>
 </body>

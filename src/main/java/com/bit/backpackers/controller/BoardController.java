@@ -66,8 +66,13 @@ public class BoardController {
 //		 boardService.ditailService(model, board_no);
 //			 return "board/boardpost";
 //		 }
+
+	   
+	 
+
 	 
 	 //댓글입력
+
 	 @RequestMapping(value = "{board_no}",method =RequestMethod.POST )
 	 public String replyinsert(@ModelAttribute ReplyVo reply,HttpSession session){
 	 
@@ -76,7 +81,7 @@ public class BoardController {
 			 reply.setReply_id(reply_id);
 		replyService.insertReply(reply);
 	} catch (SQLException e) {
-		System.out.println("�뜝�럥六사뛾�룇裕뉛옙堉꾢뜝�럥�넮 �뜝�럥占싸우삕占쏙옙.");
+		System.out.println("�뜝�럥六사뛾�룇裕뉛옙堉꾢뜝�럥�넮 �뜝�럥占싸우삕占쏙옙.");
 	}
 	 	 
 	 return "redirect:{board_no}";
