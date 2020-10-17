@@ -54,14 +54,17 @@ public class ShopController {
 	}
 	
 	@RequestMapping("/{mainCategory}/{subCategory}/{shopCode}/{productCode}")
-	public String detail(@PathVariable String shopCode, @PathVariable String productCode, Model model) throws SQLException {
+	public String detail(@PathVariable String shopCode, @PathVariable String productCode, Model model) throws Exception {
 		shopService.getShop(model, shopCode, productCode);
+		List<ReviewVo> review = shopService.reviewList(shopCode);
+		model.addAttribute("review", review);
 		return "shop/detail";
 	}
 	
 	// 리뷰 작성
-	@RequestMapping(value = "/{mainCategory}/{subCategory}/{shopCode}", method = RequestMethod.POST)
+	@RequestMapping(value = "/{mainCategory}/{subCategory}/{shopCode}/{productCode}", method = RequestMethod.POST)
 	public String registReview(ReviewVo review, HttpSession session) throws Exception{
+		// @PathVariable String shopCode, @PathVariable String productCode... 넣어야하나
 		logger.info("regist Review");
 		
 		// member 세션에 저장된 유저 아이디 가져오기
@@ -73,12 +76,5 @@ public class ShopController {
 		return "redirect:/shop/" + review.getItemNo();
 	}
 	
-	// 리뷰 목록
-	@RequestMapping(value="/{mainCategory}/{subCategory}/{shopCode}", method = RequestMethod.GET)
-	public void getReview(@PathVariable String shopCode, Model model) throws Exception{
-		logger.info("get view");
-		
-		List<ReviewVo> review = shopService.reviewList(shopCode);
-		model.addAttribute("review", review);
-	}
+
 }
