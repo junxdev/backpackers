@@ -23,12 +23,15 @@ public class BoardDaoImpl implements BoardDao {
 	@Inject
 	  SqlSession sqlSession;
 
-	@Override
-	public List<BoardVo> searchBoard(String searchOption, String keyword)  {
+	@Override 
+	public List<BoardVo> searchBoard(int start, int end,String searchOption, String keyword)  {
 		
-		Map<String,String> map=new HashMap<String,String>();
+		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("searchOption", searchOption);
 		map.put("keyword",keyword);
+		
+		map.put("start",start);
+		map.put("end",end);
 		return sqlSession.selectList("com.bit.backpackers.model.BoardDao.searchBoard", map);
 	}
 
@@ -85,6 +88,10 @@ public class BoardDaoImpl implements BoardDao {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	
+
 
 	
 

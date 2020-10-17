@@ -68,11 +68,14 @@ public class BoardServiceImpl implements BoardService{
 		
 	}
 
-	@Override
-	public List<BoardVo> searchBoard(String searchOption, String keyword)throws Exception {
+	
+	
+	
+	@Override  
+	public List<BoardVo> searchBoard(int start ,int end,String searchOption, String keyword)throws Exception {
 		
 		
-		return boardDao.searchBoard(searchOption, keyword);
+		return boardDao.searchBoard(start,end,searchOption, keyword);
 	}
 
 	@Override
@@ -90,6 +93,10 @@ public class BoardServiceImpl implements BoardService{
 	dao.increaseViewcnt(board_no);
 	}
 
+	
+
+
+	
 
 
 

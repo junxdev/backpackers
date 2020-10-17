@@ -7,5 +7,7 @@ import org.springframework.ui.Model;
 public interface CategoryService {
 
 	public void getCategoryList(Model model) throws SQLException;
+	public void checkCategory(String mainCategoryName) throws SQLException;
+	public void checkCategory(String mainCategoryName, String subCategoryName) throws SQLException;
 
 }

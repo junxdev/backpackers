@@ -5,7 +5,16 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+<<<<<<< HEAD
 import com.bit.backpackers.shop.model.entity.ReviewVo;
+=======
+
+
+import com.bit.backpackers.category.model.entity.CategoryVo;
+import com.bit.backpackers.item.model.entity.ItemVo;
+
+
+>>>>>>> origin/master
 import com.bit.backpackers.shop.model.entity.ShopVo;
 
 public interface ShopDao {

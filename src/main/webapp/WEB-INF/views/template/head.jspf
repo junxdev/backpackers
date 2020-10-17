@@ -1,18 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-
     pageEncoding="UTF-8"%>
-	<% request.setAttribute("root", request.getContextPath()); %>
-	<link rel="stylesheet" type="text/css" href="${root }/resources/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="${root }/resources/css/paper-kit.css">
-<link rel="stylesheet" type="text/css" href="${root }/resources/css/paper-kit.css.map">
-<link rel="stylesheet" type="text/css" href="${root }/resources/demo/demo.css">
-<link rel="stylesheet" type="text/css" href="${root }/resources/demo/docs.css">
-	<script type="text/javascript" src="${root }/resources/js/jquery-1.12.4.js"></script>
-	<script type="text/javascript" src="${root }/resources/js/bootstrap.js"></script>
-<!-- kakao -->
-<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 
+<meta charset="UTF-8">
+
+<% request.setAttribute("root", request.getContextPath()); %>
+
+	<link rel="stylesheet" type="text/css" href="/backpackers/resources/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/backpackers/resources/css/bootstrap.min.css">
+	<script type="text/javascript" src="/backpackers/resources/js/jquery-1.12.4.js"></script>
+	<script type="text/javascript" src="/backpackers/resources/js/bootstrap.js"></script>
+	<script type="text/javascript" src="/backpackers/resources/js/jquery.slim.min.js"></script>
+	<script type="text/javascript" src="/backpackers/resources/js/bootstrap.bundle.min.js"></script>
+	
 
 <title>Backpackers : 3rd project by group 3</title>
 
+<style type="text/css">
+	.navbar-brand {
+		font-size: 30px;
+	}
+	.nav-link {
+		font-size: 15px;
+	}
+	body {
+	  background: url('') no-repeat center center fixed;
+	  -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	  background-size: cover;
+	  -o-background-size: cover;
+	  font-size: 15px;
+	}
+	
+	#navbarResponsive > ul.navbar-nav.ml-auto {
+   		list-style: none;
+   		
+   		
+   	}
+
+	#navbarResponsive > ul.navbar-form.ml-right {
+		float: right;
+	}
+
+	#footer {
+	margin: 0 auto; 
+	text-align: center;
+	}
+
+</style>

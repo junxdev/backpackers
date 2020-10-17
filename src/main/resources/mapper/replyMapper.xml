@@ -10,7 +10,7 @@
   insert into board_reply (reply_id,reply_depth,reply_time,reply_content,board_no) values (#{reply_id},1,CURTIME(),#{reply_content},#{board_no})
   </insert>
   	<update id="updateReply">
-  	update board_reply set reply_content=#{reply_content}
+  	update board_reply set reply_content=#{reply_content} where reply_no=#{reply_no}
   	</update>
   	<delete id="deleteReply">
   	delete from board_reply where reply_no=#{reply_no}

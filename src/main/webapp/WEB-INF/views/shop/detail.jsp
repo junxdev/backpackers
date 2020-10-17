@@ -20,6 +20,7 @@
 		.first-option-now > img {
 			border: 2px solid black;
 		}
+<<<<<<< HEAD
 		<style>
 		 section.reviewForm { padding:30px 0; }
 		 section.reviewForm div.input_area { margin:10px 0; }
@@ -34,6 +35,11 @@
 		 section.reviewList div.userInfo .date { color:#999; display:inline-block; margin-left:10px; }
 		 section.reviewList div.reviewContent { padding:10px; margin:20px 0; }
 </style>
+=======
+		
+	
+		
+>>>>>>> origin/master
 	</style>
 </head>
 <body>
@@ -46,11 +52,11 @@
 					<!-- 1개의 상품을 출력 -->
 					<!-- 등록된 이미지가 없을 때 -->
 					<c:if test="${imageList.size() == 0 }">
-						<img src="${root }/resources/img/no-image.jpg" style="width:300px;height:300px;"/>
+						<img src="${productImage }/no-image.jpg" style="width:300px;height:300px;"/>
 					</c:if>
 					<c:forEach items="${imageList }" var="image">
 						<!-- 등록된 이미지들을 나열 -->
-						<img src="${root }/resources/img/${image.imageURL}"  style="width:300px;height:300px;"/>
+						<img src="${productImage }/${image.imageURL}"  style="width:300px;height:300px;"/>
 					</c:forEach>
 				</div>
 			</div><!-- image end -->
@@ -79,11 +85,11 @@
 									</c:otherwise>
 								</c:choose>
 								<c:if test="${not titleImageMap.containsKey(product.productCode) }">
-										<img src="${root }/resources/img/no-image.jpg" style="width:50px;height:50px;"/>
+										<img src="${productImage }/no-image.jpg" style="width:50px;height:50px;"/>
 								</c:if>
 								<!-- 등록된 대표 이미지가 있을 때 -->
 								<c:if test="${titleImageMap.containsKey(product.productCode) }">
-										<img src="${root }/resources/img/${titleImageMap[product.productCode].imageURL }"  style="width:50px;height:50px;"/>
+										<img src="${productImage }/${titleImageMap[product.productCode].imageURL }"  style="width:50px;height:50px;"/>
 								</c:if>
 								</a>
 							</span>
@@ -118,6 +124,7 @@
 							</button>
 						</span>
 					</div>
+
 					<script type="text/javascript">
 						(function() {
 							var quantitiy = 1;
@@ -133,9 +140,42 @@
 					            	$('#quantity').val(quantity - 1);
 					            }
 					    	});
+							
+							$('#btnBuy').click(function(e){
+						        e.preventDefault();
+						        var pointvalue = ($('#itemOption1,#itemOption2,#itemOption3').val());
+					            if(pointvalue == null){
+					            	
+					            }
+					    	});
 						})();
+						
+						${
+							
+							
+							
+						}
+						
 					</script>
+
 				</div>
+				<script type="text/javascript">
+					(function() {
+						var quantitiy = 1;
+						$('.quantity-right-plus').click(function(e){
+							e.preventDefault();
+							var quantity = parseInt($('#quantity').val());
+					    	$('#quantity').val(quantity + 1);
+						});
+						$('.quantity-left-minus').click(function(e){
+					        e.preventDefault();
+					        var quantity = parseInt($('#quantity').val());
+				            if(quantity > 1){
+				            	$('#quantity').val(quantity - 1);
+				            }
+				    	});
+					})();
+				</script>
 				</form>
 				<div>
 					<button id="btnBuy" class="btn btn-default">구매하기</button>
@@ -169,12 +209,20 @@
 									//data: { 'productCode': 'test', 'optionCode': 'test', 'quantity': 'test'},
 									contentType:'application/json; charset=utf-8',
 									dataType:'text',
+								  	beforeSend: function(xhr) {
+								    	xhr.setRequestHeader("ajax-need-login", "true");
+								  	},
 									success:function(data){
 										var firstOption = document.querySelector('.first-option-now').title;
 										var secondOption = document.querySelector('input[name="secondOptionCode"]:checked').nextElementSibling.innerText;
-										document.querySelector('.cart-message').innerText = '장바구니에 ${shop.shopTitle }(' 
+										document.querySelector('.shop-message').innerText = '장바구니에 ${shop.shopTitle }(' 
 												+ firstOption + ', ' + secondOption + ') 상품 ' + quantity + '개를 담았습니다!';
-										$('#cartModal').modal('show');
+										$('#shopModal').modal('show');
+									},
+									error: function(e) {
+										if(e.status == 400) {
+											location.href = '${root}/user/login'
+										}
 									}
 								});
 							});
@@ -185,15 +233,15 @@
     	</div><!-- row end -->
 		<!-- Content ends -->
 	<%@ include file="/WEB-INF/views/template/footer.jspf" %>
-	<!-- 장바구니 모달 -->
-	<div id="cartModal" class="modal fade" tabindex="-1" role="dialog">
+	<!-- 쇼핑 모달 -->
+	<div id="shopModal" class="modal fade" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-body">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				</div>
 				<div class="modal-body">
-					<div class="cart-message">장바구니</div>
+					<div class="shop-message">장바구니</div>
 				</div>
 				<div class="modal-body">
 					<a href="${root }/order/cart" role="button" class="btn btn-primary">장바구니 보기</a>

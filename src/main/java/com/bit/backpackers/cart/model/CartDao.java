@@ -11,8 +11,9 @@ import java.sql.SQLException;
 
 public interface CartDao {
 	
-	void insertItem(@Param("productCode") String productCode, @Param("optionCode") String optionCode) throws SQLException;
-	int removeItem(String productCode, String optionCode) throws SQLException;
-	List<CartProductVo> selectCart() throws SQLException;
+	void insertItem(@Param("productCode") String productCode, @Param("optionCode") String optionCode, @Param("userId") String userId) throws SQLException;
+	List<CartProductVo> selectCart(String userId) throws SQLException;
+	int minusItemQuantity(@Param("productCode") String productCode, @Param("optionCode") String optionCode, @Param("userId") String userId) throws SQLException;
+	int removeItem(@Param("productCode") String productCode, @Param("optionCode") String optionCode, @Param("userId") String userId) throws SQLException;
 
 }

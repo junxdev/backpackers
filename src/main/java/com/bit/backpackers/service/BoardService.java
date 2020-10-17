@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.ui.Model;
 
+
 import com.bit.backpackers.model.entity.BoardVo;
 import com.bit.backpackers.model.entity.ReplyVo;
 import com.bit.backpackers.util.Criteria;
@@ -21,7 +22,8 @@ public interface BoardService {
 	void deleteService(int board_no)throws SQLException;
 	List<Map<String, Object>> selectBoardList(Criteria cri);
 	int countBoardListTotal();
-	List<BoardVo> searchBoard(String searchOption,String keyword)throws Exception;
+	//	searchservice
+    List<BoardVo> searchBoard(int start,int end,String searchOption,String keyword)throws Exception;
 	 int countBoardContent(String searchOption,String keyword);
 	 void increaseViewcnt(int board_no)throws SQLException;
 	 

@@ -1,82 +1,95 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <html>
-<%
-	request.setAttribute("root", request.getContextPath());
-%>
+
 <head>
 <%@ include file="/WEB-INF/views/template/head.jspf"%>
 <%@ include file="/WEB-INF/views/template/nav.jspf"%>
 <%@ include file="/WEB-INF/views/template/header.jspf"%>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <style type="text/css">
-
-
-
-#loginForm { 
+#loginForm {
 	position: relative;
 	width: 50%;
 	height: 50%;
 	margin: 0 auto;
 }
-
-.login h1 { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
-
 </style>
 
 <script type="text/javascript">
-//아이디 AJAX 처리
-function findId(){
-    //querySelector :
-    //   css선택자로 원하는 html element 객체를 불러온다.
-    
-    var userName = document.querySelector('#userName').value;
-    var userEmail = document.querySelector('#userEmail').value;
+	$(document).ready(function() {
+		$("#button1").on("click", function() {
+			if ($("#userName").val() == "") {
+				swal("이름을 입력해주세요.");
+				$("#userName").focus();
+				return false;
+			}
+			if ($("#userEmail").val() == "") {
+				swal("이메일를 입력해주세요.");
+				$("#userEmail").focus();
+				return false;
+			}
+		});
+	});
+	//아이디 AJAX 처리
+	function findId() {
+		//querySelector :
+		//   css선택자로 원하는 html element 객체를 불러온다.
 
-	$.ajax({
-   type:"POST",
-   url : "/backpackers/user/findidAjax",
-   dataType :"text",
- 	data:{
-	   userName:userName,
-   	   userEmail:userEmail    
-	},
-	success:function(data){
-		console.log(data);
-	if(data != ''){
-		alert("회원님의  아이디는"+data+"입니다.");
-         var msg  = '회원님의 아이디는 ' + data + ' 입니다';
-         
-         $('.id-msg').append(msg);
-        
-      } else {
-          document.querySelector("#id-msg").textContent = '일치하는 정보가 없습니다';
-          document.querySelector('#id-msg').style.color = 'white';
-      }
-}
-})
-}
+		var userName = document.querySelector('#userName').value;
+		var userEmail = document.querySelector('#userEmail').value;
 
-function findPw() {
-    location.href="/backpackers/user/findpw";
-}
+		$.ajax({
+			type : "POST",
+			url : "/backpackers/user/findidAjax",
+			dataType : "text",
+			data : {
+				userName : userName,
+				userEmail : userEmail
+			},
+			success : function(data) {
+				console.log(data);
+				if (data == 'fail') {
+					swal("로그인 실패", "아이디 또는 이메일이 일치하지 않습니다.");
+
+				} else if (data != '') {
+					swal("로그인성공", "회원님의  아이디는" + data + "입니다.");
+					//var msg  = '회원님의 아이디는 ' + data + ' 입니다';
+					//var msg1  = '아이디 와 이메일을 입력하세요';
+					//$('.id-msg').append(msg);
+				}
+			}
+		})
+	}
+
+	function findPw() {
+		location.href = "/backpackers/user/findpw";
+	}
 </script>
 </head>
 <body>
-	<div id="gtco_header" class="gtco-cover gtco-cover-xl" style="text-align: center;">
+	<div id="gtco_header" class="gtco-cover gtco-cover-xl"
+		style="text-align: center;">
 		<div id="loginForm" style="margin-top: 5%;">
-		       	<h3>아이디 찾기</h3>
-		<br><br><br><br><br>
+			<h3>아이디 찾기</h3>
+			<br> <br> <br> <br> <br>
 			<form action="/backpackers/user/findidAjax" method="GET" class="form">
-		       	<br>
-				   	이름 &nbsp;&nbsp;&nbsp; <input id="userName" name="userName" class="lostInput" type="text">
-					이메일 <input id="userEmail" name="userEmail" class="lostInput" type="text">
-			    	<button  type="button" id="login-button" onclick="findId()" value="아이디찾기">아이디찾는다?</button>
-			    	<br>
-			    	<div id="id-msg" class="id-msg" style="font-size: 20px;  text-align: center;"></div>
-			    	<br><br>
-			    	<div id="id-msg-sec" class="id-msg-sec" style="font-size: 30px; text-align: left; color: blue;" onclick="findPw()">비밀번호 찾기로 이동</div>
-		    </form>
+				<br> 이름 &nbsp;&nbsp;&nbsp; <input id="userName" name="userName"
+					class="lostInput" type="text"> 이메일 <input id="userEmail"
+					name="userEmail" class="lostInput" type="text">
+				<button type="button" id="button1" onclick="findId()">아이디찾기</button>
+				<br>
+				<div id="id-msg" class="id-msg"
+					style="font-size: 20px; text-align: center;"></div>
+				<div id="id-msg1" class="id-msg1"
+					style="font-size: 20px; text-align: center;"></div>
+				<br> <br>
+				<div id="id-msg-sec" class="id-msg-sec"
+					style="font-size: 30; text-align: ceter; color: black;"
+					onclick="findPw()">비밀번호 찾기로 이동</div>
+			</form>
 		</div>
 	</div>
 </body>

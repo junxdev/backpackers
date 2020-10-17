@@ -5,9 +5,6 @@
 <html>
 <head>
 <%@include file="../template/head.jspf" %>
-
-
-
 <style type="text/css">
  .board_subject{
  background-color: white;
@@ -88,57 +85,27 @@ height: 75px;
 </style>
 
 <script type="text/javascript">
-$(function() {	
+$(document).ready(function(){
+	
+	
 
- 	$("#delete_button").click(function (){
-		alert("삭제되었습니다.");
-		$(location).attr('href', '123');
+	$("#replyUpdate").click(function (){
+		alert("댓글이 수정되었습니다.");
 	});
- 
-	$("#replyUpdate").one("click",function (){
-		alert("ok");
 	
-		
-	$.ajax({
-		    url :"/backpackers/board/${boardDitail.board_no}/replyedit",
-		    type : "PUT",
-		    contentType: "application/json; charset=UTF-8",
-		    data : $("reply").serialize(),
-		    dataType: "text",
-		    success: function(result) {
-		    	alert("수정되었습니다");
-		    }
-		}); 
 	
-		
-		/* 	$.ajax({
-			type:'put',
-			url:'/board/${boardDitail.board_no}/edit',
-			contentType: "application/json; charset=UTF-8",
-			dataType: "text",
-			data : $("reply").serialize()
-			   success: function(result) {
-	    	alert("삭제되었습니다.");
-	    }
-				
-				if(result=='SUCCESS'){
-					alert("수정되었습니다.");
-	
-				} 
-			 
-		}); */
-		
-	});
  	$("#replyDelete").click(function (){
  		alert("삭제되었습니다.");
 		
-	 }); 
+	 });
 	  
-		
-	});
-	</script>
+ 
+ 	
+ 	
+ 	
 	
-	
+});
+</script>
 <title>게시글</title>
 </head>
 <body>
@@ -160,10 +127,7 @@ $(function() {
 <div class="ex3">
 <pre class="board_content">
 ${boardDitail.board_content}
-<pre class="board_hits">
-<button  type="submit" class="btn btn-primary" id="board_hits_btn">${boardDitail.board_hits}</button>
-추천수
-</pre>
+
 </pre>
 </div>
 
@@ -184,6 +148,7 @@ ${boardDitail.board_content}
 </form>
 </div>
 <div class="ex04">
+
 <div>
 <div class="ex05">
 <!-- <pre class="reply">
@@ -192,13 +157,13 @@ ${boardDitail.board_content}
 <pre class="reply_time">작성시간</pre>
 </pre> -->
 <table class="table">
-<form method="post" name="reply" action="${boardDitail.board_no}/replyedit">
-<input type="hidden" name="_method" value="put">
 <c:forEach items="${reply}" var="reply">
+<form method="post" action="${boardDitail.board_no}/edit">
+<input type="hidden" name="_method" value="put">
 <tr>
-<td style="width: 20%;">${reply.reply_id}</td>
-<td style="width: 70%;"><input type="text" value="${reply.reply_content}"  id="reply_content" name="reply_content" ></td>
-<td style="width: 10%;">${reply.reply_time}</td>
+<th style="width: 20%;">${reply.reply_id}</th>
+<th style="width: 70%;"><input type="text" value="${reply.reply_content}"  id="reply_content" name="reply_content"></th>
+<th style="width: 10%;">${reply.reply_time}</th>
 <c:if test="${sessionScope.username == reply.reply_id}">
 <td><button type="submit" class="btn btn-primary" id="replyUpdate" name="reply_no" value="${reply.reply_no}">댓글수정</button></td>
 </form>

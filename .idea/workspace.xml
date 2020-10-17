@@ -5,7 +5,137 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8c1b42cc-a18d-4e8b-8f6d-18c9893d908f" name="디폴트 변경 목록" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/HomeController.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/controller/AdminController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/controller/BoardImageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/controller/LoginInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/model/AdminDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/model/entity/brandVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/model/entity/main_categoryVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/model/entity/option_groupVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/model/entity/option_tableVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/model/entity/sub_categoryVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/order/CartToOrder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/service/AdminService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/service/AdminServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/util/BoardPager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/lib/lombok-1.18.12.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/adminMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/sql/backpackers-shop.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/addproduct.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/deleteproduct.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/detailproduct.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/editproduct.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/board/boardpostedit.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/board/boardsearch.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/menu.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/registerEdit.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/assets/img/bg-masthead.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/assets/img/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/assets/img/portfolio/fullsize/1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/assets/img/portfolio/fullsize/2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/assets/img/portfolio/fullsize/3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/assets/img/portfolio/fullsize/4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/assets/img/portfolio/fullsize/5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/assets/img/portfolio/fullsize/6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/assets/img/portfolio/thumbnails/1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/assets/img/portfolio/thumbnails/2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/assets/img/portfolio/thumbnails/3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/assets/img/portfolio/thumbnails/4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/assets/img/portfolio/thumbnails/5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/assets/img/portfolio/thumbnails/6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/webfonts/fa-brands-400.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/cart/model/CartDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/cart/model/CartDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/cart/service/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/cart/service/CartService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/cart/service/CartServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/cart/service/CartServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/category/model/CategoryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/category/model/CategoryDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/category/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/category/service/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/category/service/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/category/service/CategoryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/controller/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/item/model/entity/ItemVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/item/model/entity/ItemVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/member/controller/AdminController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/member/controller/AdminInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/controller/AdminInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/member/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/controller/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/member/model/MemberDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/model/MemberDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/member/model/MemberDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/model/MemberDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/member/model/entity/LoginDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/model/entity/LoginDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/member/model/entity/MemberVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/model/entity/MemberVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/member/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/service/MemberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/member/service/MemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/service/MemberServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/model/BoardDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/model/BoardDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/model/BoardDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/model/BoardDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/order/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/order/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/order/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/order/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/order/model/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/order/model/OrderDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/order/model/OrderedProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/order/model/OrderedProductDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/order/model/entity/OrderVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/order/model/entity/OrderVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/order/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/order/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/order/service/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/order/service/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/service/BoardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/service/BoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/service/BoardServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/service/ImageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/service/ImageServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/shop/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/shop/Shop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/shop/controller/ShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/shop/controller/ShopController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/shop/model/ShopDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/shop/model/ShopDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/shop/service/ShopService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/shop/service/ShopService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/shop/service/ShopServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bit/backpackers/shop/service/ShopServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/jdbc.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/jdbc.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/boardMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/boardMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/cartMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/cartMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/categoryMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/categoryMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/memberMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/memberMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/orderMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/orderMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/replyMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/replyMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/adminPage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/adminPage.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/board/board.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/board/board.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/board/boardpost.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/board/boardpost.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/board/boardwrite.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/board/boardwrite.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/gear.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/gear.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/gearAdd.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/gearAdd.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/gearDetail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/gearDetail.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/gearEdit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/gearEdit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/order/cart.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/order/cart.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/order/checkout.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/order/checkout.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/order/receipt.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/order/receipt.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/shop/detail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/shop/detail.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/shop/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/shop/list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sightsAdd.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sightsAdd.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sightsEdit.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/sightsEdit.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/template/footer.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/template/footer.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/template/head.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/template/head.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/template/header.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/template/header.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/template/nav.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/template/nav.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/delete.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/delete.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/findid.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/findid.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/findpw.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/findpw.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/loginPost.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/loginPost.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/myPage.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/myPage.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/user/register.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/paper-kit.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/paper-kit.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/paper-kit.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/demo/demo.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/demo/docs.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/img/item01-0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/img/product/product01-0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/img/item01-1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/img/product/product01-1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/img/item01-2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/img/product/product01-2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/img/item01-m.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/img/product/product01-m.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/img/item04-0.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/img/product/product04-0.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/img/item04-1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/img/product/product04-1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/img/item04-2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/img/product/product04-2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/img/item04-m.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/img/product/product04-m.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/img/no-image.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/img/product/no-image.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/bootstrap.bundle.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/bootstrap.bundle.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/scripts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bit/backpackers/order/OrderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bit/backpackers/order/OrderTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bit/backpackers/test/ContextTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bit/backpackers/test/ContextTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bit/backpackers/test/IdCheckTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bit/backpackers/test/IdCheckTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,6 +247,7 @@
       <workItem from="1601960629109" duration="7230000" />
       <workItem from="1602133118357" duration="990000" />
       <workItem from="1602134216856" duration="61000" />
+      <workItem from="1602909626629" duration="5000" />
     </task>
     <servers />
   </component>

@@ -49,8 +49,6 @@
 			<artifactId>spring-tx</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-
-		<!--민철 추가 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -176,8 +174,13 @@
 			<artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
 			<version>1.16</version>
 		</dependency>
+<<<<<<< HEAD
 
 		<!--민철 시작 -->
+=======
+    
+   		<!--민철 시작 -->
+>>>>>>> origin/master
 		<!--비밀번호 암호화 -->
 		<!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt <dependency> 
 			<groupId>org.mindrot</groupId> <artifactId>jbcrypt</artifactId> <version>0.4</version> 
@@ -194,8 +197,13 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+<<<<<<< HEAD
 		<!-- ajax의 데이터를 컨트롤러에서 사용 아이디,비번찾기 -->
 		<dependency>
+=======
+		<!-- ajax의 데이터를 컨트롤러에서 사용  아이디,비번찾기 -->
+	  	<dependency>
+>>>>>>> origin/master
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
@@ -210,7 +218,11 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.8</version>
 		</dependency>
+<<<<<<< HEAD
 		<!--메일인증 -->
+=======
+		<!--메일인증  -->
+>>>>>>> origin/master
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
@@ -222,6 +234,7 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		<!--민철 끝 -->
+<<<<<<< HEAD
 
 		<!-- 유저 라이브러리 시작 : 제발 여기다 추가하세요 -->
 		<dependency> 
@@ -245,18 +258,55 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.2.1</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+=======
+		
+
+    <!-- 유저 라이브러리 시작 : 제발 여기다 추가하세요 -->
 		<dependency>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-jaxrs</artifactId>
+        <version>1.9.13</version>
+    </dependency>
+    <dependency>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-xc</artifactId>
+        <version>1.9.13</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+    
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.11.2</version>
+    </dependency>
+    <dependency>
+
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.2.1</version>
+	</dependency>
+>>>>>>> origin/master
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+	<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
+<<<<<<< HEAD
 		</dependency>
 		<dependency>
+=======
+
+	</dependency>
+  			<dependency>
+
+>>>>>>> origin/master
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<version>1.18.12</version>
 			<scope>provided</scope>
+
 		</dependency>
+<<<<<<< HEAD
 		<!-- 유저 라이브러리 끝 -->
 	</dependencies>
 	<build>
@@ -307,6 +357,50 @@
 			</plugin>
 		</plugins>
 	</build>
+=======
+		<!-- 유저 라이브러리 끝-->
+	</dependencies>
+
+  
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <additionalProjectnatures>
+                        <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+                    </additionalProjectnatures>
+                    <additionalBuildcommands>
+                        <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+                    </additionalBuildcommands>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <mainClass>org.test.int1.Main</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+>>>>>>> origin/master
 </project>
 
 
