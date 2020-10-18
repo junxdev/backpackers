@@ -42,4 +42,15 @@ public class CategoryServiceImpl implements CategoryService {
 		}
 	}
 	
+	@Override
+	public void getCategoryNow(Model model, String mainCategoryName) throws SQLException {
+		model.addAttribute("mainCategoryName", mainCategoryName);
+	}
+	
+	@Override
+	public void getCategoryNow(Model model, String mainCategoryName, String subCategoryName) throws SQLException {
+		model.addAttribute("mainCategoryName", mainCategoryName);
+		model.addAttribute("subCategoryName", subCategoryName);
+	}
+	
 }

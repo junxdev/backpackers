@@ -29,4 +29,24 @@
   		WHERE productCode = #{productCode}
   	</select>
   	
+  	<select id="selectProductByShopCode" resultType="com.bit.backpackers.product.model.entity.NewProductVo">
+  		SELECT * FROM product WHERE shopCode = #{shopCode}
+  	</select>
+  	
+  	<select id="selectProductItemByProductCode" resultType="com.bit.backpackers.product.model.entity.NewProductItemVo">
+  		SELECT * FROM product_item WHERE productCode = #{productCode}
+  	</select>
+  	
+  	<select id="selectProductItemByShopCode" resultType="com.bit.backpackers.product.model.entity.NewProductItemVo">
+  		SELECT 	
+	  		item.productCode AS productCode, 
+	  		item.optionGroupCode AS optionGroupCode,
+	  		item.optionCode AS optionCode,
+	        item.itemCode
+  		FROM product_item AS item 
+        LEFT JOIN product
+        ON item.productCode = product.productCode
+  		WHERE product.shopCode = #{shopCode}
+  	</select>
+  	
   </mapper>

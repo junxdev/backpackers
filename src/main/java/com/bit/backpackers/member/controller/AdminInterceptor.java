@@ -20,10 +20,10 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 		MemberVo user = (MemberVo)session.getAttribute("user");
 	
 		// 관리자가 아닌 경우
-		if(user.getGrade() != 1) {
-			response.sendRedirect("/backpackers");
-			return false;
-		}
+//		if(user.getGrade() != 1) {
+//			response.sendRedirect("/backpackers");
+//			return false;
+//		}
 		
 		return true;
 		

@@ -172,7 +172,7 @@ CREATE TABLE `shop` (
   `shopTitle` varchar(45) NOT NULL,
   `mainCategoryCode` varchar(45) NOT NULL,
   `subCategoryCode` varchar(45) NOT NULL,
-  `shopDate` date NOT NULL,
+  `shopDate` timestamp NOT NULL,
   `shopContent` varchar(3000) NOT NULL,
   `shopPrice` int(11) NOT NULL,
   PRIMARY KEY (`shopId`),

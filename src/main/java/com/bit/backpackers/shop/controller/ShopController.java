@@ -39,6 +39,7 @@ public class ShopController {
 			return "redirect:/shop/clothing/tops";
 		}
 		categoryService.getCategoryList(model);
+		categoryService.getCategoryNow(model, mainCategoryName);
 		shopService.getShoplist(model, mainCategoryName);
 		return "shop/list";
 	}
@@ -52,6 +53,7 @@ public class ShopController {
 			return "redirect:/shop/clothing/tops";
 		}
 		categoryService.getCategoryList(model);
+		categoryService.getCategoryNow(model, mainCategoryName, subCategoryName);
 		shopService.getShoplist(model, mainCategoryName, subCategoryName);
 		return "shop/list";
 	}

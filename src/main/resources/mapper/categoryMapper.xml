@@ -7,15 +7,15 @@
   	<resultMap type="CategoryVo" id="categoryMap">
   		<id property="mainCategoryCode" column="mainCategoryCode"/>
   		<result property="mainCategoryName" column="mainCategoryName"/>
-  		<collection property="subCategoryList" select="selectSubCategory" column="mainCategoryCode" javaType="ArrayList" ofType="String" />
+  		<collection property="subCategoryList" select="findSubCategoryByMainCategoryCode" column="mainCategoryCode" javaType="ArrayList" ofType="String" />
   	</resultMap>
   	
   	<select id="selectCategoryListByMainCategoryCode" resultMap="categoryMap">
   		SELECT * FROM main_category
   	</select>
   	
-  	<select id="selectSubCategory" resultType="String">
-  		SELECT subCategoryName FROM sub_category WHERE mainCategoryCode = #{mainCategoryCode}
+  	<select id="findSubCategoryByMainCategoryCode" resultType="com.bit.backpackers.category.model.entity.SubCategoryVo">
+  		SELECT * FROM sub_category WHERE mainCategoryCode = #{mainCategoryCode}
   	</select>
   	
   	<select id="findSubCategory" resultType="String">
@@ -24,6 +24,14 @@
   	
   	<select id="findMainCategory" resultType="String">
   		SELECT mainCategoryCode FROM main_category WHERE mainCategoryName = #{mainCategoryName}
+  	</select>
+  	
+  	<select id="selectSubCategory" resultType="com.bit.backpackers.category.model.entity.SubCategoryVo">
+  		SELECT * FROM sub_category
+  	</select>
+  	
+  	<select id="selectMainCategory" resultType="com.bit.backpackers.category.model.entity.MainCategoryVo">
+  		SELECT * FROM main_category
   	</select>
   	
   </mapper>
