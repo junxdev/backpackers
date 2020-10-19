@@ -8,7 +8,7 @@
     
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-left">
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="${root }/gear">백패킹
                 <span class="sr-only">(current)</span>
           </a>
@@ -20,15 +20,22 @@
           <a class="nav-link" href="${root }/board/">게시판</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="${root }/#">쇼핑</a>
+          <a class="nav-link" href="${root }/shop">쇼핑</a>
         </li>
       </ul>
       
-        <ul class="navbar-form ml-right">
+        
+    </div>
+  </div>
+  
+ <div class="collapse navbar-collapse" id="navbarResponsive">
+  <ul class="navbar-form ml-right">
+  	 <li class="nav-item active">
         <c:if test="${user != null}">
-
+        
         	<c:if test="${user.grade == 1}">
-		 		${user.userId }님 입장을 환영합니다
+		 		<a class="text"> ${user.userId }님 입장을 환영합니다 </a>
+		 		
  			<a class="btn btn-primary" href="${root }/admin/adminPage">관리자 페이지</a>
 			</c:if>
 	        <c:if test="${user.grade == 0}">
@@ -41,8 +48,7 @@
 		 	<a class="btn btn-primary" href="${root }/user/login">로그인</a>
       	 	<a class="btn btn-primary" href="${root }/user/register">회원가입</a>
 		</c:if>
-        </ul>     
-    </div>
-  </div>
+        </ul>   
+     </div>      
 </nav>
 
