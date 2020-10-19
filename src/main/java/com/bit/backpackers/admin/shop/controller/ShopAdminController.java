@@ -34,8 +34,9 @@ public class ShopAdminController {
 	}
 	
 	@RequestMapping(value = "/form", method = RequestMethod.GET)
-	public String formShop(Model model) {
-		return "admin/shop/list";
+	public String formShop(Model model) throws SQLException {
+		shopAdminService.getShopForm(model);
+		return "admin/shop/detail";
 	}
 	
 	@RequestMapping(value = "", method = RequestMethod.POST)

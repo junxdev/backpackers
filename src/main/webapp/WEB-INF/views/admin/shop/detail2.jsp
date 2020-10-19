@@ -16,15 +16,13 @@
 			word-break: keep-all;
 		}
 		.product-form {
-			border: 1px solid gray;
+			border: 1px solid black;
 			border-radius: 5px;
-			margin: 1em;
 			padding: 1em;
 		}
-		.item-form {
-			border: 1px solid gray;
+		.product-item-form {
+			border: 1px solid black;
 			border-radius: 5px;
-			margin: 1em;
 			padding: 1em;
 		}
 		@media (min-width: 768px) {
@@ -45,27 +43,6 @@
 			cursor: pointer;
 			background-color: #ccc;
 		}
-		.image-form {
-			white-space: nowrap;
-			overflow-y: hidden;
-			border: 1px solid #ccc;
-			border-radius: 5px;
-			height: 120px;
-		}
-		.btn-add-image {
-			width: 100px;
-			height: 100px;
-			margin: 10px 0px 10px 10px;
-		}
-		.product-image {
-			display: inline-block;
-			width: 100px;
-			height: 100px;
-			padding: 0px;
-			margin: 10px 0px 10px 10px;
-			border-radius: 5px;
-			border: 1px solid #ccc;
-		}
 	</style>
 </head>
 <body>
@@ -79,17 +56,17 @@
 						<div class="form-group"> <!-- shop form -->
 							<label for="shopCode" class="col-sm-2 control-label">판매코드</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="shopCode" value=""/>
+								<input type="text" class="form-control" id="shopCode" value="${shop.shopCode }"/>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="shopTitle" class="col-sm-2 control-label">판매제목</label>
 							<div class="col-sm-4">
-								<input type="text" class="form-control" id="shopTitle" value=""/>
+								<input type="text" class="form-control" id="shopTitle" value="${shop.shopTitle }"/>
 							</div>
 							<label for="shopPrice" class="col-sm-1 control-label">판매가격</label>
 							<div class="col-sm-4">
-								<input type="text" class="form-control" id="shopPrice" value=""/>
+								<input type="text" class="form-control" id="shopPrice" value="${shop.shopPrice }"/>
 							</div>
 						</div>
 						<div class="form-group">
@@ -143,7 +120,7 @@
 						</div> <!-- product form -->
 						<div class="form-group"> <!-- form button -->
 							<div class="col-sm-offset-2 col-sm-10">
-								<button type="button" class="btn btn-primary btn-block">판매 등록</button>
+								<button type="submit" class="btn btn-default">Sign in</button>
 							</div>
 						</div> <!-- form button -->
 					</form>
@@ -182,11 +159,8 @@
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-	<!-- 쇼핑 모달 끝 -->
-	<!-- 동적 추가 요소 모음 시작 -->
+	</div><!-- /.modal --><!-- 쇼핑 모달 끝 -->
 	<div class="elements"  hidden="true">
-		<!-- 아이템 추가 양식 시작 -->
 		<div class="item-form">
 			<div class="form-group">
 				<label class="col-sm-2 control-label">하위 옵션 그룹</label>
@@ -211,19 +185,14 @@
 				</div>
 			</div>
 		</div>
-		<!-- 아이템 추가 양식 끝 -->
-		<!-- 상품 추가 양식 시작 -->
 		<div class="product-form">
-			<!-- 상품 코드 시작 -->
-			<div class="form-group"> 
+			<div class="form-group">
 				<label for="productCode" class="col-sm-2 control-label">상품코드</label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="productCode" value="${product.productCode }"/>
 				</div>
-			</div> 
-			<!-- 상품 코드 끝 -->
-			<!-- 상위 옵션 시작 -->
-			<div class="form-group"> 
+			</div>	<!-- 상품 코드 끝 -->
+			<div class="form-group">
 				<label class="col-sm-2 col-md-2 control-label">상위 옵션 그룹</label>
 				<div class="col-sm-10 col-md-3">
 					<select class="form-control option-group" name="optionGroupCode">
@@ -231,49 +200,40 @@
 						<option value="${optionGroup.optionGroupCode }">${optionGroup.optionGroupName }</option>
 						</c:forEach>
 					</select>
-				</div> 
+				</div>
 				<label class="col-sm-2 col-md-2 control-label">상위 옵션</label>
 				<div class="col-sm-10 col-md-3">
 					<select class="form-control option" name="OptionCode">
 					</select>
 				</div>
 			</div>
-			<!-- 상위 옵션 끝 -->
-			<!-- 사진 추가 시작 -->
-			<div class="form-group"> 
-				<label class="col-sm-2 control-label">사진</label>
-				<div class="col-sm-10 col-md-8">
-					<div class="image-form">
-						<form action="uploads" method="post" enctype="multipart/form-data">
-							<input type="file" class="form-control product-image-uploader" name="imageURL" style="display:none"/>
-							<button type="button" class="btn btn-default btn-add-image">추가</button>
-						</form>
+			<div class="form-group">
+				<form action="uploads" method="post" enctype="multipart/form-data">
+					<label class="col-sm-2 control-label">사진</label>
+					<div class="col-sm-10 col-md-6" style="border:1px solid black">
+						<input type="file" name="files"/>
 					</div>
-				</div>
-			</div> 
-			<!-- 사진 추가 끝 -->
-			<!-- 하위 옵션 추가 버튼 시작 -->
-			<div class="form-group"> 
+					<div class="col-sm-10 col-md-4">
+							<button type="submit">전송</button>
+					</div>
+				</form>
+			</div>	<!-- 상위 옵션 끝 -->
+			<div class="form-group"> <!-- product item add button -->
 				<label for="productCode" class="col-sm-2 control-label">하위 옵션</label>
 				<div class="col-sm-10">
 					<button type="button" class="btn btn-primary btn-add-item">추가</button>
 				</div>
-			</div> 
-			<!-- 하위 옵션 추가 버튼 끝-->
-			<!-- 하위 옵션 양식 시작 -->
+			</div> <!-- 하위 옵션 추가 끝-->
 			<div class="form-group"> 
 				<div class="col-sm-offset-2 col-sm-9">
 					<div class="row">
 					</div>
 				</div>
-			</div> 
-			<!-- 하위 옵션 양식 끝 -->
-		</div> 
-		<!-- 상품 추가 양식 끝 -->
+			</div><!-- 하위 옵션 양식 끝 -->
+		</div><!-- 상품 양식 끝 -->
 	</div>
-	<!-- 동적 추가 요소 모음 끝 -->
 	<script type="text/javascript">
-		//document.querySelectorAll('.item-control').forEach(addEventItemSelect);
+		document.querySelectorAll('.item-control').forEach(addEventItemSelect);
 		// 아이템 선택 모달 기능 함수
 		function addEventItemSelect(input) {
 			input.addEventListener('click', function(e) {
@@ -313,17 +273,15 @@
 				$('#item-modal').modal('show');
 			});
 		}
-		
-		// 상품, 아이템 폼
-		var itemForm = document.querySelector('.elements .item-form').outerHTML;
-		var productForm = document.querySelector('.elements .product-form').outerHTML;
-		
 		// 옵션 리스트
 		var options = {
 			<c:forEach items="${optionMap }" var="option">
 	        '${option.key}' : '<c:forEach items="${option.value }" var="list"><option value="${list.optionCode}">${list.optionName}</option></c:forEach>',
 			</c:forEach>
 		};
+		// 상품, 아이템 폼
+		var itemForm = document.querySelector('.elements .item-form').outerHTML;
+		var productForm = document.querySelector('.elements .product-form').outerHTML;
 		// 옵션 기능 활성화 함수
 		function activateOption(form) {
 			var optionGroup = form.querySelector('.option-group');
@@ -333,7 +291,6 @@
 				option.innerHTML = options[optionGroup.value];
 			});
 		}
-		
 		// 아이템 추가 버튼 활성화 함수
 		function activateItemBtn(btn) {
 			btn.addEventListener('click', function() {
@@ -352,35 +309,7 @@
 				});
 			});
 		}
-
-		// 추가 이미지용 템플릿
-		var image = '<image class="product-image" src="#"/>';
-		
-		// 상품 이미지 추가 버튼
-		function activateImageBtn(form) {
-			var imageUploadBtn = form.querySelector('.btn-add-image');
-			var imageUploader = form.querySelector('.product-image-uploader');
-			var imageFormData = new FormData();
-			imageUploadBtn.addEventListener('click', function() {
-				console.log(this);
-				imageUploader.click();
-			});
-			imageUploader.addEventListener('change', function() {
-				form.querySelector('.image-form').lastElementChild.insertAdjacentHTML('afterEnd', image);
-				console.log(this.value);
-				if(this.files && this.files[0]) {
-					var img = form.querySelector('.product-image:last-child');  // $('img')[0]
-					img.src = URL.createObjectURL(this.files[0]); // set src to blob url
-					imageFormData.append(this.files[0].name, this.files[0]);
-					console.log(imageFormData.length);
-					for(var pair of imageFormData.entries()) {
-						console.log(pair[0]+ ', '+ pair[1]); 
-					}
-				}
-			});
-		}
-		
-		// 상품 추가 버튼 함수
+		// 상품 추가 버튼 활성화 함수
 		document.querySelector('.btn-add-product').addEventListener('click', function() {
 			var productSection = this.parentElement.parentElement.nextElementSibling.querySelector('.row');
 			if(productSection.innerText == '') {
@@ -390,18 +319,16 @@
 			}
 			var lastProductForm = productSection.querySelector('.product-form:last-child');
 			activateOption(lastProductForm);
-			activateImageBtn(lastProductForm);
 			activateItemBtn(lastProductForm.querySelector('.btn-add-item'));
 		});
-		
-		
-		// Summernote
+	</script>
+	<script>
 		$(document).ready(function() {
 			$('#summernote').summernote({
 				height : 300,
-				minHeight : 100,
-				maxHeight : 500,
-				focus : false,
+				minHeight : null,
+				maxHeight : null,
+				focus : true,
 				callbacks : {
 					onImageUpload : function(files, editor, welEditable) {
 						for (var i = 0; i < files.length; i++) {

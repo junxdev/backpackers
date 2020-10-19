@@ -49,7 +49,14 @@ public class ShopAdminServiceImpl implements ShopAdminService {
 		model.addAttribute("productItemMap", productSupport.getProductItemMapByShopCode(shopCode));
 		model.addAttribute("optionGroupList", optionSupport.getOptionGroupList());
 		model.addAttribute("optionMap", optionSupport.getOptionByOptionGroupMap());
-		model.addAttribute("itemList", itemSupport.getItemList());
+	}
+	
+	@Override
+	public void getShopForm(Model model) throws SQLException {
+		model.addAttribute("mainCategoryMap", categorySupport.getMainCategoryMap());
+		model.addAttribute("subCategoryMap", categorySupport.getSubCategoryByMainCategoryMap());
+		model.addAttribute("optionGroupList", optionSupport.getOptionGroupList());
+		model.addAttribute("optionMap", optionSupport.getOptionByOptionGroupMap());
 	}
 	
 	@Override

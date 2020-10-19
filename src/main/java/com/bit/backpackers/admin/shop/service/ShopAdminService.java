@@ -14,5 +14,6 @@ public interface ShopAdminService {
 	int updateShop(ShopVo shop) throws SQLException;
 	int deleteShop(String shopCode) throws SQLException;
 	String getItem(String itemCode) throws SQLException;
+	void getShopForm(Model model) throws SQLException;
 
 }
