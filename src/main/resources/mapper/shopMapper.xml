@@ -61,5 +61,11 @@
 		ON shop.shopCode = product.shopCode
 		WHERE productCode = #{productCode}
   	</select>
+  	<select id="reviewList" resultType="ReviewVo">
+  	select * from tbl_item_review where shopCode=#{shopCode}
+  	</select>
+  	<insert id="registReview">
+  	insert into tbl_item_review(shopCode,userId,reviewContent,reviewDate) values (#{shopCode},#{userId},#{reviewContent},CURDATE())
+  	</insert>
   	
   </mapper>
