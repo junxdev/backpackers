@@ -20,6 +20,9 @@
 		.first-option-now > img {
 			border: 2px solid black;
 		}
+		
+	
+		
 	</style>
 </head>
 <body>
@@ -104,6 +107,40 @@
 							</button>
 						</span>
 					</div>
+
+					<script type="text/javascript">
+						(function() {
+							var quantitiy = 1;
+							$('.quantity-right-plus').click(function(e){
+								e.preventDefault();
+								var quantity = parseInt($('#quantity').val());
+						    	$('#quantity').val(quantity + 1);
+							});
+							$('.quantity-left-minus').click(function(e){
+						        e.preventDefault();
+						        var quantity = parseInt($('#quantity').val());
+					            if(quantity > 1){
+					            	$('#quantity').val(quantity - 1);
+					            }
+					    	});
+							
+							$('#btnBuy').click(function(e){
+						        e.preventDefault();
+						        var pointvalue = ($('#itemOption1,#itemOption2,#itemOption3').val());
+					            if(pointvalue == null){
+					            	
+					            }
+					    	});
+						})();
+						
+						${
+							
+							
+							
+						}
+						
+					</script>
+
 				</div>
 				<script type="text/javascript">
 					(function() {

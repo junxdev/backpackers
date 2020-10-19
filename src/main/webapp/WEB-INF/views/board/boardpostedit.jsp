@@ -6,6 +6,7 @@
 <head>
 
 
+
 <meta charset="UTF-8">
 
 <!-- 글쓰기 api 오류 나서, 이 페이지는 template을 따로 넣었음 -->
@@ -24,7 +25,6 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
 <script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
-	
 
 <style type="text/css">
  #board_subject{
