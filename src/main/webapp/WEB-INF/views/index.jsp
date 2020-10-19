@@ -57,7 +57,7 @@
 					<button type="submit" class="btn btn-default"><a href="${root }/user/login">로그인</a></button>
 			        <button type="submit" class="btn btn-default"><a href="${root }/user/register">회원가입</a></button>	 	  
 					</c:if>
-			        </ul>                        
+			        </ul>                               
                              
                 </div>
             </div>

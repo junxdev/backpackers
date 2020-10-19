@@ -33,13 +33,19 @@
 	
 	#navbarResponsive > ul.navbar-nav.ml-auto {
    		list-style: none;
-   		
-   		
    	}
 
 	#navbarResponsive > ul.navbar-form.ml-right {
 		float: right;
 	}
+	
+	#navbarResponsive > ul > li {
+		list-style: none;
+	}
+	
+	.navbar-form {
+    width: max-content;
+    }
 
 	#footer {
 	margin: 0 auto; 

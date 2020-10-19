@@ -16,5 +16,7 @@ public class CartProductVo extends ProductVo {
 	private Timestamp cartDate;
 	private int cartRemoved;
 	private int quantity;
+
+	
 	
 }

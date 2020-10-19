@@ -9,7 +9,7 @@
 
 
 #searchbar,#searchOptionbar{
-width: 5%;
+ width: 5%;
  float: left;
 }
 

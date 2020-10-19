@@ -32,7 +32,7 @@ public class GearController {
 	@RequestMapping(value = "",method = RequestMethod.GET)
 	public String list(Model model) throws SQLException {
 		gearService.listService(model);
-		return "gear";
+		return "/gear/gear";
 	}
 	
 	@RequestMapping(value = "/add",method=RequestMethod.POST)
@@ -46,18 +46,18 @@ public class GearController {
 	}
 	@RequestMapping(value="/add",method = RequestMethod.GET)
 	public String add() {
-		return "gearAdd";
+		return "/gear/gearAdd";
 	}
 	
 	@RequestMapping(value = "/{gearNo}",method=RequestMethod.GET)
 	public String detail(@PathVariable int gearNo,Model model) throws SQLException{
 		gearService.detailService(model,gearNo);
-		return "gearDetail";
+		return "/gear/gearDetail";
 	}
 	@RequestMapping("/{gearNo}/edit")
 	public String edit(@PathVariable int gearNo,Model model) throws SQLException{
 		gearService.detailService(model, gearNo);
-		return "gearEdit";
+		return "/gear/gearEdit";
 	}
 	@RequestMapping(value = "/{gearNo}",method=RequestMethod.PUT)
 	public ModelAndView update(@PathVariable int gearNo,@ModelAttribute GearVo bean) throws SQLException{
