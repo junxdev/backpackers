@@ -7,6 +7,12 @@
 <%@include file="../template/head.jspf" %>
 <style type="text/css">
 
+
+#boardsubject{
+text-align: center;
+
+}
+
 </style>
 
 
@@ -22,24 +28,21 @@ function list(page) {
 <%@ include file="/WEB-INF/views/template/nav.jspf" %>
 <%@include file="../template/header.jspf" %>
 ${map.count}개의 게시물이 검색되었습니다.
-<table class="table">
+<table class="table table-striped">
 <tr>
-<th>번호</th>
-<th>제목</th>
-<th>글쓴이</th>
-<th>작성일</th>
-<th>조회</th>
-<th>주천</th>
+<th style="width: 10%;">번호</th>
+<th style="width: 55%;" id="boardsubject">제목</th>
+<th style="width: 10%;">글쓴이</th>
+<th style="width: 10%;">작성일</th>
+<th style="width: 10%;">조회</th>
 </tr>
 <c:forEach items="${map.list}" var="title">
 <tr>
 <td>${title.board_no}</td>
-<td><a href="./${title.board_no}">${title.board_subject}</a></td>
+<td id="boardsubject"><a href="./${title.board_no}">${title.board_subject}</a></td>
 <td>${title.user_ID}</td>
 <td>${title.board_date}</td>
 <td>${title.board_views}</td>
-<td>${title.board_hits}</td>
-
 </tr>
 </c:forEach>
 </table>

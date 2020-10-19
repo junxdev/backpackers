@@ -55,7 +55,7 @@ public class MemberController {
 		if (user != null) {
 			System.out.println("로그인 성공");
 			httpSession.setAttribute("user", user);
-
+			httpSession.setAttribute("username",loginDTO.getUserId());
 			return "redirect:/";
 		}
 		System.out.println("로그인 실패");

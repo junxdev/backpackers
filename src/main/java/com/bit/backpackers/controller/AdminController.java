@@ -98,14 +98,6 @@ public class AdminController {
 	  //상품디테일
 	  @RequestMapping(value = "{itemId}/detail") 
 	  public String productdetail(@PathVariable int itemId,Model model) throws SQLException {
-
-	//관리자페이지 
-		@RequestMapping(value = "/adminPage", method = RequestMethod.GET)
-		public String adminpage(@ModelAttribute("loginDTO") LoginDTO loginDTO)throws Exception {
-			logger.info("admin Login");
-			return "/admin/adminPage";
-		}
-
 		
 		  adminService.productdetail(model, itemId);
 		  

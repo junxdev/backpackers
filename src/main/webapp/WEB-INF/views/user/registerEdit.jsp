@@ -207,7 +207,7 @@ body {
 		<p>회원정보 수정 페이지</p>
 		<form <%-- action="${root}/user/registerEdit"  --%>method="post" id="registerPage">
 			<div class="form-group has-feedback">
-				<input type="text" id="userId" name="userId" value="${.userId }" class="form-control">
+				<input type="text" id="userId" name="userId" value="${user.userId }" class="form-control">
 					
 
 			<div class="form-group has-feedback">
