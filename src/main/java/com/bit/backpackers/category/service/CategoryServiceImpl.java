@@ -19,6 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Inject
 	SqlSession sqlSession;
 	
+	
 	@Override
 	public void getCategoryList(Model model) throws SQLException {
 		List<CategoryVo> list = sqlSession.getMapper(CategoryDao.class).selectCategoryListByMainCategoryCode();

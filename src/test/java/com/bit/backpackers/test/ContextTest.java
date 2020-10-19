@@ -19,9 +19,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bit.backpackers.model.MemberDAO;
-import com.bit.backpackers.model.entity.LoginDTO;
-import com.bit.backpackers.model.entity.MemberVo;
+import com.bit.backpackers.member.model.MemberDAO;
+import com.bit.backpackers.member.model.entity.LoginDTO;
+import com.bit.backpackers.member.model.entity.MemberVo;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

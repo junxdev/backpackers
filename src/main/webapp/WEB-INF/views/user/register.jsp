@@ -230,67 +230,71 @@ body {
 
 <body>
 	<div class="container">
-		<p>회원가입 페이지</p>
-		<form action="${root}/user/registerPost" method="post" id="registerPage">
-			<div class="form-group has-feedback">
-				<input type="text" id="userId" name="userId" class="form-control"
-					placeholder="아아디">
-				<button class="idCheck" type="button" id="idCheck"
-					onclick="fn_idCheck();" value="N">중복확인</button>
-				<span
-					class="glyphicon glyphicon-exclamation-sign form-control-feedback"></span>
-			</div>
+		<form action="${root}/user/registerPost" method="post" id="registerPage">		
+			 	<div class="row">
+				 <label class="col-md-2 control-label">아이디</label>
+				 	<div class="col-md-6">
+						<input type="text" id="userId" name="userId" class="form-control"  placeholder="아아디">
+				 	</div>
+						<button class="col-md-2 col-md-offset-1 form" type="button" id="idCheck" onclick="fn_idCheck();" value="N">중복확인</button>
+				</div>
+			
+				<div class="row">
+					  <label class="col-md-2 control-label">이름</label>
+					  <div class="col-md-6">
+						<input type="text" id="userName" name="userName" class="form-control" placeholder="이름">
+						</div>
+				</div>
+				
+				<div class="row">
+				 	<label class="col-md-2 control-label">이메일</label>
+						<div class="col-md-6">
+							<input type="email" id="userEmail" for="signupEmail" maxlength="50" name="userEmail" class="form-control" placeholder="이메일">
+						</div>
+				</div>
+				
+				<div class="row">
+					<label class="col-md-2 control-label">비밀번호</label>
+						<div class="col-md-6">
+							<input type="password" id="userPw" name="userPw" class="form-control" placeholder="비밀번호">
+						</div>
+				</div>
+								<span id="pw-check-msg" class="pw-check-msg" style="font-size: 13px; text-align: center;"></span>
+				
+				<div class="row">
+					<label class="col-md-2 control-label">비번 확인</label>
+						<div class="col-md-6">
+							<input type="password" id="userPw2" class="form-control" placeholder="비밀번호 확인">
+						</div>
+				</div>
+								<span id="pw-check-msg1" class="pw-check-msg1" style="font-size: 13px; text-align: center;"></span>
+								
+				<div class="row">
+					<label class="col-md-2 control-label">휴대번호</label>
+						<div class="col-md-6">
+				<input type="text" id="phoneNum" name="phoneNum" class="form-control" placeholder="핸드폰 번호를 입력해주세요(-제외한 숫자만 입력)">
+						</div>
+				</div>
+				<div class="row">
+				
+					<label class="col-md-2 control-label">주소</label>
+						<div class="col-md-6">
+							<input type="text" id="sample6_postcode" class="form-control" name="postCode" placeholder="우편번호">
+						</div>
+							<input type="button" class="col-md-2 col-md-offset-1" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>		
+						<div class="col-md-6 col-md-offset-2">
+							<input type="text" id="sample6_address" name="address" class="form-control" placeholder="주소"><br> 
+							<input type="text" id="sample6_detailAddress" name="detailAddress" class="form-control" placeholder="상세주소"> 
+							<input type="text" id="sample6_extraAddress" name="extraAddress" class="form-control" placeholder="참고항목">
+						</div>
+				</div>
 
-			<div class="form-group has-feedback">
-				<input type="text" id="userName" name="userName"
-					class="form-control" placeholder="이름"> <span
-					class="glyphicon glyphicon-user form-control-feedback"></span>
-			</div>
-			<div class="form-group has-feedback">
-				<input type="email" id="userEmail" for="signupEmail" maxlength="50"
-					name="userEmail" class="form-control" placeholder="이메일"> <span
-					class="glyphicon glyphicon-envelope form-control-feedback"></span>
-			</div>
-			<div class="form-group has-feedback">
-				<input type="password" id="userPw" name="userPw"
-					class="form-control" placeholder="비밀번호"> <span
-					class="glyphicon glyphicon-lock form-control-feedback"></span>
-			</div>
-			<span id="pw-check-msg" class="pw-check-msg"
-				style="font-size: 13px; text-align: center;"></span>
-			<div class="form-group has-feedback">
-				<input type="password" id="userPw2" class="form-control"
-					placeholder="비밀번호 확인"> <span
-					class="glyphicon glyphicon-log-in form-control-feedback"></span>
-			</div>
-			<span id="pw-check-msg1" class="pw-check-msg1"
-				style="font-size: 13px; text-align: center;"></span>
-
-			<div class="form-group has-feedback">
-				<input type="text" id="phoneNum" name="phoneNum"
-					class="form-control" placeholder="핸드폰 번호를 입력해주세요(-제외한 숫자만 입력)">
-				<span class="glyphicon glyphicon-lock form-control-feedback"></span>
-			</div>
-			<div class="form-group has-feedback">
-				<input type="text" id="sample6_postcode" class="form-control"
-					name="postCode" placeholder="우편번호"> <input type="button"
-					onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text" id="sample6_address" name="address"
-					class="form-control" placeholder="주소"><br> <input
-					type="text" id="sample6_detailAddress" name="detailAddress"
-					class="form-control" placeholder="상세주소"> <input type="text"
-					id="sample6_extraAddress" name="extraAddress" class="form-control"
-					placeholder="참고항목">
-			</div>
-
-
-			<div style="margin-left: 15px;">
+			<div class="row" style="margin-left: 20px;">
+				<div class="col-md-8">
 				<h4 class="glores-A-title">개인정보처리방침</h4>
-				<div class="glores-A-agree"
-					style="width: 500px; height: 200px; overflow: scroll; overflow-x: hidden; magin: 0 auto; border: 1px solid #ccc; padding: 10px; background: white">
-					<h5
-						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; margin: 0px; padding: 0px; font-size: 15px;">수집하는
-						개인정보의 항목</h5>
+				<div class="glores-A-agree" style="width: 550px; height: 300px; overflow: scroll; overflow-x: hidden; magin: 0 auto; border: 1px solid #ccc; padding: 10px; background: white">
+					<h5 style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; margin: 0px; padding: 0px; font-size: 15px;">수집하는
+					개인정보의 항목</h5>
 					<p
 						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; margin-top: 15px; padding-left: 10px; font-size: 13px; list-style-type: none; color: rgb(68, 68, 68);">회사는
 						회원가입, 상담, 서비스 신청 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.</p>
@@ -332,7 +336,7 @@ body {
 
 				<h4 class="glores-A-title">이용약관</h4>
 				<div class="glores-A-agree"
-					style="width: 500px; height: 200px; overflow: scroll; overflow-x: hidden; magin: 0 auto; border: 1px solid #ccc; padding: 10px; background: white">
+					style="width: 550px; height: 300px; overflow: scroll; overflow-x: hidden; magin: 0 auto; border: 1px solid #ccc; padding: 10px; background: white">
 					<div class="acon"
 						style="font-family: &amp; amp; amp; amp; quot; Noto Sans&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Nanum Gothic&amp;amp; amp; amp; quot; , &amp; amp; amp; amp; quot; Malgun Gothic&amp;amp; amp; amp; quot; , sans-serif; color: rgb(68, 68, 68); font-size: 15px; background-color: rgb(255, 255, 255);">
 						<h4 style="margin: 0px 0px 0.5em;">제1조(목적)</h4>
@@ -731,7 +735,7 @@ body {
 						required="required"> 위 이용약관에 동의합니다.</label>
 				</p>
 			</div>
-
+				</div>
 
 			<div class="form-group has-feedback">
 				<button type="submit" id="btn1" class="btn btn-primary btn-lg">가입</button>

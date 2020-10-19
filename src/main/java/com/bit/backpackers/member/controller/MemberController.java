@@ -1,4 +1,4 @@
-package com.bit.backpackers.controller;
+package com.bit.backpackers.member.controller;
 
 import java.lang.reflect.Member;
 import java.util.Date;
@@ -21,9 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bit.backpackers.model.entity.LoginDTO;
-import com.bit.backpackers.model.entity.MemberVo;
-import com.bit.backpackers.service.MemberService;
+import com.bit.backpackers.member.Interceptor.AdminInterceptor;
+import com.bit.backpackers.member.model.entity.LoginDTO;
+import com.bit.backpackers.member.model.entity.MemberVo;
+import com.bit.backpackers.member.service.MemberService;
 
 import common.exception.MailException;
 
@@ -54,6 +55,7 @@ public class MemberController {
 
 		if (user != null) {
 			System.out.println("로그인 성공");
+		
 			httpSession.setAttribute("user", user);
 
 			return "redirect:/";
@@ -186,8 +188,11 @@ public class MemberController {
 		}
 		// 회원정보 수정 
 		@RequestMapping(value = "/modify", method = RequestMethod.POST)
-		public String postModify(HttpSession session,MemberVo memberVo) throws Exception {
+		public String postModify(@ModelAttribute LoginDTO loginDTO, HttpSession session,MemberVo memberVo) throws Exception {
 		 logger.info("post modify");
+		 
+		 MemberVo user = memberService.login(loginDTO);
+		session.setAttribute("user", user);
 		 
 		 memberService.modify(memberVo);
 		 

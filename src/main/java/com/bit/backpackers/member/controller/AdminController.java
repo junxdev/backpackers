@@ -1,4 +1,4 @@
-package com.bit.backpackers.controller;
+package com.bit.backpackers.member.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bit.backpackers.model.entity.LoginDTO;
-import com.bit.backpackers.service.MemberService;
+import com.bit.backpackers.member.Interceptor.AdminInterceptor;
+import com.bit.backpackers.member.model.entity.LoginDTO;
+import com.bit.backpackers.member.service.MemberService;
 
 @Controller
 @RequestMapping("/admin")

@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
-import com.bit.backpackers.model.entity.MemberVo;
+import com.bit.backpackers.member.model.entity.MemberVo;
 import com.bit.backpackers.option.model.OptionDao;
 import com.bit.backpackers.option.model.entity.OptionVo;
 import com.bit.backpackers.order.model.OrderDao;

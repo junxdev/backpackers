@@ -17,45 +17,40 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style type="text/css">
-#bg {
-  position: absolute; 
-  top: 0; 
-  left: 0; 
-  height:600px;
-	
-  /* Preserve aspet ratio */
-  min-width: 100%;
-  min-height: 100%;
-}
+@import url('https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@600;700;800&display=swap');
+
+
 	body{
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
     }
 
 	#loginPage{
-    width: 380px;
-    height: 600px;
-    position: relative;
-    margin: 3% auto;
+    width: 400px;
+    height: 500px;
+    position: upset;
+    margin: 50 50 50 500;
     background: #fff;
     padding: 5px;
     overflow: hidden;
 	}
 
 	#btn1 {
-	margin-left: 100px;
-	margin-right: 30px;
-	margin-top: 30px;
-	width: 200px;
-	height: 60px;
+	margin-left: 50px;
+	margin-top: 20px;
+	width: 130px;
+	text-align: center;
 	}
 
-#btn2 {
-	margin-top: 30px;
-	width: 200px;
-	height: 60px;
-}
+	#btn2 {
+	margin-left: 30px;
+	margin-top: 20px;
+	width: 130px;
+	text-align: center;
+	}
+	#button1{
+	margin-top: 50px;
+	}
 
 #logo {
 	width: 300px;
@@ -87,12 +82,8 @@ $(document).ready(function() {
 </head>
 
 <body>
-<div class="page-header section-dark">
-<img id="bg" alt="" src="../resources/img/antoine-barres.jpg">
-    	<div class="container" id="loginPage">
-		<div>
-			<img id="logo" src="../resources/img/ikea.jpg" />
-		</div>
+    	<div id="loginPage">
+		<h2 style="font-family:'Sansita Swashed', cursive; text-align: center; margin-top:40px; font-size: 50px" >backpackers</h2>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
 			<form action="${root}/user/loginPost" method="post">
@@ -110,15 +101,14 @@ $(document).ready(function() {
 				<button type="submit" class="btn btn-primary btn-lg btn-block" id="button1" value="N">로그인</button>
 					<a href="register" class="btn btn-default btn-lg btn-block" role="btn">회원가입</a>
 			<div class="text">
-			 <button type="button" class="btn btn-default"><a href="${root}/user/findid">아이디 찾기</a></button>
-			<button type="button" class="btn btn-default"><a href="${root}/user/findpw">비밀번호 찾기</a></button>
+			 <button type="button" id="btn1"><a href="${root}/user/findid">아이디 찾기</a></button>
+			 <button type="button" 	id="btn2"><a href="${root}/user/findpw">비밀번호 찾기</a></button>
 			</div>
 			</form>
 		</div>
 		</div>
-		</div>
-	<%@ include file="/WEB-INF/views/template/footer.jspf"%>
 </body>
+	<%@ include file="/WEB-INF/views/template/footer.jspf"%>
 </html>
 
 

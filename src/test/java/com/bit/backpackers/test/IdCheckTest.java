@@ -8,8 +8,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bit.backpackers.model.MemberDAO;
-import com.bit.backpackers.model.entity.MemberVo;
+import com.bit.backpackers.member.model.MemberDAO;
+import com.bit.backpackers.member.model.entity.MemberVo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/applicationContext.xml")

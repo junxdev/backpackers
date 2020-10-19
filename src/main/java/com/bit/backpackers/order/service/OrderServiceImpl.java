@@ -15,7 +15,7 @@ import org.springframework.ui.Model;
 import com.bit.backpackers.cart.model.entity.CartProductVo;
 import com.bit.backpackers.image.model.entity.ImageVo;
 import com.bit.backpackers.item.model.entity.ItemVo;
-import com.bit.backpackers.model.entity.MemberVo;
+import com.bit.backpackers.member.model.entity.MemberVo;
 import com.bit.backpackers.order.OrderedItem;
 import com.bit.backpackers.order.Order;
 import com.bit.backpackers.order.OrderStatus;
