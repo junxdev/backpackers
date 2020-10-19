@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import com.bit.backpackers.admin.shop.model.ShopAdminDao;
 import com.bit.backpackers.admin.shop.model.entity.ShopVo;
 import com.bit.backpackers.category.Category;
+import com.bit.backpackers.item.Item;
 import com.bit.backpackers.option.Option;
 import com.bit.backpackers.product.Product;
 import com.bit.backpackers.product.model.ProductDao;
@@ -27,6 +28,8 @@ public class ShopAdminServiceImpl implements ShopAdminService {
 	Option optionSupport;
 	@Inject
 	Product productSupport;
+	@Inject
+	Item itemSupport;
 	
 	@Override
 	public void getShopList(Model model) throws SQLException {
@@ -46,6 +49,12 @@ public class ShopAdminServiceImpl implements ShopAdminService {
 		model.addAttribute("productItemMap", productSupport.getProductItemMapByShopCode(shopCode));
 		model.addAttribute("optionGroupList", optionSupport.getOptionGroupList());
 		model.addAttribute("optionMap", optionSupport.getOptionByOptionGroupMap());
+		model.addAttribute("itemList", itemSupport.getItemList());
+	}
+	
+	@Override
+	public String getItem(String itemCode) throws SQLException {
+		return itemSupport.getItemJson();
 	}
 	
 	@Override

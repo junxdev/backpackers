@@ -13,5 +13,6 @@ public interface ShopAdminService {
 	void createShop(ShopVo shop) throws SQLException;
 	int updateShop(ShopVo shop) throws SQLException;
 	int deleteShop(String shopCode) throws SQLException;
+	String getItem(String itemCode) throws SQLException;
 
 }

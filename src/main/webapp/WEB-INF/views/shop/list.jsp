@@ -24,8 +24,8 @@
 								 --%>
 								<li role="presentation" id="btn-category-${status.index}"  data-toggle="collapse" data-target="#subCategory${status.index}" aria-expanded="false"><a>${fn:toUpperCase(bean.mainCategoryName) }</a>
 									<ul class="nav collapse" id="subCategory${status.index}" role="menu" aria-labelledby="btn-category-${status.index}">
-										<c:forEach items="${bean.subCategoryList }" var="subCategoryName">
-											<li><a href="${root }/shop/${bean.mainCategoryName }/${subCategoryName }">${fn:toUpperCase(subCategoryName) }</a></li>
+										<c:forEach items="${bean.subCategoryList }" var="subCategory">
+											<li><a href="${root }/shop/${bean.mainCategoryName }/${subCategory.subCategoryName }">${fn:toUpperCase(subCategory.subCategoryName) }</a></li>
 										</c:forEach>
 									</ul>
 								</li>
@@ -72,7 +72,8 @@
 									<td>
 										<ul><span>${shop.shopTitle }</span>
 											<!-- 상품 페이지에 등록된 상품을 나열 -->
-											<c:forEach items="${productList }" var="product">
+											<%-- <c:forEach items="${productList }" var="product"> --%>
+											<c:set value="${productList[0] }" var="product"></c:set>
 												<!-- 상품에 등록된 이미지가 없을 때 -->
 												<c:if test="${not imageMap.containsKey(product.productCode)}">
 													<li>
@@ -89,7 +90,7 @@
 														</a>
 													</li>
 												</c:if>
-											</c:forEach>
+											<%-- </c:forEach> --%>
 										</ul>
 									</td>
 									<td>${shop.shopPrice }</td>

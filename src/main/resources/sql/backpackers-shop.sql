@@ -123,7 +123,7 @@ CREATE TABLE `item` (
   `itemId` int(11) NOT NULL AUTO_INCREMENT,
   `itemCode` varchar(60) NOT NULL,
   `itemName` varchar(100) NOT NULL,
-  `price` int(11) NOT NULL,
+  `itemPrice` int(11) NOT NULL,
   `mainCategoryCode` varchar(45) NOT NULL,
   `subCategoryCode` varchar(45) NOT NULL,
   `brandCode` varchar(45) NOT NULL,
