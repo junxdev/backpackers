@@ -5,7 +5,7 @@
 </head>
 <body>
     <script>
-        alert("관리자 페이지입니다. 확인후 다시접속해주세요");
+        alert("관리자 페이지입니다. 확인후 다시 접속해 주세요");
         self.location = "/backpackers/";
     </script>
 </body>

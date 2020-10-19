@@ -30,38 +30,38 @@ public class SightsController {
 	@RequestMapping(value = "/map",method = RequestMethod.GET)
 	public String markar(Model model) throws SQLException {
 		sightsService.listService(model);
-		return "sightsMap";
+		return "/sights/sightsMap";
 	}
 	
 	@RequestMapping(value = "/list",method = RequestMethod.GET)
 	public String list(Model model) throws SQLException {
 		sightsService.listService(model);
-		return "sights";
+		return "/sights/sights";
 	}
 	
-	@RequestMapping(value = "/add",method=RequestMethod.POST)
+	@RequestMapping(value = "/add", method=RequestMethod.POST)
 	public String insert(@ModelAttribute SightsVo bean) {
 		try {
 			sightsService.oneAddService(bean);
 		} catch (SQLException e) {
-			return "sightsAdd";
+			return "redirect:/sights/list";
 		}
-		return "sights";
+		return "redirect:/sights/list";
 	}
 	@RequestMapping(value="/add",method = RequestMethod.GET)
 	public String add() {
-		return "sightsAdd";
+		return "/sights/sightsAdd";
 	}
 	
 	@RequestMapping(value = "/{sightsNo}",method=RequestMethod.GET)
 	public String detail(@PathVariable int sightsNo,Model model) throws SQLException{
 		sightsService.detailService(model,sightsNo);
-		return "sightsDetail";
+		return "/sights/sightsDetail";
 	}
 	@RequestMapping("/{sightsNo}/edit")
 	public String edit(@PathVariable int sightsNo,Model model) throws SQLException{
 		sightsService.detailService(model, sightsNo);
-		return "sightsEdit";
+		return "/sights/sightsEdit";
 	}
 	@RequestMapping(value = "/{sightsNo}",method=RequestMethod.PUT)
 	public ModelAndView update(@PathVariable int sightsNo,@ModelAttribute SightsVo bean) throws SQLException{

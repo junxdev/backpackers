@@ -55,6 +55,7 @@
 	    display: none;
 	  }
 	}
+	
 </style>
 </head>
 
@@ -91,16 +92,27 @@
         </div>
       </div>
      
+     
+	<div class="row">
+     	<c:if test="${user != null}">
+        	<c:if test="${user.grade == 1}">	
+ 			
+ 			<a href="./${bean.gearNo }/edit" class="btn btn-default" role="btn">수 정</a>
+
+				<form method="post">
+				<input type="hidden" name="_method" value="delete">
+				<button type="submit" class="btn btn-default">삭 제</button>
+				</form>
+
+			</c:if>
+		</c:if>
+	</div>
 
 
-<a href="./${bean.gearNo }/edit" class="btn btn-default" role="btn">수 정</a>
 
-<form method="post">
-<input type="hidden" name="_method" value="delete">
-<button type="submit" class="btn btn-default">삭 제</button>
-</form>
 
-					
+
+
 					
 				<!-- Content ends -->
 	<%@ include file="/WEB-INF/views/template/footer.jspf" %>
