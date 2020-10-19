@@ -45,11 +45,9 @@
 							<c:forEach items="${shopList }" var="shop">
 							<div class="col-md-4">
 							<c:set value="${productMap[shop.shopCode] }" var="productList"></c:set>
-								<tr>
-									<td>
 										<ul>
 											<!-- 상품 페이지에 등록된 상품을 나열 -->
-											<c:forEach items="${productList }" var="product">
+											<c:set value="${productList[0] }" var="product"/>
 												<!-- 상품에 등록된 이미지가 없을 때 -->
 												<c:if test="${not imageMap.containsKey(product.productCode)}">
 													<li>
@@ -66,22 +64,19 @@
 														</a>
 													</li>
 												</c:if>
-											</c:forEach>
 										</ul>
-									</td>
 									<th>${shop.shopTitle }</th>
 									<th>가격:${shop.shopPrice }</th>
-								</tr>
 								</div>
 							</c:forEach>
 						<!-- 카테고리에 등록된 상품이 없을 때 -->
 						<script type="text/javascript">
-							(function ab() {
+							/* (function ab() {
 								var itemList = document.querySelector('table').children.item(1);
 							    if(itemList.childElementCount == 0) {
 							    	itemList.innerHTML = '<tr><td>판매 중인 상품이 없습니다.</td><td></td></tr>';
 							    }
-							})();
+							})(); */
 						</script>
 					</div>
 				</div>
