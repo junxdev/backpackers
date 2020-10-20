@@ -6,12 +6,16 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.bit.backpackers.category.model.entity.CategoryVo;
 import com.bit.backpackers.image.model.entity.ImageVo;
+import com.bit.backpackers.item.model.entity.ItemVo;
+import com.bit.backpackers.model.BoardDao;
 import com.bit.backpackers.option.model.entity.OptionVo;
 import com.bit.backpackers.order.Order;
 import com.bit.backpackers.product.Product;
@@ -102,31 +106,18 @@ public class ShopServiceImpl implements ShopService {
 		model.addAttribute("titleImageMap", titleImageMap);
 	}
 
-	// 한줄평 리스트
 	@Override
 	public void reviewList(Model model, String shopCode) throws SQLException {
 		ShopDao dao=sqlSession.getMapper(ShopDao.class);
-		model.addAttribute("review", dao.reviewList(shopCode));
+		model.addAttribute("review",dao.reviewList(shopCode));
+		
 	}
 
-	// 한줄평 작성
 	@Override
 	public void registReview(ReviewVo review) throws SQLException {
 		ShopDao dao=sqlSession.getMapper(ShopDao.class);
 		dao.registReview(review);
-	}
-	
-	// 한줄평 삭제
-	@Override
-	public void deleteReview(int ReviewNo) throws SQLException{
-		ShopDao dao=sqlSession.getMapper(ShopDao.class);
-		dao.deleteReview(ReviewNo);
+		
 	}
 
-	// 한줄평 수정
-	@Override
-	public void updateReview(ReviewVo review) throws SQLException {
-		ShopDao dao=sqlSession.getMapper(ShopDao.class);
-		dao.updateReview(review);
-	}
 }

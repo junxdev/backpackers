@@ -30,7 +30,7 @@ section.reviewForm {
 }
 
 section.reviewForm div.input_area {
-	margin: 10px 30px;
+	margin: 10px 0;
 }
 
 section.reviewForm textarea {
@@ -38,26 +38,18 @@ section.reviewForm textarea {
 	font-family: '맑은 고딕', verdana;
 	padding: 10px;
 	width: 500px;;
-	height: 30px;
+	height: 150px;
 }
 
 section.reviewForm button {
 	font-size: 20px;
-	padding: 3px 3px;
-	margin: 5px 0;
+	padding: 5px 10px;
+	margin: 10px 0;
 	background: #fff;
 	border: 1px solid #ccc;
 }
 
-#review_upd_btn, #review_del_btn {
-	float: right;
-}
-
-#reviewContent2{
- border: 1px none #ccc;
-}
-
-/* section.reviewList {
+section.reviewList {
 	padding: 30px 0;
 }
 
@@ -89,7 +81,7 @@ section.reviewList div.userInfo .date {
 section.reviewList div.reviewContent {
 	padding: 10px;
 	margin: 20px 0;
-} */
+}
 </style>
 </head>
 <body>
@@ -190,48 +182,46 @@ section.reviewList div.reviewContent {
 					<script type="text/javascript">
 						(function() {
 							var quantitiy = 1;
-							$('.quantity-right-plus').click(function(e) {
+							$('.quantity-right-plus').click(function(e){
 								e.preventDefault();
 								var quantity = parseInt($('#quantity').val());
-								$('#quantity').val(quantity + 1);
+						    	$('#quantity').val(quantity + 1);
 							});
-							$('.quantity-left-minus').click(function(e) {
-								e.preventDefault();
-								var quantity = parseInt($('#quantity').val());
-								if (quantity > 1) {
-									$('#quantity').val(quantity - 1);
-								}
-							});
-
-							$('#btnBuy')
-									.click(
-											function(e) {
-												e.preventDefault();
-												var pointvalue = ($('#itemOption1,#itemOption2,#itemOption3')
-														.val());
-												if (pointvalue == null) {
-
-												}
-											});
+							$('.quantity-left-minus').click(function(e){
+						        e.preventDefault();
+						        var quantity = parseInt($('#quantity').val());
+					            if(quantity > 1){
+					            	$('#quantity').val(quantity - 1);
+					            }
+					    	});
+							
+							$('#btnBuy').click(function(e){
+						        e.preventDefault();
+						        var pointvalue = ($('#itemOption1,#itemOption2,#itemOption3').val());
+					            if(pointvalue == null){
+					            	
+					            }
+					    	});
 						})();
+						
 					</script>
 
 				</div>
 				<script type="text/javascript">
 					(function() {
 						var quantitiy = 1;
-						$('.quantity-right-plus').click(function(e) {
+						$('.quantity-right-plus').click(function(e){
 							e.preventDefault();
 							var quantity = parseInt($('#quantity').val());
-							$('#quantity').val(quantity + 1);
+					    	$('#quantity').val(quantity + 1);
 						});
-						$('.quantity-left-minus').click(function(e) {
-							e.preventDefault();
-							var quantity = parseInt($('#quantity').val());
-							if (quantity > 1) {
-								$('#quantity').val(quantity - 1);
-							}
-						});
+						$('.quantity-left-minus').click(function(e){
+					        e.preventDefault();
+					        var quantity = parseInt($('#quantity').val());
+				            if(quantity > 1){
+				            	$('#quantity').val(quantity - 1);
+				            }
+				    	});
 					})();
 				</script>
 			</form>
@@ -239,189 +229,95 @@ section.reviewList div.reviewContent {
 				<button id="btnBuy" class="btn btn-default">구매하기</button>
 				<button id="btnCart" class="btn btn-default">장바구니에 담기</button>
 				<script type="text/javascript">
-					var orderItemForm = document
-							.querySelector('#orderItemForm');
-					function buyNow() {
-						orderItemForm.action = '${root}/order';
-						console.log(orderItemForm.action);
-						orderItemForm.method = 'POST';
-						console.log(orderItemForm.method);
-						orderItemForm.submit();
-					}
-					(function() {
-						document.querySelector('#btnBuy').addEventListener(
-								'click', function() {
-									console.log('buy before');
-									buyNow();
-									console.log('buy after');
+						var orderItemForm = document.querySelector('#orderItemForm');
+						function buyNow() {
+							orderItemForm.action = '${root}/order';
+							console.log(orderItemForm.action);
+							orderItemForm.method = 'POST';
+							console.log(orderItemForm.method);
+							orderItemForm.submit();
+						}
+						(function() {
+							document.querySelector('#btnBuy').addEventListener('click', function() {
+								console.log('buy before');
+								buyNow();
+								console.log('buy after');
+							});								
+						})();
+						(function() {
+							document.querySelector('#btnCart').addEventListener('click', function() {
+								console.log('works');
+								var productCode = document.querySelector('#productCode').value;
+								var secondOptionCode = document.querySelector('input[name="secondOptionCode"]:checked').value;
+								var quantity = document.querySelector('#quantity').value;
+								$.ajax({
+									url:'/backpackers/order/cart',
+									method:'POST',
+									data: JSON.stringify({ 'productCode': productCode, 'secondOptionCode': secondOptionCode, 'quantity': quantity}),
+									//data: { 'productCode': 'test', 'optionCode': 'test', 'quantity': 'test'},
+									contentType:'application/json; charset=utf-8',
+									dataType:'text',
+								  	beforeSend: function(xhr) {
+								    	xhr.setRequestHeader("ajax-need-login", "true");
+								  	},
+									success:function(data){
+										var firstOption = document.querySelector('.first-option-now').title;
+										var secondOption = document.querySelector('input[name="secondOptionCode"]:checked').nextElementSibling.innerText;
+										document.querySelector('.shop-message').innerText = '장바구니에 ${shop.shopTitle }(' 
+												+ firstOption + ', ' + secondOption + ') 상품 ' + quantity + '개를 담았습니다!';
+										$('#shopModal').modal('show');
+									},
+									error: function(e) {
+										if(e.status == 400) {
+											location.href = '${root}/user/login'
+										}
+									}
 								});
-					})();
-					(function() {
-						document
-								.querySelector('#btnCart')
-								.addEventListener(
-										'click',
-										function() {
-											console.log('works');
-											var productCode = document
-													.querySelector('#productCode').value;
-											var secondOptionCode = document
-													.querySelector('input[name="secondOptionCode"]:checked').value;
-											var quantity = document
-													.querySelector('#quantity').value;
-											$
-													.ajax({
-														url : '/backpackers/order/cart',
-														method : 'POST',
-														data : JSON
-																.stringify({
-																	'productCode' : productCode,
-																	'secondOptionCode' : secondOptionCode,
-																	'quantity' : quantity
-																}),
-														//data: { 'productCode': 'test', 'optionCode': 'test', 'quantity': 'test'},
-														contentType : 'application/json; charset=utf-8',
-														dataType : 'text',
-														beforeSend : function(
-																xhr) {
-															xhr
-																	.setRequestHeader(
-																			"ajax-need-login",
-																			"true");
-														},
-														success : function(data) {
-															var firstOption = document
-																	.querySelector('.first-option-now').title;
-															var secondOption = document
-																	.querySelector('input[name="secondOptionCode"]:checked').nextElementSibling.innerText;
-															document
-																	.querySelector('.shop-message').innerText = '장바구니에 ${shop.shopTitle }('
-																	+ firstOption
-																	+ ', '
-																	+ secondOption
-																	+ ') 상품 '
-																	+ quantity
-																	+ '개를 담았습니다!';
-															$('#shopModal')
-																	.modal(
-																			'show');
-														},
-														error : function(e) {
-															if (e.status == 400) {
-																location.href = '${root}/user/login'
-															}
-														}
-													});
-										});
-					})();
-				</script>
+							});
+						})();
+					</script>
 				<script type="text/javascript">
-					$(document)
-							.ready(
-									function() {
-										$("#review_btn")
-												.click(
-														function() {
-															var reviewContent = $(
-																	'#reviewContent')
-																	.val();
-															var shopCode = "${shop.shopCode}";
-															var params = "reviewContent="
-																	+ reviewContent
-																	+ "&shopCode="
-																	+ shopCode;
-															$
-																	.ajax({
-																		url : "${root}/shop/insertReview",
-																		method : 'POST',
-																		data : {
-																			reviewContent : reviewContent,
-																			shopCode : "${shop.shopCode}"
-																		},
-																		success : function(
-																				data) {
-																			alert(data);
-																		},
-																		error : function(
-																				error) {
-																			alert("입력 실패");
-																		}
-																	});
-														});
-									});
-				</script>
-		<!-- 		<script>
+					
 					$(document).ready(function(){
-						$("#").on('click', function(){
-							alert("수정되었습니다");
-							location.href="${root}";
+						
+						
+						$("#review_btn").click(function (){
+							var reviewContent=$('#reviewContent').val();
+							var shopCode="${shop.shopCode}"
+							var params="reviewContent="+reviewContent+"&shopCode="+shopCode;
+							 $.ajax({
+								  url:"${root}/shop/insertReview",
+							      method: 'POST',
+							      data:{
+							    	  reviewContent : reviewContent,
+							    	  shopCode : "${shop.shopCode}"
+							      },
+							      success: function(data) {
+							    		 alert(data);
+							      },
+							      error: function(error) {
+							    	   alert("안됐다."); 
+							      }
+							  });
+							}); 
+							
+							
+							
+							
 						});
-					});
-				</script> -->
+						
+						
+		
+					
+					
+					
+					</script>
 
 			</div>
 		</div>
 		<!-- info end -->
 	</div>
 	<!-- row end -->
-	<!-- review -->
-	<div id="review">
-		<c:if test="${sessionScope.username == null }">
-			<p>
-				한줄평을 남기시려면 <a href="/backpackers/user/login">로그인</a>해주세요
-			</p>
-		</c:if>
-		<c:if test="${sessionScope.username != null }">
-			<section class="reviewForm">
-				<form role="form" method="post">
-					<%--  <input type="hidden" name="shopCode" id="shopCode" value="${shop.shopCode}" >  --%>
-					<textarea name="reviewContent" id="reviewContent"></textarea>
-
-					<!-- 					<div class="input_area"> -->
-					<button type="submit" id="review_btn">한줄평 남기기</button>
-					<!-- 					</div> -->
-				</form>
-			</section>
-		</c:if>
-
-		<section class="reviewList">
-			<div class="userInfo">
-				<table class="table">
-					<tr>
-						<th style="width: 10%;">아이디</th>
-						<th style="width: 66%;">내용</th>
-						<th style="width: 14%;">작성일</th>
-						<th style="width: 5%;"></th>
-						<th style="width: 5%;"></th>
-					</tr>
-					<c:forEach items="${review}" var="review">
-						<form method="post"
-							action="${root }/shop/${review.reviewNo}/update">
-							<tr id="review_tr1">
-								<td>${review.userId}</td>
-								<td><input type="text" value="${review.reviewContent}"
-									id="reviewContent2" name="reviewContent2"></td>
-								<td>${review.reviewDate}</td>
-								<c:if test="${sessionScope.username == review.userId }">
-									<input type="hidden" name="_method" value="put">
-									<td><button name="reviewNo" value="${review.reviewNo }"
-											type="submit" id="review_upd_btn" class="btn btn-primary">수정하기</button></td>
-								</c:if>
-						</form>
-						<form method="post"
-							action="${root }/shop/${review.reviewNo }/delete">
-							<c:if test="${sessionScope.username == review.userId }">
-								<input type="hidden" name="_method" value="delete">
-								<td><button name="reviewNo" value="${review.reviewNo }"
-										type="submit" id="review_del_btn" class="btn btn-danger">삭제하기</button></td>
-							</c:if>
-						</form>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
-		</section>
-	</div>
 	<!-- Content ends -->
 	<%@ include file="/WEB-INF/views/template/footer.jspf"%>
 	<!-- 쇼핑 모달 -->
@@ -448,5 +344,45 @@ section.reviewList div.reviewContent {
 		<!-- /.modal-dialog -->
 	</div>
 	<!-- /.modal -->
+	<div id="review">
+		<c:if test="${sessionScope.username == null }">
+			<p>
+				후기를 남기시려면 <a href="/backpackers/user/login">로그인</a>해주세요
+			</p>
+		</c:if>
+		<c:if test="${sessionScope.username != null }">
+			<section class="reviewForm">
+				<form role="form" method="post">
+                  
+                    <%--  <input type="hidden" name="shopCode" id="shopCode" value="${shop.shopCode}" >  --%>
+                   
+
+					<textarea name="reviewContent" id="reviewContent"></textarea>
+
+					<div class="input_area">
+						<button type="submit" id="review_btn">소감 남기기</button>
+					</div>
+				</form>
+			</section>
+		</c:if>
+		<section class="reviewList">
+			<div class="userInfo">
+				<table class="table table-striped">
+					<tr>
+						<th>아이디</th>
+						<th>리뷰내용</th>
+						<th>날짜</th>
+					</tr>
+					<c:forEach items="${review}" var="review">
+						<tr>
+							<td>${review.userId}</td>
+							<td>${review.reviewContent}</td>
+							<td>${review.reviewDate}</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</section>
+	</div>
 </body>
 </html>
