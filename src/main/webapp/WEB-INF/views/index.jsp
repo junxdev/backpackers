@@ -12,7 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Creative - Start Bootstrap Theme</title>
+        <title>backpackers</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="resources/assets/img/favicon.ico" />
        
@@ -100,28 +100,28 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
-                            <i class="fas fa-4x fa-gem text-primary mb-4"></i>
+                            <img class="img-fluid" src="resources/assets/img/portfolio/logo/icon1.jpg" style="width: 100px; height: 70px;"/>
                             <h3 class="h4 mb-2">Choose an easy destination</h3>
                             <p class="text-muted mb-0">Short overnight hikes close to home are best!</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
-                            <i class="fas fa-4x fa-laptop-code text-primary mb-4"></i>
+                             <img class="img-fluid" src="resources/assets/img/portfolio/logo/icon3.jpg" style="width: 100px; height: 70px;"/>
                             <h3 class="h4 mb-2">Need some gears</h3>
                             <p class="text-muted mb-0">Get essential gear and clothing</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
-                            <i class="fas fa-4x fa-globe text-primary mb-4"></i>
+                             <img class="img-fluid" src="resources/assets/img/portfolio/logo/icon2.jpg" style="width: 100px; height: 70px;"/>
                             <h3 class="h4 mb-2">Communicate Other Backpackers</h3>
                             <p class="text-muted mb-0">You can get some information and discuss others how to do backpacking</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
-                            <i class="fas fa-4x fa-heart text-primary mb-4"></i>
+                                           <img class="img-fluid" src="resources/assets/img/portfolio/logo/icon4.jpg" style="width: 100px; height: 70px;"/>
                             <h3 class="h4 mb-2">Get ready for your trip</h3>
                             <p class="text-muted mb-0">Condition yourself to do the planned hike with a fully loaded pack</p>
                         </div>
@@ -134,8 +134,8 @@
             <div class="container-fluid p-0">
                 <div class="row no-gutters">
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="resources/assets/img/portfolio/fullsize/1.jpg">
-                            <img class="img-fluid" src="resources/assets/img/portfolio/thumbnails/1.jpg" alt="" />
+                        <a class="portfolio-box" href="resources/assets/img/portfolio/fullsize/index1.jpg">
+                            <img class="img-fluid" src="resources/assets/img/portfolio/thumbnails/index1.jpg" alt="" />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50"></div>
                                 <div class="project-name"></div>
@@ -143,8 +143,8 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="resources/assets/img/portfolio/fullsize/2.jpg">
-                            <img class="img-fluid" src="resources/assets/img/portfolio/thumbnails/2.jpg" alt="" />
+                        <a class="portfolio-box" href="resources/assets/img/portfolio/fullsize/index2.jpg">
+                            <img class="img-fluid" src="resources/assets/img/portfolio/thumbnails/index2.jpg" alt="" />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50"></div>
                                 <div class="project-name"></div>
@@ -161,17 +161,8 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="resources/assets/img/portfolio/fullsize/4.jpg">
-                            <img class="img-fluid" src="resources/assets/img/portfolio/thumbnails/4.jpg" alt="" />
-                            <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50"></div>
-                                <div class="project-name"></div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="resources/assets/img/portfolio/fullsize/5.jpg">
-                            <img class="img-fluid" src="resources/assets/img/portfolio/thumbnails/5.jpg" alt="" />
+                        <a class="portfolio-box" href="resources/assets/img/portfolio/fullsize/index4.jpg">
+                            <img class="img-fluid" src="resources/assets/img/portfolio/thumbnails/index4.jpg" alt="" />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50"></div>
                                 <div class="project-name"></div>
@@ -181,6 +172,16 @@
                     <div class="col-lg-4 col-sm-6">
                         <a class="portfolio-box" href="resources/assets/img/portfolio/fullsize/6.jpg">
                             <img class="img-fluid" src="resources/assets/img/portfolio/thumbnails/6.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50"></div>
+                                <div class="project-name"></div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="resources/assets/img/portfolio/fullsize/index3.jpg">
+                            <img class="img-fluid" src="resources/assets/img/portfolio/thumbnails/index3.jpg" alt="" />
+
                             <div class="portfolio-box-caption p-3">
                                 <div class="project-category text-white-50"></div>
                                 <div class="project-name"></div>

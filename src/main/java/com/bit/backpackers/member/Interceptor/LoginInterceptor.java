@@ -1,4 +1,4 @@
-package com.bit.backpackers.controller;
+package com.bit.backpackers.member.Interceptor;
 
 import java.util.Enumeration;
 
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.bit.backpackers.model.entity.MemberVo;
+import com.bit.backpackers.member.model.entity.MemberVo;
 
 
 

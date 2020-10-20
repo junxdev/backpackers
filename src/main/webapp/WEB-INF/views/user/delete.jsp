@@ -15,6 +15,22 @@
 <%@ include file="/WEB-INF/views/template/nav.jspf"%>
 <%@ include file="/WEB-INF/views/template/header.jspf"%>
 </head>
+<style>
+	#delForm{
+    width: 400px;
+    height: 500px;
+    position: upset;
+    margin: 50 50 50 500;
+    background: #fff;
+    padding: 5px;
+    overflow: hidden;
+	}
+	.form-control{
+	height: 50px;
+	}
+
+
+</style>
 <script type="text/javascript">
 		$(document).ready(function(){
 			// 취소

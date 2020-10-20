@@ -1,4 +1,4 @@
-package com.bit.backpackers.controller;
+package com.bit.backpackers.member.controller;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -19,16 +19,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.backpackers.item.model.entity.ItemVo;
+import com.bit.backpackers.member.Interceptor.AdminInterceptor;
+import com.bit.backpackers.member.model.entity.LoginDTO;
+import com.bit.backpackers.member.service.MemberService;
 import com.bit.backpackers.model.AdminDao;
 import com.bit.backpackers.model.entity.BoardVo;
-import com.bit.backpackers.model.entity.LoginDTO;
+
 import com.bit.backpackers.model.entity.brandVo;
 import com.bit.backpackers.model.entity.main_categoryVo;
 import com.bit.backpackers.model.entity.option_tableVo;
 import com.bit.backpackers.model.entity.sub_categoryVo;
 import com.bit.backpackers.service.AdminService;
 import com.bit.backpackers.service.BoardService;
-import com.bit.backpackers.service.MemberService;
+
 import com.bit.backpackers.util.Criteria;
 import com.bit.backpackers.util.PageMaker;
 

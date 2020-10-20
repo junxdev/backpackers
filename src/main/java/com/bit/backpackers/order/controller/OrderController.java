@@ -28,7 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bit.backpackers.cart.model.entity.CartProductVo;
 import com.bit.backpackers.cart.service.CartService;
-import com.bit.backpackers.model.entity.MemberVo;
+import com.bit.backpackers.member.model.entity.MemberVo;
 import com.bit.backpackers.order.OrderStatus;
 import com.bit.backpackers.order.model.entity.OrderVo;
 import com.bit.backpackers.order.model.entity.OrderedProductVo;
