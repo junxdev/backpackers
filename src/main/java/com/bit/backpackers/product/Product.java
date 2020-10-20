@@ -16,8 +16,9 @@ import org.springframework.stereotype.Component;
 import com.bit.backpackers.image.model.entity.ImageVo;
 import com.bit.backpackers.option.model.OptionDao;
 import com.bit.backpackers.option.model.entity.OptionVo;
-import com.bit.backpackers.order.model.entity.OrderedProductVo;
+import com.bit.backpackers.order.Order;
 import com.bit.backpackers.product.model.ProductDao;
+import com.bit.backpackers.product.model.entity.NewProductItemVo;
 import com.bit.backpackers.product.model.entity.ProductVo;
 import com.bit.backpackers.shop.Shop;
 import com.bit.backpackers.shop.model.entity.ShopVo;
@@ -31,6 +32,8 @@ public class Product {
 	SqlSession sqlSession;
 	@Inject
 	Shop shopSupport;
+	@Inject
+	Order orderSupport;
 	
 	public Product() {
 		log.info("Component : " + this.getClass().getName());
@@ -77,6 +80,26 @@ public class Product {
 	
 	public List<ImageVo> getImages(ProductVo product) throws SQLException {
 		return sqlSession.getMapper(ProductDao.class).selectImageFilteredBy(product.getProductCode());
+	}
+	
+	public Map<String, List<NewProductItemVo>> getProductItemMapByShopCode(String shopCode) throws SQLException {
+		List<NewProductItemVo> productList = sqlSession.getMapper(ProductDao.class).selectProductItemByShopCode(shopCode);
+		Map<String, List<NewProductItemVo>> productItemMap = new HashMap<String, List<NewProductItemVo>>();
+		List<NewProductItemVo> tempList = new ArrayList<NewProductItemVo>();
+		String now = "";
+		for(NewProductItemVo productItem : productList) {
+			now = productItem.getProductCode();
+			if(productItemMap.containsKey(now)) {
+				tempList = (List<NewProductItemVo>) productItemMap.get(now);
+				tempList.add(productItem);
+				productItemMap.put(now, tempList);
+			} else {
+				tempList = new ArrayList<NewProductItemVo>();
+				tempList.add(productItem);
+				productItemMap.put(now, tempList);
+			}
+		}
+		return productItemMap;
 	}
 
 }

@@ -38,22 +38,48 @@
 	<%@ include file="/WEB-INF/views/template/header.jspf" %>
 		<!-- Content starts 필요 시 임의로 그리드 조정 -->
 		<div class="row">
-			<div class="col-xs-6 col-sm-6 col-md-2">
+			<div class="col-xs-12 col-sm-2 col-md-2">
 				<div class="category">
-					<ul>
-						<c:forEach items="${categoryList }" var="bean">
-							<li><a href="${root }/shop/${bean.mainCategoryName }">${fn:toUpperCase(bean.mainCategoryName) }</a>
-								<ul>
-									<c:forEach items="${bean.subCategoryList }" var="subCategoryName">
-										<li><a href="${root }/shop/${bean.mainCategoryName }/${subCategoryName }">${fn:toUpperCase(subCategoryName) }</a></li>
-									</c:forEach>
-								</ul>
-							</li>
-						</c:forEach>
-					</ul>
-				</div>
+					<nav>
+						<ul class="nav nav-category nav-pills nav-stacked">
+							<c:forEach items="${categoryList }" var="bean" varStatus="status">
+								<%-- 
+								<li data-toggle="collapse" data-target="#subCategory${status.index}" aria-expanded="false"><a href="${root }/shop/${bean.mainCategoryName }">${fn:toUpperCase(bean.mainCategoryName) }</a>
+								 --%>
+								<li role="presentation" id="btn-category-${status.index}"  data-toggle="collapse" data-target="#subCategory${status.index}" aria-expanded="false"><a>${fn:toUpperCase(bean.mainCategoryName) }</a>
+									<ul class="nav collapse" id="subCategory${status.index}" role="menu" aria-labelledby="btn-category-${status.index}">
+										<c:forEach items="${bean.subCategoryList }" var="subCategory">
+											<li><a href="${root }/shop/${bean.mainCategoryName }/${subCategory.subCategoryName }">${fn:toUpperCase(subCategory.subCategoryName) }</a></li>
+										</c:forEach>
+									</ul>
+								</li>
+							</c:forEach>
+						</ul>
+					</nav>
+				</div><!-- category navigation end -->
+				<!-- 현재 카테고리에 맞게 bold 처리 -->
+				<script type="text/javascript">
+					document.querySelectorAll('.nav-category > li').forEach(function(mainCategory) {
+						mainCategory.querySelectorAll('li').forEach(function(subCategory) {
+							subCategory.addEventListener('click', function(e) {
+								e.stopPropagation();
+							}, false);
+						});
+					    if(mainCategory.innerText == '${fn:toUpperCase(mainCategoryName)}') {
+					    	mainCategory.click();
+					    	mainCategory.style.fontWeight = '900';
+					    }
+					    mainCategory.querySelectorAll('li').forEach(function(subCategory) {
+						    if(subCategory.innerText == '${fn:toUpperCase(subCategoryName)}') {
+						    	subCategory.style.fontWeight = '900';
+						    } else {
+						    	subCategory.style.fontWeight = '300';
+						    }
+					    });
+					});
+				</script>
 			</div>
-			<div class="col-xs-12 col-sm-6 col-md-10">
+			<div class="col-xs-12 col-sm-10 col-md-10">
 				<div class="content">
 					<div class="row">
 							<!-- 등록된 상품 페이지를 나열 -->

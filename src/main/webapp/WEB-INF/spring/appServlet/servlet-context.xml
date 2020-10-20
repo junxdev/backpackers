@@ -32,13 +32,13 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/admin/**"/>
-		<beans:bean id="AdminInterceptor" class="com.bit.backpackers.member.Interceptor.AdminInterceptor"/>
+			<mapping path="/order/**"/>
+			<beans:bean id="LoginInterceptor" class="com.bit.backpackers.member.interceptor.LoginInterceptor"/>
 		</interceptor>
 		<interceptor>
-			<mapping path="/order/**"/>
-			<beans:bean id="LoginInterceptor" class="com.bit.backpackers.member.Interceptor.LoginInterceptor"/>
+			<mapping path="/admin/**"/>
+		<beans:bean id="AdminInterceptor" class="com.bit.backpackers.member.interceptor.AdminInterceptor"/>
 		</interceptor>
-		
 	</interceptors> 
 	<context:component-scan base-package="com.bit.backpackers" />
 	<!-- 파일 업로드 관련 설정 -->
@@ -53,29 +53,6 @@
 		<beans:bean id="uploadPath" class="java.lang.String">
 			<beans:constructor-arg value="c:/upload" />
 		</beans:bean>
-	<!-- 
-	<aop:aspectj-autoproxy> </aop:aspectj-autoproxy>
-	
-
-	<beans:bean id="transactionManager" 
-	class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<beans:property name="dataSource" ref="dataSource"/>
-	</beans:bean>
-	
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="*" propagation="REQUIRED" isolation="DEFAULT"/>
-		</tx:attributes>
-	</tx:advice>
-
-
-	
-
-	<aop:config>
-		<aop:pointcut expression="execution(* com.bit.backpackers.*.*.*(..))" id="txCut"/>
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="txCut"/>
-	</aop:config>
-	 -->
 
 </beans:beans>
 

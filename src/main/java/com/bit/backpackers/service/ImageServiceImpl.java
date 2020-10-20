@@ -34,7 +34,7 @@ public class ImageServiceImpl implements ImageService{
 	ImageDao imageDao;
 	
 	//Path rootLocation; // d:/image/
-//	String rootLocation = "c:/image";	// 윈도우의 경우 이 경로를 적기 
+	//String rootLocation = "c:/image";	// 윈도우의 경우 이 경로를 적기 
 	String rootLocation = "/Users/a/img"; // 맥에서 지정 
 	
 	
@@ -58,6 +58,30 @@ public class ImageServiceImpl implements ImageService{
 			saveFile.setContentyype(file.getContentType());
 			saveFile.setSize(file.getSize());
 			saveFile.setFilepath(rootLocation.toString().replace(File.separatorChar, '/') +'/' + saveFileName);   
+			imageDao.saveUploadfile(saveFile);
+			return saveFile;
+			
+		} catch(IOException e) {
+			throw new Exception("Failed to store file " + file.getOriginalFilename(), e);
+		}
+		
+		
+	}
+
+	public UploadFileVo store(MultipartFile file, String location) throws Exception {                
+		System.out.println(file.getOriginalFilename());
+		try {
+			if(file.isEmpty()) {
+				throw new Exception("Failed to store empty file " + file.getOriginalFilename());
+			}
+			
+			String saveFileName = fileSave(location.toString(), file);           
+			UploadFileVo saveFile = new UploadFileVo();
+			saveFile.setFilename(file.getOriginalFilename());
+			saveFile.setSavefilename(saveFileName);
+			saveFile.setContentyype(file.getContentType());
+			saveFile.setSize(file.getSize());
+			saveFile.setFilepath(location.toString().replace(File.separatorChar, '/') +'/' + saveFileName);   
 			imageDao.saveUploadfile(saveFile);
 			return saveFile;
 			

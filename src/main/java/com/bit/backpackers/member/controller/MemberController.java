@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bit.backpackers.member.Interceptor.AdminInterceptor;
+import com.bit.backpackers.member.interceptor.AdminInterceptor;
 import com.bit.backpackers.member.model.entity.LoginDTO;
 import com.bit.backpackers.member.model.entity.MemberVo;
 import com.bit.backpackers.member.service.MemberService;

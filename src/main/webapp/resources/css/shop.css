@@ -1,3 +1,15 @@
+.nav-category:hover {
+	cursor: pointer;
+}
+.nav-category li li {
+	padding-left: 1rem;
+}
+.nav-category a:hover {
+	color: #aaaaaa;
+}
+a {
+	color: black;
+}
 a:hover {
 	text-decoration: none;
 }

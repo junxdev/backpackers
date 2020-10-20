@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@page import="com.bit.backpackers.product.model.entity.ProductVo"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -114,11 +115,7 @@ body {
 		<!--  title end -->
 		<div class="shop-price">
 			<fmt:formatNumber value="${shop.shopPrice }" pattern="#,###"></fmt:formatNumber>원
-			
-			
 		</div>
-		
-		
 		<!-- price end -->
 		<div class="first-option">
 			<!-- 대표 이미지 나열 -->

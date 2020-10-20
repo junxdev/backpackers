@@ -23,4 +23,16 @@
   		FROM product_item
   		WHERE productCode = #{productCode} 
   	</select>
+  	
+  	<select id="selectOption" resultType="com.bit.backpackers.option.model.entity.NewOptionVo">
+  		SELECT * FROM option_table
+  	</select>
+  	
+  	<select id="selectOptionGroup" resultType="com.bit.backpackers.option.model.entity.NewOptionGroupVo">
+  		SELECT * FROM option_group
+  	</select>
+  	
+  	<select id="findOptionByOptionGroupCode" resultType="com.bit.backpackers.option.model.entity.NewOptionVo">
+  		SELECT * FROM option_table WHERE optionGroupCode = #{optionGroupCode}
+  	</select>
   </mapper>

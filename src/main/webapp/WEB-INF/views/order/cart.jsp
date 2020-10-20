@@ -214,8 +214,11 @@
 							});
 							return orderAmount;
 						}
+						function wonFormat(inputNumber) {
+						   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						}
 						function presentOrderAmount() { // 가격 표시 함수
-							document.querySelector('.pricetag').lastElementChild.innerText = sumOrderAmount();
+							document.querySelector('.pricetag').lastElementChild.innerText = wonFormat(sumOrderAmount()) + '원';
 						}
 						presentOrderAmount();
 					</script>

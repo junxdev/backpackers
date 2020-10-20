@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.backpackers.item.model.entity.ItemVo;
-import com.bit.backpackers.member.Interceptor.AdminInterceptor;
+import com.bit.backpackers.member.interceptor.AdminInterceptor;
 import com.bit.backpackers.member.model.entity.LoginDTO;
 import com.bit.backpackers.member.service.MemberService;
 import com.bit.backpackers.model.AdminDao;

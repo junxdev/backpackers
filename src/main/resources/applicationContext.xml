@@ -17,29 +17,13 @@
 			</array>
 		</property>
 	</bean>
-
-
-
 	 
 	<bean id="dataSourceSpied" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-	
-	<!--  
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-	 -->
-	 	
-
 		<property name="driverClass" value="${jdbc.class}" />
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.user}" />
 		<property name="password" value="${jdbc.password}" />
 	</bean>
-
-
-	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource"> 
-		<property name="driverClass" value="org.mariadb.jdbc.Driver"></property> 
-		<property name="url" value="jdbc:mysql://localhost:3306/xe" /> <property 
-		name="username" value="scott" /> <property name="password" value="tiger" 
-		/> </bean> -->
 
 	<bean id="dataSource"
 		class="net.sf.log4jdbc.sql.jdbcapi.DataSourceSpy">
@@ -52,7 +36,7 @@
 		<property name="configLocation" value="classpath:/mybatis-config.xml" />
 		<property name="mapperLocations">
 			<array>
-				<value>classpath:/mapper/*Mapper.xml</value>
+				<value>classpath:/mapper/**/*Mapper.xml</value>
 			</array>
 		</property>
 	</bean>
@@ -76,8 +60,4 @@
 			</props>
 		</property>
 	</bean>
-	<!-- <bean id="email" class="com.bit.backpackers.member.model.entity.EmailVo">
-	</bean>
-	<bean id="emailSender" class="com.bit.backpackers.member.mail.EmailSender">
-	</bean> -->
 </beans>

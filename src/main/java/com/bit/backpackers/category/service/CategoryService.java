@@ -9,5 +9,7 @@ public interface CategoryService {
 	public void getCategoryList(Model model) throws SQLException;
 	public void checkCategory(String mainCategoryName) throws SQLException;
 	public void checkCategory(String mainCategoryName, String subCategoryName) throws SQLException;
-
+	public void getCategoryNow(Model model, String mainCategoryName) throws SQLException;
+	public void getCategoryNow(Model model, String mainCategoryName, String subCategoryName) throws SQLException;
+	
 }

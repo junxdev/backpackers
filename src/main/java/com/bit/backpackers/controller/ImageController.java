@@ -1,5 +1,7 @@
 package com.bit.backpackers.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -33,6 +35,18 @@ public class ImageController {
 			System.out.println("uploadFile.getId()="+uploadFile.getId());
 			//return null;
 			return ResponseEntity.ok().body("/backpackers/gear/image/" + uploadFile.getId());
+		} catch(Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	@PostMapping(value="/product-image")
+	public ResponseEntity<?> productImageUpload(@RequestParam("file") MultipartFile file) {
+		String location = "D:\\SPRING-WORKSPACE\\backpackers\\src\\main\\webapp\\resources\\img\\product";
+		try { 
+			UploadFileVo uploadFile = imageService.store(file, location);           
+			return ResponseEntity.ok().body(uploadFile.getSavefilename());
 		} catch(Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().build();
