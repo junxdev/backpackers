@@ -79,12 +79,16 @@
 							    orderAmount += e.children.item(1).innerText * e.children.item(2).innerText;
 							});
 						}
+						function wonFormat(inputNumber) {
+						   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+						}
 						function presentOrderAmount() {
-							document.querySelector('.pricetag').lastElementChild.innerText = orderAmount;
+							document.querySelector('.pricetag').lastElementChild.innerText = wonFormat(orderAmount) + '원';
 						}
 						function setPurchaseAmount() {
 							document.querySelector('.purchase-form input:first-child').value = orderAmount;
 						}
+						
 						sumOrderAmount();
 						presentOrderAmount();
 						setPurchaseAmount();

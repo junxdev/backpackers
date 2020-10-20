@@ -66,6 +66,14 @@
 			border-radius: 5px;
 			border: 1px solid #ccc;
 		}
+		.product-header {
+			font-size: 20px;
+			font-weight: 900;
+		}
+		.item-header {
+			font-size: 20px;
+			font-weight: 900;
+		}
 	</style>
 </head>
 <body>
@@ -95,7 +103,7 @@
 						<div class="form-group">
 							<label class="col-sm-2 control-label">대분류</label>
 							<div class="col-sm-9 col-md-4">
-								<select class="form-control" name="mainCategoryCode">
+								<select class="form-control" id="mainCategoryCode">
 									<c:forEach items="${mainCategoryMap }" var="mainCategory">
 									<option value="${mainCategory.key }">${mainCategory.value.mainCategoryName }</option>
 									</c:forEach>
@@ -103,7 +111,7 @@
 							</div>
 							<label class="col-sm-2 col-md-1 control-label">소분류</label>
 							<div class="col-sm-9 col-md-4">
-								<select class="form-control" name="subCategoryCode">
+								<select class="form-control" id="subCategoryCode">
 								</select>
 							</div>
 							<script type="text/javascript">
@@ -112,9 +120,8 @@
 							        '${subCategory.key}' : '<c:forEach items="${subCategory.value }" var="list"><option value="${list.subCategoryCode}">${list.subCategoryName}</option></c:forEach>',
 									</c:forEach>
 								};
-								document.querySelector('select').value = '${shop.mainCategoryCode}';
+								document.querySelector('select').value = document.querySelector('select').querySelectorAll('option')[0].value;
 								document.querySelectorAll('select')[1].innerHTML = subCategories[document.querySelector('select').value];
-								document.querySelectorAll('select')[1].value = '${shop.subCategoryCode}';
 								document.querySelector('select').addEventListener('change', function() {
 									var mainCategoryCode = this.value;
 									document.querySelectorAll('select')[1].innerHTML = subCategories[mainCategoryCode];
@@ -143,7 +150,7 @@
 						</div> <!-- product form -->
 						<div class="form-group"> <!-- form button -->
 							<div class="col-sm-offset-2 col-sm-10">
-								<button type="button" class="btn btn-primary btn-block">판매 등록</button>
+								<button type="button" class="btn btn-primary btn-block btn-add-shop">판매 등록</button>
 							</div>
 						</div> <!-- form button -->
 					</form>
@@ -189,7 +196,10 @@
 		<!-- 아이템 추가 양식 시작 -->
 		<div class="item-form">
 			<div class="form-group">
-				<label class="col-sm-2 control-label">하위 옵션 그룹</label>
+				<div class="col-sm-12 item-header">아이템</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">옵션 그룹</label>
 				<div class="col-sm-2">
 					<select class="form-control option-group" name="optionGroupCode">
 						<c:forEach items="${optionGroupList }" var="optionGroup">
@@ -197,7 +207,7 @@
 						</c:forEach>
 					</select>
 				</div>
-				<label class="col-sm-2 control-label">하위 옵션</label>
+				<label class="col-sm-1 control-label">옵션</label>
 				<div class="col-sm-2">
 					<select class="form-control option" name="optionCode">
 					</select>
@@ -206,7 +216,7 @@
 				<div class="col-sm-2">
 					<input type="text" class="form-control item-control" name="itemCode" value="${productItem.itemCode }"/>
 				</div>
-				<div class="col-sm-1">
+				<div class="col-sm-2">
 					<button type="button" class="btn btn-danger btn-block btn-item-delete">삭제</button>
 				</div>
 			</div>
@@ -215,16 +225,19 @@
 		<!-- 상품 추가 양식 시작 -->
 		<div class="product-form">
 			<!-- 상품 코드 시작 -->
+			<div class="form-group">
+				<div class="col-sm-12 product-header">상품</div>
+			</div>
 			<div class="form-group"> 
-				<label for="productCode" class="col-sm-2 control-label">상품코드</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control" name="productCode" value="${product.productCode }"/>
+				<label for="productCode" class="col-sm-2 col-md-2 control-label">상품코드</label>
+				<div class="col-sm-10 col-md-8">
+					<input type="text" class="form-control product-code" name="productCode" value="${product.productCode }"/>
 				</div>
 			</div> 
 			<!-- 상품 코드 끝 -->
 			<!-- 상위 옵션 시작 -->
 			<div class="form-group"> 
-				<label class="col-sm-2 col-md-2 control-label">상위 옵션 그룹</label>
+				<label class="col-sm-2 col-md-2 control-label">옵션 그룹</label>
 				<div class="col-sm-10 col-md-3">
 					<select class="form-control option-group" name="optionGroupCode">
 						<c:forEach items="${optionGroupList }" var="optionGroup">
@@ -232,11 +245,12 @@
 						</c:forEach>
 					</select>
 				</div> 
-				<label class="col-sm-2 col-md-2 control-label">상위 옵션</label>
+				<label class="col-sm-2 col-md-2 control-label">옵션</label>
 				<div class="col-sm-10 col-md-3">
 					<select class="form-control option" name="OptionCode">
 					</select>
 				</div>
+				<div class="col-md-offset-2"></div>
 			</div>
 			<!-- 상위 옵션 끝 -->
 			<!-- 사진 추가 시작 -->
@@ -274,6 +288,66 @@
 	<!-- 동적 추가 요소 모음 끝 -->
 	<script type="text/javascript">
 		//document.querySelectorAll('.item-control').forEach(addEventItemSelect);
+		
+		// Summernote
+		$(document).ready(function() {
+			$('#summernote').summernote({
+				height : 300,
+				minHeight : 100,
+				maxHeight : 500,
+				focus : false,
+				callbacks : {
+					onImageUpload : function(files, editor, welEditable) {
+						for (var i = 0; i < files.length; i++) {
+							sendFile(files[i], this);
+						}
+					}
+				}
+			});
+		});
+		
+		function sendFile(file, el) {
+			console.log(file)
+			var form_data = new FormData();
+			form_data.append("file",file);
+			$.ajax({
+				data : form_data,
+				type : "POST",
+				url : '/backpackers/gear/image',
+				cache : false,
+				contentType : false,
+				enctype : 'multipart/form-data',
+				processData : false,
+				success : function(url) {
+					$(el).summernote('insertImage', url, function($image) {
+						$image.css('width', "50%");
+					});
+				}
+			});
+		}
+		
+		function checkImg(file) {
+			
+		}
+		
+		function sendProductImg(file, form) {
+			console.log(file)
+			var form_data = new FormData();
+			form_data.append("file",file);
+			$.ajax({
+				data : form_data,
+				type : "POST",
+				url : '/backpackers/gear/product-image',
+				cache : false,
+				contentType : false,
+				enctype : 'multipart/form-data',
+				processData : false,
+				success : function(data) {
+					addThumbnail(file, form, data);
+				}
+			});
+		}
+		
 		// 아이템 선택 모달 기능 함수
 		function addEventItemSelect(input) {
 			input.addEventListener('click', function(e) {
@@ -354,7 +428,7 @@
 		}
 
 		// 추가 이미지용 템플릿
-		var image = '<image class="product-image" src="#"/>';
+		var image = '<image class="product-image" title="temp" src="#"/>';
 		
 		// 상품 이미지 추가 버튼
 		function activateImageBtn(form) {
@@ -366,18 +440,20 @@
 				imageUploader.click();
 			});
 			imageUploader.addEventListener('change', function() {
-				form.querySelector('.image-form').lastElementChild.insertAdjacentHTML('afterEnd', image);
-				console.log(this.value);
 				if(this.files && this.files[0]) {
-					var img = form.querySelector('.product-image:last-child');  // $('img')[0]
-					img.src = URL.createObjectURL(this.files[0]); // set src to blob url
-					imageFormData.append(this.files[0].name, this.files[0]);
-					console.log(imageFormData.length);
-					for(var pair of imageFormData.entries()) {
-						console.log(pair[0]+ ', '+ pair[1]); 
-					}
+					sendProductImg(this.files[0], form);
 				}
 			});
+		}
+		
+		// 썸네일 등록 기능
+		function addThumbnail(file, form, fileName) {
+			console.log(form);
+			form.querySelector('.image-form').lastElementChild.insertAdjacentHTML('afterEnd', image);
+			console.log(this.value);
+			var img = form.querySelector('.product-image:last-child');
+			img.src = URL.createObjectURL(file);
+			img.title = fileName;
 		}
 		
 		// 상품 추가 버튼 함수
@@ -394,43 +470,87 @@
 			activateItemBtn(lastProductForm.querySelector('.btn-add-item'));
 		});
 		
-		
-		// Summernote
-		$(document).ready(function() {
-			$('#summernote').summernote({
-				height : 300,
-				minHeight : 100,
-				maxHeight : 500,
-				focus : false,
-				callbacks : {
-					onImageUpload : function(files, editor, welEditable) {
-						for (var i = 0; i < files.length; i++) {
-							sendFile(files[i], this);
-						}
-					}
-				}
-			});
-		});
-		function sendFile(file, el) {
-			console.log(file)
-			var form_data = new FormData();
-			form_data.append("file",file);
-			$.ajax({
-				data : form_data,
-				type : "POST",
-				url : '/backpackers/gear/image',
-				cache : false,
-				contentType : false,
-				enctype : 'multipart/form-data',
-				processData : false,
-				success : function(url) {
-					$(el).summernote('insertImage', url, function($image) {
-						$image.css('width', "50%");
-						//$('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>')
-					});
-				}
-			});
+		function getShopFormData() {
+			var shopCode = document.querySelector('#shopCode').value;
+			var shopTitle = document.querySelector('#shopTitle').value;
+			var shopPrice = document.querySelector('#shopPrice').value;
+			var shopContent = document.querySelector('#summernote').value;
+			var mainCategoryCode = document.querySelector('#mainCategoryCode').value;
+			var subCategoryCode = document.querySelector('#subCategoryCode').value;
+			return shopFormData = {shopCode: shopCode, shopTitle: shopTitle, shopPrice: shopPrice, shopContent: shopContent, mainCategoryCode: mainCategoryCode, subCategoryCode: subCategoryCode };
 		}
+		
+		function getProductFormData(form) {
+			var shopCode = document.querySelector('#shopCode').value;
+			var optionGroup = form.querySelector('.option-group').value;
+			var option = form.querySelector('.option').value;
+			var productCode = form.querySelector('.product-code').value;
+			return productFormData = {shopCode: shopCode, productCode: productCode, optionGroup: optionGroup, option: option};
+		}
+		
+		function getProductList(productList) {
+			document.querySelectorAll('.product-form').forEach(function(current) {
+				productList.push(getProductFormData(current));
+			});
+			productList.pop(productList.length - 1);
+			return productList;
+		}
+
+		function getItemFormData(form, productCode) {
+			var optionGroup = form.querySelector('.option-group').value;
+			var option = form.querySelector('.option').value;
+			var itemCode = form.querySelector('.item-control').value;
+			return itemFormData = {productCode: productCode, itemCode: itemCode, optionGroup: optionGroup, option: option};
+		}
+		
+		function getItemList(itemList) {
+			document.querySelectorAll('.product-form').forEach(function(current) {
+				var productCode = current.querySelector('.product-code').value;
+				current.querySelectorAll('.item-form').forEach(function(item) {
+					itemList.push(getItemFormData(item, productCode));
+				})
+			});
+			return itemList;
+		}
+		
+		function getProductImage(productCode, imgURLList, form) {
+			form.querySelectorAll('.product-image').forEach(function(current, index) {
+				imgURLList.push({productCode: productCode, imageURL: current.title, imageOrder: index});
+			});
+			
+		}
+		
+		function getProductImageList(imgURLList) {
+			document.querySelectorAll('.product-form').forEach(function(current) {
+				var productCode = current.querySelector('.product-code').value;
+				getProductImage(productCode, imgURLList, current)
+			});
+			return imgURLList;
+		}
+		
+		document.querySelector('.btn-add-shop').addEventListener('click', function() {
+			var productList = [];
+			var itemList = [];
+			var imgURLList = [];
+			var shop = getShopFormData();
+			productList = getProductList(productList);
+			itemList = getItemList(itemList);
+			imgURLList = getProductImageList(imgURLList);
+			console.log(shop);
+			console.log(productList);
+			console.log(itemList);
+			console.log(imgURLList);
+			
+			$.ajax({
+				url: '${root}/admin/shop',
+				method: 'POST',
+				data: {'shop': shop, 'productList': productList, 'itemList': itemList, 'imgURLList': imgURLList},
+				contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+				dataType: 'json',
+				success: function(data) {
+				}
+			});
+		})
 	</script>
 </body>
 </html>
