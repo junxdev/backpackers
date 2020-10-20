@@ -11,7 +11,7 @@
 
 <!-- 글쓰기 api 오류 나서, 이 페이지는 template을 따로 넣었음 -->
 
-<!-- 헤더 css --> -->
+<!-- 헤더 css -->
 
 <% request.setAttribute("root", request.getContextPath()); %>
 
@@ -29,13 +29,14 @@
 <style type="text/css">
  #board_subject{
  background-color: white;
-  color: blue;
+  color: black;
   text-align: center;
+   font-size: 15px;
  }
  .user_ID,.board_date,.board_maketime,.board_views,.reply_num{
   width: 100px;
    background-color: white;
-   color: blue;
+   color: black;
   text-align: center;
  float: right;
 
@@ -44,19 +45,20 @@
   width: 1554px;    
    height: 400px;
    background-color: white;
-  color: blue;
+  color: black;
+
  }
 
 .board_content_inside,.board_hits{
  background-color: white;
-  color: blue;
+  color: black;
 }
 
 .board_hits{
  
  margin: 0px auto;
  background-color: white;
-  color: blue;
+  color: black;
  width:100px; 
  height: 75px;
  text-align: center;
@@ -66,7 +68,7 @@
 
 .reply_content_send{
 background-color: white;
-  color: blue;
+  color: black;
   height: 130px;
 }
 #reply_content_send{
@@ -75,12 +77,12 @@ height: 75px;
  .reply_id,.reply_time{
   width: 100px;
  background-color: white;
-  color: blue;
+  color: black;
  }
  .reply_content{
   width: 200px;
   background-color: white;
-  color: blue;
+  color: black;
  }
  #reply_content_btn{
   float: right;
@@ -91,6 +93,10 @@ height: 75px;
  
  #update_button,#delete_button{
   float: right;
+  font-size: 15px;
+  position: relative;
+  right: 1030px;
+  
  }
  
  
@@ -99,9 +105,20 @@ height: 75px;
   width: 1554px; 
  }
 
+
+
+
 </style>
 <script type="text/javascript">
  $(document).ready(function() {
+	 
+	 $("#update_button").on('click',function (){
+	 		alert("게시물이 수정되었습니다..");
+			
+		 });
+	 
+	 
+	 
 	$('#summernote').summernote({
 		height : 300,
 		minHeight : null,
@@ -136,6 +153,12 @@ function sendFile(file, el) {
 			});
 		}
 	});
+	
+	
+	
+
+	
+	
 } 
 </script>
 <title>게시글</title>
@@ -204,7 +227,7 @@ function sendFile(file, el) {
 <div class="ex3">
 <div class="form-group">
 			<textarea class="form-control" id="summernote" name="board_content"
-				 maxlength="140" rows="7">${boardDitail.board_content}</textarea>
+				 maxlength="140" rows="7" style="font-size: 15px;">${boardDitail.board_content}</textarea>
 		</div>
 		
 </div>

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -42,37 +43,22 @@ public class BoardController {
 	 //게시판글쓰기
 	 @RequestMapping(value = "/",method=RequestMethod.POST)
 	 public String intsertinfo(@ModelAttribute BoardVo info, HttpSession session) {
-		
-		 String user_id=  (String) session.getAttribute("username");
-//		 String user_id="kimdeayoung";
+		 String user_id=(String) session.getAttribute("username");
 		 try {
 			 info.setUser_ID(user_id);
 			boardService.insertService(info);
 		} catch (SQLException e) {
-			System.out.println("�뜝�럡�뎽占썩뫅�삕!");
+			 System.out.println(info.toString());
+			
 		}
-		 System.out.println(info.toString());
 		 return "redirect:./";
-		 
 	 }
+	 
+	 //글쓰기페이지
 	 @RequestMapping(value = "/boardwrite")
 	 public void boardwrite() {}
-	
-	 
-	 
-//	 
-//	 @RequestMapping(value = "{board_no}",method =RequestMethod.GET )
-//		 public String board(@PathVariable int board_no,Model model) throws SQLException {
-//		 boardService.ditailService(model, board_no);
-//			 return "board/boardpost";
-//		 }
 
-	   
-	 
-
-	 
 	 //댓글입력
-
 	 @RequestMapping(value = "{board_no}",method =RequestMethod.POST )
 	 public String replyinsert(@ModelAttribute ReplyVo reply,HttpSession session){
 	 
@@ -87,16 +73,70 @@ public class BoardController {
 	 return "redirect:{board_no}";
 	 }
 	 
+	 
+	 //게시판조회,조회수증가
 	 @RequestMapping(value = "{board_no}",method =RequestMethod.GET)
-	 public ModelAndView replylist(@PathVariable int board_no ,ModelAndView mav,Model model) throws SQLException {
+	 public ModelAndView replylist(@PathVariable int board_no ,ModelAndView mav,Model model,HttpServletRequest request, HttpServletResponse response) throws SQLException {
 		 List<ReplyVo> list=replyService.Replylist(board_no);
 		 
+		 Cookie[] cookies = request.getCookies();
+		 Cookie viewCookie = null;
+		 
+		 if (cookies != null && cookies.length > 0) 
+	        {
+	            for (int i = 0; i < cookies.length; i++)
+	            {
+	                // Cookie의 name이 cookie + reviewNo와 일치하는 쿠키를 viewCookie에 넣어줌 
+	                if (cookies[i].getName().equals("cookie"+board_no))
+	                { 
+	                    System.out.println("처음 쿠키가 생성한 뒤 들어옴.");
+	                    viewCookie = cookies[i];
+	                }
+	            }
+	        }
+		 
 		 boardService.ditailService(model, board_no);
-		 boardService.increaseViewcnt(board_no);
-		 mav.setViewName("board/boardpost");
 		 mav.addObject("reply",list);
-		 return mav;
-		
+		 if (model != null) {
+	            System.out.println("System - 해당 상세 리뷰페이지로 넘어감");
+	            
+	            mav.addObject("review", board_no);
+	 
+	            // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
+	            if (viewCookie == null) {    
+	                System.out.println("cookie 없음");
+	                
+	                // 쿠키 생성(이름, 값)
+	                Cookie newCookie = new Cookie("cookie"+board_no, "|" + board_no + "|");
+	                                
+	                // 쿠키 추가
+	                response.addCookie(newCookie);
+	 
+	                // 쿠키를 추가 시키고 조회수 증가시킴
+	                
+	                 boardService.increaseViewcnt(board_no);
+	                
+	            }
+	            // viewCookie가 null이 아닐경우 쿠키가 있으므로 조회수 증가 로직을 처리하지 않음.
+	            else {
+	                System.out.println("cookie 있음");
+	                
+	                // 쿠키 값 받아옴.
+	                String value = viewCookie.getValue();
+	                
+	                System.out.println("cookie 값 : " + value);
+	        
+	            }
+	 
+	            mav.setViewName("board/boardpost");
+	            return mav;
+	        } 
+	        else {
+	            // 에러 페이지 설정
+	        	mav.setViewName("error/reviewError");
+	            return mav;
+	        }
+	
 	 }
 	 
 	 
@@ -106,8 +146,6 @@ public class BoardController {
 	 
 		 return "board/boardpostedit";
 	 }
-	 
-	
 
 	 //글수정
 	 @RequestMapping(value = "{board_no}/edit",method = RequestMethod.PUT)
@@ -153,8 +191,6 @@ public class BoardController {
 	         
 	     ModelAndView mav = new ModelAndView("/board/board");
 
-	  
-
 	     PageMaker pageMaker = new PageMaker();
 	     pageMaker.setCri(cri);
 	     pageMaker.setTotalCount(boardService.countBoardListTotal());
@@ -169,8 +205,10 @@ public class BoardController {
 	         
 	 }
    
-	  @RequestMapping(value = "/search")
-      public ModelAndView list(@RequestParam(defaultValue ="title") String searchOption, @RequestParam(defaultValue="") String keyword,@RequestParam(defaultValue="1")int curPage)throws Exception {
+	 
+	   //게시물검색 
+ 	  @RequestMapping(value = "/search")
+      public ModelAndView list(@RequestParam(defaultValue ="title") String searchOption, @RequestParam(defaultValue="") String keyword,@RequestParam(defaultValue="1")int curPage,Criteria cri)throws Exception {
 		
 		  ModelAndView mav =new ModelAndView();
 		  int count=boardService.countBoardContent(searchOption, keyword);
@@ -179,6 +217,11 @@ public class BoardController {
 		  BoardPager boardPager = new BoardPager(count, curPage);
 			int start = boardPager.getPageBegin();
 			int end = boardPager.getPageEnd();
+			
+			  PageMaker pageMaker = new PageMaker();
+			     pageMaker.setCri(cri);
+			     pageMaker.setTotalCount(boardService.countBoardListTotal());
+			
 		  
 		  List<BoardVo> list= boardService.searchBoard(start, end,searchOption, keyword);
 		  
@@ -188,10 +231,9 @@ public class BoardController {
 		  map.put("keyword",keyword);
 		  map.put("count",count);
 		  map.put("boardPager",boardPager);
-
+		  mav.addObject("pageMaker", pageMaker);
 		  mav.addObject("map",map);
 		  mav.setViewName("board/boardsearch");
-		
 		  return mav;
 	  }
       

@@ -23,7 +23,11 @@ float: right;
 text-align: center;
 
 }
+#searchbar,#boardwrite,#searchOptionbar,#searchbtn{
+font-size: 15px;
 
+
+}
 
 </style>
 <title>게시판</title>
@@ -57,14 +61,16 @@ text-align: center;
   <option value="board_content"<c:out value="${map.earchOption == 'board_content'?'selected':''}"/> >내용</option>
 </select>
  <div><input type="text" name="keyword" value="${map.keyword}" class="form-control" id="searchbar" placeholder="검색">
- <button class="btn btn-primary" type="submit">검색</button></div>
+ <button class="btn btn-primary" type="submit" id="searchbtn">검색</button> <a class="btn btn-primary" href="./boardwrite" role="button" id="boardwrite">글쓰기</a></div>
  </form>
-<p><a class="btn btn-primary" href="./boardwrite" role="button" id="boardwrite">글쓰기</a></p>
+ <c:if test="${sessionScope.user != null}">
+
+</c:if>
 </div>
 <div class="boardpaging">
 
 
-<ul class="btn-group pagination">
+<ul class="btn-group pagination" id="boardpaging">
     <c:if test="${pageMaker.prev }">
     <li>
         <a href='<c:url value="/board/?page=${pageMaker.startPage-1 }"/>'><i class="fa fa-chevron-left">이전</i></a>
