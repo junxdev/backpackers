@@ -26,9 +26,6 @@ public class ShopController {
 
 	@Inject
 	ShopService shopService;
-	
-	
-	
 	@Inject
 	CategoryService categoryService;
 	
@@ -92,10 +89,10 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value = "/{reviewNo}/delete", method=RequestMethod.DELETE)
-	public String deleteReview(@PathVariable int reviewNo, @ModelAttribute String url) throws SQLException{
+	public String deleteReview(@PathVariable int reviewNo, String location) throws SQLException{
 		shopService.deleteReview(reviewNo);
-		System.out.println(url);
-		return "redirect:.";
+		System.out.println("*******************" + location);
+		return "redirect:" + location;
 	}
 	
 	@RequestMapping(value = "/{reviewNo}/update", method=RequestMethod.PUT)

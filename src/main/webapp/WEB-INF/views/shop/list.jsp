@@ -60,8 +60,7 @@
 				</div><!-- category navigation end -->
 			</div>
 			<div class="col-xs-12 col-sm-10"> <!-- 상품 목록 -->
-				<div class="row row-cols-1 row-cols-md-3">
-					<!-- 등록된 상품 페이지를 나열 -->
+				<div class="row row-cols-1 row-cols-md-3"> <!-- 등록된 상품 페이지를 나열 -->
 					<c:forEach items="${shopList }" var="shop">
 					<div class="col mb-4">
 						<div class="card h-100">

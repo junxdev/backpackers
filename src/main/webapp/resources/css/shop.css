@@ -14,3 +14,9 @@ a:hover {
 	text-decoration: none;
 	cursor: pointer;
 }
+.content {
+	min-height: 50em;
+}
+div {
+	padding: 0px;
+}
