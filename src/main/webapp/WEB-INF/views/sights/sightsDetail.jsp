@@ -71,12 +71,21 @@
     </div>
   </section>
 
- <a href="./${bean.sightsNo }/edit" class="btn btn-default" role="btn">수 정</a>
 
-<form method="post">
-<input type="hidden" name="_method" value="delete">
-<button type="submit" class="btn btn-default">삭 제</button>
-</form>
+	<div class="row">
+     	<c:if test="${user != null}">
+        	<c:if test="${user.grade == 1}">	
+ 			
+ 				<a href="./${bean.sightsNo }/edit" class="btn btn-default" role="btn">수 정</a>
+
+		<form method="post">
+			<input type="hidden" name="_method" value="delete">
+			<button type="submit" class="btn btn-default">삭 제</button>
+		</form>
+ 
+ 			</c:if>
+		</c:if>
+	</div>
  
  
   <!-- Bootstrap core JavaScript -->

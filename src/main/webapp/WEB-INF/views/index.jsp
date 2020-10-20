@@ -38,7 +38,7 @@
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/backpackers/gear">백패킹</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/backpackers/sights/map">명소</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/backpackers/board/">게시판</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">쇼핑</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/backpackers/shop">쇼핑</a></li>
                     </ul>    
 			                                           
 			      <ul class="navbar-nav ml-auto my-2 my-lg-0">
