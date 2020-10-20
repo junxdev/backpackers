@@ -27,6 +27,6 @@ public interface BoardService {
     List<BoardVo> searchBoard(int start,int end,String searchOption,String keyword)throws Exception;
 	 int countBoardContent(String searchOption,String keyword);
 	 void increaseViewcnt(int board_no)throws SQLException;
-	
+	void listmyboardService(Model model,String user_ID)throws SQLException;
 	 
 }

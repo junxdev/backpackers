@@ -43,7 +43,7 @@ font-size: 15px;
 <th style="width: 10%;">작성일</th>
 <th style="width: 10%;">조회</th>
 </tr>
-<c:forEach items="${list}" var="title">
+<c:forEach items="${boardmylist}" var="title">
 <tr>
 <td>${title.board_no}</td>
 <td id="boardsubject"><a href="./${title.board_no}">${title.board_subject}</a></td>
@@ -72,17 +72,17 @@ font-size: 15px;
 <ul class="btn-group pagination" id="boardpaging">
     <c:if test="${pageMaker.prev }">
     <li>
-        <a href='<c:url value="/board/?page=${pageMaker.startPage-1 }"/>'><i class="fa fa-chevron-left">이전</i></a>
+        <a href='<c:url value="/board/myboardlist/?page=${pageMaker.startPage-1 }"/>'><i class="fa fa-chevron-left">이전</i></a>
     </li>
     </c:if>
     <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
     <li>
-        <a href='<c:url value="/board/?page=${pageNum }"/>'><i class="fa">${pageNum }</i></a>
+        <a href='<c:url value="/board/myboardlist/?page=${pageNum }"/>'><i class="fa">${pageNum }</i></a>
     </li>
     </c:forEach>
     <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
     <li>
-        <a href='<c:url value="/board/?page=${pageMaker.endPage+1 }"/>'><i class="fa fa-chevron-right">다음</i></a>
+        <a href='<c:url value="/board/myboardlist/?page=${pageMaker.endPage+1 }"/>'><i class="fa fa-chevron-right">다음</i></a>
     </li>
     </c:if>
 </ul>

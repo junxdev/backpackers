@@ -76,7 +76,8 @@ function list(page) {
 </select>
  
  <div><input type="text" name="keyword" value="${map.keyword}" class="form-control" id="searchbar" placeholder="검색">
- <button class="btn btn-primary" type="submit" id="searchbtn">검색</button><a class="btn btn-primary" href="./boardwrite" role="button" id="boardwrite">글쓰기</a></div>
+ <button class="btn btn-primary" type="submit" id="searchbtn">검색</button> <c:if test="${sessionScope.user != null}">
+<a class="btn btn-primary" href="./boardwrite" role="button" id="boardwrite">글쓰기</a></c:if></div>
 </form>
 </div>
 <div class="boardpaging">

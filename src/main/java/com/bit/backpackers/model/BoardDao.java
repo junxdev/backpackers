@@ -23,5 +23,6 @@ public interface BoardDao {
 		  List<BoardVo>searchBoard(int start,int end,String searchOption,String keyword) throws Exception;
 	 int countBoardContent(String searchOption, String keyword);
 	void increaseViewcnt(int board_no)throws SQLException;
+	List<BoardVo> listmyboard(String user_ID)throws SQLException;
 }
  

@@ -99,9 +99,8 @@ public class BoardController {
 		 mav.addObject("reply",list);
 		 if (model != null) {
 	            System.out.println("System - 해당 상세 리뷰페이지로 넘어감");
-	            
+	
 	            mav.addObject("review", board_no);
-	 
 	            // 만일 viewCookie가 null일 경우 쿠키를 생성해서 조회수 증가 로직을 처리함.
 	            if (viewCookie == null) {    
 	                System.out.println("cookie 없음");
@@ -237,6 +236,24 @@ public class BoardController {
 		  return mav;
 	  }
       
+ 	  //마이페이지 게시판글보기
+ 	  @RequestMapping(value = "myboardlist",method = RequestMethod.GET)
+ 	  public ModelAndView myboardlist(HttpSession session,Model model,ModelAndView mav ) throws SQLException{
+		
+ 		 String user_ID= (String) session.getAttribute("username");
+ 		  
+ 		
+	     
+	 		  boardService.listmyboardService(model, user_ID);
+ 		  
+	 	
+ 		 mav.setViewName("board/myboardlist");
+ 		  return mav;
+		
+ 		  
+
+ 	  }
+ 	  
 
 		 
 	 }
