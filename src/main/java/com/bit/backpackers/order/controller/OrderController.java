@@ -81,7 +81,7 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/receipt")
-	public String receipt(Model model, HttpSession session) throws SQLException {
+	public String receipt(Model model, HttpSession session) throws SQLException, NullPointerException {
 		OrderVo order = null;
 		try {
 			order = (OrderVo) model.asMap().get("order");
@@ -89,9 +89,12 @@ public class OrderController {
 			return "redirect:/";
 		}
 		List<? extends ProductVo> productList = orderService.getOrderDetailByOrderCode(model, order.getOrderCode());
+		log.warn(order.toString());
+		log.warn(productList.toString());
 		if(session.getAttribute("orderCart") == null) {
 			cartService.removeItemsFromCart(productList, getUserFrom(session));
 		}
+		session.removeAttribute("orderCart");
 		return "order/receipt";
 	}
 	

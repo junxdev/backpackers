@@ -76,9 +76,6 @@ public class OrderServiceImpl implements OrderService {
 	public void getOrderDetail(Model model, MemberVo user) throws SQLException {
 		OrderVo order = sqlSession.getMapper(OrderDao.class).selectOrdersFilteredBy(OrderStatus.CHECKING, user.getUserId());
 		List<OrderedProductVo> orderedProductList = sqlSession.getMapper(OrderedProductDao.class).selectProductsFilteredBy(order.getOrderCode());
-//		for(OrderedProductVo product : orderedProductList) {
-//			product = (OrderedProductVo) orderSupport.nameOption(product);
-//		}
 		orderSupport.nameOptionForProducts(orderedProductList);
 		model.addAttribute("order", order);
 		model.addAttribute("productList", orderedProductList);
@@ -88,12 +85,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	// orderCode로 order 확인
 	@Override
-	public List<? extends ProductVo> getOrderDetailByOrderCode(Model model, String orderCode) throws SQLException {
+	public List<? extends ProductVo> getOrderDetailByOrderCode(Model model, String orderCode) throws SQLException, NullPointerException {
 		OrderVo order = sqlSession.getMapper(OrderDao.class).selectOrder(orderCode);
 		List<OrderedProductVo> orderedProductList = sqlSession.getMapper(OrderedProductDao.class).selectProductsFilteredBy(orderCode);
-//		for(OrderedProductVo product : orderedProductList) {
-//			product = (OrderedProductVo) orderSupport.nameOption(product);
-//		}
 		orderSupport.nameOptionForProducts(orderedProductList);
 		model.addAttribute("order", order);
 		model.addAttribute("productList", orderedProductList);

@@ -102,6 +102,7 @@
 											+ ' 상품을 장바구니에서 삭제했습니다.';
 										e.parentElement.parentElement.remove();
 										$('#shopModal').modal('show');
+										presentOrderAmount();
 									}
 								});
 						    });
@@ -125,6 +126,7 @@
 						    		current.checked = false;
 						        });   
 						    }
+						    presentOrderAmount();
 						});
 						
 						// 체크박스 체크 수 확인
@@ -141,8 +143,6 @@
 						everyCheckbox.forEach(function(current) {
 							current.addEventListener('click', function() {
 								checkNumberOfChecked();
-								console.log(countChecked);
-								console.log(howManyCheck);
 								
 								if(countChecked < howManyCheck) { // 하나라도 체크 해제한 경우
 									checkAll.checked = false;

@@ -31,9 +31,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			response.sendRedirect("/backpackers/user/login");
 			return false;
 		}
-		
 		return true;
-		
 	}
 	
 	private boolean isAjaxRequest(HttpServletRequest request) {
