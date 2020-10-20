@@ -35,10 +35,6 @@ public class Product {
 	@Inject
 	Order orderSupport;
 	
-	public Product() {
-		log.info("Component : " + this.getClass().getName());
-	}
-	
 	public ProductVo nameFirstOption(ProductVo product) {
 		OptionVo option = sqlSession.getMapper(OptionDao.class).selectOptionFilteredBy(product.getFirstOptionCode());
 		product.setFirstOptionGroupName(option.getOptionGroupName());

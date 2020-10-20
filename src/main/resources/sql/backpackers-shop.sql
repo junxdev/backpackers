@@ -38,14 +38,16 @@ CREATE TABLE `brand` (
   `brandName` varchar(60) NOT NULL,
   PRIMARY KEY (`brandId`),
   UNIQUE KEY `brandCode_UNIQUE` (`brandCode`)
-) AUTO_INCREMENT=6;
+) AUTO_INCREMENT=7;
 
 INSERT INTO `brand` 
 VALUES (1,'A01','ADIDAS'),
   (2,'N01','NIKE'),
   (3,'N02','NORTHFACE'),
   (4,'J01','JEEP'),
-  (5,'I01','IKEA');
+  (5,'I01','IKEA'),
+  (6,'P01','PATAGONIA');
+  
 
 CREATE TABLE `main_category` (
   `mainCategoryId` int(11) NOT NULL AUTO_INCREMENT,
@@ -53,13 +55,13 @@ CREATE TABLE `main_category` (
   `mainCategoryName` varchar(60) NOT NULL,
   PRIMARY KEY (`mainCategoryId`),
   UNIQUE KEY `mainCategoryCode_UNIQUE` (`mainCategoryCode`)
-) AUTO_INCREMENT=8;
+) AUTO_INCREMENT=5;
 
 INSERT INTO `main_category` 
-VALUES (4,'A','clothing'),
-  (5,'B','food'),
-  (6,'C','camping'),
-  (7,'D','hiking');
+VALUES (1,'A','clothing'),
+  (2,'B','food'),
+  (3,'C','camping'),
+  (4,'D','hiking');
 
 CREATE TABLE `sub_category` (
   `subCategoryId` int(11) NOT NULL AUTO_INCREMENT,
@@ -70,15 +72,21 @@ CREATE TABLE `sub_category` (
   UNIQUE KEY `subCategoryCode_UNIQUE` (`subCategoryCode`),
   KEY `fk_sub_category_main_category_idx` (`mainCategoryCode`),
   CONSTRAINT `fk_sub_category_main_category` FOREIGN KEY (`mainCategoryCode`) REFERENCES `main_category` (`mainCategoryCode`) ON DELETE CASCADE ON UPDATE CASCADE
-) AUTO_INCREMENT=14;
+) AUTO_INCREMENT=13;
 
 INSERT INTO `sub_category` 
-  VALUES (8,'AA','tops','A'),
-  (9,'AB','pants','A'),
-  (10,'AC','hats','A'),
-  (11,'AD','shoes','A'),
-  (12,'CA','tent','C'),
-  (13,'CB','barbeque','C');
+  VALUES (1,'AA','tops','A'),
+  (2,'AB','pants','A'),
+  (3,'AC','hats','A'),
+  (4,'AD','shoes','A'),
+  (5,'BA','drink','B'),
+  (6,'BB','snack','B'),
+  (7,'BC','liquor','B'),
+  (8,'CA','tent','C'),
+  (9,'CB','barbeque','C'),
+  (10,'DA','book','D'),
+  (11,'DB','accessory','D'),
+  (12,'DC','safety','D');
 
 CREATE TABLE `option_group` (
   `optionGroupId` int(11) NOT NULL AUTO_INCREMENT,
@@ -104,20 +112,23 @@ CREATE TABLE `option_table` (
   UNIQUE KEY `optionCode_UNIQUE` (`optionCode`),
   KEY `fk_option_option_group_idx` (`optionGroupCode`),
   CONSTRAINT `fk_option_option_group` FOREIGN KEY (`optionGroupCode`) REFERENCES `option_group` (`optionGroupCode`) ON DELETE CASCADE ON UPDATE CASCADE
-) AUTO_INCREMENT=21 ;
+) AUTO_INCREMENT=15 ;
 
 INSERT INTO `option_table` 
-VALUES (10,'color-blue','Blue','color'),
-  (11,'color-white','White','color'),
-  (12,'color-red','Red','color'),
-  (13,'size-tops-90','90','size-tops'),
-  (14,'size-tops-100','100','size-tops'),
-  (15,'size-tops-110','110','size-tops'),
-  (16,'size-roman-m','M','size-roman'),
-  (17,'size-roman-l','L','size-roman'),
-  (18,'size-roman-xl','XL','size-roman'),
-  (19,'color-black','Black','color'),
-  (20,'size-one','One Size','size-one');
+VALUES (1,'color-blue','Blue','color'),
+  (2,'color-white','White','color'),
+  (3,'color-red','Red','color'),
+  (4,'size-tops-90','90','size-tops'),
+  (5,'size-tops-100','100','size-tops'),
+  (6,'size-tops-110','110','size-tops'),
+  (7,'size-roman-m','M','size-roman'),
+  (8,'size-roman-l','L','size-roman'),
+  (9,'size-roman-xl','XL','size-roman'),
+  (10,'color-black','Black','color'),
+  (11,'size-one','One Size','size-one'),
+  (12,'size-roman-s','S','size-roman'),
+  (13,'size-tops-95','95','size-tops'),
+  (14,'size-tops-105','105','size-tops');
 
 CREATE TABLE `item` (
   `itemId` int(11) NOT NULL AUTO_INCREMENT,
@@ -197,12 +208,12 @@ CREATE TABLE `order_status` (
 ) AUTO_INCREMENT=7 ;
 
 INSERT INTO `order_status` 
-VALUES (5,'CANCELED'),
-  (6,'CHECKING'),
-  (4,'DELIVERED'),
-  (3,'DELIVERING'),
-  (1,'ORDERED'),
-  (2,'PAYED');
+VALUES (1,'CHECKING'),
+  (2,'ORDERED'),
+  (3,'PAYED'),
+  (4,'DELIVERING'),
+  (5,'DELIVERED'),
+  (6,'CANCELED');
 
 CREATE TABLE `orders` (
   `orderId` int(11) NOT NULL AUTO_INCREMENT,
@@ -216,7 +227,7 @@ CREATE TABLE `orders` (
   KEY `fk_order_order_status_idx` (`orderStatus`),
   CONSTRAINT `fk_orders_member` FOREIGN KEY (`userId`) REFERENCES `backpackers`.`member` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_order_order_status` FOREIGN KEY (`orderStatus`) REFERENCES `order_status` (`orderStatus`) ON DELETE CASCADE ON UPDATE CASCADE
-) AUTO_INCREMENT=23 ;
+);
 
 CREATE TABLE `product` (
   `productId` int(11) NOT NULL AUTO_INCREMENT,
@@ -232,36 +243,43 @@ CREATE TABLE `product` (
   CONSTRAINT `fk_product_option` FOREIGN KEY (`optionCode`) REFERENCES `option_table` (`optionCode`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_product_option_group` FOREIGN KEY (`optionGroupCode`) REFERENCES `option_group` (`optionGroupCode`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_product_shop` FOREIGN KEY (`shopCode`) REFERENCES `shop` (`shopCode`) ON DELETE CASCADE ON UPDATE CASCADE
-) AUTO_INCREMENT=17 ;
+) AUTO_INCREMENT=9 ;
 
 INSERT INTO `product` 
 VALUES (1,'shop01','product01','color','color-black'),
-  (4,'shop02','product04','color','color-white'),
-  (6,'shop02','product06','color','color-black'),
-  (8,'shop03','product08','color','color-blue'),
-  (10,'shop03','product10','color','color-red'),
-  (12,'shop04','product12','color','color-black'),
-  (15,'shop04','product15','color','color-blue'),
-  (16,'shop04','product16','color','color-red');
+  (2,'shop02','product04','color','color-white'),
+  (3,'shop02','product06','color','color-black'),
+  (4,'shop03','product08','color','color-blue'),
+  (5,'shop03','product10','color','color-red'),
+  (6,'shop04','product12','color','color-black'),
+  (7,'shop04','product15','color','color-blue'),
+  (8,'shop04','product16','color','color-red');
 
 CREATE TABLE `product_image` (
   `productImageId` int(11) NOT NULL AUTO_INCREMENT,
-  `productCode` varchar(45) NOT NULL,
-  `imageCode` varchar(45) NOT NULL,	
+  `productCode` varchar(45) NOT NULL,	
   `imageURL` varchar(100) DEFAULT NULL,
   `imageOrder` int(11) NOT NULL,
   PRIMARY KEY (`productImageId`),
   KEY `fk_product_image_product_idx` (`productCode`),
   CONSTRAINT `fk_product_image_product` FOREIGN KEY (`productCode`) REFERENCES `product` (`productCode`) ON DELETE CASCADE ON UPDATE CASCADE
-) AUTO_INCREMENT=4 ;
+) AUTO_INCREMENT=15 ;
 
 INSERT INTO `product_image` 
-VALUES (1,'product01','image01','product01-0.jpg',0),
-  (2,'product01','image02','product01-1.jpg',1),
-  (3,'product01','image03','product01-2.jpg',2),
-  (4,'product04','image04','product04-0.jpg',0),
-  (5,'product04','image05','product04-1.jpg',1),
-  (6,'product04','image06','product04-2.jpg',2);
+VALUES (1,'product01','product01-0.jpg',0),
+  (2,'product01','product01-1.jpg',1),
+  (3,'product01','product01-2.jpg',2),
+  (4,'product04','product04-0.jpg',0),
+  (5,'product04','product04-1.jpg',1),
+  (6,'product04','product04-2.jpg',2),
+  (7,'product08','product08-0.jpg',0),
+  (8,'product08','product08-1.jpg',1),
+  (9,'product08','product08-2.jpg',2),
+  (10,'product08','product08-3.jpg',3),
+  (11,'product10','product10-0.jpg',0),
+  (12,'product10','product10-1.jpg',1),
+  (13,'product10','product10-2.jpg',2),
+  (14,'product10','product10-3.jpg',3);
 
 CREATE TABLE `product_item` (
   `productItemId` int(11) NOT NULL AUTO_INCREMENT,
@@ -307,7 +325,7 @@ CREATE TABLE `order_item` (
   CONSTRAINT `fk_order_item_option` FOREIGN KEY (`optionCode`) REFERENCES `option_table` (`optionCode`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_order_item_orders` FOREIGN KEY (`orderCode`) REFERENCES `orders` (`orderCode`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_order_item_product` FOREIGN KEY (`productCode`) REFERENCES `product` (`productCode`) ON DELETE CASCADE ON UPDATE CASCADE
-) AUTO_INCREMENT=35 ;
+);
 
 CREATE TABLE `cart` (
   `cartId` int NOT NULL AUTO_INCREMENT,
@@ -323,4 +341,4 @@ CREATE TABLE `cart` (
   CONSTRAINT `fk_cart_option` FOREIGN KEY (`optionCode`) REFERENCES `option_table` (`optionCode`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_cart_product` FOREIGN KEY (`productCode`) REFERENCES `product` (`productCode`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_cart_member` FOREIGN KEY (`userId`) REFERENCES `member` (`userId`) ON DELETE CASCADE ON UPDATE CASCADE
-) ;
+);

@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <% request.setAttribute("root", request.getContextPath()); %>
 <% request.setAttribute("productImage", request.getContextPath() + "/resources/img/product"); %>
+<% request.setAttribute("noImage", request.getContextPath() + "/resources/img/product/no-image.png"); %>
 
 	<link rel="stylesheet" type="text/css" href="/backpackers/resources/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="/backpackers/resources/css/bootstrap.min.css">
