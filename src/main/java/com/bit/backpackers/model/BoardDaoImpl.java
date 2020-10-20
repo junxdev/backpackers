@@ -89,6 +89,19 @@ public class BoardDaoImpl implements BoardDao {
 		
 	}
 
+	@Override
+	public List<BoardVo> listmyboard(String user_ID) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	
+
+
+
+
+
 
 	
 

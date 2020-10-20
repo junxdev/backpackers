@@ -90,20 +90,14 @@ public class AdminController {
 	// 상품삭제
 	@RequestMapping(value = "{itemId}/delete", method = RequestMethod.DELETE)
 	public String deleteproduct(@PathVariable int itemId) throws SQLException {
-
 		adminService.deleteproduct(itemId);
-
 		return "redirect:/admin/deleteproduct";
 	}
-
-	
 
 	  //상품디테일
 	  @RequestMapping(value = "{itemId}/detail") 
 	  public String productdetail(@PathVariable int itemId,Model model) throws SQLException {
-
 		  adminService.productdetail(model, itemId);
-		  
 		  return "/admin/detailproduct";
 	  }
 	  

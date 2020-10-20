@@ -12,3 +12,4 @@ src/main/java/com/bit/backpackers/member/controller/NaverLoginBO.java
 src/main/java/com/bit/backpackers/member/controller/NloginController.java
 src/main/java/com/bit/backpackers/member/mail/MailHandler.java
 src/main/java/com/bit/backpackers/member/mail/TempKey.java
+src/main/resources/jdbc.properties

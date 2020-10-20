@@ -6,138 +6,91 @@
 <head>
 <%@include file="../template/head.jspf" %>
 <style type="text/css">
- #board_subject{
- background-color: white;
-  color: blue;
-  text-align: center;
- }
- .user_ID,.board_date,.board_maketime,.board_views,.reply_num{
-  width: 100px;
-   background-color: white;
-   color: blue;
-  text-align: center;
- float: right;
 
- }
- #board_content{
-  width: 1554px;    
-   height: 400px;
-   background-color: white;
-  color: blue;
- }
 
-.board_content_inside,.board_hits{
- background-color: white;
-  color: blue;
+#searchbar,#searchOptionbar{
+width: 5%;
+ float: left;
 }
 
-.board_hits{
- 
- margin: 0px auto;
- background-color: white;
-  color: blue;
- width:100px; 
- height: 75px;
- text-align: center;
- position: relative;
- top:75%;
+#boardwrite{
+float: right;
+
 }
 
-.reply_content_send{
-background-color: white;
-  color: blue;
-  height: 130px;
+
+#boardsubject{
+text-align: center;
+
 }
-#reply_content_send{
-height: 75px;
+#searchbar,#boardwrite,#searchOptionbar,#searchbtn{
+font-size: 15px;
+
+
 }
- .reply_id,.reply_time{
-  width: 100px;
- background-color: white;
-  color: blue;
- }
- .reply_content{
-  width: 200px;
-  background-color: white;
-  color: blue;
- }
- #reply_content_btn{
-  float: right;
- 
- }
- 
- 
- 
- #update_button,#delete_button{
-  float: right;
- }
- 
- 
- .ex04{
-  margin: 10px auto;
-  width: 1554px; 
- }
- 
- 
- 
+
 </style>
-<title>게시글</title>
+<title>게시판</title>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/template/nav.jspf" %>
 <%@include file="../template/header.jspf" %>
-<form method="post">
-<div class="ex1">
-<input class="form-control" id="board_subject" name="board_subject" value="${boardDitail.board_subject}">
-</div>
-<div class="ex2" >
-<pre class="user_ID">${boardDitail.user_ID}</pre>
-<pre class="board_date">${boardDitail.board_date}</pre>
-<pre class="board_maketime">${boardDitail.board_maketime}</pre>
-<pre class="board_views">${boardDitail.board_views}</pre>
-<pre class="reply_num">댓글</pre>
-</div>
-
-
-
-<div class="ex3">
-<input id="board_content" class="form-control" name="board_content" value="${boardDitail.board_content}"/>
-<pre class="board_hits">
-<button  type="submit" class="btn btn-primary" id="board_hits_btn">${boardDitail.board_hits}</button>
-추천수
-</pre>
-
-</div>
-
-<pre class="reply_content_send"><input type="text" class="form-control"  id="reply_content_send" name="reply_content" placeholder="댓글을 입력하시오"><button class="btn btn-primary" id="reply_content_btn" type="submit">댓글등록</button></pre>
-
-</div>
-<div class="put">
-
-<input type="hidden" name="_method" value="put">
-<button type="submit" class="btn btn-primary" id="update_button">글수정</button>
-
-</form>
-</div>
-<div class="ex04">
-<div>
-<div class="ex05">
-<!-- <pre class="reply">
-<pre class="reply_id">답글아이디</pre>
-<pre class="reply_content">답글내용</pre>
-<pre class="reply_time">작성시간</pre>
-</pre> -->
-<table class="table">
+<table class="table table-striped" id="table">
 <tr>
-<td style="width: 20%;">댓글아이디</td>
-<td style="width: 70%;">댓글내용</td>
-<td style="width: 10%;">댓글단시간</td>
+<th style="width: 10%;">번호</th>
+<th style="width: 55%;" id="boardsubject">제목</th>
+<th style="width: 10%;">글쓴이</th>
+<th style="width: 10%;">작성일</th>
+<th style="width: 10%;">조회</th>
 </tr>
+<c:forEach items="${list}" var="title">
+<tr>
+<td>${title.board_no}</td>
+<td id="boardsubject"><a href="./${title.board_no}">${title.board_subject}</a></td>
+<td>${title.user_ID}</td>
+<td>${title.board_date}</td>
+<td>${title.board_views}</td>
+</tr>
+</c:forEach>
 </table>
+<div class="search_board">
+<form name="form1" method="post" action="./search">
+<select class="form-control" name="searchOption" id="searchOptionbar">
+  <option value="board_subject"<c:out value="${map.searchOption == 'board_subject'?'selected':''}"/> >제목</option>
+  <option value="user_ID"<c:out value="${map.searchOption == 'user_ID'?'selected':''}"/> >이름</option>
+  <option value="board_content"<c:out value="${map.earchOption == 'board_content'?'selected':''}"/> >내용</option>
+</select>
+ <div><input type="text" name="keyword" value="${map.keyword}" class="form-control" id="searchbar" placeholder="검색">
+ <button class="btn btn-primary" type="submit" id="searchbtn">검색</button> <c:if test="${sessionScope.user != null}">
+<a class="btn btn-primary" href="./boardwrite" role="button" id="boardwrite">글쓰기</a></c:if></div>
+ </form>
+
 </div>
-<div class="ex06">
+<div class="boardpaging">
+
+<%-- 
+<ul class="btn-group pagination" id="boardpaging">
+    <c:if test="${pageMaker.prev }">
+    <li>
+        <a href='<c:url value="/board/?page=${pageMaker.startPage-1 }"/>'><i class="fa fa-chevron-left">이전</i></a>
+    </li>
+    </c:if>
+    <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
+    <li>
+        <a href='<c:url value="/board/?page=${pageNum }"/>'><i class="fa">${pageNum }</i></a>
+    </li>
+    </c:forEach>
+    <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+    <li>
+        <a href='<c:url value="/board/?page=${pageMaker.endPage+1 }"/>'><i class="fa fa-chevron-right">다음</i></a>
+    </li>
+    </c:if>
+</ul> --%>
+
+
 
 </div>
 
 <%@include file="../template/footer.jspf" %>
+
 </html>

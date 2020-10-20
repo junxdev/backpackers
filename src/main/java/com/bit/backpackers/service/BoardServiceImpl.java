@@ -93,6 +93,15 @@ public class BoardServiceImpl implements BoardService{
 	dao.increaseViewcnt(board_no);
 	}
 
+	@Override
+	public void listmyboardService(Model model, String user_ID) throws SQLException {
+		BoardDao dao=sqlSession.getMapper(BoardDao.class);
+		model.addAttribute("boardmylist",dao.listmyboard(user_ID));
+		
+	}
+
+	
+
 	
 
 

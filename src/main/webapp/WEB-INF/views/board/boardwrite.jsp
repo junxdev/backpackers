@@ -30,7 +30,7 @@
  #board_subject{
  width: 350px;    
    height: 25px;
- 
+  font-size: 15px;
  }
  
  
@@ -38,12 +38,25 @@
    
   width: 900px;    
    height: 400px;
-   
+    font-size: 15px;
  }
  
+ 
+ #submitcontent,#cancle{
+  font-size: 15px;
+   position: relative;
+  left: 1010px;
+ }
 </style>
 <script type="text/javascript">
  $(document).ready(function() {
+	 
+	 
+	 
+	 $("#submitcontent").on('click',function (){
+	 		alert("게시물이 등록되었습니다..");
+			
+		 });
 	$('#summernote').summernote({
 		height : 300,
 		minHeight : null,
@@ -143,8 +156,8 @@ function sendFile(file, el) {
 		</div>
 </div>
 <div class="ex3">
-<button class="btn btn-primary" type="submit">등록</button>
-<button class="btn btn-danger" type="reset">취소</button>
+<button class="btn btn-primary" id="submitcontent" type="submit">등록</button>
+<button class="btn btn-danger" id="cancle" type="reset">취소</button>
 </div>
 </form>
 
