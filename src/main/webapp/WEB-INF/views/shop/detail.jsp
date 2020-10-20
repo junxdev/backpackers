@@ -66,7 +66,37 @@ body {
 BODY {
     MARGIN: revert;
 }
+section.reviewForm {
+	padding: 30px 0;
+}
 
+section.reviewForm div.input_area {
+	margin: 10px 30px;
+}
+
+section.reviewForm textarea {
+	font-size: 16px;
+	font-family: '맑은 고딕', verdana;
+	padding: 10px;
+	width: 500px;;
+	height: 30px;
+}
+
+section.reviewForm button {
+	font-size: 20px;
+	padding: 3px 3px;
+	margin: 5px 0;
+	background: #fff;
+	border: 1px solid #ccc;
+}
+
+#review_upd_btn, #review_del_btn {
+	float: right;
+}
+
+#reviewContent2{
+ border: 1px none #ccc;
+}
 </style>
 
 
@@ -268,6 +298,98 @@ BODY {
 		</div>
 	</div>
 	<!-- info end -->
+	<script type="text/javascript">
+					$(document)
+							.ready(
+									function() {
+										$("#review_btn")
+												.click(
+														function() {
+															var reviewContent = $(
+																	'#reviewContent')
+																	.val();
+															var shopCode = "${shop.shopCode}";
+															var params = "reviewContent="
+																	+ reviewContent
+																	+ "&shopCode="
+																	+ shopCode;
+															$
+																	.ajax({
+																		url : "${root}/shop/insertReview",
+																		method : 'POST',
+																		data : {
+																			reviewContent : reviewContent,
+																			shopCode : "${shop.shopCode}"
+																		},
+																		success : function(
+																				data) {
+																			alert(data);
+																		},
+																		error : function(
+																				error) {
+																			alert("입력 실패");
+																		}
+																	});
+														});
+									});
+				</script>
+	<!-- review -->
+	<div id="review">
+		<c:if test="${sessionScope.username == null }">
+			<p>
+				한줄평을 남기시려면 <a href="/backpackers/user/login">로그인</a>해주세요
+			</p>
+		</c:if>
+		<c:if test="${sessionScope.username != null }">
+			<section class="reviewForm">
+				<form role="form" method="post">
+					<%--  <input type="hidden" name="shopCode" id="shopCode" value="${shop.shopCode}" >  --%>
+					<textarea name="reviewContent" id="reviewContent"></textarea>
+
+					<button type="submit" id="review_btn">한줄평 남기기</button>
+				</form>
+			</section>
+		</c:if>
+
+		<section class="reviewList">
+			<div class="userInfo">
+				<table class="table">
+					<tr>
+						<th style="width: 10%;">아이디</th>
+						<th style="width: 66%;">내용</th>
+						<th style="width: 14%;">작성일</th>
+						<th style="width: 5%;"></th>
+						<th style="width: 5%;"></th>
+					</tr>
+					<c:forEach items="${review}" var="review">
+						<form method="post"
+							action="${root }/shop/${review.reviewNo}/update">
+							<input type="text" name="url" value="${root}${requestScope['javax.servlet.forward.servlet_path']}" hidden="true"/>
+							<tr id="review_tr1">
+								<td>${review.userId}</td>
+								<td><input type="text" value="${review.reviewContent}"
+									id="reviewContent2" name="reviewContent2"></td>
+								<td>${review.reviewDate}</td>
+								<c:if test="${sessionScope.username == review.userId }">
+									<input type="hidden" name="_method" value="put">
+									<td><button name="reviewNo" value="${review.reviewNo }"
+											type="submit" id="review_upd_btn" class="btn btn-primary">수정하기</button></td>
+								</c:if>
+						</form>
+						<form method="post"
+							action="${root }/shop/${review.reviewNo }/delete">
+							<c:if test="${sessionScope.username == review.userId }">
+								<input type="hidden" name="_method" value="delete">
+								<td><button name="reviewNo" value="${review.reviewNo }"
+										type="submit" id="review_del_btn" class="btn btn-danger">삭제하기</button></td>
+							</c:if>
+						</form>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</section>
+	</div>
 	</div>
 	<!-- row end -->
 	<!-- Content ends -->
