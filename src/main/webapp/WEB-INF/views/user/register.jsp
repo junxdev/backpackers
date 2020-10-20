@@ -19,16 +19,15 @@ body {
 	font-family: sans-serif;
 }
 
-#registerPage {
+#registerPage{
 	width: 600px;
 	height: 1300px;
 	position: relative;
-	margin: 3% auto;
+	margin: 50 50 50 500;
 	background: #fff;
 	padding: 5px;
 	overflow: hidden;
 }
-
 #btn1 {
 	margin-left: 200px;
 	margin-right: 30px;
@@ -36,12 +35,35 @@ body {
 	width: 130px;
 	height: 50px;
 }
-
 #btn2 {
 	margin-top: 50px;
 	width: 130px;
 	height: 50px;
 }
+#idcheck {
+	box-shadow:inset 11px -35px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	background-color:#ffffff;
+	border-radius:8px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:10px;
+	font-weight:bold;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #ffffff;
+}
+#idcheck:hover {
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	background-color:#f6f6f6;
+}
+#idcheck:active {
+	position:relative;
+	
+
+
 </style>
 
 <title>회원가입</title>
@@ -281,7 +303,7 @@ body {
 						<div class="col-md-6">
 							<input type="text" id="sample6_postcode" class="form-control" name="postCode" placeholder="우편번호">
 						</div>
-							<input type="button" class="col-md-2 col-md-offset-1" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>		
+							<input type="button" class="col-md-2 col-md-offset-1" id="idCheck" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>		
 						<div class="col-md-6 col-md-offset-2">
 							<input type="text" id="sample6_address" name="address" class="form-control" placeholder="주소"><br> 
 							<input type="text" id="sample6_detailAddress" name="detailAddress" class="form-control" placeholder="상세주소"> 
@@ -739,8 +761,7 @@ body {
 
 			<div class="form-group has-feedback">
 				<button type="submit" id="btn1" class="btn btn-primary btn-lg">가입</button>
-				<a href="${root }/user/login" id="btn2"
-					class="btn btn-default btn-lg">취소</a>
+				<a href="${root }/user/login" id="btn2" class="btn btn-danger btn-lg">취소</a>
 			</div>
 		</form>
 	</div>

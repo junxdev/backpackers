@@ -29,6 +29,10 @@ body {
 	overflow: hidden;
 }
 
+.form-control {
+	height: 40px;
+}
+
 #btn1 {
 	margin-left: 200px;
 	margin-right: 30px;
@@ -143,35 +147,41 @@ body {
 					}
 				}).open();
 	}
-	
-	$(document).ready(
-			function() {
-			//정규식 시작
-			//모든 공백 체크 정규식
-			var empJ = /\s/g;
-			// 비밀번호 정규식
-			var pwJ = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,14}$/;
-			// 휴대폰번호 체크 정규식
-			var phoneExp =/^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
-			// 이메일 체크 정규식
-			var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
-				$("#userPw").blur(function() {
-					if (pwJ.test($(this).val())) {
-					// console.log(pwJ.test($(this).val()));
-						console.log('Password Check');
-						} else {
-						//$("#userPw").val('');
-						//$("#userPw").focus();
-							$('#pw-check-msg').text('대소문자, 숫자와 특수문자를 하나 이상 넣어 7~14자 사이로 작성해야 합니다');
-								$('#pw-check-msg').css('color','red');
-								}
-						});
+	$(document)
+			.ready(
+					function() {
+						//정규식 시작
+						//모든 공백 체크 정규식
+						var empJ = /\s/g;
+						// 비밀번호 정규식
+						var pwJ = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,14}$/;
+						// 휴대폰번호 체크 정규식
+						var phoneExp = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
+						// 이메일 체크 정규식
+						var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+						$("#userPw")
+								.blur(
+										function() {
+											if (pwJ.test($(this).val())) {
+												// console.log(pwJ.test($(this).val()));
+												console.log('Password Check');
+											} else {
+												//$("#userPw").val('');
+												//$("#userPw").focus();
+												$('#pw-check-msg')
+														.text(
+																'대소문자, 숫자와 특수문자를 하나 이상 넣어 7~14자 사이로 작성해야 합니다');
+												$('#pw-check-msg').css('color',
+														'red');
+											}
+										});
 						$("#phoneNum").blur(function() {
 							if (!phoneExp.test($('#phoneNum').val())) {
 								swal("잘못된 휴대폰 번호입니다. 숫자, - 를 포함한 숫자만 입력하세요.");
 								return false
-								}
+							}
 						});
 						$("#userEmail").blur(function() {
 							if (!regExp.test($('#userEmail').val())) {
@@ -182,8 +192,7 @@ body {
 
 						// 정규식 끝
 
-				
-	// 비밀번호 일치여부
+						// 비밀번호 일치여부
 						$(function() {
 							$('#userPw2').blur(
 									function() {
@@ -208,42 +217,57 @@ body {
 
 <body>
 	<div class="container">
-		<form <%-- action="${root}/user/registerEdit"  --%>method="post" id="registerPage">
+		<form <%-- action="${root}/user/registerEdit"  --%>method="post"
+			id="registerPage">
 			<div class="form-group has-feedback">
-				<input type="text" id="userId" name="userId" value="${user.userId}"  class="form-control" placeholder="아이디">
+				<input type="text" id="userId" name="userId" value="${user.userId}"
+					class="form-control" placeholder="아이디" readonly="readonly">
 				<span class="glyphicon glyphicon-pencil form-control-feedback"></span>
 			</div>
 			<div class="form-group has-feedback">
-				<input type="text" id="userName" name="userName" class="form-control" value="${user.userName}" placeholder="이름"> 
+				<input type="text" id="userName" name="userName"
+					class="form-control" value="${user.userName}" placeholder="이름">
 				<span class="glyphicon glyphicon-user form-control-feedback"></span>
 			</div>
 			<div class="form-group has-feedback">
-				<input type="email" id="userEmail" for="signupEmail" maxlength="50" name="userEmail" class="form-control" value="${user.userEmail}" placeholder="이메일"> 
-				<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+				<input type="email" id="userEmail" for="signupEmail" maxlength="50"
+					name="userEmail" class="form-control" value="${user.userEmail}"
+					placeholder="이메일"> <span
+					class="glyphicon glyphicon-envelope form-control-feedback"></span>
 			</div>
 			<div class="form-group has-feedback">
-				<input type="password" id="userPw" name="userPw" class="form-control" value="${user.userPw}" placeholder="비밀번호"> 
+				<input type="password" id="userPw" name="userPw"
+					class="form-control" value="${user.userPw}" placeholder="비밀번호">
 				<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 			</div>
 			<span id="pw-check-msg" class="pw-check-msg"
 				style="font-size: 13px; text-align: center;"></span>
-			<div class="form-group has-feedback" >
-				<input type="password" id="userPw2" class="form-control"  value="${user.userPw}" placeholder="비밀번호 확인"> 
-				<span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+			<div class="form-group has-feedback">
+				<input type="password" id="userPw2" class="form-control"
+					value="${user.userPw}" placeholder="비밀번호 확인"> <span
+					class="glyphicon glyphicon-log-in form-control-feedback"></span>
 			</div>
-			<span id="pw-check-msg1" class="pw-check-msg1" style="font-size: 13px; text-align: center;"></span>
+			<span id="pw-check-msg1" class="pw-check-msg1"
+				style="font-size: 13px; text-align: center;"></span>
 
 			<div class="form-group has-feedback">
-				<input type="text" id="phoneNum" name="phoneNum" class="form-control" value="${user.phoneNum}" placeholder="휴대전화">
+				<input type="text" id="phoneNum" name="phoneNum"
+					class="form-control" value="${user.phoneNum}" placeholder="휴대전화">
 				<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 			</div>
 			<div class="form-group has-feedback">
-				<input type="text" id="sample6_postcode" class="form-control" name="postCode" value="${user.postCode}"   placeholder="우편번호"> 
-				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text" id="sample6_address" name="address" class="form-control" value="${user.address}" placeholder="주소"><br> 
-				<input type="text" id="sample6_detailAddress" name="detailAddress" class="form-control" value="${user.detailAddress}" placeholder="상세주소"> 
-				<input type="text" id="sample6_extraAddress" name="extraAddress" class="form-control" value="${user.extraAddress}" placeholder="참고항목">
-			</div> 
+				<input type="text" id="sample6_postcode" class="form-control"
+					name="postCode" value="${user.postCode}" placeholder="우편번호">
+				<input type="button" onclick="sample6_execDaumPostcode()"
+					value="우편번호 찾기"><br> <input type="text"
+					id="sample6_address" name="address" class="form-control"
+					value="${user.address}" placeholder="주소"><br> <input
+					type="text" id="sample6_detailAddress" name="detailAddress"
+					class="form-control" value="${user.detailAddress}"
+					placeholder="상세주소"> <input type="text"
+					id="sample6_extraAddress" name="extraAddress" class="form-control"
+					value="${user.extraAddress}" placeholder="참고항목">
+			</div>
 
 			<div class="form-group has-feedback">
 				<button type="submit" id="btn1" class="btn btn-primary btn-lg">수정</button>
