@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,11 +56,8 @@
 						</table>
 					</div><!-- 주문상품내역 end -->
 					<div class="pricetag"><!-- 총 결제 금액 -->
-						<span>총 결제 금액 : ${order.orderAmount }</span>
+						<span>총 결제 금액 : <fmt:formatNumber value="${order.orderAmount }" pattern="#,###"></fmt:formatNumber>원</span>
 					</div><!-- 총 결제 금액 end -->
-					<div class="delivery-info"><!-- 배송 정보 -->
-						<span>배송 정보 작업 중 : 회원 api 필요</span>
-					</div><!-- 배송 정보 end -->
 					<div class="purchase-form"><!-- 버튼 -->
 						<a href="${root }/shop" class="btn btn-default" role="btn">다른 상품 쇼핑하기</a>
 					</div><!-- 버튼 end -->

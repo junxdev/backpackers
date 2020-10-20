@@ -1,28 +1,20 @@
 package com.bit.backpackers.order.controller;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -34,8 +26,6 @@ import com.bit.backpackers.order.model.entity.OrderVo;
 import com.bit.backpackers.order.model.entity.OrderedProductVo;
 import com.bit.backpackers.order.service.OrderService;
 import com.bit.backpackers.product.model.entity.ProductVo;
-
-import lombok.Data;
 
 @Controller
 @RequestMapping("/order")
@@ -61,7 +51,7 @@ public class OrderController {
 
 //		log.info(productCode + quantity);
 		orderService.orderThisNow(product, getUserFrom(session));
-		session.setAttribute("orderCart", "yes");
+		session.setAttribute("noCart", "yes");
 		return "redirect:/order/checkout";
 	}
 	
@@ -81,20 +71,18 @@ public class OrderController {
 	}
 	
 	@RequestMapping(value = "/receipt")
-	public String receipt(Model model, HttpSession session) throws SQLException, NullPointerException {
+	public String receipt(Model model, HttpSession session) throws SQLException {
 		OrderVo order = null;
 		try {
 			order = (OrderVo) model.asMap().get("order");
 		} catch (NullPointerException e) {
 			return "redirect:/";
 		}
-		List<? extends ProductVo> productList = orderService.getOrderDetailByOrderCode(model, order.getOrderCode());
-		log.warn(order.toString());
-		log.warn(productList.toString());
-		if(session.getAttribute("orderCart") == null) {
+		List<OrderedProductVo> productList = orderService.getOrderDetailByOrderCode(model, order.getOrderCode());
+		if(session.getAttribute("noCart") == null) {
 			cartService.removeItemsFromCart(productList, getUserFrom(session));
 		}
-		session.removeAttribute("orderCart");
+		session.removeAttribute("noCart");
 		return "order/receipt";
 	}
 	

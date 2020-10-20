@@ -17,7 +17,7 @@ public interface OrderService {
 	String orderThisNow(OrderedProductVo product, MemberVo user) throws SQLException;
 	String orderCart(List<CartProductVo> cart, MemberVo user) throws SQLException;
 	void getOrderDetail(Model model, MemberVo user) throws SQLException;
-	List<? extends ProductVo> getOrderDetailByOrderCode(Model model, String orderCode) throws SQLException;
+	List<OrderedProductVo> getOrderDetailByOrderCode(Model model, String orderCode) throws SQLException;
 	int changeOrderStatus(OrderVo order, OrderStatus status) throws SQLException;
 
 }

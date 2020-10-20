@@ -1,6 +1,5 @@
 package com.bit.backpackers.order.model.entity;
 
-import com.bit.backpackers.item.model.entity.ItemVo;
 import com.bit.backpackers.product.model.entity.ProductVo;
 
 import lombok.Getter;

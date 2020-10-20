@@ -160,7 +160,7 @@
 				<div>${productList[0].firstOptionGroupName }</div>
 				<div>
 					<c:forEach items="${productList }" var="product">
-						<span> <!-- 등록된 대표 이미지가 없을 때 --> 
+						<span>
 							<c:choose>
 								<c:when test="${product.productCode eq productCode }">
 									<a class="first-option-now" title="${product.firstOptionName }" 
@@ -171,8 +171,8 @@
 									href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }">
 								</c:otherwise>
 							</c:choose>
-							<c:if test="${not titleImageMap.containsKey(product.productCode) }">
-								<img src="${productImage }/no-image.jpg" style="width: 100px; height: 100px;" />
+							<c:if test="${not titleImageMap.containsKey(product.productCode) }"> <!-- 등록된 대표 이미지가 없을 때 --> 
+								<img src="${noImage }" style="width: 100px; height: 100px;" />
 							</c:if> <!-- 등록된 대표 이미지가 있을 때 --> 
 							<c:if test="${titleImageMap.containsKey(product.productCode) }">
 								<img src="${productImage }/${titleImageMap[product.productCode].imageURL }" style="width: 100px; height: 100px;" />
@@ -231,60 +231,52 @@
 			console.log(orderItemForm.method);
 			orderItemForm.submit();
 		}
-		(function() {
-			document.querySelector('#btnBuy').addEventListener('click', function() {
-				buyNow();
-			});								
-		})();
-		(function() {
-			document.querySelector('#btnCart').addEventListener('click', function() {
-				console.log('works');
-				var productCode = document.querySelector('#productCode').value;
-				var secondOptionCode = document.querySelector('input[name="secondOptionCode"]:checked').value;
-				var quantity = document.querySelector('#quantity').value;
-				$.ajax({
-					url:'/backpackers/order/cart',
-					method:'POST',
-					data: JSON.stringify({ 'productCode': productCode, 'secondOptionCode': secondOptionCode, 'quantity': quantity}),
-					//data: { 'productCode': 'test', 'optionCode': 'test', 'quantity': 'test'},
-					contentType:'application/json; charset=utf-8',
-					dataType:'text',
-				  	beforeSend: function(xhr) {
-				    	xhr.setRequestHeader("ajax-need-login", "true");
-				  	},
-					success:function(data){
-						var firstOption = document.querySelector('.first-option-now').title;
-						var secondOption = document.querySelector('input[name="secondOptionCode"]:checked').nextElementSibling.innerText;
-						document.querySelector('.shop-message').innerText = '장바구니에 ${shop.shopTitle }(' 
-								+ firstOption + ', ' + secondOption + ') 상품 ' + quantity + '개를 담았습니다!';
-						$('#shopModal').modal('show');
-						//$('.test-modal').modal('show');
-					},
-					error: function(e) {
-						if(e.status == 400) {
-							location.href = '${root}/user/login'
-						}
+		document.querySelector('#btnBuy').addEventListener('click', function() {
+			buyNow();
+		});								
+		document.querySelector('#btnCart').addEventListener('click', function() {
+			console.log('works');
+			var productCode = document.querySelector('#productCode').value;
+			var secondOptionCode = document.querySelector('input[name="secondOptionCode"]:checked').value;
+			var quantity = document.querySelector('#quantity').value;
+			$.ajax({
+				url:'/backpackers/order/cart',
+				method:'POST',
+				data: JSON.stringify({ 'productCode': productCode, 'secondOptionCode': secondOptionCode, 'quantity': quantity}),
+				//data: { 'productCode': 'test', 'optionCode': 'test', 'quantity': 'test'},
+				contentType:'application/json; charset=utf-8',
+				dataType:'text',
+			  	beforeSend: function(xhr) {
+			    	xhr.setRequestHeader("ajax-need-login", "true");
+			  	},
+				success:function(data){
+					var firstOption = document.querySelector('.first-option-now').title;
+					var secondOption = document.querySelector('input[name="secondOptionCode"]:checked').nextElementSibling.innerText;
+					document.querySelector('.shop-message').innerText = '장바구니에 ${shop.shopTitle }(' 
+							+ firstOption + ', ' + secondOption + ') 상품 ' + quantity + '개를 담았습니다!';
+					$('#shopModal').modal('show');
+					//$('.test-modal').modal('show');
+				},
+				error: function(e) {
+					if(e.status == 400) {
+						location.href = '${root}/user/login'
 					}
-				});
+				}
 			});
-		})();
-	</script>
-	<script type="text/javascript">
-		(function() {
-			var quantitiy = 1;
-			$('.quantity-right-plus').click(function(e){
-				e.preventDefault();
-				var quantity = parseInt($('#quantity').val());
-		    	$('#quantity').val(quantity + 1);
-			});
-			$('.quantity-left-minus').click(function(e){
-		        e.preventDefault();
-		        var quantity = parseInt($('#quantity').val());
-	            if(quantity > 1){
-	            	$('#quantity').val(quantity - 1);
-	            }
-	    	});
-		})();
+		});
+		$('.quantity-right-plus').click(function(e){
+			e.preventDefault();
+			var quantity = parseInt($('#quantity').val());
+	    	$('#quantity').val(quantity + 1);
+		});
+		$('.quantity-left-minus').click(function(e){
+	        e.preventDefault();
+	        var quantity = parseInt($('#quantity').val());
+            if(quantity > 1){
+            	$('#quantity').val(quantity - 1);
+            }
+    	});
+		$('.carousel').carousel({interval : 2000, pause : false});
 	</script>
 	<script type="text/javascript">
 		$(document).ready(function() {

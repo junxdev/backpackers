@@ -69,8 +69,8 @@ public class CartServiceImpl implements CartService {
 	}
 	
 	@Override
-	public void removeItemsFromCart(List<? extends ProductVo> productList, MemberVo user) throws SQLException {
-		for(ProductVo product : productList) {
+	public void removeItemsFromCart(List<OrderedProductVo> productList, MemberVo user) throws SQLException {
+		for(ProductVo product : orderSupport.orderedProductToCartProduct(productList)) {
 			removeItemFromCart(product, user);
 		}
 	}

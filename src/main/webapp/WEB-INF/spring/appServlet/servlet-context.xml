@@ -33,6 +33,7 @@
 		<interceptor>
 			<mapping path="/user/myPage/**"/>
 			<mapping path="/order/**"/>
+			<mapping path="/admin/**"/>
 			<beans:bean id="LoginInterceptor" class="com.bit.backpackers.member.interceptor.LoginInterceptor"/>
 		</interceptor>
 		<interceptor>

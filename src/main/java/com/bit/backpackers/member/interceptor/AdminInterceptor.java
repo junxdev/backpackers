@@ -18,11 +18,11 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 
 		HttpSession session = request.getSession();
 		MemberVo user = (MemberVo)session.getAttribute("user");
-	
-		if(user == null) {
-			response.sendRedirect("/backpackers/user/login");
-			return false;
-		}
+		
+//		if(user == null) { 
+//			response.sendRedirect("/backpackers/user/login"); 
+//			return false; 
+//		}
 		
 		// 관리자가 아닌 경우
 		if(user.getGrade() != 1) {

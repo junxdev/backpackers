@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,11 +12,11 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
+import com.bit.backpackers.cart.model.entity.CartProductVo;
 import com.bit.backpackers.member.model.entity.MemberVo;
 import com.bit.backpackers.option.model.OptionDao;
 import com.bit.backpackers.option.model.entity.OptionVo;
 import com.bit.backpackers.order.model.OrderDao;
-import com.bit.backpackers.order.model.OrderedProductDao;
 import com.bit.backpackers.order.model.entity.OrderVo;
 import com.bit.backpackers.order.model.entity.OrderedProductVo;
 import com.bit.backpackers.product.model.entity.ProductVo;
@@ -42,6 +43,18 @@ public class Order {
 			nameOption(product);
 		}
 		return list;
+	}
+	
+	public List<CartProductVo> orderedProductToCartProduct(List<OrderedProductVo> orderedList) {
+		List<CartProductVo> cart = new ArrayList<CartProductVo>();
+		for(OrderedProductVo product : orderedList) {
+			CartProductVo cartProduct = new CartProductVo();
+			cartProduct.setProductCode(product.getProductCode());
+			cartProduct.setSecondOptionCode(product.getSecondOptionCode());
+			cartProduct.setQuantity(product.getQuantity());
+			cart.add(cartProduct);
+		}
+		return cart;
 	}
 	
 	public void nameOption(ProductVo product) {

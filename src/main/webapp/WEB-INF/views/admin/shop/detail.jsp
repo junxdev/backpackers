@@ -12,9 +12,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
 	<script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
 	<style type="text/css">
-		body {
-			word-break: keep-all;
-		}
 		.product-form {
 			border: 1px solid gray;
 			border-radius: 5px;
@@ -27,10 +24,19 @@
 			margin: 1em;
 			padding: 1em;
 		}
+		@media (min-width: 576px) {
+			.modal-dialog {
+		    	max-width: 800px;
+			}
+		}
 		@media (min-width: 768px) {
 			.modal-dialog {
-				width: 800px;
+				max-width: 1200px;
 			}
+		}
+		.modal-title {
+			font-size: 2rem;
+			font-weight: 900;
 		}
 		.item-row:hover {
 			cursor: pointer;
@@ -82,89 +88,87 @@
 		<!-- Content starts 필요 시 임의로 그리드 조정 -->
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12">
-				<div class="content">
-					<form class="form-horizontal">
-						<div class="form-group"> <!-- shop form -->
-							<label for="shopCode" class="col-sm-2 control-label">판매코드</label>
+				<form class="form-horizontal">
+					<div class="form-group"> <!-- shop form -->
+						<label for="shopCode" class="col-sm-2 control-label">판매코드</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="shopCode" value=""/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="shopTitle" class="col-sm-2 control-label">판매제목</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="shopTitle" value=""/>
+						</div>
+						<label for="shopPrice" class="col-sm-1 control-label">판매가격</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="shopPrice" value=""/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">대분류</label>
+						<div class="col-sm-9 col-md-4">
+							<select class="form-control" id="mainCategoryCode">
+								<c:forEach items="${mainCategoryMap }" var="mainCategory">
+								<option value="${mainCategory.key }">${mainCategory.value.mainCategoryName }</option>
+								</c:forEach>
+							</select>
+						</div>
+						<label class="col-sm-2 col-md-1 control-label">소분류</label>
+						<div class="col-sm-9 col-md-4">
+							<select class="form-control" id="subCategoryCode">
+							</select>
+						</div>
+						<script type="text/javascript">
+							var subCategories = {
+								<c:forEach items="${subCategoryMap }" var="subCategory">
+						        '${subCategory.key}' : '<c:forEach items="${subCategory.value }" var="list"><option value="${list.subCategoryCode}">${list.subCategoryName}</option></c:forEach>',
+								</c:forEach>
+							};
+							document.querySelector('select').value = document.querySelector('select').querySelectorAll('option')[0].value;
+							document.querySelectorAll('select')[1].innerHTML = subCategories[document.querySelector('select').value];
+							document.querySelector('select').addEventListener('change', function() {
+								var mainCategoryCode = this.value;
+								document.querySelectorAll('select')[1].innerHTML = subCategories[mainCategoryCode];
+							});
+						</script>
+					</div>
+					<div class="form-group">
+						<label for="shopPrice" class="col-sm-2 control-label">판매내용</label>
+						<div class="col-sm-9">
+						<textarea class="form-control" id="summernote" name="shopContent" maxlength="140" rows="7"></textarea>
+						</div>
+					</div> <!-- shop form -->
+					<div class="product-form-control"> <!-- product form -->
+						<div class="form-group"> <!-- product add button -->
+							<label for="productCode" class="col-sm-2 control-label">상품</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="shopCode" value=""/>
+								<button type="button" class="btn btn-primary btn-add-product">추가</button>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="shopTitle" class="col-sm-2 control-label">판매제목</label>
-							<div class="col-sm-4">
-								<input type="text" class="form-control" id="shopTitle" value=""/>
-							</div>
-							<label for="shopPrice" class="col-sm-1 control-label">판매가격</label>
-							<div class="col-sm-4">
-								<input type="text" class="form-control" id="shopPrice" value=""/>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label">대분류</label>
-							<div class="col-sm-9 col-md-4">
-								<select class="form-control" id="mainCategoryCode">
-									<c:forEach items="${mainCategoryMap }" var="mainCategory">
-									<option value="${mainCategory.key }">${mainCategory.value.mainCategoryName }</option>
-									</c:forEach>
-								</select>
-							</div>
-							<label class="col-sm-2 col-md-1 control-label">소분류</label>
-							<div class="col-sm-9 col-md-4">
-								<select class="form-control" id="subCategoryCode">
-								</select>
-							</div>
-							<script type="text/javascript">
-								var subCategories = {
-									<c:forEach items="${subCategoryMap }" var="subCategory">
-							        '${subCategory.key}' : '<c:forEach items="${subCategory.value }" var="list"><option value="${list.subCategoryCode}">${list.subCategoryName}</option></c:forEach>',
-									</c:forEach>
-								};
-								document.querySelector('select').value = document.querySelector('select').querySelectorAll('option')[0].value;
-								document.querySelectorAll('select')[1].innerHTML = subCategories[document.querySelector('select').value];
-								document.querySelector('select').addEventListener('change', function() {
-									var mainCategoryCode = this.value;
-									document.querySelectorAll('select')[1].innerHTML = subCategories[mainCategoryCode];
-								});
-							</script>
-						</div>
-						<div class="form-group">
-							<label for="shopPrice" class="col-sm-2 control-label">판매내용</label>
-							<div class="col-sm-9">
-							<textarea class="form-control" id="summernote" name="shopContent" maxlength="140" rows="7"></textarea>
-							</div>
-						</div> <!-- shop form -->
-						<div class="product-form-control"> <!-- product form -->
-							<div class="form-group"> <!-- product add button -->
-								<label for="productCode" class="col-sm-2 control-label">상품</label>
-								<div class="col-sm-9">
-									<button type="button" class="btn btn-primary btn-add-product">추가</button>
+						</div> <!-- product add button -->
+						<div class="form-group"> <!-- product info form *************************** -->
+							<div class="col-sm-offset-2 col-sm-9">
+								<div class="row">
 								</div>
-							</div> <!-- product add button -->
-							<div class="form-group"> <!-- product info form -->
-								<div class="col-sm-offset-2 col-sm-9">
-									<div class="row">
-									</div>
-								</div>
-							</div> <!-- product info form -->
-						</div> <!-- product form -->
-						<div class="form-group"> <!-- form button -->
-							<div class="col-sm-offset-2 col-sm-10">
-								<button type="button" class="btn btn-primary btn-block btn-add-shop">판매 등록</button>
 							</div>
-						</div> <!-- form button -->
-					</form>
-				</div>
-			</div>
-		</div>
+						</div> <!-- product info form********************************************** -->
+					</div> <!-- product form -->
+					<div class="form-group"> <!-- form button -->
+						<div class="col-sm-offset-2 col-sm-9">
+							<button type="button" class="btn btn-primary btn-block btn-add-shop">판매 등록</button>
+						</div>
+					</div> <!-- form button -->
+				</form>
+			</div> <!-- <div class="col-xs-12 col-sm-12 col-md-12"> -->
+		</div> <!-- <div class="row"> -->
 		<!-- Content ends -->
 	<%@ include file="/WEB-INF/views/template/footer.jspf" %>
-	<div id="item-modal" class="modal fade" tabindex="-1" role="dialog"><!-- 쇼핑 모달 -->
+	<div id="item-modal" class="modal" tabindex="-1" role="dialog"><!-- 쇼핑 모달 -->
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title">아이템</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				</div>
 				<div class="modal-body">
 					<table class="table">
@@ -223,67 +227,67 @@
 		</div>
 		<!-- 아이템 추가 양식 끝 -->
 		<!-- 상품 추가 양식 시작 -->
-		<div class="product-form">
-			<!-- 상품 코드 시작 -->
-			<div class="form-group">
-				<div class="col-sm-12 product-header">상품</div>
-			</div>
-			<div class="form-group"> 
-				<label for="productCode" class="col-sm-2 col-md-2 control-label">상품코드</label>
-				<div class="col-sm-10 col-md-8">
-					<input type="text" class="form-control product-code" name="productCode" value="${product.productCode }"/>
+		<div class="col-sm-11 product-form">
+			<!-- <div class="row"> -->
+				<div class="form-group">
+					<div class="col-sm-12 product-header">상품</div>
 				</div>
-			</div> 
-			<!-- 상품 코드 끝 -->
-			<!-- 상위 옵션 시작 -->
-			<div class="form-group"> 
-				<label class="col-sm-2 col-md-2 control-label">옵션 그룹</label>
-				<div class="col-sm-10 col-md-3">
-					<select class="form-control option-group" name="optionGroupCode">
-						<c:forEach items="${optionGroupList }" var="optionGroup">
-						<option value="${optionGroup.optionGroupCode }">${optionGroup.optionGroupName }</option>
-						</c:forEach>
-					</select>
+				<!-- 상품 코드 시작 -->
+				<div class="form-group"> 
+					<label for="productCode" class="col-sm-2 col-md-2 control-label">상품코드</label>
+					<div class="col-sm-10 col-md-9">
+						<input type="text" class="form-control product-code" name="productCode" value="${product.productCode }"/>
+					</div>
 				</div> 
-				<label class="col-sm-2 col-md-2 control-label">옵션</label>
-				<div class="col-sm-10 col-md-3">
-					<select class="form-control option" name="OptionCode">
-					</select>
-				</div>
-				<div class="col-md-offset-2"></div>
-			</div>
-			<!-- 상위 옵션 끝 -->
-			<!-- 사진 추가 시작 -->
-			<div class="form-group"> 
-				<label class="col-sm-2 control-label">사진</label>
-				<div class="col-sm-10 col-md-8">
-					<div class="image-form">
-						<form action="uploads" method="post" enctype="multipart/form-data">
-							<input type="file" class="form-control product-image-uploader" name="imageURL" style="display:none"/>
-							<button type="button" class="btn btn-default btn-add-image">추가</button>
-						</form>
+				<!-- 상품 코드 끝 -->
+				<!-- 상위 옵션 시작 -->
+				<div class="form-group"> 
+					<label class="col-sm-2 col-md-2 control-label">옵션 그룹</label>
+					<div class="col-sm-10 col-md-4">
+						<select class="form-control option-group" name="optionGroupCode">
+							<c:forEach items="${optionGroupList }" var="optionGroup">
+							<option value="${optionGroup.optionGroupCode }">${optionGroup.optionGroupName }</option>
+							</c:forEach>
+						</select>
+					</div> 
+					<label class="col-sm-2 col-md-1 control-label">옵션</label>
+					<div class="col-sm-10 col-md-4">
+						<select class="form-control option" name="OptionCode">
+						</select>
 					</div>
+					<div class="col-md-offset-2"></div>
 				</div>
-			</div> 
-			<!-- 사진 추가 끝 -->
-			<!-- 하위 옵션 추가 버튼 시작 -->
-			<div class="form-group"> 
-				<label for="productCode" class="col-sm-2 control-label">하위 옵션</label>
-				<div class="col-sm-10">
-					<button type="button" class="btn btn-primary btn-add-item">추가</button>
-				</div>
-			</div> 
-			<!-- 하위 옵션 추가 버튼 끝-->
-			<!-- 하위 옵션 양식 시작 -->
-			<div class="form-group"> 
-				<div class="col-sm-offset-2 col-sm-9">
-					<div class="row">
+				<!-- 상위 옵션 끝 -->
+				<!-- 사진 추가 시작 -->
+				<div class="form-group"> 
+					<label class="col-sm-2 control-label">사진</label>
+					<div class="col-sm-10 col-md-9">
+						<div class="image-form">
+							<form action="uploads" method="post" enctype="multipart/form-data">
+								<input type="file" class="form-control product-image-uploader" name="imageURL" style="display:none"/>
+								<button type="button" class="btn btn-default btn-add-image">추가</button>
+							</form>
+						</div>
 					</div>
-				</div>
-			</div> 
-			<!-- 하위 옵션 양식 끝 -->
-		</div> 
-		<!-- 상품 추가 양식 끝 -->
+				</div> 
+				<!-- 사진 추가 끝 -->
+				<!-- 하위 옵션 추가 버튼 시작 -->
+				<div class="form-group"> 
+					<label for="productCode" class="col-sm-2 control-label">하위 옵션</label>
+					<div class="col-sm-10">
+						<button type="button" class="btn btn-primary btn-add-item">추가</button>
+					</div>
+				</div> 
+				<!-- 하위 옵션 추가 버튼 끝-->
+				<!-- 하위 옵션 양식 시작 -->
+				<div class="form-group"> 
+					<div class="col-sm-offset-2 col-sm-9">
+						<div class="row">
+						</div>
+					</div>
+				</div> <!-- 하위 옵션 양식 끝 -->
+			<!-- </div> --> <!-- <div class="row"> -->
+		</div> <!-- <div class="col-sm-11 product-form"> --> <!-- 상품 추가 양식 끝 -->
 	</div>
 	<!-- 동적 추가 요소 모음 끝 -->
 	<script type="text/javascript">

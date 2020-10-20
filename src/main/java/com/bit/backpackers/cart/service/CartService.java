@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 
 import com.bit.backpackers.cart.model.entity.CartProductVo;
 import com.bit.backpackers.member.model.entity.MemberVo;
+import com.bit.backpackers.order.model.entity.OrderedProductVo;
 import com.bit.backpackers.product.model.entity.ProductVo;
 
 public interface CartService {
@@ -16,6 +17,6 @@ public interface CartService {
 	void getCartByMemberId(Model model, MemberVo user) throws SQLException;
 	void removeItemFromCart(ProductVo bean, MemberVo user) throws SQLException;
 	List<CartProductVo> getCartForOrder(String jsonCart, MemberVo user) throws SQLException, ParseException;
-	void removeItemsFromCart(List<? extends ProductVo> productList, MemberVo user) throws SQLException;
+	void removeItemsFromCart(List<OrderedProductVo> productList, MemberVo user) throws SQLException;
 	
 }

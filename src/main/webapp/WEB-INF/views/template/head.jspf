@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta charset="UTF-8">
 
 	<% request.setAttribute("root", request.getContextPath()); %>
 	<% request.setAttribute("productImage", request.getContextPath() + "/resources/img/product"); %>
-	<% request.setAttribute("noImage", request.getContextPath() + "/resources/img/product/no-image.png"); %>
+	<% request.setAttribute("noImage", request.getContextPath() + "/resources/img/product/no-image.jpg"); %>
 
 	<link rel="stylesheet" type="text/css" href="/backpackers/resources/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="/backpackers/resources/css/bootstrap.min.css">
@@ -13,7 +12,7 @@
 	<!-- <script type="text/javascript" src="/backpackers/resources/js/bootstrap.js"></script> -->
  	<script type="text/javascript" src="/backpackers/resources/js/bootstrap.bundle.min.js"></script>
 
-	<title>자유로움 ::: Backpackers</title>
+	<title>::: Backpackers :::</title>
 	
 	<style type="text/css">
 		.navbar-brand {

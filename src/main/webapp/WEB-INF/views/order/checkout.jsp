@@ -58,9 +58,6 @@
 						<span>총 결제 금액 : </span>
 						<span></span>
 					</div><!-- 총 결제 금액 end -->
-					<div class="delivery-info"><!-- 배송 정보 -->
-						<span>배송 정보 작업 중 : 회원 api 필요</span>
-					</div><!-- 배송 정보 end -->
 					<div class="purchase-form"><!-- 버튼 -->
 						<form action="${root }/order/checkout" method="POST">
 							<input type="number" name="orderAmount" hidden="true">
