@@ -30,6 +30,9 @@
     margin-top: 25px;
 }
 
+.btn {
+	font-size: 1.5rem;
+}
 
 #sideNav .navbar-collapse .navbar-nav .nav-item .nav-link {
     display: block;

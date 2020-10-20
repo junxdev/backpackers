@@ -15,7 +15,7 @@
     width: 400px;
     height: 800px;
     position: upset;
-    margin: 50 50 50 500;
+    margin: 50 auto;
     background: #fff;
     padding: 5px;
     overflow: hidden;

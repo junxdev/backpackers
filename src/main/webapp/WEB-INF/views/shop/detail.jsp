@@ -51,63 +51,73 @@ div.shop-price {
 
 body {
     font-size: 20px;
+    word-break: keep-all; // 화면에 단어 단위로 유지되어 표기
 }
 
 .btn {
     font-size: 1.5rem;
 }
 
-.carousel-control {
+.carousel-control {    
+	font-size: 1.5rem;
 	opacity: 0;
 }
 
+BODY {
+    MARGIN: revert;
+}
+
 </style>
+
+
+
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/template/nav.jspf"%>
 	<%@ include file="/WEB-INF/views/template/header.jspf"%>
-
-	<div class="col-xs-12 col-sm-6 col-md-6 shop-item">
-		<div id="carousel-example-generic" class="carousel slide"
-			data-ride="carousel">
-			<!-- Wrapper for slides -->
-			<div class="carousel-inner" role="listbox">
-				<!-- 등록된 이미지가 없을 때 -->
-				<c:if test="${imageList.size() == 0 }">
-					<div class="item active">
-						<img src="${productImage }/no-image.jpg"
-							alt="상품이미지 없음" />
-					</div>
-				</c:if>
-				<c:forEach items="${imageList }" var="image" varStatus="status">
-					<!-- 등록된 이미지들을 나열 -->
-					<c:if test="${status.index == 0}">
-						<div class="item active">
+	
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-6 shop-item">
+			<div id="carouselExampleIndicators" class="carousel slide"
+				data-ride="carousel">				
+				<div class="carousel-inner">
+					<c:if test="${imageList.size() == 0 }">
+						<div class="carousel-item active">
+							<img src="${productImage }/no-image.jpg" class="d-block w-100"
+								alt="상품이미지 없음" />
+						</div>
 					</c:if>
-					<c:if test="${status.index != 0}">
-						<div class="item">
-					</c:if>
-					<img src="${productImage }/${image.imageURL}"
-						alt="상품이미지" />
+					<c:forEach items="${imageList }" var="image" varStatus="status">
+						<!-- 등록된 이미지들을 나열 -->
+						<c:if test="${status.index == 0}">
+							<div class="carousel-item active">
+								<img src="${productImage }/${image.imageURL}"
+									class="d-block w-100" alt="상품이미지" />
+							</div>
+						</c:if>
+						<c:if test="${status.index != 0}">
+							<div class="carousel-item">
+								<img src="${productImage }/${image.imageURL}"
+									class="d-block w-100" alt="상품이미지" />
+							</div>
+						</c:if>
+					</c:forEach>
+			
 				</div>
-				</c:forEach>
-			<!-- 1개의 상품을 출력 -->
-			<!-- Controls -->
-			<a class="left carousel-control" href="#carousel-example-generic"
-				role="button" data-slide="prev"> <span
-				class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-				<span class="sr-only">Previous</span>
-			</a> <a class="right carousel-control" href="#carousel-example-generic"
-				role="button" data-slide="next"> <span
-				class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
-			</a>
+				<a class="carousel-control-prev" href="#carouselExampleIndicators"
+					role="button" data-slide="prev"> <span
+					class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+					class="sr-only">Previous</span>
+				</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
+					role="button" data-slide="next"> <span
+					class="carousel-control-next-icon" aria-hidden="true"></span> <span
+					class="sr-only">Next</span>
+				</a>
 			</div>
-		</div>
+		
+
 	</div>
-
-
-	<div class="col-xs-12 col-sm-6 col-md-6 shop-info">
+	<div class="col-xs-12 col-sm-5 col-sm-offset-1 col-md-5 col-md-offset-1 shop-info">
 		<div class="shop-title">
 			<h2>${shop.shopTitle }</h2>
 		</div>
@@ -246,6 +256,7 @@ body {
 										document.querySelector('.shop-message').innerText = '장바구니에 ${shop.shopTitle }(' 
 												+ firstOption + ', ' + secondOption + ') 상품 ' + quantity + '개를 담았습니다!';
 										$('#shopModal').modal('show');
+										//$('.test-modal').modal('show');
 									},
 									error: function(e) {
 										if(e.status == 400) {
@@ -257,8 +268,8 @@ body {
 						})();
 					</script>
 					
-	</div>
-	</div>
+			</div>
+		</div>
 	</div>
 	<!-- info end -->
 	</div>
@@ -266,7 +277,7 @@ body {
 	<!-- Content ends -->
 	<%@ include file="/WEB-INF/views/template/footer.jspf"%>
 	<!-- 쇼핑 모달 -->
-	<div id="shopModal" class="modal fade" tabindex="-1" role="dialog">
+	<div id="shopModal" class="modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-body">
@@ -289,5 +300,33 @@ body {
 		<!-- /.modal-dialog -->
 	</div>
 	<!-- /.modal -->
+	<div class="modal test-modal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Modal title</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p>Modal body text goes here.</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary">Save changes</button>
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<script type="text/javascript">
+	$('.carousel').carousel({
+		interval: 1000,
+		cycle: 'true'
+	})
+
+</script>
+
 </body>
 </html>

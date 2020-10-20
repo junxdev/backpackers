@@ -68,7 +68,9 @@
             <div class="container h-100">
                 <div class="row h-100 align-items-center justify-content-center text-center">
                     <div class="col-lg-8 align-self-end">
-                        <h1 class="text-uppercase text-white font-weight-bold">TO GET READY FOR YOUR FIRST BACKPACKING TRIP, VISIT OUR WEBSITE</h1>
+                        <h1 class="text-uppercase text-white font-weight-bold">첫번째 백패킹을</h1>
+                         <h1 class="text-uppercase text-white font-weight-bold">떠날 준비가 되셨다면</h1>
+                         <h1 class="text-uppercase text-white font-weight-bold">여기를 방문하세요</h1>
                         <hr class="divider my-4" />
                     </div>
                     <div class="col-lg-8 align-self-baseline">

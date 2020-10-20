@@ -23,7 +23,7 @@ body {
 	width: 600px;
 	height: 1300px;
 	position: relative;
-	margin: 50 50 50 500;
+    margin: 50 auto;
 	background: #fff;
 	padding: 5px;
 	overflow: hidden;

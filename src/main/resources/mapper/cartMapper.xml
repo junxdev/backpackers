@@ -10,9 +10,7 @@
   	
   	<select id="selectCart" resultType="CartProductVo">
   		SELECT 
-  			cart.cartId,
   			cart.productCode,
-  			cart.cartDate,
   			product.optionCode AS firstOptionCode,
   			cart.optionCode AS secondOptionCode,
   			COUNT(cart.optionCode) AS quantity 
@@ -22,9 +20,8 @@
   		WHERE cart.cartRemoved = 0 AND cart.userId = #{userId}
   		GROUP BY
   			cart.productCode,
-  			cart.optionCode
-  		ORDER BY
-  			cart.cartDate ASC;
+            product.optionCode,
+  			cart.optionCode;
   	</select>
   	
   	<delete id="minusItemQuantity">

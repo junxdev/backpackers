@@ -23,11 +23,13 @@
 			<li class="nav-item active"><c:if test="${user ne null}">
 					<c:if test="${user.grade eq 1}">
 						<a class="text"> ${user.userId }님 입장을 환영합니다 </a>
+						<a class="btn btn-primary" href="${root }/order/cart">장바구니</a>
 						<a class="btn btn-primary" href="${root }/admin/adminPage">관리자
 							페이지</a>
 					</c:if>
 					<c:if test="${user.grade eq 0}">
 						<a class="text"> ${user.userId }님 입장을 환영합니다 </a>
+						<a class="btn btn-primary" href="${root }/order/cart">장바구니</a>
 						<a class="btn btn-primary" href="${root }/user/myPage">마이 페이지</a>
 					</c:if>
 					<a class="btn btn-primary" href="${root }/user/logout">로그아웃</a>
