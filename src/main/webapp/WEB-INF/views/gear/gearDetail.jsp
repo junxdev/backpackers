@@ -56,6 +56,10 @@
 	  }
 	}
 	
+	.row {
+    display: block;
+    }
+	
 </style>
 </head>
 

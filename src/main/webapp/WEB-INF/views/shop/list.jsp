@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,11 +11,25 @@
 	<link type="text/css" rel="stylesheet" href="${root }/resources/css/shop.css"/>
 	<style type="text/css">
 	
-	
 		li{
-		 list-style: none;
+		 	list-style: none;
 		}
 		
+		ul {
+	    	padding-inline-start: 10px;
+		}
+		
+		.card {
+			border: 0px solid rgba(0,0,0,0.125);
+		}
+		
+		h4, .h4 {
+    		font-size: 2rem;
+		}
+		
+		h5, .h5 {
+    		font-size: 1.5rem;
+		}
 		
 	</style>
 </head>
@@ -43,7 +58,9 @@
 					<div class="row">
 							<!-- 등록된 상품 페이지를 나열 -->
 							<c:forEach items="${shopList }" var="shop">
-							<div class="col-md-4">
+							 <div class="col-lg-4 mb-4">
+							 	<div class="card h-100">
+							 
 							<c:set value="${productMap[shop.shopCode] }" var="productList"></c:set>
 										<ul>
 											<!-- 상품 페이지에 등록된 상품을 나열 -->
@@ -65,8 +82,16 @@
 													</li>
 												</c:if>
 										</ul>
-									<th>${shop.shopTitle }</th>
-									<th>가격:${shop.shopPrice }</th>
+										<div class="card-body">
+											 <h4 class="card-title">
+											 	<a href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }">${shop.shopTitle }</a>
+											 </h4>
+											 <h5 class="card-title">	
+											 	<a href="${root }/shop/${shop.mainCategoryName }/${shop.subCategoryName }/${shop.shopCode}/${product.productCode }"><fmt:formatNumber value="${shop.shopPrice }" pattern="#,###"></fmt:formatNumber>원 </a>
+         									 </h5>
+										</div>
+										</div>	     
+									
 								</div>
 							</c:forEach>
 						<!-- 카테고리에 등록된 상품이 없을 때 -->
