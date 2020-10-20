@@ -8,7 +8,9 @@
 <html lang="en">
 <head>
 
-<%@ include file="/WEB-INF/views/template/head.jspf" %>
+<%@ include file="/WEB-INF/views/template/head.jspf" %>    
+<%@ include file="/WEB-INF/views/template/nav.jspf" %>
+<%@ include file="/WEB-INF/views/template/header.jspf" %>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -42,6 +44,18 @@ section.resume-section {
     padding-top: 1rem;
     padding-bottom: 5rem;
 }
+#btn1 {
+	margin-left: 30px;
+	margin-right:30px;
+	margin-top: 50px;
+	width: 100px;
+	height: 30px;
+	background-color:#79bbff;
+	font-size:12px;
+	font-weight:bold;
+	cursor:pointer;
+	color:#ffffff;
+}
 
 #sideNav{
 background-color: #AD9AEE !important;
@@ -50,9 +64,7 @@ background-color: #AD9AEE !important;
 </style>       
         
 </head>
-    
-<%@ include file="/WEB-INF/views/template/nav.jspf" %>
-<%@ include file="/WEB-INF/views/template/header.jspf" %>
+
 
     <body id="page-top">
         <!-- Navigation-->
@@ -66,7 +78,6 @@ background-color: #AD9AEE !important;
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#backpacking"></a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">주문 목록</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#registerEdit">개인정보 수정</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#delete">회원 탈퇴</a></li>
                     
@@ -75,34 +86,20 @@ background-color: #AD9AEE !important;
         </nav>
         <!-- Page Content-->
         <div class="container-fluid p-0">
-        
-            <!-- 백패킹 글 관리 -->
-            <section class="resume-section" id="backpacking">
-                <div class="resume-section-content">
-                    <h2 class="mb-5">백패킹</h2>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">백패킹 게시판</h3>
-                            <a class="btn btn-default" href="${root}/gear" role="button">게시판 관리</a>
-                            <p>이 게시판은 관리자가 백패킹에 관련 정보 글을 올리는 곳으로, 관리자만 글을 쓰고 관리 할 수 있습니다.</p>
-                        </div>
-                        <div class="flex-shrink-0"><span class="text-primary">관리자 전용</span></div>
-                    </div>
-                </div>                                        
-            </section>
-			<hr class="m-0" />
-			
+			<hr class="m-0" />	
             <!-- 개인정보 수정 -->
             <section class="resume-section" id="registerEdit">
                 <div class="resume-section-content">
                    <h2 class="mb-5">개인정보 수정</h2>
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-3">
-                            <h3 class="mb-0">명소 게시판</h3>
-                            <a class="btn btn-default" href="${root}/user/registerEdit" role="button">게시판 관리</a>
-                            <p>이 게시판은 관리자가 백패킹에 적합한 명소를 지도에 표기하고 명소에 관한 글을 올리는 곳으로, 관리자만 글을 쓰고 관리 할 수 있습니다.</p>
+                            <h3 class="mb-0">개인정보 수정페이지</h3>
+							<a class="btn btn-default" id="btn1" href="${root}/user/registerEdit" role="button">회원정보 수정</a>
+							<br/><br/><br/>
+                            <h4>(주)backpackers의 회원정보 수정을 원하시면 위쪽의 버튼을 눌러주세요</h4><br/>
+                            <h5>저희 사이트는 고객님의 소중한 개인정보를 보호하려 항상 노력하고있습니다.</h5>
                         </div>
-                        <div class="flex-shrink-0"><span class="text-primary">관리자 전용</span></div>
+                        <div class="flex-shrink-0"><span class="text-primary">개인회원 전용</span></div>
                     </div>
                 </div>                                        
             </section>
@@ -113,11 +110,13 @@ background-color: #AD9AEE !important;
                     <h2 class="mb-5">회원 탈퇴</h2>
                     <div class="d-flex flex-column flex-md-row justify-content-between">
                         <div class="flex-grow-1">
-                            <h3 class="mb-0">회원 탈퇴</h3>
-                            <a class="btn btn-default" href="${root}/user/delete" role="button">회원탈퇴 이동</a>
-                           
+                            <h3 class="mb-0">회원 탈퇴 페이지</h3>
+                            <a class="btn btn-default" id="btn1" href="${root}/user/delete" role="button">회원탈퇴</a> 
+                            	<br/><br/><br/>
+                            <h4>(주)backpackers의 회원탈퇴를 원하시면 위쪽의 버튼을 눌러주세요</h4><br/>
+                            <h5>저희 사이트를 그동안 이용해주셔서 감사합니다. </h5>       
                         </div>
-                        <div class="flex-shrink-0"><span class="text-primary"> 회원탈퇴???</span></div>
+                           <div class="flex-shrink-0"><span class="text-primary">개인회원 전용</span></div>
                     </div>
                 </div>
             </section>

@@ -82,10 +82,7 @@ body {
 				$("#phoneNum").focus();
 				return false;
 			}
-			if (!idCheckPassed) {
-				swal("중복된 아이디입니다");
-				return false;
-			}
+
 			/* var idChkVal = $("#idChk").val();
 			if (idChkVal == "N") {
 				swal("중복확인 버튼을 눌러주세요.");
@@ -217,8 +214,7 @@ body {
 
 <body>
 	<div class="container">
-		<form <%-- action="${root}/user/registerEdit"  --%>method="post"
-			id="registerPage">
+		<form  id="registerPage" method="Post">
 			<div class="form-group has-feedback">
 				<input type="text" id="userId" name="userId" value="${user.userId}"
 					class="form-control" placeholder="아이디" readonly="readonly">
