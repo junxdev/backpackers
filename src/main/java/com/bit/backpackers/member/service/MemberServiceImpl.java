@@ -1,4 +1,4 @@
-package com.bit.backpackers.service;
+package com.bit.backpackers.member.service;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
@@ -16,10 +16,11 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
-import com.bit.backpackers.model.MemberDAO;
-import com.bit.backpackers.model.entity.LoginDTO;
-import com.bit.backpackers.model.entity.MemberVo;
+import com.bit.backpackers.member.model.MemberDAO;
+import com.bit.backpackers.member.model.entity.LoginDTO;
+import com.bit.backpackers.member.model.entity.MemberVo;
 
 import common.exception.MailException;
 
@@ -145,12 +146,10 @@ public class MemberServiceImpl implements MemberService {
 	//회원 수정
 	@Override
 	public void modify(MemberVo memberVo) throws Exception {
+		
 		memberDAo.modify(memberVo);
+	
+		
 		
 	}
-
-
-
-
-
 }

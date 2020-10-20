@@ -1,4 +1,4 @@
-package com.bit.backpackers.service;
+package com.bit.backpackers.member.service;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Member;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.mail.javamail.JavaMailSender;
 
-import com.bit.backpackers.model.entity.LoginDTO;
-import com.bit.backpackers.model.entity.MemberVo;
+import com.bit.backpackers.member.model.entity.LoginDTO;
+import com.bit.backpackers.member.model.entity.MemberVo;
 
 import common.exception.MailException;
 
@@ -37,7 +37,7 @@ public interface MemberService {
     //회원탈퇴
     void delete(MemberVo memberVo) throws Exception;
   //회원 수정
-   	public void modify(MemberVo memberVo)throws Exception;
+   	 void modify(MemberVo memberVo)throws Exception;
     
 
 	

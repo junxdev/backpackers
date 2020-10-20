@@ -1,4 +1,4 @@
-package com.bit.backpackers.model;
+package com.bit.backpackers.member.model;
 
 import java.util.Date;
 import java.util.Map;
@@ -6,8 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.javassist.compiler.ast.Member;
 
-import com.bit.backpackers.model.entity.LoginDTO;
-import com.bit.backpackers.model.entity.MemberVo;
+import com.bit.backpackers.member.model.entity.LoginDTO;
+import com.bit.backpackers.member.model.entity.MemberVo;
 
 
 

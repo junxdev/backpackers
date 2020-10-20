@@ -1,4 +1,4 @@
-package com.bit.backpackers.model;
+package com.bit.backpackers.member.model;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -9,8 +9,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.bit.backpackers.model.entity.LoginDTO;
-import com.bit.backpackers.model.entity.MemberVo;
+import com.bit.backpackers.member.model.entity.LoginDTO;
+import com.bit.backpackers.member.model.entity.MemberVo;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
