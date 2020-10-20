@@ -8,6 +8,9 @@
 	<%@ include file="/WEB-INF/views/template/head.jspf" %>
 	<link type="text/css" rel="stylesheet" href="${root }/resources/css/shop.css"/>
 	<style type="text/css">
+		.input-group {
+			display: -webkit-box;
+		}
 	</style>
 </head>
 <body>
@@ -20,19 +23,19 @@
 					<div class="receipt-form"><!-- 주문상품내역 -->
 						<table class="table">
 							<thead>
-								<tr>
-									<th class="col-md-1"><input type="checkbox" class="all-product-checkbox"/></th>
-									<th class="col-md-6">상품</th>
-									<th class="col-md-1">가격</th>
-									<th class="col-md-1">수량</th>
-									<th class="col-md-1"></th>
+								<tr class="">
+									<th class="" width="5%"><input type="checkbox" class="all-product-checkbox"/></th>
+									<th class="" width="50%">상품</th>
+									<th class="" width="15%">가격</th>
+									<th class="" width="25%">수량</th>
+									<th class="" width="5%"></th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach items="${productList }" var="product" varStatus="status">
 								<c:forEach items="${shopList }" var="shop" begin="${status.index }" end="${status.index }">
 								<c:forEach items="${imageList }" var="image" begin="${status.index }" end="${status.index }">
-								<tr>
+								<tr class="">
 									<td><!-- 체크박스 -->
 										<input type="checkbox" class="product-checkbox" name="product-checkbox${status.index }"/>
 									</td><!-- 체크박스 end -->
@@ -267,7 +270,7 @@
 		<!-- Content ends -->
 	<%@ include file="/WEB-INF/views/template/footer.jspf" %>
 	<!-- 쇼핑 모달 -->
-	<div id="shopModal" class="modal fade" tabindex="-1" role="dialog">
+	<div id="shopModal" class="modal" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-body">

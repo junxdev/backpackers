@@ -14,7 +14,6 @@
 		<!-- Content starts 필요 시 임의로 그리드 조정 -->
 		<div class="row">
 			<div class="col-md-12">
-				<div class="content">
 					<div class="order-form"><!-- 주문상품내역 -->
 						<table class="table">
 							<thead>
@@ -93,7 +92,6 @@
 						presentOrderAmount();
 						setPurchaseAmount();
 					</script>
-				</div><!-- content end -->
 			</div><!-- col end -->
 		</div><!-- row end -->
 		<!-- Content ends -->

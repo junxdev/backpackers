@@ -4,12 +4,13 @@
 .nav-category li li {
 	padding-left: 1rem;
 }
-.nav-category a:hover {
-	color: #aaaaaa;
+a:not([href]):not([class]) {
+	color: #593196;
 }
-a {
-	color: black;
+a:not([href]):not([class]):hover {
+	color: #593196;
 }
 a:hover {
 	text-decoration: none;
+	cursor: pointer;
 }

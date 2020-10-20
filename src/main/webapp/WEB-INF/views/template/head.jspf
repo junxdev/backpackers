@@ -8,9 +8,9 @@
 	<link rel="stylesheet" type="text/css" href="/backpackers/resources/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="/backpackers/resources/css/bootstrap.min.css">
 	<script type="text/javascript" src="/backpackers/resources/js/jquery-1.12.4.js"></script>
-	<script type="text/javascript" src="/backpackers/resources/js/bootstrap.js"></script>
+	<!-- <script type="text/javascript" src="/backpackers/resources/js/bootstrap.js"></script> -->
 	<!-- 슬림버전 삭제 아이디찾기,비번찾기 ajax 충돌오류 -->
-	<script type="text/javascript" src="/backpackers/resources/js/bootstrap.bundle.min.js"></script>
+ 	<script type="text/javascript" src="/backpackers/resources/js/bootstrap.bundle.min.js"></script>
 	
 
 <title>Backpackers : 3rd project by group 3</title>
