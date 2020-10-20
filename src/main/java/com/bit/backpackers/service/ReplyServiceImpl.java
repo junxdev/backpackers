@@ -20,9 +20,7 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Inject
 	SqlSession sqlSession;
-	
-	
-	
+
 
 	@Override
 	public void insertReply(ReplyVo reply) throws SQLException {

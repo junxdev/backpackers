@@ -93,6 +93,7 @@ public class BoardServiceImpl implements BoardService{
 	dao.increaseViewcnt(board_no);
 	}
 
+	
 
 
 	

@@ -19,24 +19,34 @@ float: right;
 }
 
 
+#boardsubject{
+text-align: center;
+
+}
+#searchbar,#boardwrite,#searchOptionbar,#searchbtn{
+font-size: 15px;
+
+
+}
+
 </style>
 <title>게시판</title>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/template/nav.jspf" %>
 <%@include file="../template/header.jspf" %>
-<table class="table">
+<table class="table table-striped" id="table">
 <tr>
-<th>번호</th>
-<th>제목</th>
-<th>글쓴이</th>
-<th>작성일</th>
-<th>조회</th>
+<th style="width: 10%;">번호</th>
+<th style="width: 55%;" id="boardsubject">제목</th>
+<th style="width: 10%;">글쓴이</th>
+<th style="width: 10%;">작성일</th>
+<th style="width: 10%;">조회</th>
 </tr>
 <c:forEach items="${list}" var="title">
 <tr>
 <td>${title.board_no}</td>
-<td><a href="./${title.board_no}">${title.board_subject}</a></td>
+<td id="boardsubject"><a href="./${title.board_no}">${title.board_subject}</a></td>
 <td>${title.user_ID}</td>
 <td>${title.board_date}</td>
 <td>${title.board_views}</td>
@@ -51,14 +61,16 @@ float: right;
   <option value="board_content"<c:out value="${map.earchOption == 'board_content'?'selected':''}"/> >내용</option>
 </select>
  <div><input type="text" name="keyword" value="${map.keyword}" class="form-control" id="searchbar" placeholder="검색">
- <button class="btn btn-primary" type="submit">검색</button></div>
+ <button class="btn btn-primary" type="submit" id="searchbtn">검색</button> <a class="btn btn-primary" href="./boardwrite" role="button" id="boardwrite">글쓰기</a></div>
  </form>
-<p><a class="btn btn-primary" href="./boardwrite" role="button" id="boardwrite">글쓰기</a></p>
+ <c:if test="${sessionScope.user != null}">
+
+</c:if>
 </div>
 <div class="boardpaging">
 
 
-<ul class="btn-group pagination">
+<ul class="btn-group pagination" id="boardpaging">
     <c:if test="${pageMaker.prev }">
     <li>
         <a href='<c:url value="/board/?page=${pageMaker.startPage-1 }"/>'><i class="fa fa-chevron-left">이전</i></a>

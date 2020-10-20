@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
@@ -14,12 +15,14 @@ import org.springframework.ui.Model;
 import com.bit.backpackers.category.model.entity.CategoryVo;
 import com.bit.backpackers.image.model.entity.ImageVo;
 import com.bit.backpackers.item.model.entity.ItemVo;
+import com.bit.backpackers.model.BoardDao;
 import com.bit.backpackers.option.model.entity.OptionVo;
 import com.bit.backpackers.order.Order;
 import com.bit.backpackers.product.Product;
 import com.bit.backpackers.product.model.ProductDao;
 import com.bit.backpackers.product.model.entity.ProductVo;
 import com.bit.backpackers.shop.model.ShopDao;
+import com.bit.backpackers.shop.model.entity.ReviewVo;
 import com.bit.backpackers.shop.model.entity.ShopVo;
 
 @Service
@@ -101,6 +104,20 @@ public class ShopServiceImpl implements ShopService {
 		model.addAttribute("imageList", imageList);
 		model.addAttribute("optionList", optionList);
 		model.addAttribute("titleImageMap", titleImageMap);
+	}
+
+	@Override
+	public void reviewList(Model model, String shopCode) throws SQLException {
+		ShopDao dao=sqlSession.getMapper(ShopDao.class);
+		model.addAttribute("review",dao.reviewList(shopCode));
+		
+	}
+
+	@Override
+	public void registReview(ReviewVo review) throws SQLException {
+		ShopDao dao=sqlSession.getMapper(ShopDao.class);
+		dao.registReview(review);
+		
 	}
 
 }

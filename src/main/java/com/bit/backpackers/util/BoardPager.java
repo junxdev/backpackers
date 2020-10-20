@@ -2,7 +2,7 @@ package com.bit.backpackers.util;
 
 public class BoardPager {
 	// 페이지당 게시물 수
-	public static final int PAGE_SCALE = 500;
+	public static final int PAGE_SCALE =  15;
 	// 화면당 페이지 수
 	public static final int BLOCK_SCALE = 10;
 	private int curPage; // 현재 페이수
