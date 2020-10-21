@@ -36,6 +36,10 @@
 			font-size: 3rem;
 		}
 		
+		.shop-content {
+			margin: 2em 0em 0em 0em ;
+		}
+		
 		.first-option img {
 			border: 2px solid white;
 		}
@@ -278,6 +282,18 @@
     	});
 		$('.carousel').carousel({interval : 2000, pause : false});
 	</script>
+	<!-- content -->
+	<div class="row">
+		<div class="col-sm-12 shop-content">
+			<h4>상품 소개</h4>
+			 <hr class="my-4">
+		</div>
+		
+		<div class="col-sm-12 shop-content">
+			<h4>${shop.shopContent }</h4>
+		</div>
+	</div>	
+	<!-- content -->
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#review_btn").click(function() {
@@ -302,8 +318,11 @@
 		});
 	</script>
 	<!-- review -->
+	
 	<div class="row">
 		<div class="col-sm-12">
+			<div class="shop-content"></div>
+			<div class="shop-content"></div>
 			<div id="review">
 				<c:if test="${sessionScope.username == null }">
 					<p>한줄평을 남기시려면 <a href="/backpackers/user/login">로그인</a>해주세요</p>
@@ -340,6 +359,7 @@
 										<td>
 											<c:if test="${sessionScope.username == review.userId }">
 											<input type="hidden" name="_method" value="put">
+											<input type="text" name="location" value="${requestScope['javax.servlet.forward.servlet_path']}" hidden="true"/>
 											<button name="reviewNo" value="${review.reviewNo }" type="submit" 
 											id="review_upd_btn" class="btn btn-primary">수정하기</button>
 											</c:if>

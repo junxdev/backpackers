@@ -5,7 +5,7 @@
   <mapper namespace="com.bit.backpackers.shop.model.ShopDao">
   
   	<select id="selectShopList" resultType="ShopVo">
-	    SELECT shopCode, shopTitle, shopPrice, subCategoryName, mainCategoryName 
+	    SELECT shopCode, shopTitle, shopPrice, shopContent, subCategoryName, mainCategoryName 
 		FROM shop AS shop 
 		LEFT JOIN (
 			SELECT sub.subCategoryCode, sub.subCategoryName, main.mainCategoryName 
@@ -27,7 +27,7 @@
   	</select>
   	
   	<select id="selectShop" resultType="ShopVo">
-		SELECT shopCode, shopTitle, shopPrice, subCategoryName, mainCategoryName 
+		SELECT shopCode, shopTitle, shopPrice, shopContent, subCategoryName, mainCategoryName 
 		FROM shop AS shop 
 		LEFT JOIN (
 			SELECT sub.subCategoryCode, sub.subCategoryName, main.mainCategoryName 

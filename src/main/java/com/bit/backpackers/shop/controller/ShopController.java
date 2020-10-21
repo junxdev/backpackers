@@ -1,20 +1,16 @@
 package com.bit.backpackers.shop.controller;
 
 import java.sql.SQLException;
-import java.util.Map;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bit.backpackers.category.service.CategoryService;
 import com.bit.backpackers.shop.model.entity.ReviewVo;
@@ -91,14 +87,13 @@ public class ShopController {
 	@RequestMapping(value = "/{reviewNo}/delete", method=RequestMethod.DELETE)
 	public String deleteReview(@PathVariable int reviewNo, String location) throws SQLException{
 		shopService.deleteReview(reviewNo);
-		System.out.println("*******************" + location);
 		return "redirect:" + location;
 	}
 	
 	@RequestMapping(value = "/{reviewNo}/update", method=RequestMethod.PUT)
-	public String updateReview(@PathVariable int reviewNo, @ModelAttribute ReviewVo review) throws SQLException{
+	public String updateReview(@PathVariable int reviewNo, @ModelAttribute ReviewVo review, String location) throws SQLException{
 		shopService.updateReview(review);
-		return "redirect:.";
+		return "redirect:" + location;
 	}
 
 }
