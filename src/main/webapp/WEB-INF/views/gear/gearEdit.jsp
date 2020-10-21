@@ -23,6 +23,20 @@
 <script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
 	
 	
+	
+	
+<style type="text/css">
+
+	.btn-default {
+    	position: relative;
+    	left: 35%;
+	}
+
+
+</style>	
+	
+	
+	
 </head>
 <body>
 	

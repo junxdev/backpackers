@@ -33,6 +33,27 @@
   background-size: cover;
   -o-background-size: cover;
 }  
+
+ 	body > div > div > div.col-md-10.col-md-offset-1 > div > div.row > a,
+ 		body > div > div > div.col-md-10.col-md-offset-1 > div > div.row > form > button {
+		color: #593196;
+		border: 1px solid #cfcfe0;
+		font-size: inherit;
+	}
+	
+	body > div > div > div.col-md-10.col-md-offset-1 > div > div.row > a {
+		display: -webkit-box;
+    	position: relative;
+    	left: 2%;
+	}
+
+	body > div > div > div.col-md-10.col-md-offset-1 > div > div.row > form > button {
+		display: -webkit-box;
+    	position: relative;
+    	left: 40%;
+	}
+
+
 </style>  
 
 </head>

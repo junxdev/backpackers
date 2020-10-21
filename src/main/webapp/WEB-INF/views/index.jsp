@@ -74,8 +74,8 @@
                         <hr class="divider my-4" />
                     </div>
                     <div class="col-lg-8 align-self-baseline">
-                        <p class="text-white-75 font-weight-light mb-5">Communicate other backpackers and get some gears can help you enjoy backpacking! Just look around and start communicating!</p>
-                        <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
+                        <p class="text-white-75 font-weight-light mb-5">다른 백패커들과 소통하고 백패킹을 더 즐겁게 해 줄 장비들을 구입하세요!</p>
+                        <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">더 알아보기</a>
                     </div>
                 </div>
             </div>
@@ -85,10 +85,10 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8 text-center">
-                        <h2 class="text-white mt-0">We've got what you need!</h2>
+                        <h2 class="text-white mt-0">당신이 필요한 모든 것이 있습니다</h2>
                         <hr class="divider light my-4" />
-                        <p class="text-white-50 mb-4">There is no need to worry about your fist backpacking trip! We have some tips and gears for you!</p>
-                        <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>
+                        <p class="text-white-50 mb-4">처음 백패킹을 떠난다고 해서 걱정할 필요 없습니다! 당신을 위한 백패킹 조언과 장비가 있습니다!</p>
+                        <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">시작하기</a>
                     </div>
                 </div>
             </div>
@@ -96,36 +96,36 @@
         <!-- Services-->
         <section class="page-section" id="services">
             <div class="container">
-                <h2 class="text-center mt-0">At Your Service</h2>
+                <h2 class="text-center mt-0">당신을 위한 기능</h2>
                 
                 <hr class="divider my-4" />
                 <div class="row">
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <img class="img-fluid" src="resources/assets/img/portfolio/logo/icon1.jpg" style="width: 100px; height: 70px;"/>
-                            <h3 class="h4 mb-2">Choose an easy destination</h3>
-                            <p class="text-muted mb-0">Short overnight hikes close to home are best!</p>
+                            <h3 class="h4 mb-2">접근가능성 높은 명소 선정</h3>
+                            <p class="text-muted mb-0">집에서 가까운 장소가 백패킹하기 가장 좋습니다!</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                              <img class="img-fluid" src="resources/assets/img/portfolio/logo/icon3.jpg" style="width: 100px; height: 70px;"/>
-                            <h3 class="h4 mb-2">Need some gears</h3>
-                            <p class="text-muted mb-0">Get essential gear and clothing</p>
+                            <h3 class="h4 mb-2">필요한 장비</h3>
+                            <p class="text-muted mb-0">백패킹에 필수적인 장비와 옷을 구입할 수 있습니다</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                              <img class="img-fluid" src="resources/assets/img/portfolio/logo/icon2.jpg" style="width: 100px; height: 70px;"/>
-                            <h3 class="h4 mb-2">Communicate Other Backpackers</h3>
-                            <p class="text-muted mb-0">You can get some information and discuss others how to do backpacking</p>
+                            <h3 class="h4 mb-2">다른 백패커들과의 소통</h3>
+                            <p class="text-muted mb-0">백패킹에 대해 이야기하고 정보를 습득하세요</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                                            <img class="img-fluid" src="resources/assets/img/portfolio/logo/icon4.jpg" style="width: 100px; height: 70px;"/>
-                            <h3 class="h4 mb-2">Get ready for your trip</h3>
-                            <p class="text-muted mb-0">Condition yourself to do the planned hike with a fully loaded pack</p>
+                            <h3 class="h4 mb-2">첫번째 백패킹을 위한 준비</h3>
+                            <p class="text-muted mb-0">백패킹 안내글을 보고 가방을 필수적인 장비로 채우세요</p>
                         </div>
                     </div>
                 </div>
@@ -196,8 +196,8 @@
         <!-- Call to action-->
         <section class="page-section bg-dark text-white">
             <div class="container text-center">
-                <h2 class="mb-4">If you want to have an experienced backpacking friends, read here!</h2>
-                <a class="btn btn-light btn-xl" href="${root }/board/">Read and Write Now!</a>
+                <h2 class="mb-4">백패킹 경험이 많은 백패커들과 이야기를 나눠 보세요!</h2>
+                <a class="btn btn-light btn-xl" href="${root }/board/">지금 글을 써보세요</a>
             </div>
         </section>
         <!-- Contact-->
@@ -205,9 +205,9 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8 text-center">
-                        <h2 class="mt-0">Let's Shop and Get In Touch!</h2>
+                        <h2 class="mt-0">쇼핑을 하고 저희에게 연락을 주세요!</h2>
                         <hr class="divider my-4" />
-                        <p class="text-muted mb-5">Do you have any questions for your next backpacking trip? Give us a call or send us an email and we will get back to you ASAP!</p>
+                        <p class="text-muted mb-5">다음 백패킹을 위한 질문이 있나요? 저희에게 전화나 이메일을 주시면 가능한 빨리 답해 드리겠습니다</p>
                     </div>
                 </div>
                 <div class="row">
