@@ -73,7 +73,7 @@
     <div class="container">
       <h1> ${bean.title } </h1>
       <p class="lead"> ${bean.sightsContent }</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit, rerum quos facilis repellat architecto commodi officia atque nemo facere eum non illo voluptatem quae delectus odit vel itaque amet.</p>
+      <p>산수화로 겸재 정선의 《인왕제색도》(국보 제216호)가 유명하다. 뒤쪽엔 서대문형무소가 있고 앞쪽에는 경복궁이있다</p>
     </div>
   </section>
 
@@ -87,8 +87,7 @@
   <section class="py-5">
     <div class="container">
       <h1></h1>
-      <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit, rerum quos facilis repellat architecto commodi officia atque nemo facere eum non illo voluptatem quae delectus odit vel itaque amet.</p>
+      <p class="lead">백패킹을 즐기는 방법은 어렵지 않습니다. 우선 배낭 하나 둘러메고 떠날 마음의 여유부터 가져보는 게 첫 번째 단계입니다. 처음부터 많은 장비를 마련하려다보면 장비의 무게에 밀려, 정작 내가 왜 백패킹을 하려 했는지 잊게 될 수 있으니까요. 나의 체력에 맞는 코스부터 차근차근 가벼운 마음으로 자연 속으로 다가간다면 계절은 두 팔 벌려 우리를 반겨줄 거랍니다.</p>      
     </div>
   </section>
 
