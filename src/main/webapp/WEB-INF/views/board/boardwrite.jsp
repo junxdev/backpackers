@@ -45,7 +45,7 @@
  #submitcontent,#cancle{
   font-size: 15px;
    position: relative;
-  left: 1010px;
+  left: 805px;
  }
 </style>
 <script type="text/javascript">

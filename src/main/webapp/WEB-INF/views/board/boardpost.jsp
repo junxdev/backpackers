@@ -25,7 +25,7 @@
 }
 
 .board_content {
-	width: 1563px;
+	width: 1413px;
 	height: 400px;
 	background-color: white;
 	color: black;
