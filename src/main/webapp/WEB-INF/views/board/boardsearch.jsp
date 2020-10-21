@@ -80,28 +80,28 @@ function list(page) {
 <a class="btn btn-primary" href="./boardwrite" role="button" id="boardwrite">글쓰기</a></c:if></div>
 </form>
 </div>
-<div class="boardpaging">
+<%-- <div class="boardpaging">
 
 		<ul class="btn-group pagination" id="boardpaging">
     <c:if test="${pageMaker.prev }">
     <li>
-        <a href='<c:url value="/board/?page=${pageMaker.startPage-1 }"/>'><i class="fa fa-chevron-left">이전</i></a>
+        <a href='<c:url value="/board/boardsearch/?page=${pageMaker.startPage-1 }"/>'><i class="fa fa-chevron-left">이전</i></a>
     </li>
     </c:if>
     <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="pageNum">
     <li>
-        <a href='<c:url value="/board/?page=${pageNum }"/>'><i class="fa">${pageNum }</i></a>
+        <a href='<c:url value="/board/boardsearch/?page=${pageNum }"/>'><i class="fa">${pageNum }</i></a>
     </li>
     </c:forEach>
     <c:if test="${pageMaker.next && pageMaker.endPage >0 }">
     <li>
-        <a href='<c:url value="/board/?page=${pageMaker.endPage+1 }"/>'><i class="fa fa-chevron-right">다음</i></a>
+        <a href='<c:url value="/board/boardsearch/?page=${pageMaker.endPage+1 }"/>'><i class="fa fa-chevron-right">다음</i></a>
     </li>
     </c:if>
 </ul>
 	
 
-</div>
+</div> --%>
 
 <%@include file="../template/footer.jspf" %>
 
