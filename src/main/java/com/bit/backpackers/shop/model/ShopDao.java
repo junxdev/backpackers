@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.bit.backpackers.shop.model.entity.NewShopVo;
 import com.bit.backpackers.shop.model.entity.ReviewVo;
 import com.bit.backpackers.shop.model.entity.ShopVo;
 
@@ -23,4 +24,5 @@ public interface ShopDao {
 	int deleteReview(int ReviewNo) throws SQLException;
 	// 한줄평 수정
 	int updateReview(ReviewVo review) throws SQLException;
+	void insertShop(NewShopVo shop) throws SQLException;
 }

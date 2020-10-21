@@ -116,7 +116,7 @@ section.resume-section {
                         <div class="flex-grow-1">
                             <h3 class="mb-0">쇼핑 상품 등록</h3>
                  <!--       <div class="subheading mb-3">Bachelor of Science</div> -->
-                            <a class="btn btn-default" href="${root}/admin/addproduct" role="button">등록하기</a>
+                            <a class="btn btn-default" href="${root}/admin/shop/form" role="button">등록하기</a>
                                
                         </div>
                         <div class="flex-shrink-0"><span class="text-primary">관리자 전용</span></div>

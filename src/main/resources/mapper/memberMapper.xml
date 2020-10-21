@@ -49,12 +49,11 @@
 		WHERE userId = #{userId} and userPw= #{userPw}
 	</select>
 	<!-- 회원정보 수정 -->
+	<!-- 회원정보 수정 -->
 	<update id="modify">
-		update member
-		set userPw = #{userPw},userEmail = #{userEmail},postCode = #{postCode},
-		address = #{address},detailAddress = #{detailAddress},extraAddress = #{extraAddress},phoneNum = #{phoneNum}
-		 where userPw = #{userPw},userEmail = #{userEmail},postCode = #{postCode},
-		address = #{address},detailAddress = #{detailAddress},extraAddress = #{extraAddress},phoneNum = #{phoneNum}
+		update member SET
+		userName = #{userName}, userPw = #{userPw},userEmail = #{userEmail},postCode = #{postCode},
+		address = #{address},detailAddress = #{detailAddress},extraAddress = #{extraAddress},phoneNum = #{phoneNum} where  userId = #{userId}  
 	</update>
 
 	<!-- 회원탈퇴 -->

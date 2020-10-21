@@ -187,18 +187,17 @@ public class MemberController {
 			logger.info("Modify");
 		}
 		// 회원정보 수정 
-		@RequestMapping(value = "/modify", method = RequestMethod.POST)
+		@RequestMapping(value = "/registerEdit", method = RequestMethod.POST)
 		public String postModify(@ModelAttribute LoginDTO loginDTO, HttpSession session,MemberVo memberVo) throws Exception {
 		 logger.info("post modify");
 		 
-		 MemberVo user = memberService.login(loginDTO);
-		session.setAttribute("user", user);
 		 
 		 memberService.modify(memberVo);
 		 
-		 session.invalidate();
+		 MemberVo user = memberService.login(loginDTO);
+		 session.setAttribute("user", user);
 		 
-		 return "redirect:/";
+		 return "redirect:/user/myPage";
 		}
 		
 		

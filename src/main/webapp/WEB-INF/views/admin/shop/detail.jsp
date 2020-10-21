@@ -545,13 +545,16 @@
 			console.log(itemList);
 			console.log(imgURLList);
 			
+			alert('관리자 승인 후 등록됩니다! :)');
+			//location.href = "${root}/admin/adminPage";
 			$.ajax({
 				url: '${root}/admin/shop',
 				method: 'POST',
-				data: {'shop': shop, 'productList': productList, 'itemList': itemList, 'imgURLList': imgURLList},
-				contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+				data: JSON.stringify({'shop': shop, 'productList': productList, 'itemList': itemList, 'imgURLList': imgURLList}),
+				contentType: 'application/json; charset=utf-8',
 				dataType: 'json',
 				success: function(data) {
+					console.log(data);
 				}
 			});
 		})

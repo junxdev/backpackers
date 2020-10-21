@@ -78,4 +78,9 @@
   	<update id="updateReview">
   		update tbl_item_review set reviewContent = #{reviewContent}, reviewDate=CURDATE() where reviewNo=#{reviewNo}
   	</update>
+  	<insert id="insertShop" parameterType="com.bit.backpackers.shop.model.entity.NewShopVo">
+  		INSERT INTO shop
+  		('shopCode', 'shopTitle', 'mainCategoryCode', 'subCategoryCode', 'shopDate', 'shopContent', 'shopPrice')
+  		VALUES (#{shopCode}, #{shopTitle}, #{mainCategoryCode}, #{subCategoryCode}, NOW(), #{shopContent}, #{shopPrice})
+  	</insert>
   </mapper>
