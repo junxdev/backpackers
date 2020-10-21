@@ -10,13 +10,11 @@
 	
 <style type="text/css">
 
-body > div > div:nth-child(3) > a {
-	float: right;
+.btn-block {
+    width: 25%;
+	margin: auto;
 }
 
-.btn-block {
-	width: 10%;
-}
 
 </style>
 	
