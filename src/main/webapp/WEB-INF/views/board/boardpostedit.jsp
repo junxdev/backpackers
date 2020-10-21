@@ -95,7 +95,7 @@ height: 75px;
   float: right;
   font-size: 15px;
   position: relative;
-  right: 1030px;
+  right: 924px;
   
  }
  

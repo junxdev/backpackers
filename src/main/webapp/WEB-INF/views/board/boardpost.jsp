@@ -24,8 +24,10 @@
 	font-size: 15px
 }
 
+
+
 .board_content {
-	width: 2103px;
+	width: 1563px;
 	height: 400px;
 	background-color: white;
 	color: black;
@@ -158,6 +160,7 @@ pre {
 <body>
 	<%@ include file="/WEB-INF/views/template/nav.jspf"%>
 	<%@include file="../template/header.jspf"%>
+
 	<div class="ex1">
 		<pre class="board_subject">${boardDitail.board_subject}</pre>
 	</div>
@@ -235,6 +238,7 @@ ${boardDitail.board_content}
 					</tr>
 				</table>
 			</div>
+		
 			<div class="ex06"></div>
 			<%@include file="../template/footer.jspf"%>
 </html>
