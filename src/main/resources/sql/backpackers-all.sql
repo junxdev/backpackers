@@ -337,7 +337,7 @@ CREATE TABLE `product_item` (
   CONSTRAINT `fk_product_item_option` FOREIGN KEY (`optionCode`) REFERENCES `option_table` (`optionCode`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_product_item_option_group` FOREIGN KEY (`optionGroupCode`) REFERENCES `option_group` (`optionGroupCode`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_product_item_product` FOREIGN KEY (`productCode`) REFERENCES `product` (`productCode`) ON DELETE CASCADE ON UPDATE CASCADE
-) AUTO_INCREMENT=14 ;
+) AUTO_INCREMENT=24 ;
 
 INSERT INTO `product_item` 
 VALUES (1,'product01','item01','size-roman','size-roman-m'),
