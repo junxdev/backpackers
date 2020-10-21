@@ -71,7 +71,7 @@ var content = '<div class="wrap">' +
             '            <div class="desc">' + 
             '                <div class="ellipsis">${bean.ellipsis }</div>' + 
             '                <div class="jibun ellipsis">(우) 12345 (지번) 부암동 1234 </div>' + 
-            '                <div><a href="http://localhost:8080/backpackers/sights/1" target="_blank" class="link">백패킹 명소: 북한산 </a></div>' + 
+            '                <div><a href="http://192.168.0.148:8080/backpackers/sights/1" target="_blank" class="link">백패킹 명소: 북한산 </a></div>' + 
             '            </div>' + 
             '        </div>' + 
             '    </div>' +    
@@ -123,7 +123,7 @@ var content = '<div class="wrap">' +
             '            <div class="desc">' + 
             '                <div class="ellipsis">${bean.ellipsis }</div>' + 
             '                <div class="jibun ellipsis">(우) 12345 (지번) 부암동 1234 </div>' + 
-            '                <div><a href="http://localhost:8080/backpackers/sights/2" target="_blank" class="link">백패킹 명소: 북악산 </a></div>' + 
+            '                <div><a href="http://192.168.0.148:8080/backpackers/sights/2" target="_blank" class="link">백패킹 명소: 북악산 </a></div>' + 
             '            </div>' + 
             '        </div>' + 
             '    </div>' +    
@@ -175,7 +175,7 @@ var content = '<div class="wrap">' +
             '            <div class="desc">' + 
             '                <div class="ellipsis">${bean.ellipsis }</div>' + 
             '                <div class="jibun ellipsis">(우) 12345 (지번) 부암동 1234 </div>' + 
-            '                <div><a href="http://localhost:8080/backpackers/sights/3" target="_blank" class="link">백패킹 명소: 인왕산 </a></div>' + 
+            '                <div><a href="http://192.168.0.148:8080/backpackers/sights/3" target="_blank" class="link">백패킹 명소: 인왕산 </a></div>' + 
             '            </div>' + 
             '        </div>' + 
             '    </div>' +    
