@@ -59,7 +59,29 @@
 	.row {
     display: block;
     }
+    
+    .card-body {
+    	padding: 2rem;
+    }
+    
+    h2, .h2 {
+    	font-size: 3rem;
+	}
+
+	body > div > div > div.col-md-10.col-md-offset-1 > div > div:nth-child(3) > a,
+		body > div > div > div.col-md-10.col-md-offset-1 > div > div:nth-child(3) > form > button {
+		color: #593196;
+		border: 1px solid #cfcfe0;
+		font-size: inherit;
+	}
 	
+	
+	
+	body > div > div > div.col-md-10.col-md-offset-1 > div > div:nth-child(3) {
+		display: -webkit-box;
+    	position: relative;
+    	left: 3%;
+	}
 </style>
 </head>
 
@@ -85,7 +107,7 @@
 </header>
 
   
-    <div class="col-lg-6 mb-4">
+    <div class="row">
         
         <div class="card-body">       
           <h2 class="card-title">

@@ -6,6 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/views/template/head.jspf" %>
+
+<style type="text/css">
+
+.btn-block {
+    width: 25%;
+	margin: auto;
+}
+
+
+</style>
+
+
+
+
 </head>
 
 <body>
