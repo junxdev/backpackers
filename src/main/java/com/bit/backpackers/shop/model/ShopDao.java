@@ -23,4 +23,5 @@ public interface ShopDao {
 	int deleteReview(int ReviewNo) throws SQLException;
 	// 한줄평 수정
 	int updateReview(ReviewVo review) throws SQLException;
+	void insertShop(com.bit.backpackers.admin.shop.model.entity.ShopVo shop) throws SQLException;
 }

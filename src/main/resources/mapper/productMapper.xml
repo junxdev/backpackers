@@ -49,4 +49,47 @@
   		WHERE product.shopCode = #{shopCode}
   	</select>
   	
+  	<insert id="insertProducts" parameterType="java.util.List">
+  		INSERT INTO product (
+  			shopCode,
+  			productCode,
+  			optionGroupCode,
+  			optionCode
+  		) VALUES
+  		<foreach collection="list" item="product" open="(" separator="), (" close=")">
+  			#{product.shopCode},
+  			#{product.productCode},
+  			#{product.optionGroupCode},
+  			#{product.optionCode}
+  		</foreach>
+  	</insert>
+  	
+  	<insert id="insertProductItems" parameterType="java.util.List">
+  		INSERT INTO product_item (
+  			productCode,
+  			itemCode,
+  			optionGroupCode,
+  			optionCode
+  		) VALUES
+  		<foreach collection="list" item="item" open="(" separator="), (" close=")">
+  			#{item.productCode},
+  			#{item.itemCode},
+  			#{item.optionGroupCode},
+  			#{item.optionCode}
+  		</foreach>
+  	</insert>
+  	
+  	<insert id="insertProductImages" parameterType="java.util.List">
+  		INSERT INTO product_image (
+  			productCode,
+  			imageURL,
+  			imageOrder
+  		) VALUES
+  		<foreach collection="list" item="image" open="(" separator="), (" close=")">
+  			#{image.productCode},
+  			#{image.imageURL},
+  			#{image.imageOrder}
+  		</foreach>
+  	</insert>
+  	
   </mapper>

@@ -311,7 +311,6 @@
 		});
 		
 		function sendFile(file, el) {
-			console.log(file)
 			var form_data = new FormData();
 			form_data.append("file",file);
 			$.ajax({
@@ -335,7 +334,6 @@
 		}
 		
 		function sendProductImg(file, form) {
-			console.log(file)
 			var form_data = new FormData();
 			form_data.append("file",file);
 			$.ajax({
@@ -440,7 +438,6 @@
 			var imageUploader = form.querySelector('.product-image-uploader');
 			var imageFormData = new FormData();
 			imageUploadBtn.addEventListener('click', function() {
-				console.log(this);
 				imageUploader.click();
 			});
 			imageUploader.addEventListener('change', function() {
@@ -452,9 +449,7 @@
 		
 		// 썸네일 등록 기능
 		function addThumbnail(file, form, fileName) {
-			console.log(form);
 			form.querySelector('.image-form').lastElementChild.insertAdjacentHTML('afterEnd', image);
-			console.log(this.value);
 			var img = form.querySelector('.product-image:last-child');
 			img.src = URL.createObjectURL(file);
 			img.title = fileName;
@@ -489,7 +484,7 @@
 			var optionGroup = form.querySelector('.option-group').value;
 			var option = form.querySelector('.option').value;
 			var productCode = form.querySelector('.product-code').value;
-			return productFormData = {shopCode: shopCode, productCode: productCode, optionGroup: optionGroup, option: option};
+			return productFormData = {shopCode: shopCode, productCode: productCode, optionGroupCode: optionGroup, optionCode: option};
 		}
 		
 		function getProductList(productList) {
@@ -504,7 +499,7 @@
 			var optionGroup = form.querySelector('.option-group').value;
 			var option = form.querySelector('.option').value;
 			var itemCode = form.querySelector('.item-control').value;
-			return itemFormData = {productCode: productCode, itemCode: itemCode, optionGroup: optionGroup, option: option};
+			return itemFormData = {productCode: productCode, itemCode: itemCode, optionGroupCode: optionGroup, optionCode: option};
 		}
 		
 		function getItemList(itemList) {
@@ -521,7 +516,6 @@
 			form.querySelectorAll('.product-image').forEach(function(current, index) {
 				imgURLList.push({productCode: productCode, imageURL: current.title, imageOrder: index});
 			});
-			
 		}
 		
 		function getProductImageList(imgURLList) {
@@ -540,18 +534,19 @@
 			productList = getProductList(productList);
 			itemList = getItemList(itemList);
 			imgURLList = getProductImageList(imgURLList);
-			console.log(shop);
-			console.log(productList);
-			console.log(itemList);
-			console.log(imgURLList);
 			
 			$.ajax({
-				url: '${root}/admin/shop',
+				url: '${root}/admin/shop/form',
 				method: 'POST',
-				data: {'shop': shop, 'productList': productList, 'itemList': itemList, 'imgURLList': imgURLList},
-				contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-				dataType: 'json',
+				data: JSON.stringify({'shop': shop, 'productList': productList, 'itemList': itemList, 'imgURLList': imgURLList}),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'text',
 				success: function(data) {
+					var target = '${root}/shop/';
+					target += document.querySelector('#mainCategoryCode').selectedOptions.item(0).innerText + '/';
+					target += document.querySelector('#subCategoryCode').selectedOptions.item(0).innerText + '/';
+					target += data;
+					location.href = target;
 				}
 			});
 		})

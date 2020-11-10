@@ -43,7 +43,7 @@ public class ImageController {
 	
 	@PostMapping(value="/product-image")
 	public ResponseEntity<?> productImageUpload(@RequestParam("file") MultipartFile file) {
-		String location = "C:/image";
+		String location = "C:/Users/Administrator/Documents/spring-tool-suite-3.9.13.RELEASE-e4.16.0-win32-x86_64/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/backpackers/resources/img/product";
 		try { 
 			UploadFileVo uploadFile = imageService.store(file, location);           
 			return ResponseEntity.ok().body(uploadFile.getSavefilename());

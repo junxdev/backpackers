@@ -16,5 +16,8 @@ public interface ProductDao {
 	List<NewProductVo> selectProductByShopCode(String shopCode) throws SQLException;
 	List<NewProductItemVo> selectProductItemByProductCode(String productCode) throws SQLException;
 	List<NewProductItemVo> selectProductItemByShopCode(String shopCode) throws SQLException;
+	void insertProducts(List<NewProductVo> productList) throws SQLException;
+	void insertProductItems(List<NewProductItemVo> itemList) throws SQLException;
+	void insertProductImages(List<ImageVo> imageList) throws SQLException;
 	
 }

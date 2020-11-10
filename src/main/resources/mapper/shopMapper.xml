@@ -78,4 +78,24 @@
   	<update id="updateReview">
   		update tbl_item_review set reviewContent = #{reviewContent}, reviewDate=CURDATE() where reviewNo=#{reviewNo}
   	</update>
+  	
+  	<insert id="insertShop">
+  		INSERT INTO shop (
+  			shopCode,
+			shopTitle,
+			mainCategoryCode,
+			subCategoryCode,
+			shopDate,
+			shopContent,
+			shopPrice
+  		) VALUES (
+  			#{shopCode},
+			#{shopTitle},
+			#{mainCategoryCode},
+			#{subCategoryCode},
+			current_timestamp(),
+			#{shopContent},
+			#{shopPrice}
+  		)
+  	</insert>
   </mapper>

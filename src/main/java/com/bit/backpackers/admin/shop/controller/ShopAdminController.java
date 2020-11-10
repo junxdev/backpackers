@@ -1,10 +1,12 @@
 package com.bit.backpackers.admin.shop.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bit.backpackers.admin.shop.service.ShopAdminService;
 import com.bit.backpackers.item.Item;
 import com.bit.backpackers.item.model.entity.NewItemVo;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 @Controller
 @RequestMapping("/admin/shop")
@@ -39,9 +43,11 @@ public class ShopAdminController {
 		return "admin/shop/detail";
 	}
 	
-	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String addShop() {
-		return "redirect:./";
+	@RequestMapping(value = "/form", method = RequestMethod.POST)
+	@ResponseBody
+	public String addShop(Model model, @RequestBody String jsonShop) throws SQLException, ParseException, JsonParseException, JsonMappingException, IOException {
+		String url = shopAdminService.createShop(jsonShop);
+		return url;
 	}
 
 	@RequestMapping(value = "/{shopCode}")
